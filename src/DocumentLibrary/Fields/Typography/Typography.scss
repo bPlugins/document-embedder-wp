@@ -1,0 +1,258 @@
+.typography-field {
+  margin-bottom: 30px;
+
+  .typography-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .typography-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+
+      .typography-group {
+        display: flex;
+        flex-direction: column;
+
+        &.font-size-with-devices {
+          .font-size-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+
+            .font-size-input-label {
+              font-size: 14px;
+              font-weight: 500;
+              color: #374151;
+            }
+
+            .device-selector {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+
+              .device-btn {
+                background: #f3f4f6;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+                padding: 2px 6px;
+                font-size: 12px;
+                font-weight: 500;
+                color: #374151;
+                cursor: pointer;
+                transition: all 0.2s ease;
+
+                &:hover {
+                  background: #e5e7eb;
+                }
+
+                &.active {
+                  background: #146ef5;
+                  color: #fff;
+                  border-color: #146ef5;
+                }
+              }
+            }
+          }
+        }
+
+        // .font-size-input-label {
+        //   font-size: 14px;
+        //   font-weight: 500;
+        //   color: #374151;
+        //   margin-bottom: 8px;
+        // }
+
+        .font-size-input-wrapper {
+          display: flex;
+          align-items: center;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          background-color: #f8f9fa;
+          transition:
+            border-color 0.2s ease,
+            background-color 0.2s ease;
+          position: relative;
+
+          .font-size-input {
+            width: 100%;
+            padding: 5px 12px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+
+            &:focus {
+              outline: none;
+              // border-color: #8b5cf6;
+              border-color: #146ef5;
+              // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+              box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.1);
+            }
+          }
+
+          .font-size-unit {
+            position: absolute;
+            right: 0;
+            padding: 5px 12px;
+            font-size: 14px;
+            background-color: #e9ecef;
+            transition: all 0.2s ease;
+            outline: none;
+            border: none !important;
+
+            &:focus {
+              box-shadow: none;
+            }
+
+            &:hover {
+              background-color: #dee2e6;
+            }
+          }
+        }
+
+        /* Remove spinner arrows */
+        .font-size-input::-webkit-outer-spin-button,
+        .font-size-input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        .font-size-input[type="number"] {
+          -moz-appearance: textfield;
+        }
+
+        .field-label {
+          font-size: 14px;
+          font-weight: 500;
+          color: #374151;
+          margin-bottom: 8px;
+        }
+
+        .input-with-unit {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .unit-label {
+            font-size: 14px;
+            color: #6b7280;
+            min-width: 20px;
+          }
+        }
+
+        .input-field,
+        .select-field {
+          width: 100%;
+          padding: 5px 12px;
+          font-size: 14px;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+
+          &:focus {
+            outline: none;
+            // border-color: #8b5cf6;
+            border-color: #146ef5;
+            // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.1);
+          }
+
+          &:hover {
+            border-color: #9ca3af;
+          }
+        }
+      }
+
+      .letter-spacing-group {
+        .field-label {
+          font-size: 14px;
+          font-weight: 500;
+          color: #374151;
+        }
+
+        .letter-spacing-input-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 8px;
+
+          .range-slider {
+            width: 90%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+
+            &::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              height: 20px;
+              width: 20px;
+              border-radius: 50%;
+              // background: #8b5cf6;
+              background: #146ef5;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                // background: #7c3aed;
+                background: #146ef5;
+                transform: scale(1.1);
+              }
+            }
+
+            &::-moz-range-thumb {
+              height: 20px;
+              width: 20px;
+              border-radius: 50%;
+              // background: #8b5cf6;
+              background: #146ef5;
+              cursor: pointer;
+              border: none;
+              transition: all 0.2s ease;
+
+              &:hover {
+                // background: #7c3aed;
+                background: #146ef5;
+                transform: scale(1.1);
+              }
+            }
+
+            &:focus {
+              &::-webkit-slider-thumb {
+                // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+                box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.3);
+              }
+
+              &::-moz-range-thumb {
+                // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+                box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.3);
+              }
+            }
+          }
+
+          span {
+            flex: 1;
+            background: white;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-size: 12px;
+            font-weight: 600;
+            color: #146ef5;
+            display: flex;
+            justify-content: center;
+            width: 50px;
+          }
+        }
+      }
+    }
+  }
+}

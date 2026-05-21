@@ -1,0 +1,36 @@
+.bpl-dynamic-tab {
+  .bpl-tab-header {
+    display: flex;
+    border-bottom: 2px solid #eee;
+
+    .bpl-tab-btn {
+      flex: 1;
+      padding: 10px 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      color: #555;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #f8f8f8;
+        color: #000;
+      }
+
+      &.active {
+        border-bottom: 2px solid #007bff;
+        color: #007bff;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .bpl-tab-content {
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #eee;
+    border-top: none;
+    color: #333;
+  }
+}

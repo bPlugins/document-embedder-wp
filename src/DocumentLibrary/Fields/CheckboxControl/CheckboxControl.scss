@@ -1,0 +1,56 @@
+.checkbox-group-field {
+  margin-bottom: 30px;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+
+  .checkmark {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-right: 8px;
+    position: relative;
+    transition: 0.2s ease;
+  }
+
+  &.checked .checkmark {
+    border-color: #007bff;
+    background: #007bff;
+  }
+
+  .label-text {
+    font-size: 14px;
+    color: #333;
+  }
+
+  &:hover .checkmark {
+    border-color: #007bff;
+  }
+}
+
+/* Help text */
+.checkbox-help-text {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  margin-top: 6px;
+  line-height: 1.4;
+  padding-left: 2px;
+}
+
+/* When premium is locked */
+.checkbox-group[style*="opacity: 0.4"] .checkbox-item {
+  cursor: not-allowed;
+}

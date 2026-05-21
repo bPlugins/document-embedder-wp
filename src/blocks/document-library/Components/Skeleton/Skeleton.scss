@@ -1,0 +1,100 @@
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Header skeleton */
+.skeleton-header {
+  background: #6b3fa0;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+
+  .skeleton-heading {
+    width: 40%;
+    height: 24px;
+    margin-bottom: 0.5rem;
+  }
+  .skeleton-subheading {
+    width: 60%;
+    height: 16px;
+  }
+}
+
+/* Search skeleton */
+.skeleton-search {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  .skeleton-input {
+    flex: 1;
+    height: 40px;
+    border-radius: 6px;
+  }
+
+  .skeleton-select {
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+  }
+}
+
+/* Grid & card */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.skeleton-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 18px;
+}
+
+.skeleton-text {
+  width: 60%;
+  height: 14px;
+
+  &.short {
+    width: 40%;
+  }
+}
+
+.skeleton-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+
+  .skeleton-btn {
+    flex: 1;
+    height: 36px;
+    border-radius: 6px;
+  }
+}

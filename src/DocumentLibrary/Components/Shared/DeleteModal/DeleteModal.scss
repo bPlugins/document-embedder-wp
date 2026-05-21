@@ -1,0 +1,148 @@
+// Modal Overlay
+.vfd-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 50;
+    backdrop-filter: blur(2px);
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  // Modal Container
+  .vfd-modal {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    max-width: 28rem;
+    width: 100%;
+    margin: 0 1rem;
+    transform: scale(1);
+    animation: modalSlideIn 0.3s ease-out;
+    
+    // Header with Icon
+    .vfd-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 1.5rem 1rem 1.5rem;
+      
+      .vfd-modal-icon {
+        padding: 0.75rem;
+        background-color: #fee2e2;
+        border-radius: 50%;
+        
+        .icon {
+          height: 1.5rem;
+          width: 1.5rem;
+          color: #dc2626;
+        }
+      }
+    }
+    
+    // Title
+    .vfd-modal-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #111827;
+      text-align: center;
+      margin: 0 0 0.5rem 0;
+      padding: 0 1.5rem;
+    }
+    
+    // Message
+    .vfd-modal-message {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: center;
+      margin: 0 0 1.5rem 0;
+      padding: 0 1.5rem;
+      line-height: 1.5;
+      
+      .count {
+        font-weight: 500;
+        color: #111827;
+      }
+    }
+    
+    // Actions Container
+    .vfd-modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+    }
+  }
+  
+  // Button Styles
+  .vfd-btn {
+    flex: 1;
+    font-weight: 500;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 0.875rem;
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+    }
+    
+    // Cancel Button
+    &.cancel {
+      background-color: #f3f4f6;
+      color: #374151;
+      
+      &:hover {
+        background-color: #e5e7eb;
+      }
+      
+      &:active {
+        background-color: #d1d5db;
+        transform: translateY(1px);
+      }
+    }
+    
+    // Delete Button
+    &.delete {
+      background-color: #ef4444;
+      color: white;
+      
+      &:hover {
+        background-color: #dc2626;
+      }
+      
+      &:active {
+        background-color: #b91c1c;
+        transform: translateY(1px);
+      }
+    }
+  }
+  
+  // Animations
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }

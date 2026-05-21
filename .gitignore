@@ -1,0 +1,5 @@
+node_modules/
+vendor/
+document-emberdder.zip
+todo.txt
+.DS_Store

@@ -1,0 +1,103 @@
+.range-control {
+  margin-bottom: 30px;
+
+  .range-wrapper {
+    .range-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      gap: 20px;
+
+      .range-container {
+        width: 100%;
+        .range-slider {
+          width: 100%;
+          height: 10px;
+          border-radius: 4px;
+          background: #e5e7eb;
+          outline: none;
+          cursor: pointer;
+          -webkit-appearance: none;
+          appearance: none;
+
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            // background: #8b5cf6;
+            background: #146ef5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              // background: #7c3aed;
+              background: #146ef5;
+              transform: scale(1.1);
+            }
+          }
+
+          &::-moz-range-thumb {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            //   background: #8b5cf6;
+            background: #146ef5;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+
+            &:hover {
+              // background: #7c3aed;
+              background: #146ef5;
+              transform: scale(1.1);
+            }
+          }
+
+          &:focus {
+            &::-webkit-slider-thumb {
+              // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+              box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.3);
+            }
+
+            &::-moz-range-thumb {
+              // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+              box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.3);
+            }
+          }
+        }
+      }
+      .value-display {
+        display: flex;
+        align-items: baseline;
+        gap: 2px;
+        background: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        min-width: 60px;
+        justify-content: center;
+
+        .range-value {
+          font-size: 16px;
+          font-weight: 600;
+          // color: #8b5cf6;
+          color: #146ef5;
+        }
+
+        .unit {
+          font-size: 12px;
+          color: #6b7280;
+        }
+      }
+    }
+    .help-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      font-style: italic;
+    }
+  }
+}

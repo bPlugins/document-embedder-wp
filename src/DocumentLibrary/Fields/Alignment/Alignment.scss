@@ -1,0 +1,48 @@
+.positioning-field {
+  margin-bottom: 30px;
+
+  .positioning-wrapper {
+    opacity: 50;
+
+    .field-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .position-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 20px;
+      width: 60%;
+
+
+      .position-option {
+        background: transparent;
+        border: 1px solid #e2e8f0;
+        padding: 3px 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        font-size: 15px;
+
+        &:hover {
+          border-color: #146ef5;
+          background: #faf5ff;
+        }
+
+        &.active {
+          border-color: #146ef5;
+          background: #146ef5;
+          color: white;
+        }
+      }
+    }
+  }
+}

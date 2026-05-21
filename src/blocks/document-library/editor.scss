@@ -1,0 +1,99 @@
+$primaryColor: #4527a4;
+
+.dashicons {
+	font-family: dashicons !important;
+}
+
+.bBlocksInspectorInfo {
+	padding: 6px;
+
+	a {
+		text-decoration: none;
+		font-weight: 700;
+	}
+}
+
+.wp-block-eov-embed-office-viewer {
+	.file-uploader-page {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		border: 1px solid #4527a4;
+		border-radius: 10px;
+		justify-content: center;
+		align-items: center;
+		height: 200px;
+
+		.uploader-text {
+			display: flex;
+			align-items: center;
+
+			p {
+				margin: 0;
+			}
+
+			svg {
+				height: 40px;
+				width: 40px;
+				margin-right: 10px;
+				color: #4527a4;
+			}
+
+		}
+
+		.upload-btn {
+			>button {
+				background-color: #4527a4;
+				// color: white;
+				border: none;
+				padding: 5px 20px;
+				border-radius: 5px;
+				cursor: pointer;
+				font-size: 16px;
+				transition: background-color 0.3s ease;
+				width: 200px;
+				cursor: pointer;
+				margin-top: 10px;
+
+				a {
+					text-decoration: none;
+					color: white;
+
+					&:hover {
+						color: white;
+					}
+				}
+
+			}
+		}
+	}
+}
+
+.driveBtn,
+.addCrBtn {
+	background-color: #4527a4;
+	color: white;
+	border: none;
+	padding: 5px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+	margin-top: 10px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.addCrBtn>a {
+	text-decoration: none;
+	color: white;
+}
+
+.driveBtn.signOut {
+	margin-left: 7px;
+}
+
+.driveBtn:hover {
+	background-color: #361d82;
+}

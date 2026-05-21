@@ -1,0 +1,32 @@
+.segment-tabs {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  background: #f3f4f6;
+  border-radius: .5rem;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  border: none;
+  outline: none;
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: .375rem;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #6b7280;
+  }
+
+  &.active {
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+}

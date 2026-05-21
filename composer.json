@@ -1,0 +1,24 @@
+{
+    "name": "bplugins/document-embedder",
+    "description": "Embed Any document easily in wordpress such as word, excel, powerpoint, pdf and more",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "bPlugins",
+            "email": "abuhayat.du@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "files": [
+            "includes/class-bplde-functions.php"
+        ],
+        "classmap": [
+            "includes/"
+        ]
+    }
+}

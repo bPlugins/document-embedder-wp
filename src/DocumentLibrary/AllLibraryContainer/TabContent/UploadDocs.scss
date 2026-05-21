@@ -1,0 +1,269 @@
+.bpl-upload-docs {
+  margin-bottom: 20px;
+
+  .upload-box {
+    border: 2px dashed #dbeafe;
+    background: rgba(239, 246, 255, 0.5);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    
+    &.dragging {
+        border-color: #007cba;
+        background-color: #f0f8ff;
+      }
+    
+    .upload-url-box {
+      display: flex;
+      height: 35px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+  
+      input {
+        height: 100%;
+        border-radius: 4px;
+        width: 300px;
+      }
+  
+      button {
+        padding: 9px 35px;
+        border: none;
+        font-size: 14px;
+        background: #146ef5;
+        cursor: pointer;
+        border-radius: 6px;
+        font-weight: 500;
+        color: white;
+      }
+    }
+  }
+
+
+  .upload-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .upload-btn {
+    padding: 8px 14px;
+    background: #ffffff;
+    border: 1px solid #bfdbfe;
+    color: #2563eb;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      background: #eff6ff;
+      border-color: #93c5fd;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  p {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+  }
+
+  .uploaded-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+
+    .upload-option-button {
+      padding: 8px 16px;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: 500;
+      color: #146ef5;
+      border: 1px solid #146ef5;
+
+      &.active {
+        background: #146ef5;
+        color: white;
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+  }
+
+  // Basic styling for your main component container
+  .from-file-upload {
+    display: flex;
+    justify-content: center;
+  }
+
+  .device-upload-btn,
+  .open-media-library-btn {
+    padding: 8px 16px;
+    border: none;
+    background: #146ef5;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    color: white;
+  }
+
+  .open-media-library-btn {
+    display: flex;
+    margin: 0 auto;
+  }
+
+  .upload-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .upload-url {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+
+  .upload-box button {
+    padding: 12px 35px;
+    border: none;
+    font-size: 14px;
+    background: #146ef5;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 500;
+    color: white;
+  }
+
+  .docs-meta {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    background: #fafafa;
+
+    .docs-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; // 2-column layout
+      grid-gap: 20px;
+
+      .meta-col {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-weight: 600;
+          margin-bottom: 6px;
+          color: #333;
+        }
+
+        input,
+        select,
+        textarea {
+          padding: 8px 10px;
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          font-size: 14px;
+          background: #fff;
+        }
+
+        textarea {
+          min-height: 70px;
+          resize: vertical;
+        }
+
+        p {
+          margin: 0;
+          padding: 8px 10px;
+          background: #f1f1f1;
+          border-radius: 6px;
+          font-size: 14px;
+          color: #555;
+        }
+
+        &.full {
+          grid-column: 1 / 3; // make description full width
+        }
+      }
+    }
+
+    .save-docs-btn {
+      margin-top: 20px;
+      background: #0073aa;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #005f8d;
+      }
+    }
+  }
+
+  .upload-notice {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #e6f7e6;
+    border: 1px solid #b2d8b2;
+    border-radius: 6px;
+    color: #2d6a2d;
+    font-size: 14px;
+  }
+
+  .loading-docs {
+    text-align: center;
+    margin: 30px 0;
+
+    .loading-circle {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #146ef5;
+      border-left: 4px solid #146ef5;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 10px;
+      animation: spin 1s linear infinite;
+    }
+
+    p {
+      font-size: 14px;
+      color: #555;
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

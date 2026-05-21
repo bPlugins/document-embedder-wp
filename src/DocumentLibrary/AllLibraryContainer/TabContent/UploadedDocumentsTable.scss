@@ -1,0 +1,170 @@
+.documents-table {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+
+  table {
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    border-collapse: collapse;
+  }
+
+  thead {
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+
+    th {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: background 0.2s ease;
+      border-bottom: 1px solid #e5e7eb;
+
+      &:hover {
+        background: #f9fafb;
+
+        .row-actions {
+          opacity: 1;
+        }
+      }
+
+      td {
+        padding: 12px 16px;
+
+        span {
+          font-size: 13px;
+        }
+
+        input {
+          width: 80%;
+          padding: 0px 10px;
+
+          &:focus {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+
+  .row-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .action-btn,
+  .bulk-actions {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+
+    &.edit {
+      background: #eff6ff;
+      color: #2563eb;
+
+      &:hover {
+        background: #dbeafe;
+      }
+    }
+
+    &.delete {
+      background: #ffe4e6;
+      color: #e11d48;
+
+      &:hover {
+        background: #fecdd3;
+      }
+    }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  .bulk-actions {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+  }
+
+  .confirm-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+    .confirm-content {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      width: 400px;
+      max-width: 90%;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      animation: scaleIn 0.25s ease-in-out;
+
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #333;
+        line-height: 1.5;
+      }
+
+      .confirm-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+
+        button {
+          border: none;
+          padding: 10px 18px;
+          border-radius: 8px;
+          font-size: 14px;
+          cursor: pointer;
+          transition: background 0.2s ease;
+
+          &.confirm-btn {
+            background: #e63946;
+            color: #fff;
+
+            &:hover {
+              background: #d62828;
+            }
+          }
+
+          &.cancel-btn {
+            background: #f1f1f1;
+            color: #333;
+
+            &:hover {
+              background: #ddd;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

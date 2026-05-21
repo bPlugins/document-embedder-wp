@@ -1,0 +1,76 @@
+.unit-control-wrapper {
+    margin-bottom: 30px;
+
+    .heading-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: #374151;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .icon {
+            svg {
+                width: 30px;
+                height: 30px;
+                color: #8b5cf6;
+            }
+        }
+    }
+
+    .unit-field {
+        display: flex;
+        gap: 12px;
+
+        .unit-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .unit-input {
+            flex: 1;
+
+            .field-label {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                color: #374151;
+            }
+        }
+
+        .unit-select {
+            width: 80px;
+        }
+
+        .input-field,
+        .select-field {
+            width: 100%;
+            padding: 5px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus,
+        .select-field:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .input-field:hover,
+        .select-field:hover {
+            border-color: #9ca3af;
+        }
+    }
+
+
+}

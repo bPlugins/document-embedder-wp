@@ -1,0 +1,37 @@
+{
+  "name": "document-emberdder",
+  "version": "2.0.0",
+  "description": "",
+  "main": "src/player.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js",
+    "i18n-pot": "wp i18n make-pot . languages/document-emberdder.pot --exclude=\"src, node_modules, document-embedder\" && cp ./languages/document-emberdder.pot ./languages/document-emberdder-en_US.po",
+    "i18n-json": "wp i18n make-json languages/ --no-purge",
+    "i18n-mo": "wp i18n make-mo languages/",
+    "i18n": "npm run i18n-pot && npm run i18n-json && npm run i18n-mo",
+    "bundle": "wp-scripts build && npm run i18n && gulp bundle && gulp plugin_zip"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^27.9.0",
+    "eslint-webpack-plugin": "^4.2.0"
+  },
+  "dependencies": {
+    "immer": "^10.1.1",
+    "lucide-react": "^0.536.0",
+    "react-hot-toast": "^2.5.2",
+    "react-router-dom": "^7.7.1"
+  }
+}

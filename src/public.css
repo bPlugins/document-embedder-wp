@@ -1,0 +1,265 @@
+.ppv-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  z-index: 9999;
+}
+
+.ppv-lightbox-overlay.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bplde-lightbox {
+  background: #fff;
+  border-radius: 10px;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 800px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: auto;
+}
+
+.bplde-lightbox .bplde-lightbox-body {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 550px;
+}
+
+.bplde-lightbox-close {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 50px;
+  color: #1a1818;
+}
+
+.bplde-lightbox .bplde-lightbox-body iframe {
+  width: 100%;
+  height: 600px;
+}
+
+.ppv-lightbox-btn {
+  padding: 0.6em 1.1em;
+}
+
+.ppv-lightbox-btn:hover {
+  text-decoration: none;
+}
+
+.ppv-lightbox-btn.small {
+  font-size: 16px;
+}
+
+.ppv-lightbox-btn.medium {
+  font-size: 20px;
+}
+
+.ppv-lightbox-btn.large {
+  font-size: 30px;
+}
+
+.ppv-lightbox-btn.extra-large {
+  font-size: 50px;
+}
+
+/* .ppv-lightbox.open .ppv-lightbox-close {
+  display: block;
+} */
+.ppv-lightbox-loading {
+  -webkit-animation: pvvspin 2s linear infinite;
+  /* Safari */
+  animation: pvvspin 2s linear infinite;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top-color: #3498db;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 40%;
+}
+
+/* Safari */
+@-webkit-keyframes pvvspin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes pvvspin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ppv-loading {
+  position: absolute;
+  top: 49%;
+  left: 48%;
+  z-index: 9999;
+}
+
+.ppv-toolbar {
+  width: inherit;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  background: #343434;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.ppv-toolbar .ppv-filename {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 150px;
+}
+
+.ppv-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .ppv-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .ppv-toolbar .ppv-filename {
+    white-space: normal;
+    min-width: unset;
+    width: 100%;
+  }
+
+  .ppv-toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Email Gate Modal */
+.ppv-email-gate-modal-wrapper {
+  display: none !important;
+  /* Managed by JS, using !important to override inline if needed */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  /* Removed background as requested */
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppv-email-gate-modal-wrapper[style*="display: flex"],
+.ppv-email-gate-modal-wrapper[style*="display:flex"] {
+  display: flex !important;
+}
+
+.ppv-email-gate-modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  /* Added border as requested */
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  /* Added shadow as requested */
+}
+
+.ppv-email-gate-modal-wrapper .ppv-close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+}
+
+.ppv-email-gate-modal-wrapper .ppv-close-modal:hover {
+  color: #333;
+}
+
+.ppv-email-gate-modal-wrapper h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #333;
+}
+
+.ppv-email-gate-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.ppv-email-gate-form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #146EF5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.ppv-email-gate-form button[type="submit"]:hover {
+  background: #0056D2;
+}
+
+.ppv-email-gate-form button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.ppv-gate-secure-text {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  margin-top: 15px;
+  margin-bottom: 0;
+}

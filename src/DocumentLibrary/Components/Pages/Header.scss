@@ -1,0 +1,51 @@
+.vfd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 40px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 35px;
+
+  &-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    span {
+      font-size: 25px;
+      // background: #7c3aed;
+      background: #146ef5;
+      padding: 6px;
+      border-radius: 8px;
+      svg {
+        color: white;
+      }
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  .add-new-btn {
+    // background-color: #7c3aed;
+    background-color: #146ef5;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 35px;
+    border-radius: 50px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    transition: background 0.3s ease;
+  }
+
+  .add-new-btn:hover {
+    background-color: #6d28d9;
+  }
+}

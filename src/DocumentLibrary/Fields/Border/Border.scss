@@ -1,0 +1,40 @@
+.border-field {
+  margin-bottom: 30px;
+
+  .border-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+
+    .field-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    .input-field,
+    .select-field {
+      width: 100%;
+      padding: 5px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        // border-color: #8b5cf6;
+        border-color: #146ef5;
+        // box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        box-shadow: 0 0 0 3px rgba(58, 122, 219, 0.1);
+      }
+
+      &:hover {
+        border-color: #9ca3af;
+      }
+    }
+  }
+}

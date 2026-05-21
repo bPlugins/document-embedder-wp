@@ -1,0 +1,40 @@
+#vfdGettingStartedWrapper {
+  font-family: "Segoe UI", sans-serif;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin: 20px;
+  position: relative;
+
+  .vfd-body {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+  }
+
+  .vfd-content {
+    padding: 0 60px;
+
+    .vfd-card-header {
+      background: linear-gradient(90deg, #7f2eff 0%, #9c3dff 100%);
+      color: white;
+      padding: 24px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+
+      h2 {
+        margin: 0 0 6px;
+        font-size: 22px;
+        color: white;
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        opacity: 0.95;
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.bplvf-colors-field {
+  margin-bottom: 30px;
+
+  .field-title {
+    font-size: 18px;
+    font-weight: 500;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .icon {
+      svg {
+        width: 30px;
+        height: 30px;
+        color: #8b5cf6;
+      }
+    }
+  }
+
+  .bplvf-colors-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+
+    .bplvf-bg-color {
+      width: 50%;
+    }
+
+    .bplvf-text-color {
+      width: 50%;
+    }
+  }
+}

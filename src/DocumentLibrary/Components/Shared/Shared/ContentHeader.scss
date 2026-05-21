@@ -1,0 +1,21 @@
+.vfd-settings-content-header {
+  font-size: 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  span {
+    svg {
+      color: #146ef5;
+      height: 25px;
+      width: 25px;
+      margin-right: 8px;
+    }
+  }
+}
