@@ -2,7 +2,7 @@
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
 Requires at least: 6.5
-Tested up to: 6.9
+Tested up to: 7.0
 Stable tag: 2.1.1
 Requires PHP: 7.1
 Donate link: https://www.buymeacoffee.com/abuhayat/

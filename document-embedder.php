@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: Document Embedder Free
+ * Plugin Name: Document Embedder
  * Plugin URI:  http://documentembedder.com/
  * Description: Embed Any document easily in wordpress such as word, excel, powerpoint, pdf and more
  * Version:     2.1.1
