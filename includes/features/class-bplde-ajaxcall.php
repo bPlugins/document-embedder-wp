@@ -99,7 +99,7 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                 }
                 $clean = [];
                 foreach ( $array as $key => $val ) {
-                    $clean_key = sanitize_key( $key );
+                    $clean_key = preg_replace( '/[^a-zA-Z0-9_\-]/', '', $key );
                     if ( is_array( $val ) ) {
                         $clean[$clean_key] = $sanitize_settings( $val );
                     } else {

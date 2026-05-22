@@ -10,9 +10,9 @@ const UploadDocuments = ({
   isPremium,
   openProModal,
 }) => {
-  const { settings } = formData;
-  const { documentLibrary } = settings;
-  const { docItems = [] } = documentLibrary;
+  const settings = formData?.settings || {};
+  const documentLibrary = settings?.documentLibrary || settings?.documentlibrary || {};
+  const docItems = documentLibrary?.docItems || documentLibrary?.docitems || [];
   const currentUser = window.bpldeSettings?.currentUser;
 
   const [url, setUrl] = useState("");

@@ -14,9 +14,11 @@ import {
 import "../../style.scss";
 import DocumentModal from "./DocumentModal";
 import Style from "./Style";
+import { defaultValues, normalizeKeys } from "../../../../DocumentLibrary/Utils/options";
 
 function DocumentLibrary(props) {
-  const { settingsData, id = null } = props;
+  const { settingsData: rawSettingsData, id = null } = props;
+  const settingsData = normalizeKeys(rawSettingsData, defaultValues.settings);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("all");
   const [previewDoc, setPreviewDoc] = useState(null);

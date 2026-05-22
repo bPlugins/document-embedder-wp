@@ -3,8 +3,10 @@ import {
   getBoxCSS,
   getTypoCSS,
 } from "../../../../../../bpl-tools/utils/getCSS";
+import { defaultValues, normalizeKeys } from "../../../../DocumentLibrary/Utils/options";
 
-const Style = ({ settingsData, id }) => {
+const Style = ({ settingsData: rawSettingsData, id }) => {
+  const settingsData = normalizeKeys(rawSettingsData, defaultValues.settings);
   const { styles, header: settingsHeader, documentLibrary } = settingsData;
   const { toolbarBox, documentBox, docsViewPerRow } = documentLibrary;
   const {

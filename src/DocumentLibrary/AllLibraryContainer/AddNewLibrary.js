@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./AllFeedback.scss";
 
 import SettingsHeader from "../Components/Pages/SettingsHeader";
-import { defaultValues } from "../Utils/options";
+import { defaultValues, normalizeKeys } from "../Utils/options";
 import { ColorIcon, Settings } from "../Utils/icons";
 
 import BplProModal from "../Components/Shared/ProModal/BplProModal";
@@ -46,7 +46,7 @@ const AddNewLibrary = ({ isPremium }) => {
         if (res.success) {
           setFormData({
             title: res.data.title,
-            settings: res.data.settings,
+            settings: normalizeKeys(res.data.settings, defaultValues.settings),
           });
         }
       });

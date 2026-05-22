@@ -6,6 +6,7 @@ import { SelectControl } from "@wordpress/components";
 import { tabController } from "../../../../../../bpl-tools/utils/functions";
 import DocumentLibrary from "../Common/DocumentLibrary";
 import Settings from "./Settings/Settings";
+import { defaultValues, normalizeKeys } from "../../../../DocumentLibrary/Utils/options";
 
 const Edit = ({ attributes, setAttributes, clientId, isSelected }) => {
   const { selectedPostId } = attributes;
@@ -37,7 +38,7 @@ const Edit = ({ attributes, setAttributes, clientId, isSelected }) => {
         if (res.success) {
           setFormData({
             title: res.data.title,
-            settings: res.data.settings,
+            settings: normalizeKeys(res.data.settings, defaultValues.settings),
           });
         }
       });

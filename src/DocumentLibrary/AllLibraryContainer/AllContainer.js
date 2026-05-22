@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./AllFeedback.scss";
 import SettingsHeader from "../Components/Pages/SettingsHeader";
-import { defaultValues } from "../Utils/options";
+import { defaultValues, normalizeKeys } from "../Utils/options";
 import { ColorIcon, Delete, Edit, PluginIcon, Settings } from "../Utils/icons";
 import FloatingBulkActions from "../Components/FloatingBulkAction/FloatingBulkActions";
 import DeleteModal from "../Components/Shared/DeleteModal/DeleteModal";
@@ -107,7 +107,7 @@ const AllContainer = ({ isPremium }) => {
             formatted[item.id] = {
               title: item.title,
               created: item.created,
-              ...item.settings,
+              ...normalizeKeys(item.settings, defaultValues.settings),
             };
           });
           setList(formatted);
@@ -133,7 +133,7 @@ const AllContainer = ({ isPremium }) => {
           if (res.success) {
             const formatted = {
               title: res.data.title,
-              settings: res.data.settings,
+              settings: normalizeKeys(res.data.settings, defaultValues.settings),
             };
             setFormData(formatted);
             setEditingId(id);

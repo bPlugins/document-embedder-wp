@@ -51,7 +51,9 @@ if (!class_exists('BPLDE_Document_Embedder')) {
                 class_exists('\BPLDE\Admin\LeadsPage');
             }
 
-            class_exists('\BPLDE_Block');
+            if (class_exists('\BPLDE_Block')) {
+                new \BPLDE_Block();
+            }
 
             if (!class_exists('CSF')) {
                 require_once BPLDE_PLUGIN_PATH . 'vendor/Codestar/framework.php';

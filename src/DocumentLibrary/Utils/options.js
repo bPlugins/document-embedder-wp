@@ -117,3 +117,55 @@ export const defaultValues = {
     },
   },
 };
+
+export function normalizeKeys(saved, reference) {
+  // If saved is an empty array but the reference is an object, convert it to an empty object
+  if (Array.isArray(saved) && saved.length === 0 && reference && !Array.isArray(reference) && typeof reference === 'object') {
+    saved = {};
+  }
+  
+  if (typeof reference !== 'object' || reference === null) {
+    return saved !== undefined ? saved : reference;
+  }
+  
+  if (Array.isArray(reference)) {
+    if (!Array.isArray(saved)) {
+      return reference;
+    }
+    return saved.map(item => normalizeKeys(item, reference[0]));
+  }
+  
+  if (typeof saved !== 'object' || saved === null) {
+    // If saved is not an object (e.g. undefined/null) but reference is, clone/return reference
+    return JSON.parse(JSON.stringify(reference));
+  }
+  
+  const normalized = {};
+  const refKeys = Object.keys(reference);
+  
+  // First, map all saved keys to normalized keys based on case-insensitive match with reference keys
+  const savedNormalized = {};
+  for (const [key, value] of Object.entries(saved)) {
+    const matchedKey = refKeys.find(
+      (refKey) => refKey.toLowerCase() === key.toLowerCase()
+    ) || key;
+    savedNormalized[matchedKey] = value;
+  }
+  
+  // Now, populate all reference keys, merging saved values if they exist
+  for (const key of refKeys) {
+    const savedVal = savedNormalized[key];
+    const refVal = reference[key];
+    normalized[key] = normalizeKeys(savedVal, refVal);
+  }
+  
+  // Also keep any keys in saved that are NOT in reference
+  for (const [key, value] of Object.entries(savedNormalized)) {
+    if (!refKeys.includes(key)) {
+      normalized[key] = value;
+    }
+  }
+  
+  return normalized;
+}
+

@@ -2,21 +2,21 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Document Embedder WP 2.1.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/document-emberdder-wp\n"
+"Project-Id-Version: Document Embedder Free 2.1.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/document-emberdder-new\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-05-20T10:07:13+00:00\n"
+"POT-Creation-Date: 2026-05-22T08:41:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
 
 #. Plugin Name of the plugin
 #: document-embedder.php
-msgid "Document Embedder WP"
+msgid "Document Embedder Free"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -56,21 +56,19 @@ msgstr ""
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/admin/class-bplde-menu.php:43
+#: includes/admin/class-bplde-menu.php:39
 msgid "Help & Demos"
 msgstr ""
 
-#: includes/admin/class-bplde-menu.php:44
+#: includes/admin/class-bplde-menu.php:40
 msgid "<span style=\"color: #f18500;\">Help & Demos</span>"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:25
-#: includes/admin/class-bplde-pro-metabox.php:40
 msgid "Document Configuration"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:31
-#: includes/admin/class-bplde-pro-metabox.php:47
 msgid "General"
 msgstr ""
 
@@ -79,301 +77,216 @@ msgid "Document File"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:46
-#: includes/admin/class-bplde-pro-metabox.php:63
 msgid "Set Height & Width For"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:57
-#: includes/admin/class-bplde-pro-metabox.php:75
 msgid "Width (Desktop)"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:65
-#: includes/admin/class-bplde-pro-metabox.php:83
 msgid "Width (Tablet)"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:72
-#: includes/admin/class-bplde-pro-metabox.php:90
 msgid "Width (Mobile)"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:79
-#: includes/admin/class-bplde-pro-metabox.php:97
 msgid "Height (Desktop)"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:87
-#: includes/admin/class-bplde-pro-metabox.php:105
 msgid "Height (Tablet)"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:94
-#: includes/admin/class-bplde-pro-metabox.php:112
 msgid "Height (Mobile)"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:101
-#: includes/admin/class-bplde-pro-metabox.php:119
 msgid "Display File Name at the Top"
 msgstr ""
 
+#: includes/admin/class-bplde-metabox-free.php:106
+msgid "Beautiful Lightbox View Overlay"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:107
+msgid "Dropbox & Google Drive Cloud Picker Integration"
+msgstr ""
+
 #: includes/admin/class-bplde-metabox-free.php:108
-#: includes/admin/class-bplde-pro-metabox.php:126
-msgid "Disable Popout"
+msgid "Professional Document Loading Icon"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:109
-#: includes/admin/class-bplde-pro-metabox.php:127
-msgid "Only available for google drive"
+msgid "Disable Popout to Prevent Direct File Theft"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:115
-#: includes/admin/class-bplde-pro-metabox.php:133
-msgid "Enable Loading Icon"
+#: includes/admin/class-bplde-metabox-free.php:110
+msgid "High-Fidelity Microsoft Office Online Viewer"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:121
-#: includes/admin/class-bplde-pro-metabox.php:139
-msgid "Enable Lightbox"
+#: includes/admin/class-bplde-metabox-free.php:111
+msgid "Native Video & Image Support in Viewer"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:126
-#: includes/admin/class-bplde-pro-metabox.php:144
-msgid "Button Text"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:133
-#: includes/admin/class-bplde-pro-metabox.php:151
-msgid "Button Text Color"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:140
-#: includes/admin/class-bplde-pro-metabox.php:158
-msgid "Lightbox Button Background"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:147
-#: includes/admin/class-bplde-pro-metabox.php:165
-msgid "Button Size"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:149
-#: includes/admin/class-bplde-pro-metabox.php:167
-msgid "Small"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:150
-#: includes/admin/class-bplde-pro-metabox.php:168
-msgid "Medium"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:151
-#: includes/admin/class-bplde-pro-metabox.php:169
-msgid "Large"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:152
-#: includes/admin/class-bplde-pro-metabox.php:170
-msgid "Extra Large"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:161
+#: includes/admin/class-bplde-metabox-free.php:117
 msgid "Download Management"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:166
-#: includes/admin/class-bplde-pro-metabox.php:184
+#: includes/admin/class-bplde-metabox-free.php:122
 msgid "Show Download Button"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:167
-#: includes/admin/class-bplde-pro-metabox.php:185
+#: includes/admin/class-bplde-metabox-free.php:123
 msgid "Not available for Google Drive and Dropbox"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:173
-#: includes/admin/class-bplde-pro-metabox.php:191
+#: includes/admin/class-bplde-metabox-free.php:129
 msgid "Download Button Text"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:180
-#: includes/admin/class-bplde-pro-metabox.php:198
+#: includes/admin/class-bplde-metabox-free.php:136
 msgid "Download Position"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:191
-#: includes/admin/class-bplde-pro-metabox.php:209
+#: includes/admin/class-bplde-metabox-free.php:147
 msgid "Download Behavior"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:202
-#: includes/admin/class-bplde-pro-metabox.php:220
+#: includes/admin/class-bplde-metabox-free.php:158
 msgid "Custom Filename"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:203
-#: includes/admin/class-bplde-pro-metabox.php:221
+#: includes/admin/class-bplde-metabox-free.php:159
 msgid "Optional custom filename for the download. Note: This will not work if Download Behavior is set to \"Open in New Tab\"."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:209
-#: includes/admin/class-bplde-pro-metabox.php:227
+#: includes/admin/class-bplde-metabox-free.php:165
 msgid "Show Download Count"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:210
-#: includes/admin/class-bplde-pro-metabox.php:228
+#: includes/admin/class-bplde-metabox-free.php:166
 msgid "Display the total number of times this document has been downloaded."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:217
-#: includes/admin/class-bplde-pro-metabox.php:235
-msgid "Download Access"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:229
-#: includes/admin/class-bplde-pro-metabox.php:269
-msgid "Email Gate"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:230
-#: includes/admin/class-bplde-pro-metabox.php:270
-msgid "Enable to require users to enter their name and email before downloading. Leads are saved in the Leads menu."
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:237
-#: includes/admin/class-bplde-pro-metabox.php:277
+#: includes/admin/class-bplde-metabox-free.php:173
 msgid "Download Limit"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:238
-#: includes/admin/class-bplde-pro-metabox.php:278
+#: includes/admin/class-bplde-metabox-free.php:174
 msgid "Limit the number of downloads allowed per user IP address."
 msgstr ""
 
-#: includes/admin/class-bplde-pro-metabox.php:57
-msgid "Document"
+#: includes/admin/class-bplde-metabox-free.php:185
+msgid "Email Gate to Collect Leads before Downloading"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-metabox.php:69
-msgid "Set height & width for different devices"
+#: includes/admin/class-bplde-metabox-free.php:186
+msgid "Download Access Control by Login Status"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-metabox.php:179
-msgid "Download Settings"
+#: includes/admin/class-bplde-metabox-free.php:187
+msgid "Restrict Download Access to Specific User Roles"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-metabox.php:247
-msgid "Allowed Roles"
+#: includes/admin/class-bplde-metabox-free.php:188
+#: includes/admin/class-bplde-settings-free.php:41
+msgid "Dedicated Leads Dashboard & Stats Tracking"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-metabox.php:258
-msgid "Access Denied Message"
+#: includes/admin/class-bplde-metabox-free.php:189
+msgid "One-Click Lead Data Export to CSV"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:26
-#: includes/admin/class-bplde-settings-free.php:26
-#: includes/core/class-bplde-pro-document-embedder.php:99
+#: includes/admin/class-bplde-settings-free.php:24
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:36
-#: includes/admin/class-bplde-settings-free.php:36
-msgid "Dropbox API"
+#: includes/admin/class-bplde-settings-free.php:34
+msgid "Premium Integrations"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:41
-#: includes/admin/class-bplde-settings-free.php:42
-#: includes/core/class-bplde-pro-document-embedder.php:120
-msgid "Dropbox App Key"
+#: includes/admin/class-bplde-settings-free.php:37
+msgid "Google Drive API Integration to embed files directly"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:49
-#: includes/admin/class-bplde-settings-free.php:48
-msgid "Google Drive API"
+#: includes/admin/class-bplde-settings-free.php:38
+msgid "Dropbox API Integration to embed files directly"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:54
-#: includes/admin/class-bplde-settings-free.php:54
-#: includes/core/class-bplde-pro-document-embedder.php:130
-msgid "Google API key"
+#: includes/admin/class-bplde-settings-free.php:39
+msgid "Secure Email Gate to Collect Leads before Downloading"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:61
-#: includes/admin/class-bplde-settings-free.php:60
-#: includes/core/class-bplde-pro-document-embedder.php:136
-msgid "Google Client ID"
+#: includes/admin/class-bplde-settings-free.php:40
+msgid "Download Access Control by Login Status & User Roles"
 msgstr ""
 
-#: includes/admin/class-bplde-pro-settings.php:66
-#: includes/admin/class-bplde-settings-free.php:65
-#: includes/core/class-bplde-pro-document-embedder.php:141
-msgid "Google Project Number"
-msgstr ""
-
-#: includes/class-bplde-init.php:76
+#: includes/class-bplde-init.php:72
 msgid "Help & Demo's"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:47
+#: includes/core/class-bplde-helper-functions.php:143
+msgid "Unlock Premium Experience"
+msgstr ""
+
+#: includes/core/class-bplde-helper-functions.php:144
+msgid "PRO ONLY"
+msgstr ""
+
+#: includes/core/class-bplde-helper-functions.php:158
+msgid "Get Premium Now"
+msgstr ""
+
+#: includes/core/class-bplde-helper-functions.php:161
+msgid "Trusted by over 10,000+ WordPress sites."
+msgstr ""
+
+#: includes/core/class-bplde-ppt-viewer.php:45
 msgid "Document Embedder"
+msgstr ""
+
+#: includes/core/class-bplde-ppt-viewer.php:51
+#: includes/core/class-bplde-ppt-viewer.php:52
+msgid "Doc Embedder"
 msgstr ""
 
 #: includes/core/class-bplde-ppt-viewer.php:53
 #: includes/core/class-bplde-ppt-viewer.php:54
-msgid "Doc Embedder"
-msgstr ""
-
-#: includes/core/class-bplde-ppt-viewer.php:55
-#: includes/core/class-bplde-ppt-viewer.php:56
 msgid "Add New Doc"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:57
+#: includes/core/class-bplde-ppt-viewer.php:55
 msgid "Edit"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:58
+#: includes/core/class-bplde-ppt-viewer.php:56
 msgid "New item"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:59
+#: includes/core/class-bplde-ppt-viewer.php:57
 msgid "View item"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:60
+#: includes/core/class-bplde-ppt-viewer.php:58
 msgid "Search"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:61
+#: includes/core/class-bplde-ppt-viewer.php:59
 msgid "Sorry, we couldn't find the power point file you are looking for."
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:171
+#: includes/core/class-bplde-ppt-viewer.php:169
 msgid "Copy this shortcode and paste it into your post, page, or text widget content."
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:227
+#: includes/core/class-bplde-ppt-viewer.php:225
 msgid "Save"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:235
+#: includes/core/class-bplde-ppt-viewer.php:233
 msgid "Updated"
-msgstr ""
-
-#: includes/core/class-bplde-pro-document-embedder.php:50
-msgid "Please show some love"
-msgstr ""
-
-#: includes/core/class-bplde-pro-document-embedder.php:109
-msgid "Cloud API"
-msgstr ""
-
-#: includes/core/class-bplde-pro-document-embedder.php:114
-msgid "Dropbox APP key"
-msgstr ""
-
-#: includes/core/class-bplde-pro-document-embedder.php:124
-msgid "Google API Setup"
 msgstr ""

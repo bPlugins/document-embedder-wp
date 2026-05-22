@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./AllFeedback.scss";
 
-import { defaultValues } from "../Utils/options";
+import { defaultValues, normalizeKeys } from "../Utils/options";
 
 import BplProModal from "../Components/Shared/ProModal/BplProModal";
 
@@ -44,7 +44,7 @@ const AddNewLibrary = ({ isPremium }) => {
         if (res.success) {
           setFormData({
             title: res.data.title,
-            settings: res.data.settings,
+            settings: normalizeKeys(res.data.settings, defaultValues.settings),
           });
         }
       });
