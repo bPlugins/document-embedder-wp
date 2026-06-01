@@ -37,6 +37,12 @@ export const dashboardInfo = (info) => {
     changelogs: [
 
       {
+        version: "2.1.2 - 1 June 2026",
+        list: [
+          "Maintenance update."
+        ]
+      },
+      {
         version: "2.1.1 - 20 May 2026",
         list: [
           "**Improved:** Refactored the entire plugin codebase for better organization and maintainability.",

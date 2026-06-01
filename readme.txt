@@ -3,7 +3,7 @@ Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
 Requires at least: 6.5
 Tested up to: 7.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires PHP: 7.1
 Donate link: https://www.buymeacoffee.com/abuhayat/
 License: GPLv2 or later
@@ -303,6 +303,9 @@ Please report security bugs found in the source code of the Document Embedder pl
 
 
 == Changelog ==
+
+= 2.1.2 - 1 June 2026 =
+* Maintenance update.
 
 = 2.1.1 - 23 May 2026 =
 * **Update:** Unlocked all previously gated Premium settings, making them fully functional in the Free version.
