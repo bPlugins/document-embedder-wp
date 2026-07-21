@@ -18,11 +18,11 @@ const Edit = ({ attributes, setAttributes, isSelected }) => {
       const file = frame.state().get("selection").first().toJSON();
       if (file?.url) {
         setAttributes({
-          docId: file.id || 0,
           documentSource: {
             ...documentSource,
             doc: file.url,
           },
+          docId: file.id,
         });
       }
     });

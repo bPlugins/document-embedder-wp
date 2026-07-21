@@ -1,10 +1,11 @@
 import { PanelBody, ToggleControl, SelectControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import { Notice } from "../../../../../../bpl-tools/Components";
+import { ColorControl, Notice } from "../../../../../../bpl-tools/Components";
 
 const Toolbar = ({ attributes, setAttributes }) => {
-  const { toolbar } = attributes;
-  const { showName, download, _de_download_position } = toolbar;
+  const { toolbar, documentSource = {} } = attributes;
+  const { viewer = "default" } = documentSource;
+  const { showName, download, _de_download_position, theme = "dark", toolbar_bg_color = "#343434", toolbar_text_color = "#ffffff" } = toolbar;
 
   const updateToolbar = (key, value) => {
     setAttributes({
@@ -14,6 +15,8 @@ const Toolbar = ({ attributes, setAttributes }) => {
       },
     });
   };
+
+  const isPremium = window.ppvBlocks?.isPremium === true || window.ppvBlocks?.isPremium === '1' || window.ppvBlocks?.isPremium === 1;
 
   return (
     <PanelBody
@@ -76,9 +79,54 @@ const Toolbar = ({ attributes, setAttributes }) => {
         />
       )}
 
-      <Notice status="info" isIcon={true} className="mt10">
-        {__("Toolbar themes (Dark, Light, Custom) and custom colors are available in the Premium version.", "document-emberdder")}
-      </Notice>
+      {(download || showName || viewer === "custom") && (
+        <>
+          {!isPremium ? (
+            <Notice status="premium" isIcon={true}>
+              {__(
+                "Make the toolbar yours — switch between Light, Dark, or fully custom colors to match your brand. Custom toolbar themes are available in Document Embedder Pro.",
+                "document-emberdder"
+              )}
+            </Notice>
+          ) : (
+            <>
+              <SelectControl
+                className="mt10"
+                label={__("Toolbar Theme", "document-emberdder")}
+                value={theme}
+                options={[
+                  { label: __("Dark (Default)", "document-emberdder"), value: "dark" },
+                  { label: __("Light", "document-emberdder"), value: "light" },
+                  { label: __("Custom", "document-emberdder"), value: "custom" },
+                ]}
+                onChange={(val) => updateToolbar("theme", val)}
+              />
+
+              {theme === "custom" && (
+                <>
+                  <ColorControl
+                    className="mt10"
+                    label={__("Toolbar Background Color", "document-emberdder")}
+                    value={toolbar_bg_color}
+                    onChange={(val) => updateToolbar("toolbar_bg_color", val)}
+                    defaultColor="#343434"
+                    disableAlpha={true}
+                  />
+
+                  <ColorControl
+                    className="mt10"
+                    label={__("Toolbar Text Color", "document-emberdder")}
+                    value={toolbar_text_color}
+                    onChange={(val) => updateToolbar("toolbar_text_color", val)}
+                    defaultColor="#ffffff"
+                    disableAlpha={true}
+                  />
+                </>
+              )}
+            </>
+          )}
+        </>
+      )}
     </PanelBody>
   );
 };

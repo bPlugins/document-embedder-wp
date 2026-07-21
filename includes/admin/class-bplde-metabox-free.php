@@ -10,11 +10,9 @@ if (!defined('ABSPATH')) {
 }
 
 if (!class_exists('BPLDE_Metabox_Free')) {
-    class BPLDE_Metabox_Free
-    {
+    class BPLDE_Metabox_Free {
 
-        public static function init()
-        {
+        public static function init() {
             if (!class_exists('CSF')) {
                 return;
             }
@@ -39,6 +37,19 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                             <strong style="color:#111827;">Supported Files:</strong> 
                             pdf, doc, docx, ppt, pptx, txt, rtf, csv, odt, ods, odp.
                         </p>',
+                    ],
+                    [
+                        'id' => 'viewer',
+                        'type' => 'button_set',
+                        'title' => esc_html__('Viewer', 'document-emberdder'),
+                        'desc' => esc_html__('Select the document viewer engine. Note: Custom PDF, Flipbook, and Slider engines only support PDF documents.', 'document-emberdder'),
+                        'default' => 'default',
+                        'options' => [
+                            'default' => esc_html__('Default', 'document-emberdder'),
+                            'custom' => esc_html__('Custom PDF', 'document-emberdder') . '<span style="background-color:#8b5cf6;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">PDF Only</span><span style="background-color:#3858e9;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">New</span>',
+                            'flipbook' => esc_html__('Flipbook', 'document-emberdder') . '<span style="background-color:#8b5cf6;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">PDF Only</span><span style="background-color:#3858e9;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">New</span>',
+                            'slider' => esc_html__('Slider', 'document-emberdder') . '<span style="background-color:#8b5cf6;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">PDF Only</span><span style="background-color:#3858e9;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">New</span>',
+                        ],
                     ],
                     [
                         'id' => 'device_preview',
@@ -95,14 +106,33 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         'width' => false,
                         'dependency' => ['device_preview', '==', 'mobile']
                     ],
-                    \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
-                        __('Custom PDF Viewer Engine', 'document-emberdder'),
-                        __('Professional Document Loading Icon', 'document-emberdder'),
-                        __('Disable Popout to Prevent Direct File Theft', 'document-emberdder'),
-                        __('Dropbox & Google Drive Cloud Picker Integration', 'document-emberdder'),
-                        __('High-Fidelity Microsoft Office Online Viewer', 'document-emberdder'),
-                        __('Native Video & Image Support in Viewer', 'document-emberdder'),
-                    ))
+                    array_merge(
+                        array('id' => 'de_general_pro_info'),
+                        \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
+                            __('Disable Popout to Prevent Direct File Theft', 'document-emberdder'),
+                            __('Enable Professional Loading Icon', 'document-emberdder'),
+                        ))
+                    )
+                )
+            ));
+
+            \CSF::createSection($prefix, array(
+                'id'    => 'de_section_controls',
+                'title' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3858E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="csf-metabox-svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -1px;"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>' . __('Controls', 'document-emberdder'),
+                'fields' => array(
+                    array_merge(
+                        array('id' => 'de_controls_pro_info'),
+                        \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
+                            __('Reader Mode for minimalist distraction-free reading', 'document-emberdder'),
+                            __('Toggle Thumbnail Navigation sidebar', 'document-emberdder'),
+                            __('Force Sidebar Open by default on load', 'document-emberdder'),
+                            __('Horizontal Scrollbar support for wide layouts', 'document-emberdder'),
+                            __('Load Latest Version automatically (cache bypass)', 'document-emberdder'),
+                            __('Enable Full-Screen button or Open in a New Tab', 'document-emberdder'),
+                            __('On-Demand Page Rendering for heavy documents', 'document-emberdder'),
+                            __('Specify Custom Initial Page and Default Zoom Level', 'document-emberdder'),
+                        ))
+                    )
                 )
             ));
 
@@ -205,8 +235,23 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                     ))
                 )
             ));
+
+            \CSF::createSection($prefix, array(
+                'id'    => 'de_section_performance',
+                'title' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3858E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="csf-metabox-svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -1px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>' . __('Performance & Reliability', 'document-emberdder'),
+                'fields' => array(
+                    array_merge(
+                        array('id' => 'de_performance_pro_info'),
+                        \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
+                            __('Lazy Load documents to speed up page load time', 'document-emberdder'),
+                            __('Google View Fallback for failed viewer loads', 'document-emberdder'),
+                        ))
+                    )
+                )
+            ));
         }
     }
 
-    BPLDE_Metabox_Free::init();
+    add_action('init', ['BPLDE_Metabox_Free', 'init'], 5);
+
 }

@@ -3,6 +3,147 @@
   overflow: hidden;
 }
 
+/* Lightbox Modal Overlay */
+.ppv-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+
+  &.open {
+    display: flex !important;
+  }
+}
+
+/* Lightbox Content Container */
+.bplde-lightbox {
+  background: #fff;
+  border-radius: 10px;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 800px;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: auto;
+  box-sizing: border-box;
+
+  .bplde-lightbox-body {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 550px;
+    position: relative;
+
+    iframe {
+      width: 100%;
+      height: 600px;
+    }
+  }
+}
+
+/* Lightbox Close Button */
+.bplde-lightbox-close {
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 50px;
+  color: #1a1818;
+  line-height: 1;
+  z-index: 10;
+}
+
+/* Clickable trigger image */
+.ppv-lightbox-trigger-img {
+  display: block;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  }
+}
+
+/* Trigger Button Sizing */
+.ppv-lightbox-btn {
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    text-decoration: none;
+  }
+
+  &.small {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  &.medium {
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+
+  &.large {
+    font-size: 24px;
+    padding: 14px 28px;
+  }
+
+  &.extra-large {
+    font-size: 36px;
+    padding: 20px 40px;
+  }
+}
+
+/* Loading Animation and Spinners */
+.ppv-lightbox-loading {
+  animation: pvvspin 2s linear infinite;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top-color: #3498db;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+}
+
+.ppv-loading {
+  position: absolute;
+  top: 49%;
+  left: 48%;
+  z-index: 9999;
+}
+
+@keyframes pvvspin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 /* Toolbar Layout and Style */
 .ppv-toolbar {
   width: 100%;
@@ -82,4 +223,49 @@
   border-radius: 4px;
   display: inline-block;
   background: #fff;
+}
+
+/* Custom PDFJSViewer layout & errors */
+.pdfp_error_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #fcf8e3;
+  border: 1px solid #faebcc;
+  border-radius: 4px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .pdfp_error_box {
+    text-align: center;
+    color: #8a6d3b;
+
+    svg {
+      margin-bottom: 10px;
+      color: #8a6d3b;
+    }
+
+    p {
+      margin: 0 0 15px 0;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .pdfp_retry_btn {
+      background: #8a6d3b;
+      color: #fff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+
+      &:hover {
+        background: #70582f;
+      }
+    }
+  }
 }

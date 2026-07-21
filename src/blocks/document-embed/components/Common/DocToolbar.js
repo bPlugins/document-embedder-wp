@@ -16,8 +16,11 @@ const DocToolbar = ({
   downloadFilename,
   behavior = "download",
   theme = "dark",
+  showFullscreen = false,
+  onFullscreenClick,
+  fullscreenTitle = "Full screen",
 }) => {
-  if (!showName && !download) return null;
+  if (!showName && !download && !showFullscreen) return null;
 
   const renderDownloadButton = () => {
     if (limitReached) {
@@ -96,17 +99,49 @@ const DocToolbar = ({
     );
   };
 
+  const renderFullscreenButton = () => (
+    <button
+      type="button"
+      className="ppv_fullscreen_bttn"
+      onClick={onFullscreenClick}
+      title={fullscreenTitle}
+      aria-label={fullscreenTitle}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "transparent",
+        padding: "4px 8px",
+        borderRadius: "4px",
+        border: "1px solid #cececf",
+        color: "#cececf",
+        cursor: "pointer",
+      }}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+      </svg>
+    </button>
+  );
+
   const justify = !showName ? "flex-end" : "space-between";
+
+  const renderRightGroup = () =>
+    (download || showFullscreen) && (
+      <div className="ppv-toolbar-right" style={{ display: "inline-flex", alignItems: "center", gap: "8px" }}>
+        {download && renderDownloadButton()}
+        {showFullscreen && renderFullscreenButton()}
+      </div>
+    );
 
   if (position === "lightbox" || position === "toolbar") {
     return (
       <div className={`ppv-toolbar ${theme}`} style={{ display: "flex", justifyContent: justify }}>
         {showName && <span className="ppv-filename">{filename}</span>}
-        {download && (
-          <div className="ppv-toolbar-right">
-            {renderDownloadButton()}
-          </div>
-        )}
+        {renderRightGroup()}
       </div>
     );
   }
@@ -115,11 +150,7 @@ const DocToolbar = ({
     return (
       <div className={`ppv-toolbar ${theme}`} style={{ display: "flex", justifyContent: justify, marginTop: 0 }}>
         {showName && <span className="ppv-filename">{filename}</span>}
-        {download && (
-          <div className="ppv-toolbar-right">
-            {renderDownloadButton()}
-          </div>
-        )}
+        {renderRightGroup()}
       </div>
     );
   }

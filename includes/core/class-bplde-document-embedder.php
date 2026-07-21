@@ -26,7 +26,6 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             add_action('plugins_loaded', [$this, 'load_dependencies']);
             add_action('admin_init', [$this, 'assign_file_type_to_all']);
             add_action('save_post_ppt_viewer', [$this, 'sync_post_file_type'], 10, 2);
-            add_action('plugins_loaded', [__CLASS__, 'load_textdomain']);
             add_action('wp_enqueue_scripts', [$this, 'ppv_public_scripts']);
 
             add_action('add_meta_boxes', [$this, 'add_stats_metabox']);
@@ -59,11 +58,6 @@ if (!class_exists('BPLDE_Document_Embedder')) {
 
             class_exists('\BPLDE_Settings_Free');
             class_exists('\BPLDE_Metabox_Free');
-        }
-
-        public static function load_textdomain() {
-            // phpcs:ignore WordPress.WP.I18n.NoEmptyStrings, PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- retained for back-compat with custom language files
-            load_plugin_textdomain('document-emberdder', false, dirname(__FILE__) . '/languages');
         }
 
         public function ppv_public_scripts() {

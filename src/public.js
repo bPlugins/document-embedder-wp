@@ -1,15 +1,5 @@
-/* global bplde_obj, $ */
+/* global bplde_obj */
 import "./public.css";
-// const ios = () => {
-//   if (typeof window === `undefined` || typeof navigator === `undefined`)
-//     return false;
-
-//   return /iPhone|iPad|iPod/i.test(
-//     navigator.userAgent ||
-//       navigator.vendor ||
-//       (window.opera && window.opera?.toString() === `[object Opera]`)
-//   );
-// };
 
 document.addEventListener("DOMContentLoaded", function () {
   const docs = document.querySelectorAll(".ppv_container");
@@ -39,12 +29,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const iframe = doc.querySelector("iframe:not(.pdfp_library)");
     const ppvLoading = doc.querySelector(".ppv-lightbox-loading");
     const loader = doc.querySelector(".ppv-loading");
-    if (iframe && iframe.contentDocument !== null) {
-      const source = iframe.src;
-      iframe.src = source;
+
+    if (iframe) {
+      iframe.addEventListener("load", function() {
+        if (ppvLoading) ppvLoading.style.display = "none";
+        if (loader) loader.style.display = "none";
+      });
+      // Fallback in case load event already fired or fails to fire
       setTimeout(() => {
-        loadFrameIfNotLoaded(doc);
-      }, 1200);
+        if (ppvLoading) ppvLoading.style.display = "none";
+        if (loader) loader.style.display = "none";
+      }, 3000);
     } else {
       if (ppvLoading) {
         ppvLoading.style.display = "none";
@@ -54,6 +49,99 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   }
+
+  // Handle Email Gate Modal
+  const gateButtons = document.querySelectorAll('.ppv-email-gate-btn');
+  gateButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const docId = this.dataset.docId;
+          const behavior = this.dataset.behavior || 'download';
+          const modal = document.getElementById('ppv-gate-modal-' + docId);
+          if (modal) {
+              modal.style.display = 'flex';
+              const form = modal.querySelector('.ppv-email-gate-form');
+              if (form) {
+                  form.dataset.behavior = behavior;
+              }
+          }
+      });
+  });
+
+  const closeButtons = document.querySelectorAll('.ppv-close-modal');
+  closeButtons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          this.closest('.ppv-email-gate-modal-wrapper').style.display = 'none';
+      });
+  });
+
+  const gateForms = document.querySelectorAll('.ppv-email-gate-form');
+  gateForms.forEach(form => {
+      form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const originalText = submitBtn.innerText;
+          submitBtn.innerText = 'Processing...';
+          submitBtn.disabled = true;
+
+          const behavior = this.dataset.behavior || 'download';
+
+          const formData = new FormData(this);
+          const email = (formData.get('email') || '').trim();
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          if (!emailRegex.test(email)) {
+              alert('Please enter a valid email address.');
+              submitBtn.innerText = originalText;
+              submitBtn.disabled = false;
+              return;
+          }
+
+          // Open tab before fetch to avoid popup blockers
+          let newTab = null;
+          if (behavior === 'newtab') {
+              newTab = window.open('about:blank', '_blank');
+          }
+
+          const data = {
+              name: formData.get('name'),
+              email: email,
+              document_id: formData.get('document_id')
+          };
+
+          fetch(bplde_obj.rest_url + 'gate-download', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+          })
+          .then(res => res.json())
+          .then(res => {
+              if (res.success && res.url) {
+                  // close modal
+                  this.closest('.ppv-email-gate-modal-wrapper').style.display = 'none';
+                  
+                  if (behavior === 'newtab' && newTab) {
+                      newTab.location.href = res.url;
+                  } else {
+                      window.location.href = res.url;
+                  }
+              } else {
+                  alert(res.message || 'Error processing request');
+                  if (newTab) newTab.close();
+              }
+          })
+          .catch(err => {
+              alert('Error connecting to server.');
+              if (newTab) newTab.close();
+          })
+          .finally(() => {
+              submitBtn.innerText = originalText;
+              submitBtn.disabled = false;
+          });
+      });
+  });
 
   // Handle direct download tracking
   const directDownloads = document.querySelectorAll('.ppv-direct-download');

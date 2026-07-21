@@ -22,8 +22,7 @@
     margin-left: 0 !important;
   }
 
-  // Target only the first SVG child (the section icon)
-  > svg:first-of-type {
+  svg {
     stroke: #3858E9 !important;
     fill: none !important;
     width: 20px !important;

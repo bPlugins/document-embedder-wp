@@ -45,5 +45,5 @@ if (!class_exists('BPLDE_Settings_Free')) {
         }
     }
 
-    BPLDE_Settings_Free::init();
+    add_action('init', ['BPLDE_Settings_Free', 'init'], 5);
 }

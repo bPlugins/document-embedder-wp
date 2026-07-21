@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "bplde/document-embed",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "title": "Document Embed",
   "category": "common",
   "icon": "media-document",
@@ -26,7 +26,17 @@
       "default": {
         "doc": "",
         "viewer": "default",
-        "googleDrive": false
+        "googleDrive": false,
+        "enableFullscreen": false,
+        "onDemandRendering": false,
+        "fullscreenNewTab": false,
+        "readerMode": false,
+        "toggleThumbnails": false,
+        "sidebarOpen": false,
+        "loadLatestVersion": false,
+        "hrScrollbar": false,
+        "initialPage": 1,
+        "defaultZoom": ""
       }
     },
     "toolbar": {
@@ -83,13 +93,34 @@
         "lightbox_btn_text": "View Document",
         "lightbox_btn_color": "#ffffff",
         "lightbox_btn_background": "#333333",
-        "lightbox_btn_size": "medium"
+        "lightbox_btn_size": "medium",
+        "lightbox_trigger_type": "button",
+        "lightbox_trigger_selector": "",
+        "lightbox_trigger_image": "",
+        "lightbox_trigger_image_width": "300px",
+        "lightbox_trigger_image_height": "auto",
+        "lightbox_trigger_image_radius": "8px",
+        "lightbox_trigger_image_align": "left",
+        "lightbox_trigger_image_fit": "cover"
+      }
+    },
+    "performance": {
+      "type": "object",
+      "default": {
+        "lazyLoad": false,
+        "gviewFallback": true
       }
     }
   },
-  "editorScript": "file:./index.js",
+  "editorScript": [
+    "bplde-dflip-script",
+    "file:./index.js"
+  ],
   "viewScript": "file:./view.js",
-  "editorStyle": "file:./index.css",
+  "editorStyle": [
+    "bplde-dflip-style",
+    "file:./index.css"
+  ],
   "style": "file:./view.css",
   "render": "file:./render.php"
 }

@@ -60,6 +60,21 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.2.1 - 22 July 2026",
+        list: [
+          "**New:** View PDFs in Full-Screen Mode for a more comfortable reading experience.",
+          "**New:** Pages now load only when needed, making large documents open faster.",
+          "**New:** Added a backup viewer that automatically works if the Google Viewer is unavailable.",
+          "**New:** Open documents in a Lightbox Popup without leaving the current page.",
+          "**New:** Lazy Loading support improves page speed by loading documents only when they come into view.",
+          "**New:** Enjoy an interactive 3D FlipBook reading experience.",
+          "**New:** Added a 2D FlipBook mode for browsers that don't support 3D effects.",
+          "**New:** Display documents in a SlideShow-style viewer for easy page navigation.",
+          "**New:** Faster document loading with partial page loading, so readers don't have to wait for the entire document to load.",
+          "**New:** Refactored the plugin for improved stability, better performance, enhanced security, and a smoother overall experience."
+        ]
+      },
+      {
         version: "2.2.0 - 21 June 2026",
         list: [
           "**New:** Added brand new Custom PDF.js Viewer option, enabling high-performance local rendering for PDF files.",

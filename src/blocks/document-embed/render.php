@@ -60,6 +60,14 @@ if (!defined('ABSPATH')) {
     if (function_exists('enqueue_block_assets')) {
         wp_enqueue_script('wp-element');
     }
+
+    // Load the dFlip library only when the PDF Flipbook/Slider viewer is selected.
+    // Keeps the default/custom viewer paths untouched (no extra assets for existing users).
+    $de_viewer = isset($attributes['documentSource']['viewer']) ? $attributes['documentSource']['viewer'] : 'default';
+    if (in_array($de_viewer, ['flipbook', 'slider'], true) && wp_script_is('bplde-dflip-script', 'registered')) {
+        wp_enqueue_script('bplde-dflip-script');
+        wp_enqueue_style('bplde-dflip-style');
+    }
     ?>
     <style>
         #<?php echo esc_html($id); ?> {

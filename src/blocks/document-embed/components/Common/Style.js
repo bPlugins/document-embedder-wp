@@ -3,9 +3,20 @@ import React from "react";
 const Style = ({ attributes = {}, id = "", uniqueId = "" }) => {
   const {
     displayDimensions = {},
+    lightbox = {},
+    toolbar = {},
   } = attributes;
 
   const { width = {}, height = {} } = displayDimensions;
+  const {
+    lightbox_btn_color = "#ffffff",
+    lightbox_btn_background = "#333333",
+  } = lightbox;
+  const {
+    theme = "dark",
+    toolbar_bg_color = "#343434",
+    toolbar_text_color = "#ffffff",
+  } = toolbar;
 
   const parseDim = (prop, defaultVal, type = "desktop") => {
     if (typeof prop === "object" && prop !== null) {
@@ -58,6 +69,28 @@ const Style = ({ attributes = {}, id = "", uniqueId = "" }) => {
               height: ${h_m} !important;
             }
           }
+
+          #ppv_frame_wrapper${id} .ppv-lightbox-btn {
+            color: ${lightbox_btn_color} !important;
+            background: ${lightbox_btn_background} !important;
+          }
+
+          ${theme === "custom" ? `
+            .ppv_container.${selectorClass} .ppv-toolbar.custom {
+              background: ${toolbar_bg_color} !important;
+              border: 1px solid ${toolbar_bg_color} !important;
+            }
+            .ppv_container.${selectorClass} .ppv-toolbar.custom .ppv-filename {
+              color: ${toolbar_text_color} !important;
+            }
+            .ppv_container.${selectorClass} .ppv-toolbar.custom .ppv_download_bttn {
+              border: 1px solid ${toolbar_text_color} !important;
+              color: ${toolbar_text_color} !important;
+            }
+            .ppv_container.${selectorClass} .ppv-toolbar.custom .ppv_download_bttn:hover {
+              opacity: 0.8 !important;
+            }
+          ` : ""}
         `,
       }}
     />
