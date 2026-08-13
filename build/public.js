@@ -1,1 +1,256 @@
-(()=>{"use strict";document.addEventListener("DOMContentLoaded",function(){const e=document.querySelectorAll(".ppv_container");function t(e){if(!e)return!1;const t=e.querySelector("iframe:not(.pdfp_library)"),n=e.querySelector(".ppv-lightbox-loading"),o=e.querySelector(".ppv-loading");t?(t.addEventListener("load",function(){n&&(n.style.display="none"),o&&(o.style.display="none")}),setTimeout(()=>{n&&(n.style.display="none"),o&&(o.style.display="none")},3e3)):(n&&(n.style.display="none"),o&&(o.style.display="none"))}Object.values(e).map(e=>{const n=Boolean(e.dataset.lightbox),o=document.querySelector(".ppv-lightbox-overlay"),a=e.querySelector(".bplde-lightbox-close");if(n){const n=e.querySelector(".ppv-lightbox-btn");n&&n.addEventListener("click",function(){o.classList.add("open"),t(e)}),a&&a.addEventListener("click",function(){o.classList.remove("open")})}else t(e)}),document.querySelectorAll(".ppv-email-gate-btn").forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();const t=this.dataset.docId,n=this.dataset.behavior||"download",o=document.getElementById("ppv-gate-modal-"+t);if(o){o.style.display="flex";const e=o.querySelector(".ppv-email-gate-form");e&&(e.dataset.behavior=n)}})}),document.querySelectorAll(".ppv-close-modal").forEach(e=>{e.addEventListener("click",function(e){e.preventDefault(),this.closest(".ppv-email-gate-modal-wrapper").style.display="none"})}),document.querySelectorAll(".ppv-email-gate-form").forEach(e=>{e.addEventListener("submit",function(e){e.preventDefault();const t=this.querySelector('button[type="submit"]'),n=t.innerText;t.innerText="Processing...",t.disabled=!0;const o=this.dataset.behavior||"download",a=new FormData(this),l=(a.get("email")||"").trim();if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(l))return alert("Please enter a valid email address."),t.innerText=n,void(t.disabled=!1);let r=null;"newtab"===o&&(r=window.open("about:blank","_blank"));const i={name:a.get("name"),email:l,document_id:a.get("document_id")};fetch(bplde_obj.rest_url+"gate-download",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(i)}).then(e=>e.json()).then(e=>{e.success&&e.url?(this.closest(".ppv-email-gate-modal-wrapper").style.display="none","newtab"===o&&r?r.location.href=e.url:window.location.href=e.url):(alert(e.message||"Error processing request"),r&&r.close())}).catch(e=>{alert("Error connecting to server."),r&&r.close()}).finally(()=>{t.innerText=n,t.disabled=!1})})}),document.querySelectorAll(".ppv-direct-download").forEach(e=>{e.addEventListener("click",function(e){if("undefined"==typeof bplde_obj)return;e.preventDefault();const t=this.dataset.docId,n=this,o=n.innerHTML;n.innerHTML="Downloading...";let a=null;"newtab"===n.dataset.behavior&&(a=window.open("about:blank","_blank")),jQuery.ajax({url:bplde_obj.ajax_url,type:"POST",data:{action:"de_track_download",nonce:bplde_obj.track_nonce,document_id:t},success:function(e){if(e.success){const l=n.closest("p, div").querySelector(".ppv-download-count");l&&(l.innerText=e.data.count+" downloads");const r=bplde_obj.rest_url+"download/"+t+"?de_nonce="+e.data.nonce;"newtab"===n.dataset.behavior&&a?a.location.href=r:window.location.href=r,setTimeout(()=>{n.innerHTML=o},1e3)}else alert("Tracking error: "+(e.data||"Unknown error")),n.innerHTML=o,a&&a.close()},error:function(){n.innerHTML=o,a&&a.close()}})})})})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/public.css":
+/*!************************!*\
+  !*** ./src/public.css ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!***********************!*\
+  !*** ./src/public.js ***!
+  \***********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _public_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./public.css */ "./src/public.css");
+/* global bplde_obj */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const docs = document.querySelectorAll(".ppv_container");
+  Object.values(docs).map(doc => {
+    const isLightbox = Boolean(doc.dataset.lightbox);
+    const ppvLightBoxEl = document.querySelector(".ppv-lightbox-overlay");
+    const lightCloseBtn = doc.querySelector(".bplde-lightbox-close");
+    if (isLightbox) {
+      const lightBtn = doc.querySelector(".ppv-lightbox-btn");
+      lightBtn && lightBtn.addEventListener("click", function () {
+        ppvLightBoxEl.classList.add("open");
+        loadFrameIfNotLoaded(doc);
+      });
+      lightCloseBtn && lightCloseBtn.addEventListener("click", function () {
+        ppvLightBoxEl.classList.remove("open");
+      });
+    } else {
+      loadFrameIfNotLoaded(doc);
+    }
+  });
+  function loadFrameIfNotLoaded(doc) {
+    if (!doc) return false;
+    const iframe = doc.querySelector("iframe:not(.pdfp_library)");
+    const ppvLoading = doc.querySelector(".ppv-lightbox-loading");
+    const loader = doc.querySelector(".ppv-loading");
+    if (iframe) {
+      iframe.addEventListener("load", function () {
+        if (ppvLoading) ppvLoading.style.display = "none";
+        if (loader) loader.style.display = "none";
+      });
+      // Fallback in case load event already fired or fails to fire
+      setTimeout(() => {
+        if (ppvLoading) ppvLoading.style.display = "none";
+        if (loader) loader.style.display = "none";
+      }, 3000);
+    } else {
+      if (ppvLoading) {
+        ppvLoading.style.display = "none";
+      }
+      if (loader) {
+        loader.style.display = "none";
+      }
+    }
+  }
+
+  // Handle Email Gate Modal
+  const gateButtons = document.querySelectorAll('.ppv-email-gate-btn');
+  gateButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      const docId = this.dataset.docId;
+      const behavior = this.dataset.behavior || 'download';
+      const modal = document.getElementById('ppv-gate-modal-' + docId);
+      if (modal) {
+        modal.style.display = 'flex';
+        const form = modal.querySelector('.ppv-email-gate-form');
+        if (form) {
+          form.dataset.behavior = behavior;
+        }
+      }
+    });
+  });
+  const closeButtons = document.querySelectorAll('.ppv-close-modal');
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      this.closest('.ppv-email-gate-modal-wrapper').style.display = 'none';
+    });
+  });
+  const gateForms = document.querySelectorAll('.ppv-email-gate-form');
+  gateForms.forEach(form => {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerText;
+      submitBtn.innerText = 'Processing...';
+      submitBtn.disabled = true;
+      const behavior = this.dataset.behavior || 'download';
+      const formData = new FormData(this);
+      const email = (formData.get('email') || '').trim();
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Open tab before fetch to avoid popup blockers
+      let newTab = null;
+      if (behavior === 'newtab') {
+        newTab = window.open('about:blank', '_blank');
+      }
+      const data = {
+        name: formData.get('name'),
+        email: email,
+        document_id: formData.get('document_id')
+      };
+      fetch(bplde_obj.rest_url + 'gate-download', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }).then(res => res.json()).then(res => {
+        if (res.success && res.url) {
+          // close modal
+          this.closest('.ppv-email-gate-modal-wrapper').style.display = 'none';
+          if (behavior === 'newtab' && newTab) {
+            newTab.location.href = res.url;
+          } else {
+            window.location.href = res.url;
+          }
+        } else {
+          alert(res.message || 'Error processing request');
+          if (newTab) newTab.close();
+        }
+      }).catch(err => {
+        alert('Error connecting to server.');
+        if (newTab) newTab.close();
+      }).finally(() => {
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+      });
+    });
+  });
+
+  // Handle direct download tracking
+  const directDownloads = document.querySelectorAll('.ppv-direct-download');
+  directDownloads.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      if (typeof bplde_obj === 'undefined') return;
+      e.preventDefault();
+      const docId = this.dataset.docId;
+      const self = this;
+      const originalContent = self.innerHTML;
+      self.innerHTML = 'Downloading...';
+
+      // Open tab before AJAX to avoid popup blockers
+      let newTab = null;
+      if (self.dataset.behavior === 'newtab') {
+        newTab = window.open('about:blank', '_blank');
+      }
+
+      // Track and then redirect
+      jQuery.ajax({
+        url: bplde_obj.ajax_url,
+        type: 'POST',
+        data: {
+          action: 'de_track_download',
+          nonce: bplde_obj.track_nonce,
+          document_id: docId
+        },
+        success: function (response) {
+          if (response.success) {
+            // Update counter label if it exists
+            const countLabel = self.closest('p, div').querySelector('.ppv-download-count');
+            if (countLabel) {
+              countLabel.innerText = response.data.count + ' downloads';
+            }
+
+            // Redirect to download endpoint with the new nonce
+            const downloadUrl = bplde_obj.rest_url + 'download/' + docId + '?de_nonce=' + response.data.nonce;
+            if (self.dataset.behavior === 'newtab' && newTab) {
+              newTab.location.href = downloadUrl;
+            } else {
+              window.location.href = downloadUrl;
+            }
+
+            // Reset button text after a bit
+            setTimeout(() => {
+              self.innerHTML = originalContent;
+            }, 1000);
+          } else {
+            alert('Tracking error: ' + (response.data || 'Unknown error'));
+            self.innerHTML = originalContent;
+            if (newTab) newTab.close();
+          }
+        },
+        error: function () {
+          self.innerHTML = originalContent;
+          if (newTab) newTab.close();
+        }
+      });
+    });
+  });
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=public.js.map

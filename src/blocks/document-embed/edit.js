@@ -41,6 +41,7 @@ const Edit = ({ attributes, setAttributes, isSelected }) => {
             pluginUrl={window.ppvBlocks?.pluginUrl || ""}
             postId={0}
             id="editor-preview"
+            isEditor
           />
           <div className={`bplde-editor-preview-overlay ${isSelected ? "is-selected" : ""}`} />
         </div>

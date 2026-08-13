@@ -28,14 +28,16 @@ if (function_exists('de_fs')) {
     define('BPLDE_HAS_PRO', 'document-embedder-premium/document-embedder.php' === plugin_basename(__FILE__));
 
     if (!function_exists('de_fs')) { 
+        // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
         function de_fs() {
+            // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
             global $de_fs;
 
             if (!isset($de_fs)) {
                 // Include Freemius SDK.
                 require_once dirname(__FILE__) . '/vendor/freemius/start.php';
 
-                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals. 
+                // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
                 $de_fs = fs_dynamic_init(array(
                     'id' => '19862',
                     'slug' => 'document-emberdder',

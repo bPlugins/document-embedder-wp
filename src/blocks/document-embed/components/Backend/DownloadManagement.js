@@ -1,6 +1,6 @@
-import { PanelBody, SelectControl, TextControl, ToggleControl } from "@wordpress/components";
+import { PanelBody, ToggleControl, SelectControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import { Notice } from "../../../../../../bpl-tools/Components";
+import { MultiSelectControl } from "../../../../../../bpl-tools/Components";
 
 const DownloadManagement = ({ attributes, setAttributes }) => {
   const { downloadManagement } = attributes;
@@ -9,6 +9,11 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
     _de_download_behavior,
     _de_download_filename,
     _de_download_show_count,
+    _de_download_limit,
+    _de_download_access,
+    _de_download_access_roles = [],
+    _de_download_access_message,
+    _de_email_gate,
   } = downloadManagement;
 
   const updateDownload = (key, value) => {
@@ -19,6 +24,8 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
       },
     });
   };
+
+  const rolesOptions = window.ppvBlocks?.roles || [];
 
   return (
     <PanelBody
@@ -46,6 +53,49 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
       }
       initialOpen={false}
     >
+      <ToggleControl
+        className="mt10"
+        label={__("Email Gate", "document-emberdder")}
+        checked={_de_email_gate}
+        onChange={(val) => updateDownload("_de_email_gate", val)}
+        help={__("Enable to require users to enter their name and email before downloading. Leads are saved in the Leads menu.", "document-emberdder")}
+      />
+
+      <SelectControl
+        className="mt10"
+        label={__("Download Access", "document-emberdder")}
+        value={_de_download_access}
+        options={[
+          { label: __("Everyone", "document-emberdder"), value: "everyone" },
+          { label: __("Logged In Users", "document-emberdder"), value: "loggedin" },
+          { label: __("Specific Roles", "document-emberdder"), value: "roles" },
+        ]}
+        onChange={(val) => updateDownload("_de_download_access", val)}
+      />
+
+      {_de_download_access === "roles" && (
+        <div className="mt10">
+          <label className="components-base-control__label" style={{ display: "block", marginBottom: "5px" }}>
+            {__("Select Roles", "document-emberdder")}
+          </label>
+          <MultiSelectControl
+            value={_de_download_access_roles}
+            options={rolesOptions}
+            onChange={(val) => updateDownload("_de_download_access_roles", val)}
+          />
+        </div>
+      )}
+
+      {_de_download_access !== "everyone" && (
+        <TextControl
+          className="mt10"
+          label={__("Access Denied Message", "document-emberdder")}
+          value={_de_download_access_message}
+          onChange={(val) => updateDownload("_de_download_access_message", val)}
+          help={__("Message shown when download is restricted (e.g. \"Login to download\"). Empty message will show nothing.", "document-emberdder")}
+        />
+      )}
+
       <TextControl
         className="mt10"
         label={__("Download Button Text", "document-emberdder")}
@@ -70,7 +120,7 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
         label={__("Custom Filename", "document-emberdder")}
         value={_de_download_filename}
         onChange={(val) => updateDownload("_de_download_filename", val)}
-        help={__("Optional custom filename for the download.", "document-emberdder")}
+        help={__("Optional custom filename for the download. Note: This will not work if Download Behavior is set to \"Open in New Tab\".", "document-emberdder")}
       />
 
       <ToggleControl
@@ -81,12 +131,14 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
         help={__("Display the total number of times this document has been downloaded.", "document-emberdder")}
       />
 
-      <Notice status="premium" isIcon={true}>
-        {__(
-          "Turn viewers into leads: gate downloads behind an email, restrict access by login or user role, and cap downloads per visitor. Unlock full Download Management in Document Embedder Pro.",
-          "document-emberdder"
-        )}
-      </Notice>
+      <TextControl
+        className="mt10"
+        label={__("Download Limit", "document-emberdder")}
+        type="number"
+        value={_de_download_limit}
+        onChange={(val) => updateDownload("_de_download_limit", parseInt(val) || 0)}
+        help={__("Limit the number of downloads allowed per user IP address.", "document-emberdder")}
+      />
     </PanelBody>
   );
 };

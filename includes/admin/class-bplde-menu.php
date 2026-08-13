@@ -100,6 +100,8 @@ if (!class_exists('BPLDE_Menu')) {
                 'version' => BPLDE_VER,
                 'isPremium' => false,
                 'hasPro' => BPLDE_HAS_PRO,
+                // Lets the dashboard load bundled artwork instead of remote images.
+                'pluginUrl' => BPLDE_PLUGIN_DIR,
                 'licenseActiveNonce' => wp_create_nonce('bPlLicenseActivation'),
                 'exportLeadsNonce' => wp_create_nonce('de_export_leads_csv')
             ])); ?>'></div>

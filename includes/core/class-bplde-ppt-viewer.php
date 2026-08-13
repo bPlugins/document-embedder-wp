@@ -159,33 +159,62 @@ if (!class_exists('PPTViewer')) {
         public function shortcode_area()
         {
             global $post;
-            if ($post->post_type === $this->post_type): ?>
-                <div class="ppv_shortcode">
-                    <code class="shortcode_copy" data-code="[doc id='<?php echo esc_attr($post->ID); ?>']">
-                                        [doc id='<?php echo esc_attr($post->ID); ?>']
-                                    </code>
+            if ($post->post_type !== $this->post_type) {
+                return;
+            }
 
-                    <p class="shortcode_desc">
-                        <?php echo esc_html__("Copy this shortcode and paste it into your post, page, or text widget content.", 'document-emberdder'); ?>
-                    </p>
+            $shortcode = "[doc id='" . esc_attr($post->ID) . "']";
+            ?>
+            <div class="bplde_shortcode_area_after_title">
+                <label><?php esc_html_e('Copy and paste this shortcode into your posts, pages and widget', 'document-emberdder'); ?></label>
+                <div class="shortcode_area">
+                    <button class="button button-bplugins button-large bplde_shortcode_copy_btn"
+                        data-clipboard-text="<?php echo esc_attr($shortcode); ?>"><?php echo esc_html($shortcode); ?></button>
+                    <svg class="bplde_shortcode_copy_btn" data-type="icon"
+                        data-clipboard-text="<?php echo esc_attr($shortcode); ?>" width="22px" height="22px"
+                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8 4V16C8 17.1046 8.89543 18 10 18L18 18C19.1046 18 20 17.1046 20 16V7.24162C20 6.7034 19.7831 6.18789 19.3982 5.81161L16.0829 2.56999C15.7092 2.2046 15.2074 2 14.6847 2H10C8.89543 2 8 2.89543 8 4Z"
+                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M16 18V20C16 21.1046 15.1046 22 14 22H6C4.89543 22 4 21.1046 4 20V9C4 7.89543 4.89543 7 6 7H8"
+                            stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
                 </div>
+            </div>
 
-                <script>
-                    document.addEventListener('click', function (e) {
-                        var el = e.target.closest('.shortcode_copy');
-                        if (!el) return;
+            <script>
+                document.addEventListener('click', function (e) {
+                    var el = e.target.closest('.bplde_shortcode_copy_btn');
+                    if (!el) return;
+                    e.preventDefault();
 
-                        navigator.clipboard.writeText(el.dataset.code).then(function () {
-                            var original = el.textContent;
-                            el.textContent = 'Copied!';
+                    var text = el.dataset.clipboardText;
 
-                            setTimeout(function () {
-                                el.textContent = original;
-                            }, 1000);
-                        });
-                    });
-                </script>
-            <?php endif;
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(text);
+                    } else {
+                        var tempInput = document.createElement('input');
+                        tempInput.value = text;
+                        document.body.appendChild(tempInput);
+                        tempInput.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempInput);
+                    }
+
+                    if (el.dataset.type === 'icon') {
+                        el.style.width = '18px';
+                        setTimeout(function () {
+                            el.style.width = '22px';
+                        }, 200);
+                    } else {
+                        el.textContent = 'Copied!';
+                        setTimeout(function () {
+                            el.textContent = text;
+                        }, 2000);
+                    }
+                });
+            </script>
+            <?php
         }
 
         public function removeRowAction($row)

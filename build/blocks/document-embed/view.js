@@ -1,1 +1,1929 @@
-(()=>{"use strict";const e=window.React,t=window.ReactDOM,o=window.wp.i18n,n=function({__:t=o.__,attributes:n={},source:r=window.pdfp?.placeholder||"http://localhost/freemius/wp-content/uploads/2022/02/temp.pdf",className:l="",isBackend:a=!1,onGViewError:i,onLoad:d}){const{hrScroll:s=!1,title:c="",socialShare:p={}}=n,{position:m=""}=p,[u,b]=(0,e.useState)(!1),[f,g]=(0,e.useState)(null);return(0,e.useEffect)(()=>{if(g(null),b(!1),!r)return;let e;(async e=>{if(e.includes("google.com/gview"))return;let o=e;if(e.includes("viewer.html"))try{o=new URL(e,window.location.origin).searchParams.get("file")||e}catch(e){}try{const e=await fetch(o,{method:"HEAD",cache:"no-cache"});if(!e.ok)return void g(t("The PDF file could not be found or the server returned an error.","document-emberdder"));const n=e.headers.get("Content-Length");n&&0===parseInt(n,10)&&g(t("The PDF file is empty or corrupted (0 bytes).","document-emberdder"))}catch(e){console.warn("PDF pre-check failed (likely CORS). Continuing load attempt.",e)}})(r),r.includes("google.com/gview")&&!u&&(e=setTimeout(()=>{u||"function"!=typeof i||(console.warn("Google Docs Viewer took too long to load. Falling back to PDF.js."),i())},1e4));const o=e=>{e.data&&"PDFP_ERROR"===e.data.type&&g(e.data.message||t("An error occurred while loading the PDF.","document-emberdder"))};return window.addEventListener("message",o),()=>{e&&clearTimeout(e),window.removeEventListener("message",o)}},[r,u,i,t]),(0,e.createElement)(e.Fragment,null,r.includes("dropbox.com")?(0,e.createElement)("div",{className:"dropbox-embed-sdfsdfsdf",style:{border:"2px solid #ddd"}},(0,e.createElement)("p",null,t("Preview is not available for dropbox","document-emberdder"))):(0,e.createElement)(e.Fragment,null,(0,e.createElement)("div",{className:`iframe_wrapper ${l} ${s?"pdfp_horizontal_scroll":""}`,style:{width:"100%",height:"100%",position:"relative"}},a&&(0,e.createElement)("div",{className:"pdfp-embed-overlay"}),(0,e.createElement)("div",{className:"pdfp_frame_overlay"}),f?(h=f,(0,e.createElement)("div",{className:"pdfp_error_container"},(0,e.createElement)("div",{className:"pdfp_error_box"},(0,e.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"48",height:"48",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejoin:"round"},(0,e.createElement)("circle",{cx:"12",cy:"12",r:"10"}),(0,e.createElement)("line",{x1:"12",y1:"8",x2:"12",y2:"12"}),(0,e.createElement)("line",{x1:"12",y1:"16",x2:"12.01",y2:"16"})),(0,e.createElement)("p",null,h),(0,e.createElement)("button",{onClick:()=>window.location.reload(),className:"pdfp_retry_btn"},t("Retry","document-emberdder"))))):(0,e.createElement)("iframe",{className:"pdfp_iframe",src:r,title:c,onLoad:()=>{b(!0),"function"==typeof d&&d()},allowFullScreen:!0,allow:"fullscreen",style:{width:"100%",height:"100%",border:"none",display:"block"}}),(0,e.createElement)("span",{className:"close",onClick:()=>{try{document.exitFullscreen()}catch(e){}},style:{display:"none"}},"×"))));var h},r=({src:t,className:o="",title:n="",onLoad:r,onError:l,children:a})=>{const[,i]=(0,e.useState)(!1),d=(0,e.useRef)(!1),s=(0,e.useRef)(l);return s.current=l,(0,e.useEffect)(()=>{let e;d.current=!1,i(!1),t&&t.includes("google.com/gview")&&(e=setTimeout(()=>{d.current||"function"!=typeof s.current||s.current()},1e4));const o=e=>{e.data&&"PDFP_ERROR"===e.data.type&&"function"==typeof s.current&&s.current()};return window.addEventListener("message",o),()=>{e&&clearTimeout(e),window.removeEventListener("message",o)}},[t]),(0,e.createElement)("div",{style:{width:"100%",height:"100%",position:"relative"}},(0,e.createElement)("iframe",{src:t,title:n,className:o,onLoad:()=>{d.current=!0,i(!0),"function"==typeof r&&r()},style:{width:"100%",height:"100%",border:"none",display:"block"}}),a)},l=({attributes:t={},source:o="",viewerType:n="flipbook",onLoad:r})=>{const l=(0,e.useRef)(null),a=(0,e.useRef)(null),{displayDimensions:i={}}=t,d=i?.height||{},s=("object"==typeof d?d.desktop:d)||"600px",c=o,p=t?.documentSource||{},m=p.initialPage||1,u=p.readerMode||!1,b=p.toggleThumbnails||!1,f=p.sidebarOpen||!1,g=p.loadLatestVersion||!1,h=p.enableFullscreen||!1,w=p.fullscreenNewTab||!1,x=p.onDemandRendering||!1;return(0,e.useEffect)(()=>{let e=!1,t=null;const o="slider"===n?"slider":"flipbook",i=()=>{e||(window.jQuery&&window.jQuery.fn&&"function"==typeof window.jQuery.fn.flipBook?(()=>{const t=l.current;if(e||!t||!c)return;if("true"===t.dataset.dflipInitialized)return;let n=c;if(g&&n){const e=n.includes("?")?"&":"?";n+=`${e}v=${Date.now()}`}let i="";b||(i+=(i?",":"")+"thumbnail"),h||(i+=(i?",":"")+"fullScreen");const d={viewerType:o,openPage:m,backgroundColor:"transparent",height:"100%",controlsPosition:u?"hidden":"bottom",autoOpenThumbnail:f,instantTextureProcess:!x};i&&(d.hideControls=i),w&&(d.onCreateUI=function(e){if(e.ui&&e.ui.controls&&e.ui.controls.fullScreen){const t=e.ui.controls.fullScreen;t.off("click"),t.on("click",function(e){e.preventDefault(),e.stopPropagation(),window.open(n,"_blank","noopener")})}}),t.dataset.dflipInitialized="true";try{a.current=window.jQuery(t).flipBook(n,d),window.dispatchEvent(new Event("resize")),"function"==typeof r&&r()}catch(e){t.dataset.dflipInitialized="false",console.error("Error initializing dFlip viewer:",e)}})():t=setTimeout(i,150))},d=new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&i()})},{threshold:.1});return l.current&&d.observe(l.current),()=>{if(e=!0,t&&clearTimeout(t),d.disconnect(),a.current&&"function"==typeof a.current.dispose)try{a.current.dispose()}catch(e){console.warn("dFlip dispose error:",e)}if(l.current){l.current.dataset.dflipInitialized="false";try{l.current.innerHTML=""}catch(e){}}}},[c,n,s,m,u,b,f,g,h,w,x]),(0,e.createElement)("div",{className:"bplde-dflip-wrapper",style:{height:"100%",width:"100%"}},(0,e.createElement)("div",{ref:l,className:"dflip-container",style:{height:"100%",width:"100%"}}))},a=({attributes:t={},id:o="",uniqueId:n=""})=>{const{displayDimensions:r={},lightbox:l={},toolbar:a={}}=t,{width:i={},height:d={}}=r,{lightbox_btn_color:s="#ffffff",lightbox_btn_background:c="#333333"}=l,{theme:p="dark",toolbar_bg_color:m="#343434",toolbar_text_color:u="#ffffff"}=a,b=(e,t,o="desktop")=>{if("object"==typeof e&&null!==e){if(void 0!==e[o]&&""!==e[o]){const t=e[o];return"string"==typeof t&&/[a-zA-Z%]/.test(t)?t:t+(e.unit||"px")}return t}const n=void 0!==e&&""!==e?e:t;return isNaN(n)?n:n+"px"},f=b(i,"100%","desktop"),g=b(i,f,"tablet"),h=b(i,g,"mobile"),w=b(d,"840px","desktop"),x=b(d,w,"tablet"),v=b(d,x,"mobile"),y=n||o;return(0,e.createElement)("style",{dangerouslySetInnerHTML:{__html:`\n          .ppv_container.${y}:not([data-lightbox="1"]) {\n            width: ${f} !important;\n            height: ${w} !important;\n            position: relative;\n            display: flex;\n            flex-direction: column;\n          }\n\n          @media (max-width: 991px) {\n            .ppv_container.${y}:not([data-lightbox="1"]) {\n              width: ${g} !important;\n              height: ${x} !important;\n            }\n          }\n\n          @media (max-width: 767px) {\n            .ppv_container.${y}:not([data-lightbox="1"]) {\n              width: ${h} !important;\n              height: ${v} !important;\n            }\n          }\n\n          #ppv_frame_wrapper${o} .ppv-lightbox-btn {\n            color: ${s} !important;\n            background: ${c} !important;\n          }\n\n          ${"custom"===p?`\n            .ppv_container.${y} .ppv-toolbar.custom {\n              background: ${m} !important;\n              border: 1px solid ${m} !important;\n            }\n            .ppv_container.${y} .ppv-toolbar.custom .ppv-filename {\n              color: ${u} !important;\n            }\n            .ppv_container.${y} .ppv-toolbar.custom .ppv_download_bttn {\n              border: 1px solid ${u} !important;\n              color: ${u} !important;\n            }\n            .ppv_container.${y} .ppv-toolbar.custom .ppv_download_bttn:hover {\n              opacity: 0.8 !important;\n            }\n          `:""}\n        `}})},i=({onClose:t,postId:o,downloadBehavior:n="download",downloadButtonText:r="Download",onSuccess:l})=>{const[a,i]=(0,e.useState)(""),[d,s]=(0,e.useState)(""),[c,p]=(0,e.useState)(!1);return(0,e.createElement)("div",{className:"ppv-email-gate-modal-wrapper",style:{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,0.5)",display:"flex",justifyContent:"center",alignItems:"center",zIndex:999999}},(0,e.createElement)("div",{className:"ppv-email-gate-modal-content",style:{background:"#fff",padding:"25px",borderRadius:"8px",width:"90%",maxWidth:"400px",position:"relative",boxShadow:"0 4px 15px rgba(0,0,0,0.2)"}},(0,e.createElement)("button",{type:"button",className:"ppv-close-modal",onClick:t,style:{position:"absolute",top:"10px",right:"15px",background:"none",border:"none",fontSize:"24px",cursor:"pointer",color:"#999"}},"×"),(0,e.createElement)("h3",{style:{marginTop:0,marginBottom:"20px",fontSize:"18px",fontWeight:"600"}},"Download Document"),(0,e.createElement)("form",{className:"ppv-email-gate-form",onSubmit:e=>{e.preventDefault(),p(!0);const r={name:a,email:d,document_id:o};let i=null;"newtab"===n&&(i=window.open("about:blank","_blank"));const s=window.bplde_obj?.rest_url||"/wp-json/docembedder/v1/";fetch(`${s}gate-download`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(r)}).then(e=>e.json()).then(e=>{e.success&&e.url?(t(),l&&l(),"newtab"===n&&i?i.location.href=e.url:window.location.href=e.url):(alert(e.message||"Error processing request"),i&&i.close())}).catch(()=>{alert("Error connecting to server."),i&&i.close()}).finally(()=>{p(!1)})}},(0,e.createElement)("div",{style:{marginBottom:"15px"}},(0,e.createElement)("label",{style:{display:"block",marginBottom:"5px",fontWeight:"500"}},"Name"),(0,e.createElement)("input",{type:"text",name:"name",required:!0,value:a,onChange:e=>i(e.target.value),style:{width:"100%",padding:"8px 12px",border:"1px solid #ccc",borderRadius:"4px"}})),(0,e.createElement)("div",{style:{marginBottom:"20px"}},(0,e.createElement)("label",{style:{display:"block",marginBottom:"5px",fontWeight:"500"}},"Email"),(0,e.createElement)("input",{type:"email",name:"email",required:!0,value:d,onChange:e=>s(e.target.value),style:{width:"100%",padding:"8px 12px",border:"1px solid #ccc",borderRadius:"4px"}})),(0,e.createElement)("button",{type:"submit",disabled:c,style:{width:"100%",padding:"10px",background:"#007cba",color:"#fff",border:"none",borderRadius:"4px",cursor:"pointer",fontWeight:"600"}},c?"Processing...":r),(0,e.createElement)("p",{className:"ppv-gate-secure-text",style:{fontSize:"11px",color:"#666",marginTop:"10px",textAlign:"center"}},"Your details are saved securely."))))},d=({filename:t,showName:o,download:n,position:r="toolbar",limitReached:l,isRestricted:a,downloadAccessMessage:i="Access Denied",downloadButtonText:d="Download",downloadShowCount:s,downloadCount:c,handleDownloadClick:p,doc:m,downloadFilename:u,behavior:b="download",theme:f="dark",showFullscreen:g=!1,onFullscreenClick:h,fullscreenTitle:w="Full screen"})=>{if(!o&&!n&&!g)return null;const x=()=>{if(l)return(0,e.createElement)("button",{disabled:!0,style:{background:"transparent",padding:"4px 10px",borderRadius:"4px",border:"1px solid #ff4d4d",color:"#ff4d4d",cursor:"not-allowed"},title:"Download limit reached for your IP."},"Limit Reached");if(a)return(0,e.createElement)("span",{className:"de-access-denied-msg"},i);const t=d||"Download",o=s?(0,e.createElement)("span",{className:"ppv-download-count",style:{marginLeft:"8px",fontSize:"12px",color:"#999",fontWeight:"500"}},"(",c," ",1===c?"download":"downloads",")"):null,n=u||!0,r="newtab"===b;return(0,e.createElement)("div",{style:{display:"inline-flex",alignItems:"center"}},(0,e.createElement)("a",{className:"s_pdf_download_link",style:{display:"flex",textDecoration:"none"},href:m,target:r?"_blank":void 0,rel:r?"noopener noreferrer":void 0,download:r?void 0:n},(0,e.createElement)("button",{style:{background:"transparent",padding:"4px 10px",borderRadius:"4px",border:"1px solid #cececf",color:"#cececf",cursor:"pointer",fontSize:"12px"},className:"ppv_download_bttn",onClick:p},t)),o)},v=o?"space-between":"flex-end",y=()=>(n||g)&&(0,e.createElement)("div",{className:"ppv-toolbar-right",style:{display:"inline-flex",alignItems:"center",gap:"8px"}},n&&x(),g&&(0,e.createElement)("button",{type:"button",className:"ppv_fullscreen_bttn",onClick:h,title:w,"aria-label":w,style:{display:"inline-flex",alignItems:"center",justifyContent:"center",background:"transparent",padding:"4px 8px",borderRadius:"4px",border:"1px solid #cececf",color:"#cececf",cursor:"pointer"}},(0,e.createElement)("svg",{xmlns:"http://www.w3.org/2000/svg",width:"16",height:"16",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejoin:"round"},(0,e.createElement)("polyline",{points:"15 3 21 3 21 9"}),(0,e.createElement)("polyline",{points:"9 21 3 21 3 15"}),(0,e.createElement)("line",{x1:"21",y1:"3",x2:"14",y2:"10"}),(0,e.createElement)("line",{x1:"3",y1:"21",x2:"10",y2:"14"}))));return"lightbox"===r||"toolbar"===r?(0,e.createElement)("div",{className:`ppv-toolbar ${f}`,style:{display:"flex",justifyContent:v}},o&&(0,e.createElement)("span",{className:"ppv-filename"},t),y()):"below"===r?(0,e.createElement)("div",{className:`ppv-toolbar ${f}`,style:{display:"flex",justifyContent:v,marginTop:0}},o&&(0,e.createElement)("span",{className:"ppv-filename"},t),y()):"above"===r?(0,e.createElement)("div",{style:{marginBottom:"10px"}},o&&(0,e.createElement)("p",{style:{paddingLeft:"10px",margin:"0 0 10px 0"}},t),n&&(0,e.createElement)("div",{style:{marginBottom:"10px"}},x())):null},s=({attributes:t,userData:s={},pluginUrl:c="",postId:p=0,id:m=""})=>{const{documentSource:u={},toolbar:b={},securityRestrictions:f={},downloadManagement:g={},lightbox:h={},performance:w={}}=t,{doc:x="",viewer:v="default",googleDrive:y=!1,enableFullscreen:_=!1,onDemandRendering:E=!1,fullscreenNewTab:k=!1,readerMode:C=!1,toggleThumbnails:N=!1,sidebarOpen:R=!1,loadLatestVersion:$=!1,hrScrollbar:D=!1,initialPage:I=1,defaultZoom:S=""}=u,{showName:F=!1,download:L=!1,_de_download_position:T="toolbar",theme:j="dark",toolbar_bg_color:z="#343434",toolbar_text_color:B="#ffffff"}=b,{disablePopout:P=!1,loading_icon:A=!1}=f,{gviewFallback:O=!0}=w,{downloadButtonText:U="Download",_de_download_behavior:M="download",_de_download_filename:q="",_de_download_show_count:W=!1,_de_download_limit:V=0,_de_download_access:H="everyone",_de_download_access_roles:Q=[],_de_download_access_message:G="Access Denied",_de_email_gate:J=!1}=g,{lightbox:Y=!1,lightbox_btn_text:Z="View Document",lightbox_btn_size:K="medium",lightbox_trigger_type:X="button",lightbox_trigger_selector:ee="",lightbox_trigger_image:te="",lightbox_trigger_image_width:oe="300px",lightbox_trigger_image_height:ne="auto",lightbox_trigger_image_radius:re="8px",lightbox_trigger_image_align:le="left",lightbox_trigger_image_fit:ae="cover"}=h,[ie,de]=(0,e.useState)(0),[se,ce]=(0,e.useState)(!1),[pe,me]=(0,e.useState)(!0),[ue,be]=(0,e.useState)(!1),[fe,ge]=(0,e.useState)(!1),he=()=>{O&&ge(!0)},[we,xe]=(0,e.useState)(!1),ve=(0,e.useRef)(null);(0,e.useEffect)(()=>{s.limitReached&&ce(!0),s.downloadCount&&de(s.downloadCount)},[s]),(0,e.useEffect)(()=>{if(!Y||"selector"!==X||!ee)return;const e=e=>{e.target.closest(ee)&&(e.preventDefault(),be(!0))};return document.addEventListener("click",e),()=>document.removeEventListener("click",e)},[Y,X,ee]);const ye=x?x.substring(x.lastIndexOf("/")+1):"",_e=(e=>{if(!e)return"";try{const t=e.split(/[?#]/)[0];return t.substring(t.lastIndexOf(".")+1).toLowerCase()}catch(e){return""}})(x);let Ee="";const ke=x.includes("drive.google.com")||x.includes("docs.google.com");if(x.includes("dropbox.com"))Ee=x.replace("www.dropbox.com","dl.dropboxusercontent.com");else if(ke)Ee=x.replace("/view","/preview");else if(y)Ee=`https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(x)}`;else if("pdf"===_e)if("custom"===v){let e=x;if($){const t=e.includes("?")?"&":"?";e+=`${t}v=${Date.now()}`}Ee=`${c}assets/pdfjs-new/web/viewer.html?file=${encodeURIComponent(e)}&toolbar_theme=${j}&toolbar_bg_color=${encodeURIComponent(z)}&toolbar_text_color=${encodeURIComponent(B)}`;const t=F||L;_&&!t&&(Ee+="&fullscreenBtn=1"),E&&(Ee+="&onDemandRender=1"),k&&!t&&(Ee+="&newTabBtn=1"),C&&(Ee+="&raw=1"),N&&(Ee+="&side=true"),R&&(Ee+="&open=true"),D&&(Ee+="&hrscroll=vera"),S&&(Ee+=`&z=${encodeURIComponent(S)}`),I>1&&(Ee+=`#page=${I}`)}else Ee=`https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(x)}`;else Ee=["ppt","pptx","xls","xlsx","doc","docx"].includes(_e)?`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(x)}`:`https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(x)}`;const Ce=e=>{if(e.preventDefault(),J)xe(!0);else{let e=null;"newtab"===M&&(e=window.open("about:blank","_blank")),((e,t)=>{if(void 0===window.bplde_obj){if("newtab"===e&&t)t.location.href=x;else{const e=document.createElement("a");e.href=x,e.download=q||!0,document.body.appendChild(e),e.click(),document.body.removeChild(e)}return}const o=new FormData;o.append("action","de_track_download"),o.append("nonce",window.bplde_obj.track_nonce),o.append("document_id",p),fetch(window.bplde_obj.ajax_url,{method:"POST",body:o}).then(e=>e.json()).then(o=>{if(o.success){de(o.data.count),(o.data.limit_reached||o.data.count>=parseInt(V)&&parseInt(V)>0)&&ce(!0);const n=`${window.bplde_obj.rest_url}download/${p}?de_nonce=${o.data.nonce}&behavior=${encodeURIComponent(e)}&filename=${encodeURIComponent(q)}`;"newtab"===e&&t?t.location.href=n:window.location.href=n}else if("newtab"===e&&t)t.location.href=x;else{const e=document.createElement("a");e.href=x,e.download=q||!0,document.body.appendChild(e),e.click(),document.body.removeChild(e)}}).catch(()=>{if("newtab"===e&&t)t.location.href=x;else{const e=document.createElement("a");e.href=x,e.download=q||!0,document.body.appendChild(e),e.click(),document.body.removeChild(e)}})})(M,e)}},Ne=(()=>{if("loggedin"===H&&!s.isLoggedIn)return!0;if("roles"===H){if(!s.isLoggedIn)return!0;const e=Array.isArray(Q)?Q:[],t=Array.isArray(s.userRoles)?s.userRoles:[];return!e.some(e=>t.includes(e))}return!1})(),Re=T||"toolbar",$e="custom"===v&&"pdf"===_e&&(_||k)&&(F||L),De=()=>{k?window.open(Ee,"_blank","noopener"):(()=>{const e=ve.current;e&&(document.fullscreenElement?(document.exitFullscreen||document.webkitExitFullscreen||document.msExitFullscreen)?.call(document):(e.requestFullscreen||e.webkitRequestFullscreen||e.msRequestFullscreen)?.call(e))})()},Ie=k?(0,o.__)("Open in new tab","document-emberdder"):(0,o.__)("Full screen","document-emberdder"),Se=()=>be(!0),Fe=()=>{const a=["jpg","jpeg","png","gif","webp"].includes(_e),i=["mp4","webm","ogg"].includes(_e);if(fe&&O){if("pdf"===_e){let o=x;if($){const e=o.includes("?")?"&":"?";o+=`${e}v=${Date.now()}`}let r=`${c}assets/pdfjs-new/web/viewer.html?file=${encodeURIComponent(o)}&toolbar_theme=${j}&toolbar_bg_color=${encodeURIComponent(z)}&toolbar_text_color=${encodeURIComponent(B)}`;const l=F||L;return _&&!l&&(r+="&fullscreenBtn=1"),E&&(r+="&onDemandRender=1"),k&&!l&&(r+="&newTabBtn=1"),C&&(r+="&raw=1"),N&&(r+="&side=true"),R&&(r+="&open=true"),D&&(r+="&hrscroll=vera"),S&&(r+=`&z=${encodeURIComponent(S)}`),I>1&&(r+=`#page=${I}`),(0,e.createElement)(n,{attributes:t,source:r,className:"",isBackend:!1,onLoad:()=>me(!1),onGViewError:()=>{}})}return(0,e.createElement)("div",{className:"ppv-preview-unavailable",style:{width:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:"12px",padding:"20px",textAlign:"center",boxSizing:"border-box"}},(0,e.createElement)("p",{style:{margin:0}},(0,o.__)("Preview temporarily unavailable.","document-emberdder")),(0,e.createElement)("a",{className:"ppv_download_bttn",href:x,download:q||!0,style:{display:"inline-block",padding:"8px 16px",borderRadius:"4px",border:"1px solid #cececf",color:"inherit",textDecoration:"none",cursor:"pointer"}},U||(0,o.__)("Download","document-emberdder")))}return x.includes("dropbox.com")?(0,e.createElement)("a",{href:x,className:"dropbox-embed","data-height":"100%","data-width":"100%",style:{display:"block",width:"100%",height:"100%"}}):ke||y?(0,e.createElement)(r,{src:Ee,title:ye,onLoad:()=>me(!1),onError:O?he:void 0},P&&(0,e.createElement)("div",{style:{width:"80px",height:"80px",position:"absolute",opacity:0,right:"0px",top:"0px",zIndex:9999}})):a?(0,e.createElement)("img",{src:x,alt:ye,onLoad:()=>me(!1),className:"bplDl-preview-image",style:{width:"100%",height:"100%",objectFit:"contain",display:"block"}}):i?(0,e.createElement)("video",{src:x,controls:!0,onLoadedData:()=>me(!1),className:"bplDl-preview-video",style:{width:"100%",height:"100%",display:"block"}}):"pdf"===_e?"flipbook"===v||"slider"===v?(0,e.createElement)(l,{attributes:t,source:x,viewerType:v,onLoad:()=>me(!1)}):"custom"===v?(0,e.createElement)(n,{attributes:t,source:Ee,className:"",isBackend:!1,onLoad:()=>me(!1),onGViewError:()=>{}}):(0,e.createElement)(r,{src:Ee,title:ye,className:"bplDl-preview-iframe",onLoad:()=>me(!1),onError:O?he:void 0},P&&(0,e.createElement)("div",{style:{width:"70px",height:"70px",position:"absolute",opacity:0,right:"5px",top:"0px",zIndex:99999}})):["ppt","pptx","xls","xlsx","doc","docx","txt","pages","xps","ai","psd","eps","dxf","ttf","zip","rar"].includes(_e)?(0,e.createElement)(r,{src:Ee,title:ye,className:"bplDl-preview-iframe",onLoad:()=>me(!1),onError:O?he:void 0},P&&(0,e.createElement)("div",{style:{width:"70px",height:"70px",position:"absolute",opacity:0,right:"5px",top:"0px",zIndex:99999}})):(0,e.createElement)("div",{style:{width:"100%",height:"100%",position:"relative"}},(0,e.createElement)("p",{style:{paddingLeft:"10px"}},"Preview not available for this file type."),P&&(0,e.createElement)("div",{style:{width:"70px",height:"70px",position:"absolute",opacity:0,right:"5px",top:"0px",zIndex:99999}}))};return(0,e.createElement)(e.Fragment,null,(0,e.createElement)(a,{attributes:t,id:m,uniqueId:m}),(0,e.createElement)("div",{id:`ppv_frame_wrapper${m}`,"data-lightbox":Y?"1":void 0,className:`ppv_container ${m}`},""===x?(0,e.createElement)("div",{style:{padding:"20px",textAlign:"center",border:"1px dashed #ccc",borderRadius:"4px"}},(0,e.createElement)("h2",null,"Ooops... You forgot to Select a document. Please select a file or paste a external document link to show here."," ")):Y?(0,e.createElement)(e.Fragment,null,(()=>{if("selector"===X&&ee)return null;if("image"===X&&te){const t="center"===le?{marginLeft:"auto",marginRight:"auto"}:"right"===le?{marginLeft:"auto",marginRight:"0"}:{marginLeft:"0",marginRight:"auto"};return(0,e.createElement)("img",{src:te,alt:Z||ye,className:"ppv-lightbox-trigger-img",onClick:Se,style:{width:oe||"300px",height:ne||"auto",maxWidth:"100%",borderRadius:re||"0",objectFit:ae||"cover",...t}})}return(0,e.createElement)("button",{className:`ppv-lightbox-btn ${K}`,onClick:Se},Z)})(),(0,e.createElement)("div",{className:"ppv-lightbox-overlay "+(ue?"open":""),style:{display:ue?"flex":"none"}},(0,e.createElement)("div",{className:"bplde-lightbox"},(0,e.createElement)("span",{className:"bplde-lightbox-close",onClick:()=>be(!1)},"×"),(0,e.createElement)("div",{className:"bplde-lightbox-body"},A&&pe&&(0,e.createElement)("div",{className:"ppv-lightbox-loading"}),(0,e.createElement)(d,{filename:ye,showName:F,download:L,position:"lightbox",limitReached:se,isRestricted:Ne,downloadAccessMessage:G,downloadButtonText:U,downloadShowCount:W,downloadCount:ie,handleDownloadClick:Ce,doc:x,downloadFilename:q,behavior:M,theme:j,showFullscreen:$e,onFullscreenClick:De,fullscreenTitle:Ie}),(0,e.createElement)("div",{ref:ve,className:"document-preview",style:{flex:1,position:"relative",height:"100%",width:"100%"}},Fe()))))):(0,e.createElement)(e.Fragment,null,A&&pe&&(0,e.createElement)("div",{className:"ppv-lightbox-loading"}),"toolbar"===Re&&(0,e.createElement)(d,{filename:ye,showName:F,download:L,position:"toolbar",limitReached:se,isRestricted:Ne,downloadAccessMessage:G,downloadButtonText:U,downloadShowCount:W,downloadCount:ie,handleDownloadClick:Ce,doc:x,downloadFilename:q,behavior:M,theme:j,showFullscreen:$e,onFullscreenClick:De,fullscreenTitle:Ie}),x.includes("dropbox.com")?(0,e.createElement)("div",{className:"dropbox-preview",style:{width:"100%",flex:1,minHeight:0,position:"relative"}},Fe()):ke?(0,e.createElement)("div",{className:"drive-preview",style:{width:"100%",flex:1,minHeight:0,position:"relative"}},Fe()):(0,e.createElement)("div",{ref:ve,className:"document-preview",style:{flex:1,minHeight:0,width:"100%",position:"relative"}},Fe()),"below"===Re&&(0,e.createElement)(d,{filename:ye,showName:F,download:L,position:"below",limitReached:se,isRestricted:Ne,downloadAccessMessage:G,downloadButtonText:U,downloadShowCount:W,downloadCount:ie,handleDownloadClick:Ce,doc:x,downloadFilename:q,behavior:M,theme:j,showFullscreen:$e,onFullscreenClick:De,fullscreenTitle:Ie})),we&&(0,e.createElement)(i,{onClose:()=>xe(!1),postId:p,downloadBehavior:M,downloadButtonText:U,onSuccess:()=>de(e=>e+1)})))},c=o=>{if(o.hasAttribute("data-bplde-initialized"))return;let n=o.dataset.attributes;if(!n){const e=o.querySelector("[data-attributes]");e&&(n=e.dataset.attributes)}if(n){o.setAttribute("data-bplde-initialized","true");try{const r=JSON.parse(n);let l={};o.dataset.user&&(l=JSON.parse(o.dataset.user));const a=o.dataset.pluginUrl||"",i=parseInt(o.dataset.postId||0,10);(0,t.createRoot)(o).render((0,e.createElement)(s,{attributes:r,userData:l,pluginUrl:a,postId:i,id:o.id}))}catch(e){console.error("Failed to initialize Document Embed block:",e)}}},p=(e=document)=>{e.querySelectorAll(".bplde-document-embed-frontend").forEach(e=>{if(e.hasAttribute("data-bplde-initialized"))return;let t=!1;try{const o=e.dataset.attributes||e.querySelector("[data-attributes]")?.dataset.attributes;if(o){const e=JSON.parse(o);t=!0===e?.performance?.lazyLoad}}catch(e){t=!1}t&&"undefined"!=typeof IntersectionObserver?new IntersectionObserver((e,t)=>{e.forEach(e=>{e.isIntersecting&&(c(e.target),t.unobserve(e.target))})},{rootMargin:"200px"}).observe(e):c(e)})};"complete"!==document.readyState&&"interactive"!==document.readyState||p(),document.addEventListener("DOMContentLoaded",()=>{p()});const m=()=>!(!window.elementorFrontend||!window.elementorFrontend.hooks||(window.elementorFrontend.hooks.addAction("frontend/element_ready/global",e=>{p(e[0])}),0));let u=0;const b=()=>{m()||u<20&&(u++,setTimeout(b,500))};b(),"undefined"!=typeof jQuery&&jQuery(window).on("elementor/frontend/init",m)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/blocks/document-embed/components/Common/DocToolbar.js":
+/*!*******************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/DocToolbar.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const DocToolbar = ({
+  filename,
+  showName,
+  download,
+  position = "toolbar",
+  limitReached,
+  isRestricted,
+  downloadAccessMessage = "Access Denied",
+  downloadButtonText = "Download",
+  downloadShowCount,
+  downloadCount,
+  handleDownloadClick,
+  doc,
+  downloadFilename,
+  behavior = "download",
+  theme = "dark",
+  showFullscreen = false,
+  onFullscreenClick,
+  fullscreenTitle = "Full screen"
+}) => {
+  if (!showName && !download && !showFullscreen) return null;
+  const renderDownloadButton = () => {
+    if (limitReached) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+        disabled: true,
+        style: {
+          background: "transparent",
+          padding: "4px 10px",
+          borderRadius: "4px",
+          border: "1px solid #ff4d4d",
+          color: "#ff4d4d",
+          cursor: "not-allowed"
+        },
+        title: "Download limit reached for your IP."
+      }, "Limit Reached");
+    }
+    if (isRestricted) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+        className: "de-access-denied-msg"
+      }, downloadAccessMessage);
+    }
+    const btnLabel = downloadButtonText || "Download";
+    const downloadCountHtml = downloadShowCount ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "ppv-download-count",
+      style: {
+        marginLeft: "8px",
+        fontSize: "12px",
+        color: "#999",
+        fontWeight: "500"
+      }
+    }, "(", downloadCount, " ", downloadCount === 1 ? "download" : "downloads", ")") : null;
+    const dlAttr = downloadFilename ? downloadFilename : true;
+    const isNewTab = behavior === "newtab";
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        display: "inline-flex",
+        alignItems: "center"
+      }
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      className: "s_pdf_download_link",
+      style: {
+        display: "flex",
+        textDecoration: "none"
+      },
+      href: doc,
+      target: isNewTab ? "_blank" : undefined,
+      rel: isNewTab ? "noopener noreferrer" : undefined,
+      download: isNewTab ? undefined : dlAttr
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      style: {
+        background: "transparent",
+        padding: "4px 10px",
+        borderRadius: "4px",
+        border: "1px solid #cececf",
+        color: "#cececf",
+        cursor: "pointer",
+        fontSize: "12px"
+      },
+      className: "ppv_download_bttn",
+      onClick: handleDownloadClick
+    }, btnLabel)), downloadCountHtml);
+  };
+  const renderFullscreenButton = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button",
+    className: "ppv_fullscreen_bttn",
+    onClick: onFullscreenClick,
+    title: fullscreenTitle,
+    "aria-label": fullscreenTitle,
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "transparent",
+      padding: "4px 8px",
+      borderRadius: "4px",
+      border: "1px solid #cececf",
+      color: "#cececf",
+      cursor: "pointer"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("polyline", {
+    points: "15 3 21 3 21 9"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("polyline", {
+    points: "9 21 3 21 3 15"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("line", {
+    x1: "21",
+    y1: "3",
+    x2: "14",
+    y2: "10"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("line", {
+    x1: "3",
+    y1: "21",
+    x2: "10",
+    y2: "14"
+  })));
+  const justify = !showName ? "flex-end" : "space-between";
+  const renderRightGroup = () => (download || showFullscreen) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ppv-toolbar-right",
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "8px"
+    }
+  }, download && renderDownloadButton(), showFullscreen && renderFullscreenButton());
+  if (position === "lightbox" || position === "toolbar") {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: `ppv-toolbar ${theme}`,
+      style: {
+        display: "flex",
+        justifyContent: justify
+      }
+    }, showName && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "ppv-filename"
+    }, filename), renderRightGroup());
+  }
+  if (position === "below") {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: `ppv-toolbar ${theme}`,
+      style: {
+        display: "flex",
+        justifyContent: justify,
+        marginTop: 0
+      }
+    }, showName && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "ppv-filename"
+    }, filename), renderRightGroup());
+  }
+  if (position === "above") {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        marginBottom: "10px"
+      }
+    }, showName && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+      style: {
+        paddingLeft: "10px",
+        margin: "0 0 10px 0"
+      }
+    }, filename), download && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        marginBottom: "10px"
+      }
+    }, renderDownloadButton()));
+  }
+  return null;
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DocToolbar);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/components/Common/EmailGate.js":
+/*!******************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/EmailGate.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const EmailGate = ({
+  onClose,
+  postId,
+  downloadBehavior = "download",
+  downloadButtonText = "Download",
+  onSuccess
+}) => {
+  const [name, setName] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const [email, setEmail] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
+  const [submitting, setSubmitting] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const handleSubmit = e => {
+    e.preventDefault();
+    setSubmitting(true);
+    const data = {
+      name,
+      email,
+      document_id: postId
+    };
+    let newTab = null;
+    if (downloadBehavior === "newtab") {
+      newTab = window.open("about:blank", "_blank");
+    }
+    const restUrl = window.bplde_obj?.rest_url || "/wp-json/docembedder/v1/";
+    fetch(`${restUrl}gate-download`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json()).then(res => {
+      if (res.success && res.url) {
+        onClose();
+        if (onSuccess) {
+          onSuccess();
+        }
+        if (downloadBehavior === "newtab" && newTab) {
+          newTab.location.href = res.url;
+        } else {
+          window.location.href = res.url;
+        }
+      } else {
+        alert(res.message || "Error processing request");
+        if (newTab) newTab.close();
+      }
+    }).catch(() => {
+      alert("Error connecting to server.");
+      if (newTab) newTab.close();
+    }).finally(() => {
+      setSubmitting(false);
+    });
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ppv-email-gate-modal-wrapper",
+    style: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: "rgba(0,0,0,0.5)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 999999
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ppv-email-gate-modal-content",
+    style: {
+      background: "#fff",
+      padding: "25px",
+      borderRadius: "8px",
+      width: "90%",
+      maxWidth: "400px",
+      position: "relative",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.2)"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button",
+    className: "ppv-close-modal",
+    onClick: onClose,
+    style: {
+      position: "absolute",
+      top: "10px",
+      right: "15px",
+      background: "none",
+      border: "none",
+      fontSize: "24px",
+      cursor: "pointer",
+      color: "#999"
+    }
+  }, "\xD7"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    style: {
+      marginTop: 0,
+      marginBottom: "20px",
+      fontSize: "18px",
+      fontWeight: "600"
+    }
+  }, "Download Document"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
+    className: "ppv-email-gate-form",
+    onSubmit: handleSubmit
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: "15px"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    style: {
+      display: "block",
+      marginBottom: "5px",
+      fontWeight: "500"
+    }
+  }, "Name"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "text",
+    name: "name",
+    required: true,
+    value: name,
+    onChange: e => setName(e.target.value),
+    style: {
+      width: "100%",
+      padding: "8px 12px",
+      border: "1px solid #ccc",
+      borderRadius: "4px"
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      marginBottom: "20px"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    style: {
+      display: "block",
+      marginBottom: "5px",
+      fontWeight: "500"
+    }
+  }, "Email"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "email",
+    name: "email",
+    required: true,
+    value: email,
+    onChange: e => setEmail(e.target.value),
+    style: {
+      width: "100%",
+      padding: "8px 12px",
+      border: "1px solid #ccc",
+      borderRadius: "4px"
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "submit",
+    disabled: submitting,
+    style: {
+      width: "100%",
+      padding: "10px",
+      background: "#007cba",
+      color: "#fff",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontWeight: "600"
+    }
+  }, submitting ? "Processing..." : downloadButtonText), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "ppv-gate-secure-text",
+    style: {
+      fontSize: "11px",
+      color: "#666",
+      marginTop: "10px",
+      textAlign: "center"
+    }
+  }, "Your details are saved securely."))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EmailGate);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/components/Common/FlipbookViewer.js":
+/*!***********************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/FlipbookViewer.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+/**
+ * FlipbookViewer
+ *
+ * Renders a PDF using the bundled dFlip library as either a page-turning
+ * "flipbook" or a swipeable "slider". The dFlip library (jQuery plugin) is
+ * enqueued server-side only when one of these viewers is selected
+ * (see render.php / class-bplde-blocks.php), so this component waits until
+ * `window.jQuery(...).flipBook` is available before initializing.
+ *
+ * @param {Object} attributes  Block attributes (used for height).
+ * @param {string} source      The PDF file URL.
+ * @param {string} viewerType  "flipbook" | "slider".
+ * @param {Function} onLoad     Called once dFlip has been initialized.
+ */
+const FlipbookViewer = ({
+  attributes = {},
+  source = "",
+  viewerType = "flipbook",
+  onLoad
+}) => {
+  const containerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const flipbookRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const {
+    displayDimensions = {}
+  } = attributes;
+  const heightObj = displayDimensions?.height || {};
+  const height = (typeof heightObj === "object" ? heightObj.desktop : heightObj) || "600px";
+  const pdfUrl = source;
+  const docSource = attributes?.documentSource || {};
+  const initialPage = docSource.initialPage || 1;
+  const readerMode = docSource.readerMode || false;
+  const toggleThumbnails = docSource.toggleThumbnails || false;
+  const sidebarOpen = docSource.sidebarOpen || false;
+  const loadLatestVersion = docSource.loadLatestVersion || false;
+  const enableFullscreen = docSource.enableFullscreen || false;
+  const fullscreenNewTab = docSource.fullscreenNewTab || false;
+  const onDemandRendering = docSource.onDemandRendering || false;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    let cancelled = false;
+    let pollId = null;
+
+    // dFlip viewerType: "slider" = one page at a time (swipe), "flipbook" = page turn.
+    const dflipViewerType = viewerType === "slider" ? "slider" : "flipbook";
+    const isLibReady = () => !!(window.jQuery && window.jQuery.fn && typeof window.jQuery.fn.flipBook === "function");
+    const initFlipbook = () => {
+      const el = containerRef.current;
+      if (cancelled || !el || !pdfUrl) return;
+      if (el.dataset.dflipInitialized === "true") return;
+
+      // 1. Load Latest Version
+      let finalPdfUrl = pdfUrl;
+      if (loadLatestVersion && finalPdfUrl) {
+        const separator = finalPdfUrl.includes("?") ? "&" : "?";
+        finalPdfUrl += `${separator}v=${Date.now()}`;
+      }
+
+      // 2. Hide controls based on toggles
+      let hideControls = "";
+      if (!toggleThumbnails) {
+        hideControls += (hideControls ? "," : "") + "thumbnail";
+      }
+      if (!enableFullscreen) {
+        hideControls += (hideControls ? "," : "") + "fullScreen";
+      }
+      const options = {
+        viewerType: dflipViewerType,
+        openPage: initialPage,
+        backgroundColor: "transparent",
+        height: "100%",
+        // Reader Mode: hide controls entirely
+        controlsPosition: readerMode ? "hidden" : "bottom",
+        // Sidebar Open: auto open thumbnail on load
+        autoOpenThumbnail: sidebarOpen,
+        // On-Demand Page Rendering
+        instantTextureProcess: !onDemandRendering
+      };
+      if (hideControls) {
+        options.hideControls = hideControls;
+      }
+
+      // 3. Fullscreen in New Tab behavior
+      if (fullscreenNewTab) {
+        options.onCreateUI = function (app) {
+          if (app.ui && app.ui.controls && app.ui.controls.fullScreen) {
+            const $btn = app.ui.controls.fullScreen;
+            $btn.off("click");
+            $btn.on("click", function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              window.open(finalPdfUrl, "_blank", "noopener");
+            });
+          }
+        };
+      }
+      el.dataset.dflipInitialized = "true";
+      try {
+        flipbookRef.current = window.jQuery(el).flipBook(finalPdfUrl, options);
+        // dFlip lays out against the current container size; nudge it once mounted.
+        window.dispatchEvent(new Event("resize"));
+        if (typeof onLoad === "function") onLoad();
+      } catch (error) {
+        // Roll back the guard so a later retry can still initialize.
+        el.dataset.dflipInitialized = "false";
+        // eslint-disable-next-line no-console
+        console.error("Error initializing dFlip viewer:", error);
+      }
+    };
+
+    // The dFlip script loads in the footer; poll until it (and jQuery) are ready.
+    const tryInit = () => {
+      if (cancelled) return;
+      if (isLibReady()) {
+        initFlipbook();
+      } else {
+        pollId = setTimeout(tryInit, 150);
+      }
+    };
+
+    // Only initialize once the container is actually in view (matches pdf-poster).
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          tryInit();
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+    return () => {
+      cancelled = true;
+      if (pollId) clearTimeout(pollId);
+      observer.disconnect();
+      if (flipbookRef.current && typeof flipbookRef.current.dispose === "function") {
+        try {
+          flipbookRef.current.dispose();
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.warn("dFlip dispose error:", err);
+        }
+      }
+      if (containerRef.current) {
+        containerRef.current.dataset.dflipInitialized = "false";
+        try {
+          containerRef.current.innerHTML = "";
+        } catch (e) {
+          // ignore
+        }
+      }
+    };
+  }, [pdfUrl, viewerType, height, initialPage, readerMode, toggleThumbnails, sidebarOpen, loadLatestVersion, enableFullscreen, fullscreenNewTab, onDemandRendering]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "bplde-dflip-wrapper",
+    style: {
+      height: "100%",
+      width: "100%"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: containerRef,
+    className: "dflip-container",
+    style: {
+      height: "100%",
+      width: "100%"
+    }
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FlipbookViewer);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/components/Common/IframePreview.js":
+/*!**********************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/IframePreview.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+/**
+ * Shared iframe wrapper for the Google-Docs-Viewer / default-viewer branches.
+ *
+ * Reuses the same failure-detection pattern proven in PDFJSViewer: a 10s timeout that
+ * fires onError only for google.com/gview sources that never load, plus a postMessage
+ * listener. It does nothing extra for non-gview sources (e.g. Office Online), so those
+ * branches keep their exact current behavior.
+ */
+const IframePreview = ({
+  src,
+  className = "",
+  title = "",
+  onLoad,
+  onError,
+  children
+}) => {
+  const [, setLoaded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const loadedRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+  // Keep the latest onError without making it an effect dependency, so a new inline
+  // handler identity on each render doesn't restart the timeout.
+  const onErrorRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(onError);
+  onErrorRef.current = onError;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    loadedRef.current = false;
+    setLoaded(false);
+    let timeoutId;
+    const isGview = src && src.includes("google.com/gview");
+
+    // Only the Google Docs Viewer gets the downtime timeout — and only after both the
+    // timeout elapses AND the iframe never fired onLoad.
+    if (isGview) {
+      timeoutId = setTimeout(() => {
+        if (!loadedRef.current && typeof onErrorRef.current === "function") {
+          onErrorRef.current();
+        }
+      }, 10000);
+    }
+    const handleMessage = event => {
+      if (event.data && event.data.type === "PDFP_ERROR" && typeof onErrorRef.current === "function") {
+        onErrorRef.current();
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [src]);
+  const handleLoad = () => {
+    loadedRef.current = true;
+    setLoaded(true);
+    if (typeof onLoad === "function") onLoad();
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      width: "100%",
+      height: "100%",
+      position: "relative"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("iframe", {
+    src: src,
+    title: title,
+    className: className,
+    onLoad: handleLoad,
+    style: {
+      width: "100%",
+      height: "100%",
+      border: "none",
+      display: "block"
+    }
+  }), children);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (IframePreview);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/components/Common/PDFJSViewer.js":
+/*!********************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/PDFJSViewer.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../style.scss */ "./src/blocks/document-embed/style.scss");
+
+
+
+
+const exampleFile = "http://localhost/freemius/wp-content/uploads/2022/02/temp.pdf";
+function PDFJSViewer({
+  __ = _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__,
+  attributes = {},
+  source = window.pdfp?.placeholder || exampleFile,
+  className = "",
+  isBackend = false,
+  onGViewError,
+  onLoad
+}) {
+  const {
+    hrScroll = false,
+    title = "",
+    socialShare = {}
+  } = attributes;
+  const {
+    position = ""
+  } = socialShare;
+  const [isLoaded, setIsLoaded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [pdfError, setPdfError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // Reset error when source changes
+    setPdfError(null);
+    setIsLoaded(false);
+    if (!source) return;
+
+    // HTTP HEAD check to pre-validate the URL
+    const validatePdfUrl = async url => {
+      // Don't check GView URLs as they are already a proxy
+      if (url.includes("google.com/gview")) return;
+      let fileToValidate = url;
+      // If it's a viewer URL, extract the actual file path to check it
+      if (url.includes("viewer.html")) {
+        try {
+          const urlObj = new URL(url, window.location.origin);
+          fileToValidate = urlObj.searchParams.get("file") || url;
+        } catch (e) {
+          // Fallback to original url if parsing fails
+        }
+      }
+      try {
+        const response = await fetch(fileToValidate, {
+          method: "HEAD",
+          cache: "no-cache"
+        });
+        if (!response.ok) {
+          setPdfError(__("The PDF file could not be found or the server returned an error.", "document-emberdder"));
+          return;
+        }
+        const contentLength = response.headers.get("Content-Length");
+        if (contentLength && parseInt(contentLength, 10) === 0) {
+          setPdfError(__("The PDF file is empty or corrupted (0 bytes).", 'document-emberdder'));
+        }
+      } catch (error) {
+        // If fetch fails due to CORS, we just let PDF.js try anyway
+        console.warn("PDF pre-check failed (likely CORS). Continuing load attempt.", error);
+      }
+    };
+    validatePdfUrl(source);
+    let timeoutId;
+    if (source.includes("google.com/gview") && !isLoaded) {
+      // Set a 10 second timeout for GView
+      timeoutId = setTimeout(() => {
+        if (!isLoaded && typeof onGViewError === "function") {
+          console.warn("Google Docs Viewer took too long to load. Falling back to PDF.js.");
+          onGViewError();
+        }
+      }, 10000);
+    }
+
+    // Listen for messages from custom.js inside the iframe
+    const handleMessage = event => {
+      if (event.data && event.data.type === "PDFP_ERROR") {
+        setPdfError(event.data.message || __("An error occurred while loading the PDF.", "document-emberdder"));
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [source, isLoaded, onGViewError, __]);
+  const exitFullScreen = () => {
+    try {
+      document.exitFullscreen();
+    } catch (e) {
+      // ignore
+    }
+  };
+  const handleLoad = () => {
+    setIsLoaded(true);
+    if (typeof onLoad === "function") {
+      onLoad();
+    }
+  };
+  const renderError = message => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pdfp_error_container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pdfp_error_box"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "48",
+    height: "48",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("circle", {
+    cx: "12",
+    cy: "12",
+    r: "10"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("line", {
+    x1: "12",
+    y1: "8",
+    x2: "12",
+    y2: "12"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("line", {
+    x1: "12",
+    y1: "16",
+    x2: "12.01",
+    y2: "16"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, message), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: () => window.location.reload(),
+    className: "pdfp_retry_btn"
+  }, __("Retry", "document-emberdder"))));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, source.includes("dropbox.com") ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "dropbox-embed-sdfsdfsdf",
+    style: {
+      border: "2px solid #ddd"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, __("Preview is not available for dropbox", "document-emberdder"))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `iframe_wrapper ${className} ${hrScroll ? "pdfp_horizontal_scroll" : ""}`,
+    style: {
+      width: "100%",
+      height: "100%",
+      position: "relative"
+    }
+  }, isBackend && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pdfp-embed-overlay"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pdfp_frame_overlay"
+  }), pdfError ? renderError(pdfError) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("iframe", {
+    className: "pdfp_iframe",
+    src: source,
+    title: title,
+    onLoad: handleLoad,
+    allowFullScreen: true,
+    allow: "fullscreen",
+    style: {
+      width: "100%",
+      height: "100%",
+      border: "none",
+      display: "block"
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "close",
+    onClick: exitFullScreen,
+    style: {
+      display: "none"
+    }
+  }, "\xD7"))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PDFJSViewer);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/components/Common/Style.js":
+/*!**************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/Style.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const Style = ({
+  attributes = {},
+  id = "",
+  uniqueId = ""
+}) => {
+  const {
+    displayDimensions = {},
+    lightbox = {},
+    toolbar = {}
+  } = attributes;
+  const {
+    width = {},
+    height = {}
+  } = displayDimensions;
+  const {
+    lightbox_btn_color = "#ffffff",
+    lightbox_btn_background = "#333333"
+  } = lightbox;
+  const {
+    theme = "dark",
+    toolbar_bg_color = "#343434",
+    toolbar_text_color = "#ffffff"
+  } = toolbar;
+  const parseDim = (prop, defaultVal, type = "desktop") => {
+    if (typeof prop === "object" && prop !== null) {
+      if (prop[type] !== undefined && prop[type] !== "") {
+        const val = prop[type];
+        if (typeof val === "string" && /[a-zA-Z%]/.test(val)) {
+          return val;
+        }
+        return val + (prop.unit || "px");
+      }
+      return defaultVal;
+    }
+    const val = prop !== undefined && prop !== "" ? prop : defaultVal;
+    return isNaN(val) ? val : val + "px";
+  };
+
+  // Extract dimensions
+  const w_d = parseDim(width, "100%", "desktop");
+  const w_t = parseDim(width, w_d, "tablet");
+  const w_m = parseDim(width, w_t, "mobile");
+  const h_d = parseDim(height, "840px", "desktop");
+  const h_t = parseDim(height, h_d, "tablet");
+  const h_m = parseDim(height, h_t, "mobile");
+  const selectorClass = uniqueId || id;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", {
+    dangerouslySetInnerHTML: {
+      __html: `
+          .ppv_container.${selectorClass}:not([data-lightbox="1"]) {
+            width: ${w_d} !important;
+            height: ${h_d} !important;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+          }
+
+          @media (max-width: 991px) {
+            .ppv_container.${selectorClass}:not([data-lightbox="1"]) {
+              width: ${w_t} !important;
+              height: ${h_t} !important;
+            }
+          }
+
+          @media (max-width: 767px) {
+            .ppv_container.${selectorClass}:not([data-lightbox="1"]) {
+              width: ${w_m} !important;
+              height: ${h_m} !important;
+            }
+          }
+
+          #ppv_frame_wrapper${id} .ppv-lightbox-btn {
+            color: ${lightbox_btn_color} !important;
+            background: ${lightbox_btn_background} !important;
+          }
+
+          ${theme === "custom" ? `
+            .ppv_container.${selectorClass} .ppv-toolbar.custom {
+              background: ${toolbar_bg_color} !important;
+              border: 1px solid ${toolbar_bg_color} !important;
+            }
+            .ppv_container.${selectorClass} .ppv-toolbar.custom .ppv-filename {
+              color: ${toolbar_text_color} !important;
+            }
+            .ppv_container.${selectorClass} .ppv-toolbar.custom .ppv_download_bttn {
+              border: 1px solid ${toolbar_text_color} !important;
+              color: ${toolbar_text_color} !important;
+            }
+            .ppv_container.${selectorClass} .ppv-toolbar.custom .ppv_download_bttn:hover {
+              opacity: 0.8 !important;
+            }
+          ` : ""}
+        `
+    }
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Style);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/components/Common/Viewer.js":
+/*!***************************************************************!*\
+  !*** ./src/blocks/document-embed/components/Common/Viewer.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _PDFJSViewer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PDFJSViewer */ "./src/blocks/document-embed/components/Common/PDFJSViewer.js");
+/* harmony import */ var _IframePreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./IframePreview */ "./src/blocks/document-embed/components/Common/IframePreview.js");
+/* harmony import */ var _FlipbookViewer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FlipbookViewer */ "./src/blocks/document-embed/components/Common/FlipbookViewer.js");
+/* harmony import */ var _Style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Style */ "./src/blocks/document-embed/components/Common/Style.js");
+/* harmony import */ var _EmailGate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./EmailGate */ "./src/blocks/document-embed/components/Common/EmailGate.js");
+/* harmony import */ var _DocToolbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DocToolbar */ "./src/blocks/document-embed/components/Common/DocToolbar.js");
+
+
+
+
+
+
+
+
+
+const Viewer = ({
+  attributes,
+  userData = {},
+  pluginUrl = "",
+  postId = 0,
+  id = "",
+  isEditor = false
+}) => {
+  const {
+    documentSource = {},
+    toolbar = {},
+    securityRestrictions = {},
+    downloadManagement = {},
+    lightbox = {},
+    performance = {},
+    // Set by render.php only for the document metabox's live preview request. Never set on
+    // the front end.
+    _de_preview_editing = false
+  } = attributes;
+
+  // The document metabox's live preview iframe, as flagged by render.php.
+  const isMetaboxPreview = _de_preview_editing === true || _de_preview_editing === "1";
+
+  // Authoring context: the block editor's own preview, or the metabox live preview iframe.
+  const isAuthoring = isEditor || isMetaboxPreview;
+  const {
+    doc = "",
+    viewer = "default",
+    googleDrive = false,
+    enableFullscreen = false,
+    onDemandRendering = false,
+    fullscreenNewTab = false,
+    readerMode = false,
+    toggleThumbnails = false,
+    sidebarOpen = false,
+    loadLatestVersion = false,
+    hrScrollbar = false,
+    initialPage = 1,
+    defaultZoom = ""
+  } = documentSource;
+  const {
+    showName = false,
+    download = false,
+    _de_download_position = "toolbar",
+    theme = "dark",
+    toolbar_bg_color = "#343434",
+    toolbar_text_color = "#ffffff"
+  } = toolbar;
+  const {
+    disablePopout = false,
+    loading_icon = false
+  } = securityRestrictions;
+  // Reliability: auto-fallback if the Google Docs Viewer times out. Defaults on; only acts on failure.
+  const {
+    gviewFallback = true
+  } = performance;
+  const {
+    downloadButtonText = "Download",
+    _de_download_behavior = "download",
+    _de_download_filename = "",
+    _de_download_show_count = false,
+    _de_download_limit = 0,
+    _de_download_access = "everyone",
+    _de_download_access_roles = [],
+    _de_download_access_message = "Access Denied",
+    _de_email_gate = false
+  } = downloadManagement;
+  const {
+    lightbox: isLightboxEnabled = false,
+    lightbox_btn_text = "View Document",
+    lightbox_btn_size = "medium",
+    lightbox_trigger_type = "button",
+    lightbox_trigger_selector = "",
+    lightbox_trigger_image = "",
+    lightbox_trigger_image_width = "300px",
+    lightbox_trigger_image_height = "auto",
+    lightbox_trigger_image_radius = "8px",
+    lightbox_trigger_image_align = "left",
+    lightbox_trigger_image_fit = "cover"
+  } = lightbox;
+  const [downloadCount, setDownloadCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
+  const [limitReached, setLimitReached] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [isLoading, setIsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [isLightboxOpen, setIsLightboxOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Google Docs Viewer downtime fallback state.
+  const [gviewFailed, setGviewFailed] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const handleGViewError = () => {
+    if (gviewFallback) {
+      setGviewFailed(true);
+    }
+  };
+
+  // Email Gate state
+  const [showEmailGate, setShowEmailGate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+
+  // Ref to the element wrapping the PDF preview, used for native full-screen from the plugin toolbar.
+  const previewRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const toggleFullscreen = () => {
+    const el = previewRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen)?.call(document);
+    } else {
+      (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen)?.call(el);
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (userData.limitReached) {
+      setLimitReached(true);
+    }
+    if (userData.downloadCount) {
+      setDownloadCount(userData.downloadCount);
+    }
+  }, [userData]);
+
+  // Lightbox "custom element" trigger: open this embed's modal when a matching element
+  // anywhere on the page is clicked. Scoped to this component instance, so multiple embeds
+  // with different selectors coexist without conflict.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!isLightboxEnabled || lightbox_trigger_type !== "selector" || !lightbox_trigger_selector) {
+      return undefined;
+    }
+    const handler = e => {
+      const target = e.target.closest(lightbox_trigger_selector);
+      if (target) {
+        e.preventDefault();
+        setIsLightboxOpen(true);
+      }
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [isLightboxEnabled, lightbox_trigger_type, lightbox_trigger_selector]);
+  const filename = doc ? doc.substring(doc.lastIndexOf("/") + 1) : "";
+  const getFileExtension = url => {
+    if (!url) return "";
+    try {
+      const cleanUrl = url.split(/[?#]/)[0];
+      return cleanUrl.substring(cleanUrl.lastIndexOf(".") + 1).toLowerCase();
+    } catch (e) {
+      return "";
+    }
+  };
+  const ext = getFileExtension(doc);
+  let frameUrl = "";
+  const isGoogleUrl = doc.includes("drive.google.com") || doc.includes("docs.google.com");
+  if (doc.includes("dropbox.com")) {
+    frameUrl = doc.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+  } else if (isGoogleUrl) {
+    frameUrl = doc.replace("/view", "/preview");
+  } else if (googleDrive) {
+    frameUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(doc)}`;
+  } else if (ext === "pdf") {
+    if (viewer === "custom") {
+      let docUrl = doc;
+      if (loadLatestVersion) {
+        const separator = docUrl.includes("?") ? "&" : "?";
+        docUrl += `${separator}v=${Date.now()}`;
+      }
+      frameUrl = `${pluginUrl}assets/pdfjs-new/web/viewer.html?file=${encodeURIComponent(docUrl)}&toolbar_theme=${theme}&toolbar_bg_color=${encodeURIComponent(toolbar_bg_color)}&toolbar_text_color=${encodeURIComponent(toolbar_text_color)}`;
+      // Custom-PDF-viewer-only features. Appended only on this branch, so the Default/Google Drive path is untouched.
+      // Full-screen & open-in-new-tab: when the plugin toolbar is present we render one button there
+      // (its action depends on fullscreenNewTab), so only fall back to pdf.js's own buttons when there
+      // is no plugin toolbar (showName/download both off).
+      const hasPluginToolbar = showName || download;
+      if (enableFullscreen && !hasPluginToolbar) {
+        frameUrl += "&fullscreenBtn=1";
+      }
+      if (onDemandRendering) {
+        frameUrl += "&onDemandRender=1";
+      }
+      if (fullscreenNewTab && !hasPluginToolbar) {
+        frameUrl += "&newTabBtn=1";
+      }
+      if (readerMode) frameUrl += "&raw=1";
+      if (toggleThumbnails) frameUrl += "&side=true";
+      if (sidebarOpen) frameUrl += "&open=true";
+      if (hrScrollbar) frameUrl += "&hrscroll=vera";
+      if (defaultZoom) frameUrl += `&z=${encodeURIComponent(defaultZoom)}`;
+      if (initialPage > 1) frameUrl += `#page=${initialPage}`;
+    } else {
+      frameUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(doc)}`;
+    }
+  } else if (["ppt", "pptx", "xls", "xlsx", "doc", "docx"].includes(ext)) {
+    frameUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(doc)}`;
+  } else {
+    frameUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(doc)}`;
+  }
+  const isDownloadRestricted = () => {
+    if (_de_download_access === "loggedin" && !userData.isLoggedIn) {
+      return true;
+    }
+    if (_de_download_access === "roles") {
+      if (!userData.isLoggedIn) return true;
+      const allowedRoles = Array.isArray(_de_download_access_roles) ? _de_download_access_roles : [];
+      const userRoles = Array.isArray(userData.userRoles) ? userData.userRoles : [];
+      const hasAccess = allowedRoles.some(role => userRoles.includes(role));
+      return !hasAccess;
+    }
+    return false;
+  };
+  const trackDownload = (behavior, newTab) => {
+    if (typeof window.bplde_obj === "undefined") {
+      if (behavior === "newtab" && newTab) {
+        newTab.location.href = doc;
+      } else {
+        const link = document.createElement("a");
+        link.href = doc;
+        link.download = _de_download_filename || true;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+      return;
+    }
+    const formData = new FormData();
+    formData.append("action", "de_track_download");
+    formData.append("nonce", window.bplde_obj.track_nonce);
+    formData.append("document_id", postId);
+    fetch(window.bplde_obj.ajax_url, {
+      method: "POST",
+      body: formData
+    }).then(res => res.json()).then(res => {
+      if (res.success) {
+        setDownloadCount(res.data.count);
+        if (res.data.limit_reached || res.data.count >= parseInt(_de_download_limit) && parseInt(_de_download_limit) > 0) {
+          setLimitReached(true);
+        }
+        const downloadUrl = `${window.bplde_obj.rest_url}download/${postId}?de_nonce=${res.data.nonce}&behavior=${encodeURIComponent(behavior)}&filename=${encodeURIComponent(_de_download_filename)}`;
+        if (behavior === "newtab" && newTab) {
+          newTab.location.href = downloadUrl;
+        } else {
+          window.location.href = downloadUrl;
+        }
+      } else {
+        if (behavior === "newtab" && newTab) {
+          newTab.location.href = doc;
+        } else {
+          const link = document.createElement("a");
+          link.href = doc;
+          link.download = _de_download_filename || true;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      }
+    }).catch(() => {
+      if (behavior === "newtab" && newTab) {
+        newTab.location.href = doc;
+      } else {
+        const link = document.createElement("a");
+        link.href = doc;
+        link.download = _de_download_filename || true;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    });
+  };
+  const handleDownloadClick = e => {
+    e.preventDefault();
+    if (_de_email_gate) {
+      setShowEmailGate(true);
+    } else {
+      let newTab = null;
+      if (_de_download_behavior === "newtab") {
+        newTab = window.open("about:blank", "_blank");
+      }
+      trackDownload(_de_download_behavior, newTab);
+    }
+  };
+  const isRestricted = isDownloadRestricted();
+  const toolbarPosition = _de_download_position || "toolbar";
+
+  // Show the full-screen control on the plugin toolbar only for a Custom-PDF viewer with either feature on
+  // AND when the toolbar actually renders (DocToolbar returns null unless showName or download is set).
+  const isCustomPdf = viewer === "custom" && ext === "pdf";
+  const showFullscreenInToolbar = isCustomPdf && (enableFullscreen || fullscreenNewTab) && (showName || download);
+
+  // One toolbar button, two behaviors: open the viewer in a new tab when that option is on,
+  // otherwise go full-screen in place.
+  const handleToolbarFullscreen = () => {
+    if (fullscreenNewTab) {
+      window.open(frameUrl, "_blank", "noopener");
+    } else {
+      toggleFullscreen();
+    }
+  };
+  const fullscreenTitle = fullscreenNewTab ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Open in new tab", "document-emberdder") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Full screen", "document-emberdder");
+  const openLightbox = () => setIsLightboxOpen(true);
+
+  // Lightbox trigger: default button (unchanged), a clickable uploaded image, or an external
+  // custom element (handled by the delegated listener above — renders no visible trigger here).
+  const renderLightboxTrigger = () => {
+    if (lightbox_trigger_type === "selector" && lightbox_trigger_selector) {
+      return null;
+    }
+    if (lightbox_trigger_type === "image" && lightbox_trigger_image) {
+      const alignStyle = lightbox_trigger_image_align === "center" ? {
+        marginLeft: "auto",
+        marginRight: "auto"
+      } : lightbox_trigger_image_align === "right" ? {
+        marginLeft: "auto",
+        marginRight: "0"
+      } : {
+        marginLeft: "0",
+        marginRight: "auto"
+      };
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+        src: lightbox_trigger_image,
+        alt: lightbox_btn_text || filename,
+        className: "ppv-lightbox-trigger-img",
+        onClick: openLightbox,
+        style: {
+          width: lightbox_trigger_image_width || "300px",
+          height: lightbox_trigger_image_height || "auto",
+          maxWidth: "100%",
+          borderRadius: lightbox_trigger_image_radius || "0",
+          objectFit: lightbox_trigger_image_fit || "cover",
+          ...alignStyle
+        }
+      });
+    }
+
+    // Default button — also the automatic fallback when "image" is chosen but none uploaded.
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+      className: `ppv-lightbox-btn ${lightbox_btn_size}`,
+      onClick: openLightbox
+    }, lightbox_btn_text);
+  };
+  const renderPreviewContent = () => {
+    const isImage = ["jpg", "jpeg", "png", "gif", "webp"].includes(ext);
+    const isVideo = ["mp4", "webm", "ogg"].includes(ext);
+
+    // Google Docs Viewer downtime fallback: the gview iframe timed out / errored.
+    if (gviewFailed && gviewFallback) {
+      if (ext === "pdf") {
+        // Best UX for PDFs: retry the same file with the bundled pdf.js renderer.
+        let docUrl = doc;
+        if (loadLatestVersion) {
+          const separator = docUrl.includes("?") ? "&" : "?";
+          docUrl += `${separator}v=${Date.now()}`;
+        }
+        let customUrl = `${pluginUrl}assets/pdfjs-new/web/viewer.html?file=${encodeURIComponent(docUrl)}&toolbar_theme=${theme}&toolbar_bg_color=${encodeURIComponent(toolbar_bg_color)}&toolbar_text_color=${encodeURIComponent(toolbar_text_color)}`;
+        const hasPluginToolbar = showName || download;
+        if (enableFullscreen && !hasPluginToolbar) customUrl += "&fullscreenBtn=1";
+        if (onDemandRendering) customUrl += "&onDemandRender=1";
+        if (fullscreenNewTab && !hasPluginToolbar) customUrl += "&newTabBtn=1";
+        if (readerMode) customUrl += "&raw=1";
+        if (toggleThumbnails) customUrl += "&side=true";
+        if (sidebarOpen) customUrl += "&open=true";
+        if (hrScrollbar) customUrl += "&hrscroll=vera";
+        if (defaultZoom) customUrl += `&z=${encodeURIComponent(defaultZoom)}`;
+        if (initialPage > 1) customUrl += `#page=${initialPage}`;
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_PDFJSViewer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          attributes: attributes,
+          source: customUrl,
+          className: "",
+          isBackend: false,
+          onLoad: () => setIsLoading(false),
+          onGViewError: () => {}
+        });
+      }
+      // Non-PDF: no alternate renderer, so show a graceful message + direct download.
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        className: "ppv-preview-unavailable",
+        style: {
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "12px",
+          padding: "20px",
+          textAlign: "center",
+          boxSizing: "border-box"
+        }
+      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+        style: {
+          margin: 0
+        }
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Preview temporarily unavailable.", "document-emberdder")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+        className: "ppv_download_bttn",
+        href: doc,
+        download: _de_download_filename || true,
+        style: {
+          display: "inline-block",
+          padding: "8px 16px",
+          borderRadius: "4px",
+          border: "1px solid #cececf",
+          color: "inherit",
+          textDecoration: "none",
+          cursor: "pointer"
+        }
+      }, downloadButtonText || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Download", "document-emberdder")));
+    }
+    if (doc.includes("dropbox.com")) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+        href: doc,
+        className: "dropbox-embed",
+        "data-height": "100%",
+        "data-width": "100%",
+        style: {
+          display: "block",
+          width: "100%",
+          height: "100%"
+        }
+      });
+    }
+    if (isGoogleUrl || googleDrive) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_IframePreview__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        src: frameUrl,
+        title: filename,
+        onLoad: () => setIsLoading(false),
+        onError: gviewFallback ? handleGViewError : undefined
+      }, disablePopout && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        style: {
+          width: "80px",
+          height: "80px",
+          position: "absolute",
+          opacity: 0,
+          right: "0px",
+          top: "0px",
+          zIndex: 9999
+        }
+      }));
+    }
+
+    // Standard Library file types
+    if (isImage) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+        src: doc,
+        alt: filename,
+        onLoad: () => setIsLoading(false),
+        className: "bplDl-preview-image",
+        style: {
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          display: "block"
+        }
+      });
+    }
+    if (isVideo) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("video", {
+        src: doc,
+        controls: true,
+        onLoadedData: () => setIsLoading(false),
+        className: "bplDl-preview-video",
+        style: {
+          width: "100%",
+          height: "100%",
+          display: "block"
+        }
+      });
+    }
+    if (ext === "pdf") {
+      if (viewer === "flipbook" || viewer === "slider") {
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_FlipbookViewer__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          attributes: attributes,
+          source: doc,
+          viewerType: viewer,
+          onLoad: () => setIsLoading(false)
+        });
+      }
+      if (viewer === "custom") {
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_PDFJSViewer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          attributes: attributes,
+          source: frameUrl,
+          className: "",
+          isBackend: false,
+          onLoad: () => setIsLoading(false),
+          onGViewError: () => {
+            // no-op
+          }
+        });
+      } else {
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_IframePreview__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          src: frameUrl,
+          title: filename,
+          className: "bplDl-preview-iframe",
+          onLoad: () => setIsLoading(false),
+          onError: gviewFallback ? handleGViewError : undefined
+        }, disablePopout && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          style: {
+            width: "70px",
+            height: "70px",
+            position: "absolute",
+            opacity: 0,
+            right: "5px",
+            top: "0px",
+            zIndex: 99999
+          }
+        }));
+      }
+    }
+    if (["ppt", "pptx", "xls", "xlsx", "doc", "docx", "txt", "pages", "xps", "ai", "psd", "eps", "dxf", "ttf", "zip", "rar"].includes(ext)) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_IframePreview__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        src: frameUrl,
+        title: filename,
+        className: "bplDl-preview-iframe",
+        onLoad: () => setIsLoading(false),
+        onError: gviewFallback ? handleGViewError : undefined
+      }, disablePopout && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        style: {
+          width: "70px",
+          height: "70px",
+          position: "absolute",
+          opacity: 0,
+          right: "5px",
+          top: "0px",
+          zIndex: 99999
+        }
+      }));
+    }
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        width: "100%",
+        height: "100%",
+        position: "relative"
+      }
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+      style: {
+        paddingLeft: "10px"
+      }
+    }, "Preview not available for this file type."), disablePopout && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        width: "70px",
+        height: "70px",
+        position: "absolute",
+        opacity: 0,
+        right: "5px",
+        top: "0px",
+        zIndex: 99999
+      }
+    }));
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Style__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    attributes: attributes,
+    id: id,
+    uniqueId: id
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    id: `ppv_frame_wrapper${id}`,
+    "data-lightbox": isLightboxEnabled ? "1" : undefined,
+    className: `ppv_container ${id}`
+  }, doc === "" ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "bplde-empty-state",
+    role: "status"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "bplde-empty-state-icon",
+    "aria-hidden": "true"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    width: "28",
+    height: "28",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5L13.5 3Z",
+    stroke: "currentColor",
+    strokeWidth: "1.4",
+    strokeLinejoin: "round"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M13.5 3v4a1.5 1.5 0 0 0 1.5 1.5h4",
+    stroke: "currentColor",
+    strokeWidth: "1.4",
+    strokeLinejoin: "round"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 11.5v5M9.5 14h5",
+    stroke: "currentColor",
+    strokeWidth: "1.4",
+    strokeLinecap: "round"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "bplde-empty-state-title"
+  }, isAuthoring ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("No document added yet", "document-emberdder") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Document unavailable", "document-emberdder")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "bplde-empty-state-text"
+  }, isAuthoring ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Upload a file from your Media Library or paste a document link in the settings, and it will appear here.", "document-emberdder") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("No document has been added to this embed yet.", "document-emberdder")), isMetaboxPreview && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "bplde-empty-state-path"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Document Configuration → General → Document File", "document-emberdder"))) : isLightboxEnabled ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, renderLightboxTrigger(), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `ppv-lightbox-overlay ${isLightboxOpen ? "open" : ""}`,
+    style: {
+      display: isLightboxOpen ? "flex" : "none"
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "bplde-lightbox"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "bplde-lightbox-close",
+    onClick: () => setIsLightboxOpen(false)
+  }, "\xD7"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "bplde-lightbox-body"
+  }, loading_icon && isLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ppv-lightbox-loading"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DocToolbar__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    filename: filename,
+    showName: showName,
+    download: download,
+    position: "lightbox",
+    limitReached: limitReached,
+    isRestricted: isRestricted,
+    downloadAccessMessage: _de_download_access_message,
+    downloadButtonText: downloadButtonText,
+    downloadShowCount: _de_download_show_count,
+    downloadCount: downloadCount,
+    handleDownloadClick: handleDownloadClick,
+    doc: doc,
+    downloadFilename: _de_download_filename,
+    behavior: _de_download_behavior,
+    theme: theme,
+    showFullscreen: showFullscreenInToolbar,
+    onFullscreenClick: handleToolbarFullscreen,
+    fullscreenTitle: fullscreenTitle
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: previewRef,
+    className: "document-preview",
+    style: {
+      flex: 1,
+      position: "relative",
+      height: "100%",
+      width: "100%"
+    }
+  }, renderPreviewContent()))))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, loading_icon && isLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "ppv-lightbox-loading"
+  }), toolbarPosition === "toolbar" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DocToolbar__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    filename: filename,
+    showName: showName,
+    download: download,
+    position: "toolbar",
+    limitReached: limitReached,
+    isRestricted: isRestricted,
+    downloadAccessMessage: _de_download_access_message,
+    downloadButtonText: downloadButtonText,
+    downloadShowCount: _de_download_show_count,
+    downloadCount: downloadCount,
+    handleDownloadClick: handleDownloadClick,
+    doc: doc,
+    downloadFilename: _de_download_filename,
+    behavior: _de_download_behavior,
+    theme: theme,
+    showFullscreen: showFullscreenInToolbar,
+    onFullscreenClick: handleToolbarFullscreen,
+    fullscreenTitle: fullscreenTitle
+  }), doc.includes("dropbox.com") ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "dropbox-preview",
+    style: {
+      width: "100%",
+      flex: 1,
+      minHeight: 0,
+      position: "relative"
+    }
+  }, renderPreviewContent()) : isGoogleUrl ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "drive-preview",
+    style: {
+      width: "100%",
+      flex: 1,
+      minHeight: 0,
+      position: "relative"
+    }
+  }, renderPreviewContent()) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: previewRef,
+    className: "document-preview",
+    style: {
+      flex: 1,
+      minHeight: 0,
+      width: "100%",
+      position: "relative"
+    }
+  }, renderPreviewContent()), toolbarPosition === "below" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DocToolbar__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    filename: filename,
+    showName: showName,
+    download: download,
+    position: "below",
+    limitReached: limitReached,
+    isRestricted: isRestricted,
+    downloadAccessMessage: _de_download_access_message,
+    downloadButtonText: downloadButtonText,
+    downloadShowCount: _de_download_show_count,
+    downloadCount: downloadCount,
+    handleDownloadClick: handleDownloadClick,
+    doc: doc,
+    downloadFilename: _de_download_filename,
+    behavior: _de_download_behavior,
+    theme: theme,
+    showFullscreen: showFullscreenInToolbar,
+    onFullscreenClick: handleToolbarFullscreen,
+    fullscreenTitle: fullscreenTitle
+  })), showEmailGate && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_EmailGate__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    onClose: () => setShowEmailGate(false),
+    postId: postId,
+    downloadBehavior: _de_download_behavior,
+    downloadButtonText: downloadButtonText,
+    onSuccess: () => setDownloadCount(prev => prev + 1)
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Viewer);
+
+/***/ }),
+
+/***/ "./src/blocks/document-embed/style.scss":
+/*!**********************************************!*\
+  !*** ./src/blocks/document-embed/style.scss ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "react":
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+/***/ ((module) => {
+
+module.exports = window["React"];
+
+/***/ }),
+
+/***/ "react-dom":
+/*!***************************!*\
+  !*** external "ReactDOM" ***!
+  \***************************/
+/***/ ((module) => {
+
+module.exports = window["ReactDOM"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!*******************************************!*\
+  !*** ./src/blocks/document-embed/view.js ***!
+  \*******************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_Common_Viewer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Common/Viewer */ "./src/blocks/document-embed/components/Common/Viewer.js");
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./style.scss */ "./src/blocks/document-embed/style.scss");
+
+// eslint-disable-next-line no-unused-vars
+
+
+
+
+// Actually mount a single embed container. Extracted so both the immediate and the
+// lazy (IntersectionObserver) paths run the exact same code.
+const mountEmbed = block => {
+  // Defensive: never double-mount (immediate + IO paths, or repeated init() calls).
+  if (block.hasAttribute('data-bplde-initialized')) {
+    return;
+  }
+  let attributesData = block.dataset.attributes;
+  if (!attributesData) {
+    const attrEl = block.querySelector("[data-attributes]");
+    if (attrEl) attributesData = attrEl.dataset.attributes;
+  }
+  if (!attributesData) {
+    return;
+  }
+  block.setAttribute('data-bplde-initialized', 'true');
+  try {
+    const attributes = JSON.parse(attributesData);
+    let userData = {};
+    if (block.dataset.user) {
+      userData = JSON.parse(block.dataset.user);
+    }
+    const pluginUrl = block.dataset.pluginUrl || "";
+    const postId = parseInt(block.dataset.postId || 0, 10);
+    const root = (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createRoot)(block);
+    root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_Common_Viewer__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      attributes: attributes,
+      userData: userData,
+      pluginUrl: pluginUrl,
+      postId: postId,
+      id: block.id
+    }));
+  } catch (e) {
+    console.error("Failed to initialize Document Embed block:", e);
+  }
+};
+const init = (container = document) => {
+  const blocks = container.querySelectorAll(".bplde-document-embed-frontend");
+  blocks.forEach(block => {
+    if (block.hasAttribute('data-bplde-initialized')) {
+      return;
+    }
+
+    // Peek at attributes just to decide immediate vs. lazy mount. mountEmbed re-parses;
+    // if this fails, fall back to immediate mount so nothing silently disappears.
+    let lazyLoad = false;
+    try {
+      const raw = block.dataset.attributes || block.querySelector("[data-attributes]")?.dataset.attributes;
+      if (raw) {
+        const attrs = JSON.parse(raw);
+        lazyLoad = attrs?.performance?.lazyLoad === true;
+      }
+    } catch (e) {
+      lazyLoad = false;
+    }
+    if (!lazyLoad || typeof IntersectionObserver === "undefined") {
+      mountEmbed(block); // existing behavior, unchanged
+      return;
+    }
+
+    // Lazy: mount only once it scrolls near the viewport. One-shot, per-instance observer.
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          mountEmbed(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: "200px"
+    });
+    observer.observe(block);
+  });
+};
+
+// Start initialization
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  init();
+}
+document.addEventListener("DOMContentLoaded", () => {
+  init();
+});
+
+// Elementor Support
+const runElementor = () => {
+  if (window.elementorFrontend && window.elementorFrontend.hooks) {
+    window.elementorFrontend.hooks.addAction('frontend/element_ready/global', $scope => {
+      init($scope[0]);
+    });
+    return true;
+  }
+  return false;
+};
+
+// Robust Elementor hook registration
+let elementorRetryCount = 0;
+const setupElementor = () => {
+  if (runElementor()) return;
+  if (elementorRetryCount < 20) {
+    // Retry for 10 seconds
+    elementorRetryCount++;
+    setTimeout(setupElementor, 500);
+  }
+};
+setupElementor();
+if (typeof jQuery !== 'undefined') {
+  jQuery(window).on('elementor/frontend/init', runElementor);
+}
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=view.js.map

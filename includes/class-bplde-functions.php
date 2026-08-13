@@ -101,4 +101,16 @@ if ( ! function_exists( 'render_skeleton_markup' ) ) {
     }
 }
 
+if ( ! function_exists( 'bplde_new_badge' ) ) {
+    function bplde_new_badge( $label = 'NEW' ) {
+        return '<span class="bplde-new-badge">' . esc_html( $label ) . '</span>';
+    }
+}
+
+if ( ! function_exists( 'bplde_pdf_only_badge' ) ) {
+    function bplde_pdf_only_badge( $label = 'PDF Only' ) {
+        return '<span class="bplde-pdf-only-badge">' . esc_html( $label ) . '</span>';
+    }
+}
+
 

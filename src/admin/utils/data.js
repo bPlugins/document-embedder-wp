@@ -25,7 +25,7 @@ export const quickEmbedTabIcon = (
 );
 
 export const dashboardInfo = (info) => {
-  const { version, isPremium, hasPro, adminUrl = '', licenseActiveNonce } = info;
+  const { version, isPremium, hasPro, adminUrl = '', pluginUrl = '', licenseActiveNonce } = info;
 
   const proSuffix = isPremium ? ' Pro' : '';
 
@@ -41,8 +41,16 @@ export const dashboardInfo = (info) => {
     media: {
       logo: `https://ps.w.org/${slug}/assets/icon-128x128.png`,
       banner: `https://ps.w.org/${slug}/assets/banner-772x250.png`,
-      thumbnail: `https://bplugins.com/wp-content/themes/b-technologies/assets/images/products/${webSlug}.png`,
-      proThumbnail: `https://bplugins.com/wp-content/themes/b-technologies/assets/images/products/${webSlug}-pro.png`,
+      // Overview banner on Welcome — the first screen after install. Shipped with the
+      // plugin so it always loads, and drawn to the 3:2 slot the dashboard reserves.
+      thumbnail: pluginUrl
+        ? `${pluginUrl}assets/img/overview.svg`
+        : `https://bplugins.com/wp-content/themes/b-technologies/assets/images/products/${webSlug}.png`,
+      // Shipped with the plugin: the remote product shot for this slug does not exist,
+      // which left the Pro block on Welcome and Demos with a broken image.
+      proThumbnail: pluginUrl
+        ? `${pluginUrl}assets/img/pro-features.svg`
+        : `https://bplugins.com/wp-content/themes/b-technologies/assets/images/products/${webSlug}-pro.png`,
       // video: 'https://www.youtube.com/watch?v=milYZrqLJsE',
       // isYoutube: true
     },
@@ -206,13 +214,16 @@ export const dashboardInfo = (info) => {
         list: ["Initial Release"],
       },
     ],
+    // Kept in step with the Pro teaser card on the document edit screen
+    // (BPLDE_Document_Embedder::render_pro_teaser_metabox), so every surface
+    // that sells Pro names the same six things.
     proFeatures: [
-      "Advanced Custom PDF Viewer Engine",
-      "Custom Toolbar Themes & Color Customizer",
-      "Download access control & restrictions",
-      "Secure email gate for PDF downloads",
-      "Premium customer support",
-      "Fluid & fast document rendering"
+      "Email-gated downloads",
+      "Interactive overlays on any page",
+      "Print, copy and right-click protection",
+      "Access limited by user role",
+      "Google Drive and Dropbox embeds",
+      "Toolbar themes, zoom and lightbox"
     ],
     startButton: {
       label: 'Start Now',

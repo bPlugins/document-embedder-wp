@@ -46,9 +46,9 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         'default' => 'default',
                         'options' => [
                             'default' => esc_html__('Default', 'document-emberdder'),
-                            'custom' => esc_html__('Custom PDF', 'document-emberdder') . '<span style="background-color:#8b5cf6;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">PDF Only</span><span style="background-color:#3858e9;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">New</span>',
-                            'flipbook' => esc_html__('Flipbook', 'document-emberdder') . '<span style="background-color:#8b5cf6;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">PDF Only</span><span style="background-color:#3858e9;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">New</span>',
-                            'slider' => esc_html__('Slider', 'document-emberdder') . '<span style="background-color:#8b5cf6;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">PDF Only</span><span style="background-color:#3858e9;color:#ffffff;font-size:9px;padding:2px 5px;border-radius:3px;font-weight:bold;line-height:1;text-transform:uppercase;margin-left:5px;">New</span>',
+                            'custom' => esc_html__('Custom PDF', 'document-emberdder') . bplde_pdf_only_badge() . bplde_new_badge(),
+                            'flipbook' => esc_html__('Flipbook', 'document-emberdder') . bplde_pdf_only_badge() . bplde_new_badge(),
+                            'slider' => esc_html__('Slider', 'document-emberdder') . bplde_pdf_only_badge() . bplde_new_badge(),
                         ],
                     ],
                     [
@@ -111,7 +111,8 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
                             __('Disable Popout to Prevent Direct File Theft', 'document-emberdder'),
                             __('Enable Professional Loading Icon', 'document-emberdder'),
-                        ))
+                        ),
+                        __('General', 'document-emberdder'))
                     )
                 )
             ));
@@ -131,7 +132,8 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                             __('Enable Full-Screen button or Open in a New Tab', 'document-emberdder'),
                             __('On-Demand Page Rendering for heavy documents', 'document-emberdder'),
                             __('Specify Custom Initial Page and Default Zoom Level', 'document-emberdder'),
-                        ))
+                        ),
+                        __('Controls', 'document-emberdder'))
                     )
                 )
             ));
@@ -167,7 +169,8 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                     \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
                         __('Dark / Light / Custom Toolbar Themes', 'document-emberdder'),
                         __('Custom Toolbar Background & Text Colors', 'document-emberdder'),
-                    ))
+                    ),
+                    __('Toolbar', 'document-emberdder'))
                 )
             ));
 
@@ -177,7 +180,8 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                     \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
                         __('Beautiful Lightbox View Overlay (Open document in modal popup)', 'document-emberdder'),
                         __('Custom Lightbox Trigger Button (Text, Colors, and Sizes)', 'document-emberdder'),
-                    ))
+                    ),
+                    __('Modal Pop Up (Lightbox)', 'document-emberdder'))
                 )
             ));
 
@@ -232,7 +236,35 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         __('Download Access Control by Login Status / Specific Roles', 'document-emberdder'),
                         __('Dedicated Leads Dashboard & Stats Tracking', 'document-emberdder'),
                         __('One-Click Lead Data Export to CSV', 'document-emberdder'),
-                    ))
+                    ),
+                    __('Download Management', 'document-emberdder'))
+                )
+            ));
+
+            \CSF::createSection($prefix, array(
+                'title' => \BPLDE\Helper\Functions::bplde_new_title('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3858E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="csf-metabox-svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -1px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>' . __('Access & Security', 'document-emberdder')),
+                'fields' => array(
+                    \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
+                        __('View Access Control — gate the viewer itself by Login Status / Specific Roles', 'document-emberdder'),
+                        __('Allowed Roles (View) — pick exactly which roles can open the document', 'document-emberdder'),
+                        __('Custom Restricted Message shown in place of the viewer', 'document-emberdder'),
+                        __('Secure Document Delivery (PDF Only) — signed, expiring, IP-bound file streaming instead of a public URL', 'document-emberdder'),
+                    ),
+                    __('Access & Security', 'document-emberdder'))
+                )
+            ));
+
+            \CSF::createSection($prefix, array(
+                'title' => \BPLDE\Helper\Functions::bplde_new_title('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3858E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="csf-metabox-svg" style="vertical-align: middle; margin-right: 8px; position: relative; top: -1px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M3 9h18"></path><path d="M9 21V9"></path></svg>' . __('Interactive Overlays', 'document-emberdder')),
+                'fields' => array(
+                    \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
+                        __('Overlays (PDF Only) — place unlimited Notes, Highlights, Links and Calls-to-Action on individual pages', 'document-emberdder'),
+                        __('Per-overlay Page picker to target the exact page of the document', 'document-emberdder'),
+                        __('Percentage-based Position (X / Y) and Size (Width / Height) that stay aligned at any zoom', 'document-emberdder'),
+                        __('Link URL to turn any overlay into a transparent clickable area', 'document-emberdder'),
+                        __('Rich Content box with safe HTML for Note and Call-to-Action overlays', 'document-emberdder'),
+                    ),
+                    __('Interactive Overlays', 'document-emberdder'))
                 )
             ));
 
@@ -245,7 +277,8 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
                             __('Lazy Load documents to speed up page load time', 'document-emberdder'),
                             __('Google View Fallback for failed viewer loads', 'document-emberdder'),
-                        ))
+                        ),
+                        __('Performance & Reliability', 'document-emberdder'))
                     )
                 )
             ));

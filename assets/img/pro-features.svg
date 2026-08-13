@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 380" width="680" height="380" role="img" aria-label="Document Embedder Pro features">
+  <defs>
+    <!-- Soft lift, so each surface reads as a panel above the lavender ground -->
+    <filter id="lift" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="9" flood-color="#1b2438" flood-opacity="0.13" />
+    </filter>
+    <filter id="lift-sm" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#1b2438" flood-opacity="0.10" />
+    </filter>
+    <clipPath id="page-clip">
+      <rect x="52" y="112" width="316" height="232" />
+    </clipPath>
+  </defs>
+
+  <!-- ================= viewer window ================= -->
+  <g filter="url(#lift)">
+    <rect x="32" y="58" width="356" height="294" fill="#ffffff" stroke="#e3e6ef" />
+
+    <!-- toolbar: the plugin's own dark default -->
+    <rect x="32" y="58" width="356" height="42" fill="#343434" />
+    <rect x="50" y="73" width="80" height="12" fill="#ffffff" opacity="0.85" />
+    <g fill="#ffffff" opacity="0.5">
+      <rect x="222" y="73" width="12" height="12" />
+      <rect x="246" y="73" width="12" height="12" />
+      <rect x="270" y="73" width="12" height="12" />
+    </g>
+    <rect x="296" y="71" width="76" height="16" fill="#3858e9" />
+    <rect x="306" y="76" width="56" height="6" fill="#ffffff" opacity="0.9" />
+  </g>
+
+  <!-- page -->
+  <rect x="32" y="100" width="356" height="252" fill="#f6f7f9" />
+  <g filter="url(#lift-sm)">
+    <rect x="52" y="112" width="316" height="232" fill="#ffffff" stroke="#e6e8ec" />
+  </g>
+
+  <g clip-path="url(#page-clip)">
+    <!-- body copy -->
+    <g fill="#dfe3ea">
+      <rect x="74" y="138" width="164" height="13" />
+      <rect x="74" y="170" width="272" height="9" />
+      <rect x="74" y="190" width="272" height="9" />
+      <rect x="74" y="210" width="218" height="9" />
+      <rect x="74" y="272" width="272" height="9" />
+      <rect x="74" y="292" width="272" height="9" />
+      <rect x="74" y="312" width="160" height="9" />
+    </g>
+
+    <!-- interactive overlay: a highlight band and a note pinned to the page -->
+    <rect x="70" y="234" width="196" height="22" fill="#ff9800" opacity="0.32" />
+    <rect x="74" y="238" width="188" height="9" fill="#c9852a" opacity="0.55" />
+
+    <g filter="url(#lift-sm)">
+      <rect x="256" y="222" width="98" height="52" fill="#ffffff" stroke="#3858e9" />
+    </g>
+    <rect x="256" y="222" width="98" height="6" fill="#3858e9" />
+    <g fill="#c3c9d5">
+      <rect x="268" y="240" width="74" height="7" />
+      <rect x="268" y="254" width="52" height="7" />
+    </g>
+  </g>
+
+  <!-- PRO badge, straddling the window edge exactly like the panel badges do -->
+  <rect x="296" y="42" width="78" height="32" fill="#3858e9" />
+  <text x="335" y="64" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2.4" fill="#ffffff">PRO</text>
+
+  <!-- ================= locked feature rows ================= -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+
+    <!-- access control -->
+    <g filter="url(#lift-sm)">
+      <rect x="416" y="58" width="248" height="78" fill="#ffffff" stroke="#e3e6ef" />
+    </g>
+    <rect x="438" y="79" width="36" height="36" fill="#eef1fe" />
+    <g transform="translate(446 87)" fill="none" stroke="#3858e9" stroke-width="1.8">
+      <rect x="1.5" y="8" width="17" height="11.5" />
+      <path d="M5 8V5.6a5 5 0 0 1 10 0V8" />
+    </g>
+    <text x="486" y="104" font-size="21" font-weight="600" fill="#101828">Access control</text>
+
+    <!-- email gate -->
+    <g filter="url(#lift-sm)">
+      <rect x="416" y="150" width="248" height="78" fill="#ffffff" stroke="#e3e6ef" />
+    </g>
+    <rect x="438" y="171" width="36" height="36" fill="#eef1fe" />
+    <g transform="translate(446 180)" fill="none" stroke="#3858e9" stroke-width="1.8">
+      <rect x="1.5" y="1.5" width="17" height="15" />
+      <path d="M1.5 3.5 10 10.5l8.5-7" />
+    </g>
+    <text x="486" y="196" font-size="21" font-weight="600" fill="#101828">Email gate</text>
+
+    <!-- overlays -->
+    <g filter="url(#lift-sm)">
+      <rect x="416" y="242" width="248" height="78" fill="#ffffff" stroke="#e3e6ef" />
+    </g>
+    <rect x="438" y="263" width="36" height="36" fill="#fff4e5" />
+    <g transform="translate(446 271)" fill="none" stroke="#ff9800" stroke-width="1.8">
+      <rect x="1.5" y="1.5" width="17" height="17" />
+      <path d="M1.5 7h17M7 18.5V7" />
+    </g>
+    <text x="486" y="288" font-size="21" font-weight="600" fill="#101828">Overlays</text>
+
+    <!-- what else Pro carries, kept to one quiet line -->
+    <rect x="416" y="336" width="60" height="3" fill="#3858e9" opacity="0.4" />
+    <text x="416" y="366" font-size="18" fill="#667085">+ cloud, lightbox, themes</text>
+  </g>
+</svg>

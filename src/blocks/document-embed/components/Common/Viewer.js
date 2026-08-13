@@ -7,7 +7,7 @@ import Style from "./Style";
 import EmailGate from "./EmailGate";
 import DocToolbar from "./DocToolbar";
 
-const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = "" }) => {
+const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = "", isEditor = false }) => {
   const {
     documentSource = {},
     toolbar = {},
@@ -15,7 +15,16 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
     downloadManagement = {},
     lightbox = {},
     performance = {},
+    // Set by render.php only for the document metabox's live preview request. Never set on
+    // the front end.
+    _de_preview_editing = false,
   } = attributes;
+
+  // The document metabox's live preview iframe, as flagged by render.php.
+  const isMetaboxPreview = _de_preview_editing === true || _de_preview_editing === "1";
+
+  // Authoring context: the block editor's own preview, or the metabox live preview iframe.
+  const isAuthoring = isEditor || isMetaboxPreview;
 
   const { doc = "", viewer = "default", googleDrive = false, enableFullscreen = false, onDemandRendering = false, fullscreenNewTab = false, readerMode = false, toggleThumbnails = false, sidebarOpen = false, loadLatestVersion = false, hrScrollbar = false, initialPage = 1, defaultZoom = "" } = documentSource;
   const { showName = false, download = false, _de_download_position = "toolbar", theme = "dark", toolbar_bg_color = "#343434", toolbar_text_color = "#ffffff" } = toolbar;
@@ -505,11 +514,43 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
         className={`ppv_container ${id}`}
       >
         {doc === "" ? (
-          <div style={{ padding: "20px", textAlign: "center", border: "1px dashed #ccc", borderRadius: "4px" }}>
-            <h2>
-              Ooops... You forgot to Select a document. Please select a file or paste a external document link to show
-              here.{" "}
-            </h2>
+          <div className="bplde-empty-state" role="status">
+            <span className="bplde-empty-state-icon" aria-hidden="true">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5L13.5 3Z"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinejoin="round"
+                />
+                <path d="M13.5 3v4a1.5 1.5 0 0 0 1.5 1.5h4" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+                <path d="M12 11.5v5M9.5 14h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </svg>
+            </span>
+
+            <h3 className="bplde-empty-state-title">
+              {isAuthoring
+                ? __("No document added yet", "document-emberdder")
+                : __("Document unavailable", "document-emberdder")}
+            </h3>
+
+            <p className="bplde-empty-state-text">
+              {isAuthoring
+                ? __(
+                    "Upload a file from your Media Library or paste a document link in the settings, and it will appear here.",
+                    "document-emberdder"
+                  )
+                : __("No document has been added to this embed yet.", "document-emberdder")}
+            </p>
+
+            {/* Only in the metabox preview, where this path is the accurate one. The block
+                editor's settings live in the sidebar instead, so the generic line above is
+                all it gets. */}
+            {isMetaboxPreview && (
+              <span className="bplde-empty-state-path">
+                {__("Document Configuration → General → Document File", "document-emberdder")}
+              </span>
+            )}
           </div>
         ) : isLightboxEnabled ? (
           <>

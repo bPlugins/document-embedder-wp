@@ -56,6 +56,15 @@ if (!defined('ABSPATH')) {
         'downloadCount' => $download_count
     ];
 
+    // Authoring copy for the empty state (it names the field to fill in). On for the document
+    // metabox's live preview only — that request is nonce- and capability-verified in
+    // BPLDE_Preview before it ever reaches here, and the capability is re-checked so appending
+    // the query var to a public URL changes nothing.
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- cosmetic flag, guarded by the capability check below.
+    if (!empty($_GET['bplde_preview']) && current_user_can('edit_posts')) {
+        $attributes['_de_preview_editing'] = true;
+    }
+
     // Enqueue frontend scripts and styles registered in block.json
     if (function_exists('enqueue_block_assets')) {
         wp_enqueue_script('wp-element');

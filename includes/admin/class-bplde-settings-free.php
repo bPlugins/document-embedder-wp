@@ -39,7 +39,8 @@ if (!class_exists('BPLDE_Settings_Free')) {
                             __('Secure Email Gate to Collect Leads before Downloading', 'document-emberdder'),
                             __('Download Access Control by Login Status & User Roles', 'document-emberdder'),
                             __('Dedicated Leads Dashboard & Stats Tracking', 'document-emberdder'),
-                        ))
+                        ),
+                        __('Premium Integrations', 'document-emberdder'))
                 )
             ));
         }

@@ -25,6 +25,8 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
             if (is_admin()) {
                 \BPLDE_Admin_Assets::instance();
             }
+            // Registers the front-end preview route too, so it must load on both sides.
+            \BPLDE_Preview::instance();
             new BPLDE_Document_Library();
             new BPLDE_Document_Embedder();
         }

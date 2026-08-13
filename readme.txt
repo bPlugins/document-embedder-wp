@@ -34,6 +34,8 @@ This plugin is ideal for sharing reports, presentations, worksheets, guides, and
 
 - **Responsive Viewer:** Adjust **width and height** to fit any layout — with independent controls for Desktop, Tablet, and Mobile.
 
+- **Live Preview While You Edit:** See exactly how the document will look to visitors, right on the edit screen, before you save anything.
+
 - **Filename Display:** Show the document title at the top for clarity.
 
 - **Download Button:** Easily allow users to download PDFs with a customizable button label (e.g., "Get Copy," "Save PDF").
@@ -44,9 +46,11 @@ This plugin is ideal for sharing reports, presentations, worksheets, guides, and
 
 - **Custom Download Filename:** Define the exact filename shown to users when they download the file.
 
+- **Download Counter & Limits:** Show how many times a file has been downloaded, and cap downloads per visitor.
+
 - **Gutenberg Block Support:** Use the native **Document Embed block** in the WordPress Block Editor (Gutenberg) to insert, upload, and configure documents with a real-time live preview.
 
-- **Simple Shortcode Embedding:** Prefer the Classic Editor or page builders? Use the `[embed_doc]` shortcode to place documents anywhere on your site.
+- **Simple Shortcode Embedding:** Prefer the Classic Editor or page builders? Use the `[doc id="123"]` shortcode to place documents anywhere on your site — Elementor, Divi, Bricks, WPBakery, Beaver Builder, Oxygen, Breakdance, and more.
 
 - **Dedicated Post Type:** Manage all your documents individually using the `ppt_viewer` custom post type.
 
@@ -80,13 +84,25 @@ Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-em
 
 **What's Included in Pro:**
 
-- **Advanced Customizations for Viewer Engines:** Lock/unlock full-screen mode, customize the initial page number, define default zoom level, set horizontal scrollbars, load the latest document version automatically, or set default sidebar/thumbnail visibility.
+- **Secure Email Gate for Downloads:** Require visitors to submit Name and Email before they can download a document. Turn any file into a lead magnet.
+
+- **Leads Dashboard & CSV Export:** Every submission is logged to a searchable, filterable dashboard you can export as CSV in one click.
+
+- **View Access Control:** Show a document only to logged-in users or to specific user roles, with your own message for everyone else. Restricted visitors never receive the file link at all.
+
+- **Secure Document Delivery:** Serve local PDFs through a signed, expiring, IP-bound link instead of exposing the file URL in your page.
+
+- **Download Access Control:** Limit downloads to logged-in users only, or restrict them by specific user roles.
+
+- **Interactive Overlays:** Place notes, highlights, links, and call-to-action buttons on any page of a PDF. Positions are percentage based, so they stay aligned at any zoom level.
+
+- **Lightbox Display:** Open documents in a modal popup — triggered by a styled button, an image, or any element on your page.
 
 - **Custom Toolbar Themes & Color Customizer:** Style your toolbar with Dark, Light, or fully Custom colors.
 
-- **Disable Popout Option:** Prevent users from opening documents in a new window.
+- **Advanced Customizations for Viewer Engines:** Reader Mode, thumbnail sidebar, full-screen button (in place or in a new tab), custom initial page and default zoom, horizontal scrollbar, and automatic loading of the latest file version.
 
-- **Lightbox Display:** Open documents in a modal window for smoother UX.
+- **Disable Popout Option:** Prevent users from opening documents in a new window.
 
 - **Loading Indicator:** Show a spinner until the document fully loads.
 
@@ -94,17 +110,9 @@ Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-em
 
 - **Dropbox Integration:** Access and embed files from Dropbox easily.
 
-- **Enhanced Content Security & Copy Protection:** Disable text selection/copying, right-click, or printing on your embedded files to protect your content.
-
-- **Download Access Control & Restrictions:** Limit downloads to Logged-in Users only, or restrict by specific User Roles.
-
-- **Secure Email Gate for PDF Downloads:** Require visitors to submit Name and Email before they can download a document. Turn any file into a lead magnet.
-
-- **Download Tracking & IP Limits:** Record total download counts and set per-IP download limits.
+- **Faster Pages:** Lazy load embeds until a visitor scrolls to them, render long PDFs page by page, and fall back automatically if the Google viewer fails to answer.
 
 - **Premium Customer Support:** Priority help and expert assistance.
-
-- **Fluid & Fast Document Rendering:** Optimized rendering engine for faster loading times.
 
 **Document Library Module**
 

@@ -19,6 +19,22 @@ if ( ! class_exists( RESTController::class ) ) {
         }
 
         public function register_endpoints() {
+            // Leads retrieval endpoint
+            register_rest_route( 'docembedder/v1', '/leads/(?P<id>\d+)', [
+                'methods'             => 'GET',
+                'callback'            => [$this, 'get_leads'],
+                'permission_callback' => function() {
+                    return current_user_can( 'manage_options' );
+                }
+            ] );
+
+            // Gated download endpoint
+            register_rest_route( 'docembedder/v1', '/gate-download', [
+                'methods'             => 'POST',
+                'callback'            => [$this, 'handle_gate_download'],
+                'permission_callback' => '__return_true'
+            ] );
+            
             // Direct/secure download endpoint
             register_rest_route( 'docembedder/v1', '/download/(?P<id>\d+)', [
                 'methods'             => 'GET',
@@ -27,12 +43,121 @@ if ( ! class_exists( RESTController::class ) ) {
             ] );
         }
 
+        public function get_leads( $request ) {
+            global $wpdb;
+            $doc_id = intval( $request['id'] );
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $leads = $wpdb->get_results( $wpdb->prepare(
+                "SELECT * FROM {$wpdb->prefix}docembedder_leads WHERE document_id = %d ORDER BY downloaded_at DESC",
+                $doc_id
+            ), ARRAY_A );
+
+            return new \WP_REST_Response( [
+                'success'   => true,
+                'data'      => $leads,
+                'doc_title' => get_the_title( $doc_id )
+            ], 200 );
+        }
+
+        public function handle_export_csv() {
+            \BPLDE\Model\AJAXCall::instance()->handle_export_csv();
+        }
+
+        public function handle_gate_download( \WP_REST_Request $request ) {
+            global $wpdb;
+            $name        = sanitize_text_field( $request->get_param( 'name' ) );
+            $raw_email   = sanitize_text_field( $request->get_param( 'email' ) );
+            $document_id = intval( $request->get_param( 'document_id' ) );
+
+            if ( empty( $name ) || empty( $raw_email ) || ! is_email( $raw_email ) || ! filter_var( $raw_email, FILTER_VALIDATE_EMAIL ) || ! preg_match( '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $raw_email ) || empty( $document_id ) ) {
+                return new \WP_REST_Response( ['success' => false, 'message' => 'Please enter a valid email address.'], 400 );
+            }
+
+            $email = sanitize_email( $raw_email );
+
+            // Verify access restrictions
+            $meta = get_post_meta( $document_id, 'ppv', true );
+            $access = isset( $meta['_de_download_access'] ) ? $meta['_de_download_access'] : '';
+            if ( $access === 'loggedin' && ! is_user_logged_in() ) {
+                return new \WP_REST_Response( ['success' => false, 'message' => 'Unauthorized - Login required.'], 401 );
+            }
+            if ( $access === 'roles' ) {
+                if ( ! is_user_logged_in() ) {
+                    return new \WP_REST_Response( ['success' => false, 'message' => 'Unauthorized.'], 401 );
+                }
+                $allowed_roles = isset( $meta['_de_download_access_roles'] ) ? (array) $meta['_de_download_access_roles'] : [];
+                $user          = wp_get_current_user();
+                $user_roles    = (array) $user->roles;
+                if ( empty( array_intersect( $allowed_roles, $user_roles ) ) ) {
+                    return new \WP_REST_Response( ['success' => false, 'message' => 'Forbidden.'], 403 );
+                }
+            }
+
+            $document_title = get_the_title( $document_id );
+
+            // Insert into db
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- direct insert to custom table
+            $inserted = $wpdb->insert(
+                $wpdb->prefix . 'docembedder_leads',
+                [
+                    'name'           => $name,
+                    'email'          => $email,
+                    'document_id'    => $document_id,
+                    'document_title' => $document_title,
+                    'downloaded_at'  => current_time( 'mysql' ),
+                    'ip_address'     => \BPLDE\Helper\Functions::get_client_ip()
+                ],
+                ['%s', '%s', '%d', '%s', '%s', '%s']
+            );
+
+            if ( $inserted === false ) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                error_log( "DE DEBUG: DB Insert FAILED for Gated Download. Error: " . $wpdb->last_error );
+            } else {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                error_log( "DE DEBUG: DB Insert SUCCESS for Gated Download. ID: " . $wpdb->insert_id );
+            }
+
+            // Increment count
+            $count = (int) get_post_meta( $document_id, '_de_download_count', true );
+            update_post_meta( $document_id, '_de_download_count', $count + 1 );
+
+            // Generate signed, time-limited URL
+            $timestamp = time();
+            $ip        = \BPLDE\Helper\Functions::get_client_ip();
+            $nonce     = wp_hash( $document_id . '|' . $ip . '|' . 'de_download', 'nonce' );
+            $url       = rest_url( "docembedder/v1/download/{$document_id}?de_nonce={$nonce}&t={$timestamp}" );
+
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+            error_log( "DE DEBUG: Gated download link generated: $url for IP: " . \BPLDE\Helper\Functions::get_client_ip() );
+
+            return new \WP_REST_Response( ['success' => true, 'url' => $url], 200 );
+        }
+
         public function handle_direct_download( \WP_REST_Request $request ) {
             $document_id = intval( $request->get_param( 'id' ) );
             $nonce       = $request->get_param( 'de_nonce' );
             $timestamp   = $request->get_param( 't' );
             $is_gate     = ! empty( $timestamp );
             $ip          = \BPLDE\Helper\Functions::get_client_ip();
+
+            // Verify access restrictions
+            $meta = get_post_meta( $document_id, 'ppv', true );
+            $access = isset( $meta['_de_download_access'] ) ? $meta['_de_download_access'] : '';
+            if ( $access === 'loggedin' && ! is_user_logged_in() ) {
+                return new \WP_REST_Response( 'Unauthorized - Login required', 401 );
+            }
+            if ( $access === 'roles' ) {
+                if ( ! is_user_logged_in() ) {
+                    return new \WP_REST_Response( 'Unauthorized', 401 );
+                }
+                $allowed_roles = isset( $meta['_de_download_access_roles'] ) ? (array) $meta['_de_download_access_roles'] : [];
+                $user          = wp_get_current_user();
+                $user_roles    = (array) $user->roles;
+                if ( empty( array_intersect( $allowed_roles, $user_roles ) ) ) {
+                    return new \WP_REST_Response( 'Forbidden', 403 );
+                }
+            }
 
             // Token Verification (UID-independent)
             $expected_token = wp_hash( $document_id . '|' . $ip . '|' . 'de_download', 'nonce' );
@@ -62,22 +187,20 @@ if ( ! class_exists( RESTController::class ) ) {
 
             // Get file path
             $data_array = get_post_meta( $document_id, 'ppv', true );
-            if ( ! is_array( $data_array ) ) {
-                $data_array = [];
-            }
             $doc_url    = isset( $data_array['doc'] ) ? $data_array['doc'] : '';
             
             if ( empty( $doc_url ) ) {
-                if ( get_post_type( $document_id ) === 'attachment' ) {
-                    $doc_url = wp_get_attachment_url( $document_id );
+                $doc_url = wp_get_attachment_url( $document_id );
+                if ( ! $doc_url ) {
+                    return new \WP_REST_Response( 'File not found', 404 );
                 }
-            }
-            
-            if ( empty( $doc_url ) ) {
-                return new \WP_REST_Response( 'File not found', 404 );
             }
 
             $attachment_id = attachment_url_to_postid( $doc_url );
+            if ( ! $attachment_id && wp_attachment_is_file( $document_id ) ) {
+                $attachment_id = $document_id;
+            }
+
             $is_local      = false;
             $file_path     = '';
 
@@ -85,13 +208,13 @@ if ( ! class_exists( RESTController::class ) ) {
                 $file_path = get_attached_file( $attachment_id );
                 $is_local  = true;
             } else {
-                $upload_dir  = wp_upload_dir();
-                $path_doc    = wp_parse_url( $doc_url, PHP_URL_PATH );
-                $path_upload = wp_parse_url( $upload_dir['baseurl'], PHP_URL_PATH );
-                if ( $path_doc && $path_upload && strpos( $path_doc, $path_upload ) === 0 ) {
-                    $relative_path = substr( $path_doc, strlen( $path_upload ) );
-                    $file_path     = $upload_dir['basedir'] . $relative_path;
-                    $is_local      = true;
+                $upload_dir = wp_upload_dir();
+                $parsed_doc = wp_parse_url( $doc_url, PHP_URL_PATH );
+                $parsed_base = wp_parse_url( $upload_dir['baseurl'], PHP_URL_PATH );
+                
+                if ( $parsed_doc && $parsed_base && strpos( $parsed_doc, $parsed_base ) === 0 ) {
+                    $file_path = str_replace( $parsed_base, $upload_dir['basedir'], $parsed_doc );
+                    $is_local  = true;
                 }
             }
 
@@ -114,18 +237,19 @@ if ( ! class_exists( RESTController::class ) ) {
             }
 
             // Headers
-            $req_behavior    = $request->get_param( 'behavior' );
-            $req_filename    = $request->get_param( 'filename' );
-
-            $custom_filename = isset( $data_array['_de_download_filename'] ) ? $data_array['_de_download_filename'] : '';
-            if ( empty( $custom_filename ) ) {
-                $custom_filename = ! empty( $req_filename ) ? sanitize_text_field( $req_filename ) : '';
+            $custom_filename_param = $request->get_param( 'filename' );
+            if ( ! empty( $custom_filename_param ) ) {
+                $custom_filename = $custom_filename_param;
+            } else {
+                $custom_filename = isset( $data_array['_de_download_filename'] ) ? $data_array['_de_download_filename'] : '';
             }
-            $filename        = ! empty( $custom_filename ) ? $custom_filename : basename( $file_path );
+            $filename = ! empty( $custom_filename ) ? $custom_filename : basename( $file_path );
             
-            $behavior    = isset( $data_array['_de_download_behavior'] ) ? $data_array['_de_download_behavior'] : '';
-            if ( empty( $behavior ) ) {
-                $behavior = ! empty( $req_behavior ) ? sanitize_text_field( $req_behavior ) : 'download';
+            $behavior_param = $request->get_param( 'behavior' );
+            if ( ! empty( $behavior_param ) ) {
+                $behavior = $behavior_param;
+            } else {
+                $behavior = isset( $data_array['_de_download_behavior'] ) ? $data_array['_de_download_behavior'] : 'download';
             }
             $disposition = ( $behavior === 'newtab' ) ? 'inline' : 'attachment';
 
