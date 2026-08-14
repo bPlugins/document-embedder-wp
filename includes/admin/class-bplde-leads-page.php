@@ -26,6 +26,19 @@ if ( ! class_exists( 'LeadsPage' ) ) {
         public function __construct() {
             add_action( 'admin_init', [$this, 'handle_export'] );
             add_action( 'admin_init', [$this, 'handle_bulk_delete'] );
+            add_action( 'admin_init', [$this, 'set_page_title'] );
+        }
+
+        /**
+         * Set the global title for the hidden leads page to prevent PHP deprecation notices
+         * in wp-admin/admin-header.php on PHP 8.1+.
+         */
+        public function set_page_title() {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Page routing doesn't require a nonce.
+            if ( isset( $_GET['page'] ) && $_GET['page'] === 'bplde-download-leads' ) {
+                global $title;
+                $title = __( 'Download Leads', 'document-emberdder' );
+            }
         }
         
         public function handle_bulk_delete() {
@@ -288,7 +301,7 @@ if ( ! class_exists( 'LeadsPage' ) ) {
                                                         ?>
                                                     </td>
                                                 <?php endif; ?>
-                                                <td><span class="code" style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; color: #4b5563;"><?php echo esc_html( $lead['ip_address'] ); ?></span></td>
+                                                <td><span class="code" style="background: #f3f4f6; padding: 4px 8px; border-radius: 0; font-family: monospace; font-size: 12px; color: #4b5563;"><?php echo esc_html( $lead['ip_address'] ); ?></span></td>
                                                 <td><?php echo esc_html( wp_date( get_option( 'date_format' ) . ' \a\t ' . get_option( 'time_format' ), strtotime( $lead['downloaded_at'] ) ) ); ?></td>
                                             </tr>
                                         <?php endforeach; ?>

@@ -1,6 +1,6 @@
 {
   "name": "document-emberdder",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "",
   "main": "src/player.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "plugin-zip": "wp-scripts plugin-zip",
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js",
-    "i18n-pot": "wp i18n make-pot . languages/document-emberdder.pot --exclude=\"build, node_modules, document-embedder\" && cp ./languages/document-emberdder.pot ./languages/document-emberdder-en_US.po",
+    "i18n-pot": "wp i18n make-pot . languages/document-emberdder.pot --exclude=\"build,node_modules,document-embedder,assets/pdfjs-new,assets/dflip,assets/pdfjs\" && cp ./languages/document-emberdder.pot ./languages/document-emberdder-en_US.po",
     "i18n-json": "wp i18n make-json languages/ --no-purge",
     "i18n-mo": "wp i18n make-mo languages/",
     "i18n": "npm run i18n-pot && npm run i18n-json && npm run i18n-mo",

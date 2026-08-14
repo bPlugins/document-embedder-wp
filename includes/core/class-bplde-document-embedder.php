@@ -154,7 +154,7 @@ if (!class_exists('BPLDE_Document_Embedder')) {
                 <p style="font-size: 14px; margin-bottom: 18px;"><strong>Total Leads:</strong> <?php echo intval($leads_count); ?>
                 </p>
                 <a href="<?php echo esc_url($leads_url); ?>" class="button button-primary"
-                    style="width: 100%; text-align: center; height: 32px; line-height: 30px;">View Leads</a>
+                    style="width: 100%; text-align: center; height: 32px; line-height: 30px; display: flex; align-items: center; justify-content: center;">View Leads</a>
             </div>
             <?php
         }
@@ -165,8 +165,7 @@ if (!class_exists('BPLDE_Document_Embedder')) {
          * they land after the stats box in the column. This is the free build, so the
          * teaser is unconditional — no licence check gates it.
          */
-        public function add_sidebar_cards()
-        {
+        public function add_sidebar_cards() {
             add_meta_box(
                 'bplde_pro_teaser',
                 esc_html__('Document Embedder Pro', 'document-emberdder'),

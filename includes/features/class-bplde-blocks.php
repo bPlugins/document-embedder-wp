@@ -102,22 +102,17 @@ if (!class_exists('BPLDE_Block')) {
             wp_localize_script('bplde-document-embedder-editor-script', 'ppvBlocks', $ppv_blocks_data);
             wp_localize_script('bpldl-document-library-editor-script', 'ppvBlocks', $ppv_blocks_data);
 
-            wp_localize_script(
-                'bpldl-document-library-editor-script',
-                'bpldlData',
-                [
-                    'ajax_url' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('bplde_nonce')
-                ]
-            );
-            wp_localize_script(
-                'bpldl-document-library-view-script',
-                'bpldlData',
-                [
-                    'ajax_url' => admin_url('admin-ajax.php'),
-                    'nonce' => wp_create_nonce('bplde_nonce')
-                ]
-            );
+            // 'pluginUrl' lets the library preview modal load the bundled pdf.js viewer instead of
+            // Google Docs Viewer, which cannot render files it can't download (local/staging sites,
+            // intranets, protected uploads).
+            $bpldl_data = [
+                'ajax_url'  => admin_url('admin-ajax.php'),
+                'nonce'     => wp_create_nonce('bplde_nonce'),
+                'pluginUrl' => BPLDE_PLUGIN_DIR,
+            ];
+
+            wp_localize_script('bpldl-document-library-editor-script', 'bpldlData', $bpldl_data);
+            wp_localize_script('bpldl-document-library-view-script', 'bpldlData', $bpldl_data);
         }
 
         public function bplde_editor_dflip_assets() {

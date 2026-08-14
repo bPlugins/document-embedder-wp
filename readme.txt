@@ -3,7 +3,7 @@ Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
 Requires at least: 6.5
 Tested up to: 7.0
-Stable tag: 2.2.1
+Stable tag: 2.3.0
 Requires PHP: 7.1
 Donate link: https://www.buymeacoffee.com/abuhayat/
 License: GPLv2 or later
@@ -312,6 +312,15 @@ Please report security bugs found in the source code of the Document Embedder pl
 
 
 == Changelog ==
+
+= 2.3.0 - 15 August 2026 =
+* **New:** Complete overhaul of the Access and Security settings module, delivering advanced protection controls with an intuitive interface for all users.
+* **New:** Interactive Overlays settings introduced to seamlessly place annotations, links, and actionable elements directly on your documents.
+* **New:** Real-time Live Preview capability integrated into the Classic Editor, allowing instant visualization of document embeds before publishing.
+* **Update:** Enhanced clarity across all settings by revising and optimizing informative note fields throughout the plugin.
+* **Update:** Added two new dedicated utility metaboxes to the Classic Editor sidebox for streamlined document configuration.
+* **Update:** Refreshed the Pro feature list modal to accurately reflect the latest premium capabilities and enhancements.
+* **Fix:** Integrated a high-performance Custom PDF viewer into the Document Library module, completely resolving intermittent loading failures caused by the default Google Viewer.
 
 = 2.2.1 - 22 July 2026 =
 * **New:** View PDFs in Full-Screen Mode for a more comfortable reading experience.

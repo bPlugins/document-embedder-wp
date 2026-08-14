@@ -68,6 +68,18 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.3.0 - 15 August 2026",
+        list: [
+          "**New:** Complete overhaul of the Access and Security settings module, delivering advanced protection controls with an intuitive interface for all users.",
+          "**New:** Interactive Overlays settings introduced to seamlessly place annotations, links, and actionable elements directly on your documents.",
+          "**New:** Real-time Live Preview capability integrated into the Classic Editor, allowing instant visualization of document embeds before publishing.",
+          "**Update:** Enhanced clarity across all settings by revising and optimizing informative note fields throughout the plugin.",
+          "**Update:** Added two new dedicated utility metaboxes to the Classic Editor sidebox for streamlined document configuration.",
+          "**Update:** Refreshed the Pro feature list modal to accurately reflect the latest premium capabilities and enhancements.",
+          "**Fix:** Integrated a high-performance Custom PDF viewer into the Document Library module, completely resolving intermittent loading failures caused by the default Google Viewer."
+        ]
+      },
+      {
         version: "2.2.1 - 22 July 2026",
         list: [
           "**New:** View PDFs in Full-Screen Mode for a more comfortable reading experience.",

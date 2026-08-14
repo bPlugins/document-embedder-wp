@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "bpldl/document-library",
-  "version": "2.0.5",
+  "version": "2.3.0",
   "title": "Document Library",
   "category": "widgets",
   "description": "You can Embed Microsoft Word, Excel And Powerpodint File in wordpress Using 'Document Viewer for Office' Plugin.",

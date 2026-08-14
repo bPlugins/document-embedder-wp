@@ -262,7 +262,7 @@ if (!class_exists('BPLDE_Preview')) {
 
             // Unsaved metabox values, merged over the saved ones so a field that is not in the
             // DOM keeps its stored value.
-            // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- nonce verified above, sanitized below.
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- nonce verified above, sanitized by self::sanitize_draft().
             $draft = self::sanitize_draft(isset($_POST['ppv']) ? wp_unslash($_POST['ppv']) : []);
             $saved = get_post_meta($post_id, 'ppv', true);
             $saved = is_array($saved) ? $saved : [];
@@ -381,9 +381,8 @@ if (!class_exists('BPLDE_Preview')) {
          * discarded rather than trusted.
          */
         private static function rendered_keys() {
-            // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- nonce verified in the caller, sanitized below.
-            $raw_keys = isset($_POST['bplde_rendered_keys']) ? wp_unslash($_POST['bplde_rendered_keys']) : '';
-            $raw      = sanitize_text_field($raw_keys);
+            // phpcs:ignore WordPress.Security.NonceVerification.Missing -- nonce verified in the caller.
+            $raw = isset($_POST['bplde_rendered_keys']) ? sanitize_text_field(wp_unslash($_POST['bplde_rendered_keys'])) : '';
 
             if ($raw === '') {
                 return [];
