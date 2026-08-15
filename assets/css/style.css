@@ -383,7 +383,7 @@
    configuration box. */
 .bplde-preview-jump {
   position: fixed;
-  right: 80px;
+  right: 260px;
   bottom: 80px;
   z-index: 100001;
   display: inline-flex;

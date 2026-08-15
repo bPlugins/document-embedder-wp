@@ -30,6 +30,7 @@ if (!class_exists('BPLDE_Document_Embedder')) {
 
             add_action('add_meta_boxes', [$this, 'add_stats_metabox']);
             add_action('add_meta_boxes', [$this, 'add_sidebar_cards']);
+            add_filter('get_user_option_meta-box-order_ppt_viewer', [$this, 'release_sidebar_cards']);
 
             $db_ver = get_option('de_db_version', '0');
             if (version_compare($db_ver, BPLDE_VER, '<')) {
@@ -160,23 +161,17 @@ if (!class_exists('BPLDE_Document_Embedder')) {
         }
 
         /**
-         * The panels that sit under Download Stats in the side column: the Pro teaser
-         * and the page-builder note. Registered on a second add_meta_boxes callback so
-         * they land after the stats box in the column. This is the free build, so the
-         * teaser is unconditional — no licence check gates it.
+         * The panels that sit under Download Stats in the side column: the page-builder
+         * note and the Pro teaser. Registered on a second add_meta_boxes callback so they
+         * land after the stats box in the column. This is the free build, so the teaser is
+         * unconditional — no licence check gates it.
+         *
+         * Publish and the taxonomy boxes register at the 'core' priority, which WordPress
+         * renders ahead of 'default', so the column reads Publish, Tags, Download Stats,
+         * builder note. The Pro teaser takes 'low' to close the column out — the same order
+         * the Pro build uses, so upgrading does not shuffle the sidebar.
          */
         public function add_sidebar_cards() {
-            add_meta_box(
-                'bplde_pro_teaser',
-                esc_html__('Document Embedder Pro', 'document-emberdder'),
-                [$this, 'render_pro_teaser_metabox'],
-                'ppt_viewer',
-                'side',
-                'default'
-            );
-
-            add_filter('postbox_classes_ppt_viewer_bplde_pro_teaser', [$this, 'flat_postbox_class']);
-
             add_meta_box(
                 'bplde_builders',
                 esc_html__('Page Builder Support', 'document-emberdder'),
@@ -187,6 +182,39 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             );
 
             add_filter('postbox_classes_ppt_viewer_bplde_builders', [$this, 'flat_postbox_class']);
+
+            add_meta_box(
+                'bplde_pro_teaser',
+                esc_html__('Document Embedder Pro', 'document-emberdder'),
+                [$this, 'render_pro_teaser_metabox'],
+                'ppt_viewer',
+                'side',
+                'low'
+            );
+
+            add_filter('postbox_classes_ppt_viewer_bplde_pro_teaser', [$this, 'flat_postbox_class']);
+        }
+
+        /**
+         * A box named in the user's stored meta-box order is rendered from the 'sorted'
+         * bucket, which WordPress draws before 'core' — that is how these cards ended up
+         * above Publish once an older layout had been saved, and hiding the drag handles
+         * means it cannot be undone by dragging. Dropping our IDs out of the stored
+         * string hands them back to their priorities, and leaves every other box the
+         * user arranged exactly where they put it.
+         */
+        public function release_sidebar_cards($order)
+        {
+            if (!is_array($order) || empty($order['side'])) {
+                return $order;
+            }
+
+            $ours = ['ppv_download_stats', 'bplde_pro_teaser', 'bplde_builders'];
+            $kept = array_diff(explode(',', $order['side']), $ours);
+
+            $order['side'] = implode(',', $kept);
+
+            return $order;
         }
 
         /**
