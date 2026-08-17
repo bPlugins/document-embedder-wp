@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-14T07:38:46+00:00\n"
+"POT-Creation-Date: 2026-08-17T05:42:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
@@ -457,67 +457,67 @@ msgstr ""
 msgid "Help & Demo's"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:171
-msgid "Document Embedder Pro"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:182
+#: includes/core/class-bplde-document-embedder.php:177
 msgid "Page Builder Support"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:212
+#: includes/core/class-bplde-document-embedder.php:188
+msgid "Document Embedder Pro"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:240
 msgid "Email-gated downloads"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:213
+#: includes/core/class-bplde-document-embedder.php:241
 msgid "Interactive overlays on any page"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:214
+#: includes/core/class-bplde-document-embedder.php:242
 msgid "Print, copy and right-click protection"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:215
+#: includes/core/class-bplde-document-embedder.php:243
 msgid "Access limited by user role"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:216
+#: includes/core/class-bplde-document-embedder.php:244
 msgid "Google Drive and Dropbox embeds"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:217
+#: includes/core/class-bplde-document-embedder.php:245
 msgid "Toolbar themes, zoom and lightbox"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:223
+#: includes/core/class-bplde-document-embedder.php:251
 #: includes/core/class-bplde-helper-functions.php:62
 msgid "Pro Version"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:225
+#: includes/core/class-bplde-document-embedder.php:253
 msgid "Where the free version stops"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:228
+#: includes/core/class-bplde-document-embedder.php:256
 msgid "Six settings the free version keeps locked:"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:238
+#: includes/core/class-bplde-document-embedder.php:266
 #: includes/core/class-bplde-helper-functions.php:73
 msgid "See Pro pricing"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:242
+#: includes/core/class-bplde-document-embedder.php:270
 msgid "14-day refund policy"
 msgstr ""
 
 #. translators: %s is a comma-separated list of page builder names.
-#: includes/core/class-bplde-document-embedder.php:266
+#: includes/core/class-bplde-document-embedder.php:294
 #, php-format
 msgid "Paste the shortcode above into %s or any other builder."
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:271
+#: includes/core/class-bplde-document-embedder.php:299
 msgid "Fully compatible"
 msgstr ""
 
