@@ -1,19 +1,19 @@
-=== Document Embedder – Embed PDFs, Word, Excel, and Other Files ===
+=== Document Embedder – let visitors read files without downloading ===
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
-Requires at least: 6.5
 Tested up to: 7.0
 Stable tag: 2.3.0
 Requires PHP: 7.1
+Requires at least: 6.5
 Donate link: https://www.buymeacoffee.com/abuhayat/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Document Embedder lets you display PDF, DOCX, PPTX, XLSX, and other files in WordPress sites with a responsive viewer and optional download button.
+Embed PDF, Word, Excel, PowerPoint and 16+ file types in WordPress with a responsive viewer, FlipBook mode, download button and document library.
 
 == Description ==
-**Embed Any Document Instantly with the #1 No-Code Plugin – Trusted by 10,000+ WordPress Sites**
 
+**Let visitors read your PDFs, Word docs, spreadsheets, and presentations right on the page – no downloads, no leaving your site.**
 
 [**Document Embedder**](https://bplugins.com/products/document-embedder/) | [**Documentation**](https://bplugins.com/docs/document-embedder/getting-started/) | [**Pricing**](https://bplugins.com/products/document-embedder/pricing) | [**Support**](https://bplugins.com/support/) | [**Demo**](https://bplugins.com/products/document-embedder/#demos)
 
@@ -299,21 +299,21 @@ Please report security bugs found in the source code of the Document Embedder pl
 
 == Screenshots ==
 
-1. Add New Document
-2. Configure Document
-3. Document Library Module
-4. Preview
-5. Preview with Download Button
-6. Lightbox Preview
-7. Add New Library
-8. Preview Document Library
-9. Preview Library Without Filter Options
-10. View Documents In Document Library
+1. Embed any document, right on the page — PDF, Word, Excel, PowerPoint and 16+ more formats — read inline, never leave your site.
+2. Four viewer engines. All free. — Google Viewer, high-performance PDF.js, 3D FlipBook or Slideshow — switch with one click.
+3. Read it like a real magazine — An interactive 3D FlipBook with true page-turn animation — built in, no add-on needed.
+4. A searchable library of every file — Search, filter and sort your documents, with view and download buttons on every card.
+5. Insert it with one block — A native Gutenberg block with every control in the sidebar — or the [doc] shortcode anywhere.
+6. Every control on one screen — Viewer, toolbar, downloads, access, overlays and a live preview — without leaving the editor.
+7. Turn any download into a lead (Pro) — Ask for a name and email before the file is released.
+8. Every lead, logged and exportable (Pro) — Search, filter by date or document, and export the whole list to CSV in one click.
+9. Pin notes, links and CTAs on a page (Pro) — Percentage-based positions keep every overlay aligned at any zoom level.
+10. Lock a document to the right people (Pro) — Restrict the viewer by login or role — blocked visitors never receive the file URL at all.
 
 
 == Changelog ==
 
-= 2.3.0 - 17 August 2026 =
+= 2.3.0 - 19 August 2026 =
 * **New:** Complete overhaul of the Access and Security settings module, delivering advanced protection controls with an intuitive interface for all users.
 * **New:** Interactive Overlays settings introduced to seamlessly place annotations, links, and actionable elements directly on your documents.
 * **New:** Real-time Live Preview capability integrated into the Classic Editor, allowing instant visualization of document embeds before publishing.

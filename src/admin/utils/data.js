@@ -68,7 +68,7 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
-        version: "2.3.0 - 17 August 2026",
+        version: "2.3.0 - 19 August 2026",
         list: [
           "**New:** Complete overhaul of the Access and Security settings module, delivering advanced protection controls with an intuitive interface for all users.",
           "**New:** Interactive Overlays settings introduced to seamlessly place annotations, links, and actionable elements directly on your documents.",
