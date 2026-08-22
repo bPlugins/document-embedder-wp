@@ -2,7 +2,7 @@
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
 Tested up to: 7.0
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 Requires PHP: 7.1
 Requires at least: 6.5
 Donate link: https://www.buymeacoffee.com/abuhayat/
@@ -312,6 +312,11 @@ Please report security bugs found in the source code of the Document Embedder pl
 
 
 == Changelog ==
+
+= 2.3.1 - 22 August 2026 =
+* **Security:** Strengthened permission checks for document downloads. All users are encouraged to update. Reported by Vaibhav Narkhede.
+* **Security:** Download links are now time-limited.
+* **Security:** Additional hardening across file delivery and data export.
 
 = 2.3.0 - 19 August 2026 =
 * **New:** Complete overhaul of the Access and Security settings module, delivering advanced protection controls with an intuitive interface for all users.

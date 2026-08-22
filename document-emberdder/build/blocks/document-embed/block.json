@@ -1,0 +1,126 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "bplde/document-embed",
+  "version": "2.3.0",
+  "title": "Document Embed",
+  "category": "common",
+  "icon": "media-document",
+  "description": "Embed documents (PDF, Word, Excel, PowerPoint) using WordPress Gutenberg Block.",
+  "keywords": [
+    "Document",
+    "PDF",
+    "Embed",
+    "Viewer"
+  ],
+  "supports": {
+    "html": false
+  },
+  "attributes": {
+    "docId": {
+      "type": "number",
+      "default": 0
+    },
+    "documentSource": {
+      "type": "object",
+      "default": {
+        "doc": "",
+        "viewer": "default",
+        "googleDrive": false,
+        "enableFullscreen": false,
+        "onDemandRendering": false,
+        "fullscreenNewTab": false,
+        "readerMode": false,
+        "toggleThumbnails": false,
+        "sidebarOpen": false,
+        "loadLatestVersion": false,
+        "hrScrollbar": false,
+        "initialPage": 1,
+        "defaultZoom": ""
+      }
+    },
+    "toolbar": {
+      "type": "object",
+      "default": {
+        "showName": false,
+        "download": false,
+        "_de_download_position": "toolbar",
+        "theme": "dark",
+        "toolbar_bg_color": "#343434",
+        "toolbar_text_color": "#ffffff"
+      }
+    },
+    "displayDimensions": {
+      "type": "object",
+      "default": {
+        "width": {
+          "desktop": "100%",
+          "tablet": "100%",
+          "mobile": "100%"
+        },
+        "height": {
+          "desktop": "840px",
+          "tablet": "700px",
+          "mobile": "400px"
+        }
+      }
+    },
+    "securityRestrictions": {
+      "type": "object",
+      "default": {
+        "disablePopout": false,
+        "loading_icon": false
+      }
+    },
+    "downloadManagement": {
+      "type": "object",
+      "default": {
+        "downloadButtonText": "Download",
+        "_de_download_behavior": "download",
+        "_de_download_filename": "",
+        "_de_download_show_count": false,
+        "_de_download_limit": 0,
+        "_de_download_access": "everyone",
+        "_de_download_access_roles": [],
+        "_de_download_access_message": "Access Denied",
+        "_de_email_gate": false
+      }
+    },
+    "lightbox": {
+      "type": "object",
+      "default": {
+        "lightbox": false,
+        "lightbox_btn_text": "View Document",
+        "lightbox_btn_color": "#ffffff",
+        "lightbox_btn_background": "#333333",
+        "lightbox_btn_size": "medium",
+        "lightbox_trigger_type": "button",
+        "lightbox_trigger_selector": "",
+        "lightbox_trigger_image": "",
+        "lightbox_trigger_image_width": "300px",
+        "lightbox_trigger_image_height": "auto",
+        "lightbox_trigger_image_radius": "8px",
+        "lightbox_trigger_image_align": "left",
+        "lightbox_trigger_image_fit": "cover"
+      }
+    },
+    "performance": {
+      "type": "object",
+      "default": {
+        "lazyLoad": false,
+        "gviewFallback": true
+      }
+    }
+  },
+  "editorScript": [
+    "bplde-dflip-script",
+    "file:./index.js"
+  ],
+  "viewScript": "file:./view.js",
+  "editorStyle": [
+    "bplde-dflip-style",
+    "file:./index.css"
+  ],
+  "style": "file:./view.css",
+  "render": "file:./render.php"
+}

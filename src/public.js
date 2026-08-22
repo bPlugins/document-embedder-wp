@@ -179,7 +179,11 @@ document.addEventListener("DOMContentLoaded", function () {
                       }
 
                       // Redirect to download endpoint with the new nonce
-                      const downloadUrl = bplde_obj.rest_url + 'download/' + docId + '?de_nonce=' + response.data.nonce;
+                      let downloadUrl = bplde_obj.rest_url + 'download/' + docId + '?de_nonce=' + response.data.nonce;
+                      // Only present for logged-in users; see the rest_nonce comment in PHP.
+                      if (bplde_obj.rest_nonce) {
+                          downloadUrl += '&_wpnonce=' + encodeURIComponent(bplde_obj.rest_nonce);
+                      }
                       if (self.dataset.behavior === 'newtab' && newTab) {
                           newTab.location.href = downloadUrl;
                       } else {

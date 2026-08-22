@@ -1,0 +1,629 @@
+/* ShortCode After Title */
+.bplde_shortcode_area_after_title {
+  display: flex;
+  background: #fff;
+  padding: 5px 15px;
+  align-items: center;
+  gap: 15px;
+  border-radius: 3px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+}
+
+.bplde_shortcode_area_after_title label {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.bplde_shortcode_area_after_title .shortcode_area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bplde_shortcode_area_after_title .shortcode_area svg {
+  cursor: pointer;
+}
+
+/* ShortCode Column */
+.bplde_front_shortcode input {
+  cursor: pointer;
+}
+
+.bplde_front_shortcode {
+  position: relative;
+  display: inline-block;
+}
+
+.bplde_front_shortcode .htooltip {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.bplde_front_shortcode .htooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.bplde_front_shortcode:hover .htooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Upgrade Notice */
+.bplde_upgrade_notice {
+  border: 1px solid #ccc;
+  background: linear-gradient(#fefefe, #f5f5f5);
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-top: 35px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bplde_upgrade_notice .flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bplde_upgrade_notice a.button {
+  background: #f19610fa;
+  border: none;
+  padding: 4px 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.bplde_upgrade_notice a.button:hover,
+.bplde_upgrade_notice a.button:focus,
+.bplde_upgrade_notice a.button:active {
+  background: #d5840e;
+  border: none;
+  box-shadow: none;
+}
+
+@media (max-width: 1320px) {
+  .bplde_upgrade_notice {
+    display: none;
+  }
+}
+
+/* Pro Field CSS */
+.bplde-field-title,
+.bplde-new-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bplde-field-title h4,
+.bplde-new-title h4 {
+  margin: 0;
+}
+
+.bplde-field-title span {
+  color: #fff;
+  background: #146ef5;
+  padding: 3px 10px;
+  border-radius: 0;
+  height: fit-content;
+}
+/* Opacity rules for lock fields */
+.bplde-lock-field.section:not(.has-doc) {
+  opacity: 0.5;
+}
+
+.bplde-lock-field:not(.section):not(.has-doc) .csf-fieldset {
+  opacity: 0.5;
+}
+
+.bplde-lock-field.has-doc .csf-title,
+.bplde-lock-field.has-doc .csf-fieldset .csf-before-text,
+.bplde-lock-field.has-doc .csf-fieldset input {
+  opacity: 0.5;
+}
+
+.csf-field.bplde-lock-field:hover::after {
+  display: block;
+}
+
+.csf-field.bplde-lock-field::before {
+  display: block;
+  width: 85%;
+  height: 100%;
+  content: "";
+  position: absolute;
+  z-index: 999;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.csf-field.bplde-lock-field::after {
+  display: none;
+  content: "";
+  width: 85%;
+  height: 100%;
+  position: absolute;
+  z-index: 9999999;
+}
+.csf-field.bplde-lock-field.has-doc {
+  opacity: 1 !important;
+}
+
+/* For Documentation link */
+.bplde-doc-link {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  z-index: 999;
+  top: 30%;
+  right: 6px;
+  margin-right: 30px;
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid #146ef5;
+  background: #fff;
+  color: #146ef5;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0;
+  transition: all 0.3s ease;
+}
+
+.bplde-doc-link:hover {
+  background: #146ef5;
+  color: #fff;
+}
+
+/* Metabox Upgrade Section */
+.bplde-metabox-upgrade-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.button.button-bplugins {
+  background: #146ef5;
+  color: #fff;
+}
+
+.button.button-bplugins:hover,
+.button.button-bplugins:focus,
+.button.button-bplugins:active {
+  background: #0b50b8;
+  color: #fff;
+}
+
+
+.csf-field #picker_container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dropbox-dropin-btn,
+.dropbox-dropin-btn-default {
+  padding: 15px !important;
+  display: flex !important;
+  margin: 0 !important;
+  border: 1px solid #267ffc !important;
+  justify-content: center !important;
+  align-items: center !important;
+  font-size: 14px !important;
+}
+
+.google-drive-picker-btn {
+  padding: 13px;
+  border: 1px solid #267ffc;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropbox-dropin-btn .dropin-btn-status {
+  height: 18px;
+}
+
+/* Upgrade Button Design */
+.fs-submenu-item.document-emberdder.pricing.upgrade-mode {
+  background: #267ffc;
+  border-radius: 0;
+  color: #fff;
+  display: inline-block;
+  padding: 6px 40px 6px 15px;
+}
+
+.fs-submenu-item.document-emberdder.pricing.upgrade-mode {
+  color: white;
+}
+
+/* New Badge */
+.bplde-new-badge {
+  color: #fff;
+  background: #ff9800;
+  padding: 2px 6px;
+  border-radius: 0;
+  font-size: 9px;
+  margin-left: 5px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-block;
+}
+
+/* PDF Only Badge */
+.bplde-pdf-only-badge {
+  color: #ffffff;
+  background: #8b5cf6;
+  padding: 2px 6px;
+  border-radius: 0;
+  font-size: 9px;
+  margin-left: 5px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1;
+  display: inline-block;
+}
+/* Preview Metabox Styles */
+#bplde_live_preview .inside {
+  margin: 0;
+  padding: 0;
+}
+
+.bplde-preview-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.bplde-preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bplde-preview-status {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.bplde-preview-status.is-busy {
+  color: #3858e9;
+}
+
+.bplde-preview-devices {
+  display: inline-flex;
+  border: 1px solid #d1d5db;
+  border-radius: 0;
+  overflow: hidden;
+  background: #fff;
+}
+
+.bplde-preview-device, .bplde-preview-refresh {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: #4b5563;
+  line-height: 20px;
+}
+.bplde-preview-refresh {
+  border: 1px solid #3858e9;
+}
+
+.bplde-preview-device+.bplde-preview-device {
+  border-left: 1px solid #e5e7eb;
+}
+
+.bplde-preview-device:hover {
+  background: #f3f4f6;
+}
+
+.bplde-preview-device.is-active {
+  background: #3858e9;
+  color: #fff;
+}
+
+.bplde-preview-stage {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  background: #f1f3f5;
+}
+
+.bplde-preview-stage iframe {
+  width: 100%;
+  max-width: 100%;
+  height: 640px;
+  border: 0;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
+  transition: width .2s ease, height .2s ease;
+}
+
+/* Go-to-preview button: always on screen, since the preview box now sits below the
+   configuration box. */
+.bplde-preview-jump {
+  position: fixed;
+  right: 260px;
+  bottom: 80px;
+  z-index: 100001;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #3858e9;
+  background: #3858e9;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .18);
+}
+
+.bplde-preview-jump:hover {
+  background: #2c48c9;
+  border-color: #2c48c9;
+  color: #fff;
+}
+
+/* No focus ring on click — :focus fires for mouse presses too, which put a dark outline round
+   the button every time it was used. :focus-visible limits it to keyboard focus, and the ring
+   is white so it reads against the blue instead of as a black box. */
+.bplde-preview-jump:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.bplde-preview-jump:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
+.bplde-preview-jump-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Continuous wave so the button stays noticeable. Two rings offset by half the cycle keep it
+   flowing instead of pulsing in bursts. They are pseudo-elements rather than an animation on
+   the button itself, so its own drop shadow is left alone; they are transparent inside, so the
+   expanding ring never washes over the icon or the label. box-shadow spread is used instead of
+   transform:scale() because spread grows by an equal number of pixels on every side, which
+   keeps the wave square on a wide button — scaling would stretch it horizontally. */
+.bplde-preview-jump::before,
+.bplde-preview-jump::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: transparent;
+  pointer-events: none;
+  animation: bplde-preview-wave 2.6s cubic-bezier(.22, .61, .36, 1) infinite;
+}
+
+.bplde-preview-jump::after {
+  animation-delay: 1.3s;
+}
+
+@keyframes bplde-preview-wave {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 88, 233, .55);
+  }
+
+  100% {
+    box-shadow: 0 0 0 18px rgba(56, 88, 233, 0);
+  }
+}
+
+/* Respect a reduced-motion preference; the button is already permanently visible without it. */
+@media (prefers-reduced-motion: reduce) {
+
+  .bplde-preview-jump::before,
+  .bplde-preview-jump::after {
+    animation: none;
+  }
+}
+
+
+.bplde-preview-note {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #6b7280;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* ----------------------------------------------------------------------------
+   Side-column panels (Pro teaser + Page Builder), rendered under Download Stats
+   on the document edit screen. Both share one surface, so they read as a pair.
+   Sized for the ~280px side column.
+---------------------------------------------------------------------------- */
+
+/* Each panel supplies its own surface, so the postbox around it is stripped back
+   to nothing. With .postbox-header gone there is no toggle and no drag handle,
+   and forcing .inside open ignores any collapsed state WordPress has already
+   stored for the box in user meta. */
+.postbox.bplde-flat-box {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.postbox.bplde-flat-box .postbox-header {
+  display: none;
+}
+
+.postbox.bplde-flat-box .inside {
+  display: block !important;
+  margin: 0;
+  padding: 0;
+}
+
+.bplde-panel {
+  position: relative;
+  /* Room above for the badge, which straddles the top border. */
+  margin-top: 10px;
+  padding: 20px;
+  border: 1px solid #e3e6ef;
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+
+.bplde-panel__badge {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 4px 10px;
+  border-radius: 0;
+  background: #3858e9;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bplde-panel__title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #101828;
+}
+
+.bplde-panel__note {
+  margin: 0 0 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #667085;
+}
+
+/* In the short builder panel the note is the only content, so it carries no
+   trailing gap. */
+.bplde-panel__note:last-child {
+  margin-bottom: 0;
+}
+
+/* Builder names lift out of the note by weight and a darker ink, so the list
+   scans without turning the sentence into six coloured links. */
+.bplde-panel__name {
+  font-weight: 600;
+  color: #1b2438;
+}
+
+.bplde-panel__list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #eceef4;
+}
+
+.bplde-panel__list li {
+  margin: 0;
+  padding: 9px 0;
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: #1b2438;
+  border-bottom: 1px solid #eceef4;
+}
+
+/* The metabox pane is far wider than the side column, so the same list runs in
+   two columns there. A short list falls back to one column on its own. */
+.bplde-panel__list--wide {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  column-gap: 28px;
+}
+
+/* Wide panels put the button and the footnote on one row instead of stacking
+   them centred, which is what the narrow side column needs. */
+.bplde-panel__foot-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.bplde-panel__foot-row .bplde-panel__cta {
+  display: inline-block;
+  padding: 10px 22px;
+}
+
+.bplde-panel__foot-row .bplde-panel__foot {
+  margin: 0;
+}
+
+.bplde-panel__cta {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 0;
+  background: #3858e9;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.bplde-panel__cta:hover,
+.bplde-panel__cta:focus {
+  background: #2b45c9;
+  color: #fff;
+  box-shadow: none;
+  outline: 0;
+}
+
+.bplde-panel__foot {
+  margin: 10px 0 0;
+  font-size: 11px;
+  text-align: center;
+  color: #98a2b3;
+}

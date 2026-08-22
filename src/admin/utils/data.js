@@ -68,6 +68,14 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.3.1 - 22 August 2026",
+        list: [
+          "**Security:** Strengthened permission checks for document downloads. All users are encouraged to update. Reported by Vaibhav Narkhede.",
+          "**Security:** Download links are now time-limited.",
+          "**Security:** Additional hardening across file delivery and data export."
+        ]
+      },
+      {
         version: "2.3.0 - 19 August 2026",
         list: [
           "**New:** Complete overhaul of the Access and Security settings module, delivering advanced protection controls with an intuitive interface for all users.",

@@ -220,7 +220,11 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
           if (res.data.limit_reached || (res.data.count >= parseInt(_de_download_limit) && parseInt(_de_download_limit) > 0)) {
             setLimitReached(true);
           }
-          const downloadUrl = `${window.bplde_obj.rest_url}download/${postId}?de_nonce=${res.data.nonce}&behavior=${encodeURIComponent(behavior)}&filename=${encodeURIComponent(_de_download_filename)}`;
+          let downloadUrl = `${window.bplde_obj.rest_url}download/${postId}?de_nonce=${res.data.nonce}&behavior=${encodeURIComponent(behavior)}&filename=${encodeURIComponent(_de_download_filename)}`;
+          // Only present for logged-in users; see the rest_nonce comment in PHP.
+          if (window.bplde_obj.rest_nonce) {
+            downloadUrl += `&_wpnonce=${encodeURIComponent(window.bplde_obj.rest_nonce)}`;
+          }
           if (behavior === "newtab" && newTab) {
             newTab.location.href = downloadUrl;
           } else {

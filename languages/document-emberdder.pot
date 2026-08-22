@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Document Embedder – Embed PDFs, Word, Excel, and Other Files 2.3.0\n"
+"Project-Id-Version: Document Embedder – Embed PDFs, Word, Excel, and Other Files 2.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/document-emberdder\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-19T12:11:16+00:00\n"
+"POT-Creation-Date: 2026-08-22T08:54:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
@@ -39,195 +39,244 @@ msgstr ""
 msgid "http://bplugins.com"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-document-library.php:45
+#: document-emberdder/includes/admin/class-bplde-document-library.php:46
 #: includes/admin/class-bplde-document-library.php:45
 #: includes/admin/class-bplde-document-library.php:46
 msgid "Document Library"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-document-library.php:47
 #: includes/admin/class-bplde-document-library.php:47
 msgid "Add New Library"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-document-library.php:48
 #: includes/admin/class-bplde-document-library.php:48
 msgid "Edit Library"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-leads-page.php:40
 #: includes/admin/class-bplde-leads-page.php:40
 msgid "Download Leads"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-leads-page.php:129
 #: includes/admin/class-bplde-leads-page.php:129
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-menu.php:39
 #: includes/admin/class-bplde-menu.php:39
 msgid "Help & Demos"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-menu.php:40
 #: includes/admin/class-bplde-menu.php:40
 msgid "<span style=\"color: #f18500;\">Help & Demos</span>"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:23
 #: includes/admin/class-bplde-metabox-free.php:23
 msgid "Document Configuration"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:29
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:115
 #: includes/admin/class-bplde-metabox-free.php:29
 #: includes/admin/class-bplde-metabox-free.php:115
 msgid "General"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:34
 #: includes/admin/class-bplde-metabox-free.php:34
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:264
 msgid "Document File"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:44
 #: includes/admin/class-bplde-metabox-free.php:44
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:288
 msgid "Viewer"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:45
 #: includes/admin/class-bplde-metabox-free.php:45
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:391
 msgid "Select the document viewer engine. Note: Custom PDF, Flipbook, and Slider engines only support PDF documents."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:48
 #: includes/admin/class-bplde-metabox-free.php:48
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:293
 msgid "Default"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:49
 #: includes/admin/class-bplde-metabox-free.php:49
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:297
 msgid "Custom PDF"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:50
 #: includes/admin/class-bplde-metabox-free.php:50
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:329
 msgid "Flipbook"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:51
 #: includes/admin/class-bplde-metabox-free.php:51
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:361
 msgid "Slider"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:57
 #: includes/admin/class-bplde-metabox-free.php:57
 msgid "Set Height & Width For"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:68
 #: includes/admin/class-bplde-metabox-free.php:68
 msgid "Width (Desktop)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:76
 #: includes/admin/class-bplde-metabox-free.php:76
 msgid "Width (Tablet)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:83
 #: includes/admin/class-bplde-metabox-free.php:83
 msgid "Width (Mobile)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:90
 #: includes/admin/class-bplde-metabox-free.php:90
 msgid "Height (Desktop)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:98
 #: includes/admin/class-bplde-metabox-free.php:98
 msgid "Height (Tablet)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:105
 #: includes/admin/class-bplde-metabox-free.php:105
 msgid "Height (Mobile)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:112
 #: includes/admin/class-bplde-metabox-free.php:112
 msgid "Disable Popout to Prevent Direct File Theft"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:113
 #: includes/admin/class-bplde-metabox-free.php:113
 msgid "Enable Professional Loading Icon"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:122
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:136
 #: includes/admin/class-bplde-metabox-free.php:122
 #: includes/admin/class-bplde-metabox-free.php:136
 #: src/blocks/document-embed/components/Backend/ViewerFeatures.js:29
 msgid "Controls"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:127
 #: includes/admin/class-bplde-metabox-free.php:127
 msgid "Reader Mode for minimalist distraction-free reading"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:128
 #: includes/admin/class-bplde-metabox-free.php:128
 msgid "Toggle Thumbnail Navigation sidebar"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:129
 #: includes/admin/class-bplde-metabox-free.php:129
 msgid "Force Sidebar Open by default on load"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:130
 #: includes/admin/class-bplde-metabox-free.php:130
 msgid "Horizontal Scrollbar support for wide layouts"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:131
 #: includes/admin/class-bplde-metabox-free.php:131
 msgid "Load Latest Version automatically (cache bypass)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:132
 #: includes/admin/class-bplde-metabox-free.php:132
 msgid "Enable Full-Screen button or Open in a New Tab"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:133
 #: includes/admin/class-bplde-metabox-free.php:133
 msgid "On-Demand Page Rendering for heavy documents"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:134
 #: includes/admin/class-bplde-metabox-free.php:134
 msgid "Specify Custom Initial Page and Default Zoom Level"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:142
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:173
 #: includes/admin/class-bplde-metabox-free.php:142
 #: includes/admin/class-bplde-metabox-free.php:173
 #: src/blocks/document-embed/components/Backend/Toolbar.js:48
 msgid "Toolbar"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:147
 #: includes/admin/class-bplde-metabox-free.php:147
 #: src/blocks/document-embed/components/Backend/Toolbar.js:55
 msgid "Display File Name"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:148
 #: includes/admin/class-bplde-metabox-free.php:148
 #: src/blocks/document-embed/components/Backend/Toolbar.js:58
 msgid "Enable to display the document name. Not available for Google Drive and Dropbox."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:154
 #: includes/admin/class-bplde-metabox-free.php:154
 msgid "Show Download Button"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:155
 #: includes/admin/class-bplde-metabox-free.php:155
 #: src/blocks/document-embed/components/Backend/Toolbar.js:66
 msgid "Enable to show a download button for the document. Not available for Google Drive and Dropbox."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:161
 #: includes/admin/class-bplde-metabox-free.php:161
 #: src/blocks/document-embed/components/Backend/Toolbar.js:72
 msgid "Toolbar Position"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:166
 #: includes/admin/class-bplde-metabox-free.php:166
 msgid "Choose where the toolbar appears."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:170
 #: includes/admin/class-bplde-metabox-free.php:170
 msgid "Dark / Light / Custom Toolbar Themes"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:171
 #: includes/admin/class-bplde-metabox-free.php:171
 msgid "Custom Toolbar Background & Text Colors"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:178
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:184
 #: includes/admin/class-bplde-metabox-free.php:178
 #: includes/admin/class-bplde-metabox-free.php:184
 #: src/blocks/document-embed/components/Backend/Lightbox.js:27
@@ -235,82 +284,102 @@ msgstr ""
 msgid "Modal Pop Up (Lightbox)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:181
 #: includes/admin/class-bplde-metabox-free.php:181
 msgid "Beautiful Lightbox View Overlay (Open document in modal popup)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:182
 #: includes/admin/class-bplde-metabox-free.php:182
 msgid "Custom Lightbox Trigger Button (Text, Colors, and Sizes)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:189
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:240
 #: includes/admin/class-bplde-metabox-free.php:189
 #: includes/admin/class-bplde-metabox-free.php:240
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:51
 msgid "Download Management"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:194
 #: includes/admin/class-bplde-metabox-free.php:194
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:101
 msgid "Download Button Text"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:196
 #: includes/admin/class-bplde-metabox-free.php:196
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:104
 msgid "Specify the text for the download button."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:201
 #: includes/admin/class-bplde-metabox-free.php:201
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:109
 msgid "Download Behavior"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:211
 #: includes/admin/class-bplde-metabox-free.php:211
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:120
 msgid "Custom Filename"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:212
 #: includes/admin/class-bplde-metabox-free.php:212
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:123
 msgid "Optional custom filename for the download. Note: This will not work if Download Behavior is set to \"Open in New Tab\"."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:217
 #: includes/admin/class-bplde-metabox-free.php:217
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:128
 msgid "Show Download Count"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:218
 #: includes/admin/class-bplde-metabox-free.php:218
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:131
 msgid "Display the total number of times this document has been downloaded."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:224
 #: includes/admin/class-bplde-metabox-free.php:224
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:136
 msgid "Download Limit"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:225
 #: includes/admin/class-bplde-metabox-free.php:225
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:140
 msgid "Limit the number of downloads allowed per user IP address."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:235
 #: includes/admin/class-bplde-metabox-free.php:235
 msgid "Email Gate to Collect Leads before Downloading"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:236
 #: includes/admin/class-bplde-metabox-free.php:236
 msgid "Download Access Control by Login Status / Specific Roles"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:237
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:41
 #: includes/admin/class-bplde-metabox-free.php:237
 #: includes/admin/class-bplde-settings-free.php:41
 msgid "Dedicated Leads Dashboard & Stats Tracking"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:238
 #: includes/admin/class-bplde-metabox-free.php:238
 msgid "One-Click Lead Data Export to CSV"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:245
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:253
 #: includes/admin/class-bplde-metabox-free.php:245
 #: includes/admin/class-bplde-metabox-free.php:253
 #: src/blocks/document-embed/components/Backend/AccessControl.js:27
@@ -318,22 +387,28 @@ msgstr ""
 msgid "Access & Security"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:248
 #: includes/admin/class-bplde-metabox-free.php:248
 msgid "View Access Control — gate the viewer itself by Login Status / Specific Roles"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:249
 #: includes/admin/class-bplde-metabox-free.php:249
 msgid "Allowed Roles (View) — pick exactly which roles can open the document"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:250
 #: includes/admin/class-bplde-metabox-free.php:250
 msgid "Custom Restricted Message shown in place of the viewer"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:251
 #: includes/admin/class-bplde-metabox-free.php:251
 msgid "Secure Document Delivery (PDF Only) — signed, expiring, IP-bound file streaming instead of a public URL"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:258
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:267
 #: includes/admin/class-bplde-metabox-free.php:258
 #: includes/admin/class-bplde-metabox-free.php:267
 #: src/blocks/document-embed/components/Backend/Overlays.js:28
@@ -341,26 +416,33 @@ msgstr ""
 msgid "Interactive Overlays"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:261
 #: includes/admin/class-bplde-metabox-free.php:261
 msgid "Overlays (PDF Only) — place unlimited Notes, Highlights, Links and Calls-to-Action on individual pages"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:262
 #: includes/admin/class-bplde-metabox-free.php:262
 msgid "Per-overlay Page picker to target the exact page of the document"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:263
 #: includes/admin/class-bplde-metabox-free.php:263
 msgid "Percentage-based Position (X / Y) and Size (Width / Height) that stay aligned at any zoom"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:264
 #: includes/admin/class-bplde-metabox-free.php:264
 msgid "Link URL to turn any overlay into a transparent clickable area"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:265
 #: includes/admin/class-bplde-metabox-free.php:265
 msgid "Rich Content box with safe HTML for Note and Call-to-Action overlays"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:273
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:281
 #: includes/admin/class-bplde-metabox-free.php:273
 #: includes/admin/class-bplde-metabox-free.php:281
 #: src/blocks/document-embed/components/Backend/Performance.js:26
@@ -368,160 +450,201 @@ msgstr ""
 msgid "Performance & Reliability"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:278
 #: includes/admin/class-bplde-metabox-free.php:278
 msgid "Lazy Load documents to speed up page load time"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-metabox-free.php:279
 #: includes/admin/class-bplde-metabox-free.php:279
 msgid "Google View Fallback for failed viewer loads"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:72
 #: includes/admin/class-bplde-preview.php:72
 msgid "Live Preview (Click to Show/Hide)"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:113
 #: includes/admin/class-bplde-preview.php:113
 msgid "Desktop"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:114
 #: includes/admin/class-bplde-preview.php:114
 msgid "Tablet"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:115
 #: includes/admin/class-bplde-preview.php:115
 msgid "Mobile"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:132
 #: includes/admin/class-bplde-preview.php:132
 msgid "Refresh"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:140
 #: includes/admin/class-bplde-preview.php:140
 msgid "Document live preview"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:143
 #: includes/admin/class-bplde-preview.php:143
 msgid "Unsaved settings are shown here as visitors would see them. Nothing is saved until you press Update."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:184
 #: includes/admin/class-bplde-preview.php:184
 msgid "Go to Live Preview"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:193
 #: includes/admin/class-bplde-preview.php:193
 msgid "Live Preview"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:231
 #: includes/admin/class-bplde-preview.php:231
 msgid "Updating preview…"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:232
 #: includes/admin/class-bplde-preview.php:232
 msgid "Preview up to date"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:253
 #: includes/admin/class-bplde-preview.php:253
 msgid "This preview link has expired. Reload the editor to continue previewing."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-preview.php:259
 #: includes/admin/class-bplde-preview.php:259
 msgid "You are not allowed to preview this document."
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:24
 #: includes/admin/class-bplde-settings-free.php:24
 msgid "Settings"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:34
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:43
 #: includes/admin/class-bplde-settings-free.php:34
 #: includes/admin/class-bplde-settings-free.php:43
 msgid "Premium Integrations"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:37
 #: includes/admin/class-bplde-settings-free.php:37
 msgid "Google Drive API Integration to embed files directly"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:38
 #: includes/admin/class-bplde-settings-free.php:38
 msgid "Dropbox API Integration to embed files directly"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:39
 #: includes/admin/class-bplde-settings-free.php:39
 msgid "Secure Email Gate to Collect Leads before Downloading"
 msgstr ""
 
+#: document-emberdder/includes/admin/class-bplde-settings-free.php:40
 #: includes/admin/class-bplde-settings-free.php:40
 msgid "Download Access Control by Login Status & User Roles"
 msgstr ""
 
+#: document-emberdder/includes/class-bplde-init.php:74
 #: includes/class-bplde-init.php:74
 msgid "Help & Demo's"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:177
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:184
+#: includes/core/class-bplde-document-embedder.php:184
 msgid "Page Builder Support"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:188
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:195
+#: includes/core/class-bplde-document-embedder.php:195
 msgid "Document Embedder Pro"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:240
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:247
+#: includes/core/class-bplde-document-embedder.php:247
 msgid "Email-gated downloads"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:241
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:248
+#: includes/core/class-bplde-document-embedder.php:248
 msgid "Interactive overlays on any page"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:242
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:249
+#: includes/core/class-bplde-document-embedder.php:249
 msgid "Print, copy and right-click protection"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:243
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:250
+#: includes/core/class-bplde-document-embedder.php:250
 msgid "Access limited by user role"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:244
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:251
+#: includes/core/class-bplde-document-embedder.php:251
 msgid "Google Drive and Dropbox embeds"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:245
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:252
+#: includes/core/class-bplde-document-embedder.php:252
 msgid "Toolbar themes, zoom and lightbox"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:251
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:258
+#: document-emberdder/includes/core/class-bplde-helper-functions.php:62
+#: includes/core/class-bplde-document-embedder.php:258
 #: includes/core/class-bplde-helper-functions.php:62
 msgid "Pro Version"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:253
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:260
+#: includes/core/class-bplde-document-embedder.php:260
 msgid "Where the free version stops"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:256
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:263
+#: includes/core/class-bplde-document-embedder.php:263
 msgid "Six settings the free version keeps locked:"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:266
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:273
+#: document-emberdder/includes/core/class-bplde-helper-functions.php:73
+#: includes/core/class-bplde-document-embedder.php:273
 #: includes/core/class-bplde-helper-functions.php:73
 msgid "See Pro pricing"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:270
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:277
+#: includes/core/class-bplde-document-embedder.php:277
 msgid "14-day refund policy"
 msgstr ""
 
 #. translators: %s is a comma-separated list of page builder names.
-#: includes/core/class-bplde-document-embedder.php:294
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:301
+#: includes/core/class-bplde-document-embedder.php:301
 #, php-format
 msgid "Paste the shortcode above into %s or any other builder."
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:299
+#: document-emberdder/includes/core/class-bplde-document-embedder.php:306
+#: includes/core/class-bplde-document-embedder.php:306
 msgid "Fully compatible"
 msgstr ""
 
 #. translators: %d: number of locked settings in this section.
+#: document-emberdder/includes/core/class-bplde-helper-functions.php:44
 #: includes/core/class-bplde-helper-functions.php:44
 #, php-format
 msgid "%d setting this section keeps locked"
@@ -530,61 +653,77 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: section name, e.g. "Access & Security".
+#: document-emberdder/includes/core/class-bplde-helper-functions.php:56
 #: includes/core/class-bplde-helper-functions.php:56
 #, php-format
 msgid "%s is available on Document Embedder Pro."
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-helper-functions.php:59
 #: includes/core/class-bplde-helper-functions.php:59
 msgid "These settings are available on Document Embedder Pro."
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-helper-functions.php:74
 #: includes/core/class-bplde-helper-functions.php:74
 msgid "14-day refund policy · Trusted by 10,000+ WordPress sites"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:45
 #: includes/core/class-bplde-ppt-viewer.php:45
 msgid "Document Embedder"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:51
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:52
 #: includes/core/class-bplde-ppt-viewer.php:51
 #: includes/core/class-bplde-ppt-viewer.php:52
 msgid "Doc Embedder"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:53
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:54
 #: includes/core/class-bplde-ppt-viewer.php:53
 #: includes/core/class-bplde-ppt-viewer.php:54
 msgid "Add New Doc"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:55
 #: includes/core/class-bplde-ppt-viewer.php:55
 msgid "Edit"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:56
 #: includes/core/class-bplde-ppt-viewer.php:56
 msgid "New item"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:57
 #: includes/core/class-bplde-ppt-viewer.php:57
 msgid "View item"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:58
 #: includes/core/class-bplde-ppt-viewer.php:58
 msgid "Search"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:59
 #: includes/core/class-bplde-ppt-viewer.php:59
 msgid "Sorry, we couldn't find the power point file you are looking for."
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:169
 #: includes/core/class-bplde-ppt-viewer.php:169
 msgid "Copy and paste this shortcode into your posts, pages and widget"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:254
 #: includes/core/class-bplde-ppt-viewer.php:254
 msgid "Save"
 msgstr ""
 
+#: document-emberdder/includes/core/class-bplde-ppt-viewer.php:262
 #: includes/core/class-bplde-ppt-viewer.php:262
 msgid "Updated"
 msgstr ""
@@ -891,39 +1030,39 @@ msgstr ""
 msgid "Preview is not available for dropbox"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:288
+#: src/blocks/document-embed/components/Common/Viewer.js:292
 msgid "Open in new tab"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:289
+#: src/blocks/document-embed/components/Common/Viewer.js:293
 msgid "Full screen"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:375
+#: src/blocks/document-embed/components/Common/Viewer.js:379
 msgid "Preview temporarily unavailable."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:382
+#: src/blocks/document-embed/components/Common/Viewer.js:386
 msgid "Download"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:533
+#: src/blocks/document-embed/components/Common/Viewer.js:537
 msgid "No document added yet"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:534
+#: src/blocks/document-embed/components/Common/Viewer.js:538
 msgid "Document unavailable"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:539
+#: src/blocks/document-embed/components/Common/Viewer.js:543
 msgid "Upload a file from your Media Library or paste a document link in the settings, and it will appear here."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:543
+#: src/blocks/document-embed/components/Common/Viewer.js:547
 msgid "No document has been added to this embed yet."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:551
+#: src/blocks/document-embed/components/Common/Viewer.js:555
 msgid "Document Configuration → General → Document File"
 msgstr ""
 
