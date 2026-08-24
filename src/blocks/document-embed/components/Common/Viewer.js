@@ -4,7 +4,6 @@ import PDFJSViewer from "./PDFJSViewer";
 import IframePreview from "./IframePreview";
 import FlipbookViewer from "./FlipbookViewer";
 import Style from "./Style";
-import EmailGate from "./EmailGate";
 import DocToolbar from "./DocToolbar";
 
 const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = "", isEditor = false }) => {
@@ -36,11 +35,11 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
     _de_download_behavior = "download",
     _de_download_filename = "",
     _de_download_show_count = false,
-    _de_download_limit = 0,
+    // _de_download_limit is deliberately not read here: the allowance is per IP and only
+    // the server can evaluate it, so it arrives as limit_reached on the tracking response.
     _de_download_access = "everyone",
     _de_download_access_roles = [],
     _de_download_access_message = "Access Denied",
-    _de_email_gate = false,
   } = downloadManagement;
 
   const {
@@ -70,9 +69,6 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
       setGviewFailed(true);
     }
   };
-
-  // Email Gate state
-  const [showEmailGate, setShowEmailGate] = useState(false);
 
   // Ref to the element wrapping the PDF preview, used for native full-screen from the plugin toolbar.
   const previewRef = useRef(null);
@@ -217,7 +213,10 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
       .then((res) => {
         if (res.success) {
           setDownloadCount(res.data.count);
-          if (res.data.limit_reached || (res.data.count >= parseInt(_de_download_limit) && parseInt(_de_download_limit) > 0)) {
+          // Trust only the server's per-IP verdict. res.data.count is the document's
+          // site-wide total, and comparing that against a per-IP limit locks the button
+          // after one download on any document that already has history.
+          if (res.data.limit_reached) {
             setLimitReached(true);
           }
           let downloadUrl = `${window.bplde_obj.rest_url}download/${postId}?de_nonce=${res.data.nonce}&behavior=${encodeURIComponent(behavior)}&filename=${encodeURIComponent(_de_download_filename)}`;
@@ -230,6 +229,14 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
           } else {
             window.location.href = downloadUrl;
           }
+        } else if (res.data && res.data.limit_reached) {
+          // A refusal, not a failure. The fallback below hands over the raw file, which
+          // would undo the server's decision, so the limit case has to be handled first.
+          setLimitReached(true);
+          if (typeof res.data.count === "number") {
+            setDownloadCount(res.data.count);
+          }
+          if (newTab) newTab.close();
         } else {
           if (behavior === "newtab" && newTab) {
             newTab.location.href = doc;
@@ -259,15 +266,11 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
 
   const handleDownloadClick = (e) => {
     e.preventDefault();
-    if (_de_email_gate) {
-      setShowEmailGate(true);
-    } else {
-      let newTab = null;
-      if (_de_download_behavior === "newtab") {
-        newTab = window.open("about:blank", "_blank");
-      }
-      trackDownload(_de_download_behavior, newTab);
+    let newTab = null;
+    if (_de_download_behavior === "newtab") {
+      newTab = window.open("about:blank", "_blank");
     }
+    trackDownload(_de_download_behavior, newTab);
   };
 
 
@@ -664,16 +667,6 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
               />
             )}
           </>
-        )}
-
-        {showEmailGate && (
-          <EmailGate
-            onClose={() => setShowEmailGate(false)}
-            postId={postId}
-            downloadBehavior={_de_download_behavior}
-            downloadButtonText={downloadButtonText}
-            onSuccess={() => setDownloadCount((prev) => prev + 1)}
-          />
         )}
       </div>
     </>

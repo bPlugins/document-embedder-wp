@@ -1,7 +1,7 @@
 <?php
 /**
  * BPLDE Consolidated REST Controller.
- * Handles leads retrieval, gate downloads, and secure direct downloads.
+ * Handles leads retrieval and secure direct downloads.
  *
  * @package DocumentEmbedder
  */
@@ -26,15 +26,6 @@ if ( ! class_exists( RESTController::class ) ) {
                 'permission_callback' => function() {
                     return current_user_can( 'manage_options' );
                 }
-            ] );
-
-            // Gated download endpoint. Public by design -- it backs the lead-capture form
-            // that anonymous visitors submit -- so the permission callback cannot carry the
-            // authorization. The handler checks the requested document itself instead.
-            register_rest_route( 'docembedder/v1', '/gate-download', [
-                'methods'             => 'POST',
-                'callback'            => [$this, 'handle_gate_download'],
-                'permission_callback' => '__return_true'
             ] );
 
             // Direct/secure download endpoint. Also reachable anonymously, for documents on
@@ -66,78 +57,15 @@ if ( ! class_exists( RESTController::class ) ) {
             \BPLDE\Model\AJAXCall::instance()->handle_export_csv();
         }
 
-        public function handle_gate_download( \WP_REST_Request $request ) {
-            global $wpdb;
-            $name        = sanitize_text_field( $request->get_param( 'name' ) );
-            $raw_email   = sanitize_text_field( $request->get_param( 'email' ) );
-            $document_id = intval( $request->get_param( 'document_id' ) );
-
-            if ( empty( $name ) || empty( $raw_email ) || ! is_email( $raw_email ) || ! filter_var( $raw_email, FILTER_VALIDATE_EMAIL ) || ! preg_match( '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $raw_email ) || empty( $document_id ) ) {
-                return new \WP_REST_Response( ['success' => false, 'message' => 'Please enter a valid email address.'], 400 );
-            }
-
-            $email = sanitize_email( $raw_email );
-
-            // Authorize the document before anything else touches it. This route takes no
-            // nonce at all, so without this check it hands a signed download URL for any ID
-            // to any anonymous caller. Deliberately indistinguishable from a missing
-            // document, so it cannot be used to probe which IDs exist.
-            if ( ! \BPLDE\Helper\Functions::can_read_document( $document_id ) ) {
-                return new \WP_REST_Response( ['success' => false, 'message' => 'Document not found.'], 404 );
-            }
-
-            // Verify access restrictions
-            $meta = get_post_meta( $document_id, 'ppv', true );
-            $access = isset( $meta['_de_download_access'] ) ? $meta['_de_download_access'] : '';
-            if ( $access === 'loggedin' && ! is_user_logged_in() ) {
-                return new \WP_REST_Response( ['success' => false, 'message' => 'Unauthorized - Login required.'], 401 );
-            }
-            if ( $access === 'roles' ) {
-                if ( ! is_user_logged_in() ) {
-                    return new \WP_REST_Response( ['success' => false, 'message' => 'Unauthorized.'], 401 );
-                }
-                $allowed_roles = isset( $meta['_de_download_access_roles'] ) ? (array) $meta['_de_download_access_roles'] : [];
-                $user          = wp_get_current_user();
-                $user_roles    = (array) $user->roles;
-                if ( empty( array_intersect( $allowed_roles, $user_roles ) ) ) {
-                    return new \WP_REST_Response( ['success' => false, 'message' => 'Forbidden.'], 403 );
-                }
-            }
-
-            $document_title = get_the_title( $document_id );
-
-            // Insert into db
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- direct insert to custom table
-            $wpdb->insert(
-                $wpdb->prefix . 'docembedder_leads',
-                [
-                    'name'           => $name,
-                    'email'          => $email,
-                    'document_id'    => $document_id,
-                    'document_title' => $document_title,
-                    'downloaded_at'  => current_time( 'mysql' ),
-                    'ip_address'     => \BPLDE\Helper\Functions::get_client_ip()
-                ],
-                ['%s', '%s', '%d', '%s', '%s', '%s']
-            );
-
-            // Increment count
-            $count = (int) get_post_meta( $document_id, '_de_download_count', true );
-            update_post_meta( $document_id, '_de_download_count', $count + 1 );
-
-            // Generate signed, time-limited URL
-            $timestamp = time();
-            $nonce     = \BPLDE\Helper\Functions::create_download_token( $document_id, $timestamp );
-            $url       = rest_url( "docembedder/v1/download/{$document_id}?de_nonce={$nonce}&t={$timestamp}" );
-
-            // Carry the caller's REST identity across to the download route, so a logged-in
-            // user keeps their capabilities there. Anonymous callers get the URL unchanged.
-            if ( is_user_logged_in() ) {
-                $url = add_query_arg( '_wpnonce', wp_create_nonce( 'wp_rest' ), $url );
-            }
-
-            return new \WP_REST_Response( ['success' => true, 'url' => $url], 200 );
-        }
+        /**
+         * The email gate is a Document Embedder Pro feature.
+         *
+         * Its endpoint used to be registered here unconditionally with a __return_true
+         * permission callback, which left an unauthenticated route on every free install that
+         * wrote lead rows and minted download tokens for any document ID -- reachable whether
+         * or not any block had the gate switched on. The free build has no gate UI, so the
+         * route has no caller and is not registered.
+         */
 
         public function handle_direct_download( \WP_REST_Request $request ) {
             $document_id = intval( $request->get_param( 'id' ) );
@@ -175,20 +103,19 @@ if ( ! class_exists( RESTController::class ) ) {
                 return new \WP_REST_Response( 'Forbidden - Invalid Token', 403 );
             }
 
-            // Limit Check
-            $limit = get_post_meta( $document_id, '_de_download_limit', true );
-            if ( ! empty( $limit ) && (int) $limit > 0 ) {
-                global $wpdb;
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- querying custom table
-                $downloaded_count = $wpdb->get_var( $wpdb->prepare(
-                    "SELECT COUNT(*) FROM {$wpdb->prefix}docembedder_leads WHERE document_id = %d AND ip_address = %s",
-                    $document_id,
-                    $ip
-                ) );
-
-                if ( (int) $downloaded_count > (int) $limit ) {
-                    return new \WP_REST_Response( 'Download limit reached.', 403 );
-                }
+            // Limit Check. The limit lives inside the 'ppv' container that the metabox writes
+            // ($meta above is that same row) -- there is no standalone '_de_download_limit'
+            // meta row, so the read this used to do returned '' for every document and the
+            // whole block was skipped. Functions::download_allowance_exceeded() reads through
+            // the container.
+            //
+            // This is only a backstop: the row for the download in flight is already written
+            // by the time a request gets here, so it fires on an over-run rather than on the
+            // last legitimate download. Refusing a visitor who has spent their allowance is
+            // the minting endpoints' job; refusing a replayed URL is spend_download_token()'s,
+            // below.
+            if ( \BPLDE\Helper\Functions::download_allowance_exceeded( $document_id, $ip ) ) {
+                return new \WP_REST_Response( 'Download limit reached.', 403 );
             }
 
             // Get file path
@@ -274,6 +201,14 @@ if ( ! class_exists( RESTController::class ) ) {
             $finfo     = finfo_open( FILEINFO_MIME_TYPE );
             $mime_type = finfo_file( $finfo, $file_path );
             finfo_close( $finfo );
+
+            // Everything that can refuse this request has now run, and the next thing that
+            // happens is the file going out -- so this is the point at which the grant is
+            // spent. Doing it any earlier would let a request that bails out on an access
+            // check burn a link the visitor never got anything from.
+            if ( ! \BPLDE\Helper\Functions::spend_download_token( $nonce ) ) {
+                return new \WP_REST_Response( 'Download link already used.', 403 );
+            }
 
             header( 'Content-Type: ' . $mime_type );
             header( 'Content-Disposition: ' . $disposition . '; filename="' . esc_attr( $filename ) . '"' );

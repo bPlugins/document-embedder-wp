@@ -1,6 +1,6 @@
 import { PanelBody, ToggleControl, SelectControl, TextControl } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-import { MultiSelectControl } from "../../../../../../bpl-tools/Components";
+import { MultiSelectControl, Notice } from "../../../../../../bpl-tools/Components";
 
 const DownloadManagement = ({ attributes, setAttributes }) => {
   const { downloadManagement } = attributes;
@@ -13,7 +13,6 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
     _de_download_access,
     _de_download_access_roles = [],
     _de_download_access_message,
-    _de_email_gate,
   } = downloadManagement;
 
   const updateDownload = (key, value) => {
@@ -26,6 +25,8 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
   };
 
   const rolesOptions = window.ppvBlocks?.roles || [];
+
+  const isPremium = window.ppvBlocks?.isPremium === true || window.ppvBlocks?.isPremium === '1' || window.ppvBlocks?.isPremium === 1;
 
   return (
     <PanelBody
@@ -53,49 +54,6 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
       }
       initialOpen={false}
     >
-      <ToggleControl
-        className="mt10"
-        label={__("Email Gate", "document-emberdder")}
-        checked={_de_email_gate}
-        onChange={(val) => updateDownload("_de_email_gate", val)}
-        help={__("Enable to require users to enter their name and email before downloading. Leads are saved in the Leads menu.", "document-emberdder")}
-      />
-
-      <SelectControl
-        className="mt10"
-        label={__("Download Access", "document-emberdder")}
-        value={_de_download_access}
-        options={[
-          { label: __("Everyone", "document-emberdder"), value: "everyone" },
-          { label: __("Logged In Users", "document-emberdder"), value: "loggedin" },
-          { label: __("Specific Roles", "document-emberdder"), value: "roles" },
-        ]}
-        onChange={(val) => updateDownload("_de_download_access", val)}
-      />
-
-      {_de_download_access === "roles" && (
-        <div className="mt10">
-          <label className="components-base-control__label" style={{ display: "block", marginBottom: "5px" }}>
-            {__("Select Roles", "document-emberdder")}
-          </label>
-          <MultiSelectControl
-            value={_de_download_access_roles}
-            options={rolesOptions}
-            onChange={(val) => updateDownload("_de_download_access_roles", val)}
-          />
-        </div>
-      )}
-
-      {_de_download_access !== "everyone" && (
-        <TextControl
-          className="mt10"
-          label={__("Access Denied Message", "document-emberdder")}
-          value={_de_download_access_message}
-          onChange={(val) => updateDownload("_de_download_access_message", val)}
-          help={__("Message shown when download is restricted (e.g. \"Login to download\"). Empty message will show nothing.", "document-emberdder")}
-        />
-      )}
-
       <TextControl
         className="mt10"
         label={__("Download Button Text", "document-emberdder")}
@@ -139,6 +97,52 @@ const DownloadManagement = ({ attributes, setAttributes }) => {
         onChange={(val) => updateDownload("_de_download_limit", parseInt(val) || 0)}
         help={__("Limit the number of downloads allowed per user IP address.", "document-emberdder")}
       />
+
+      {!isPremium ? (
+        <Notice status="premium" isIcon={true}>
+          {__(
+            "Decide exactly who gets the file — restrict downloads to logged-in users or specific roles, and capture a name and email before the download starts. Download access control and the email gate are available in Document Embedder Pro.",
+            "document-emberdder"
+          )}
+        </Notice>
+      ) : (
+        <>
+          <SelectControl
+            className="mt10"
+            label={__("Download Access", "document-emberdder")}
+            value={_de_download_access}
+            options={[
+              { label: __("Everyone", "document-emberdder"), value: "everyone" },
+              { label: __("Logged In Users", "document-emberdder"), value: "loggedin" },
+              { label: __("Specific Roles", "document-emberdder"), value: "roles" },
+            ]}
+            onChange={(val) => updateDownload("_de_download_access", val)}
+          />
+
+          {_de_download_access === "roles" && (
+            <div className="mt10">
+              <label className="components-base-control__label" style={{ display: "block", marginBottom: "5px" }}>
+                {__("Select Roles", "document-emberdder")}
+              </label>
+              <MultiSelectControl
+                value={_de_download_access_roles}
+                options={rolesOptions}
+                onChange={(val) => updateDownload("_de_download_access_roles", val)}
+              />
+            </div>
+          )}
+
+          {_de_download_access !== "everyone" && (
+            <TextControl
+              className="mt10"
+              label={__("Access Denied Message", "document-emberdder")}
+              value={_de_download_access_message}
+              onChange={(val) => updateDownload("_de_download_access_message", val)}
+              help={__("Message shown when download is restricted (e.g. \"Login to download\"). Empty message will show nothing.", "document-emberdder")}
+            />
+          )}
+        </>
+      )}
     </PanelBody>
   );
 };

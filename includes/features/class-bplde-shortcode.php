@@ -148,16 +148,7 @@ if (!class_exists('Shortcode')) {
             $limit = (int) $result['_de_download_limit'];
             $result['limit_reached'] = false;
             if ($limit > 0) {
-                global $wpdb;
-                $ip = Functions::get_client_ip();
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- querying custom table
-                $downloaded_count = $wpdb->get_var($wpdb->prepare(
-                    "SELECT COUNT(*) FROM {$wpdb->prefix}docembedder_leads WHERE document_id = %d AND ip_address = %s",
-                    $id,
-                    $ip
-                ));
-
-                if ((int) $downloaded_count >= $limit) {
+                if (Functions::download_count_for_ip($id) >= $limit) {
                     $result['limit_reached'] = true;
                 }
             }

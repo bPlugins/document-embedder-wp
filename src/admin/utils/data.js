@@ -68,6 +68,18 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.3.2 - 24 August 2026",
+        list: [
+          "**Fix:** Download Limit is now enforced. The per-visitor limit set on a document previously had no effect, so documents could be downloaded without restriction no matter which limit was chosen.",
+          "**Fix:** Visitors now get the full number of downloads their limit allows. On documents that already had download history, the download button locked after the very first download.",
+          "**Fix:** Refused downloads are no longer recorded, so the download count and the Leads list reflect files that were actually delivered.",
+          "**Fix:** A download that the server refuses is no longer served by the browser anyway.",
+          "**Security:** Each download link now delivers the file only a couple of times instead of staying reusable for the entire life of the link.",
+          "**Security:** Every download link is now unique. Links issued in the same moment were previously identical to one another.",
+          "**Security:** Removed an unused lead-capture endpoint that was publicly reachable in the free version."
+        ]
+      },
+      {
         version: "2.3.1 - 22 August 2026",
         list: [
           "**Security:** Strengthened permission checks for document downloads. All users are encouraged to update. Reported by Vaibhav Narkhede.",

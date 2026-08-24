@@ -196,6 +196,89 @@ if (!class_exists('Functions')) {
         }
 
         /**
+         * The per-IP download limit configured for a document.
+         *
+         * Read through the 'ppv' container on purpose. The metabox that authors this setting
+         * runs under the 'ppv' prefix, so every one of its fields lands in that single
+         * serialized meta row -- a standalone '_de_download_limit' row has never been written
+         * by anything in the plugin, and reading one back always yielded an empty string.
+         *
+         * @param int $document_id Document ID.
+         * @return int Configured limit, or 0 for "No Limit".
+         */
+        public static function download_limit($document_id)
+        {
+            return max(0, (int) self::meta((int) $document_id, '_de_download_limit', 0));
+        }
+
+        /**
+         * How many downloads of a document are already recorded against an IP.
+         *
+         * @param int         $document_id Document ID.
+         * @param string|null $ip          Client IP; defaults to the current request's.
+         * @return int
+         */
+        public static function download_count_for_ip($document_id, $ip = null)
+        {
+            global $wpdb;
+
+            $ip = (null === $ip) ? self::get_client_ip() : $ip;
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- querying custom table
+            return (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(*) FROM {$wpdb->prefix}docembedder_leads WHERE document_id = %d AND ip_address = %s",
+                (int) $document_id,
+                $ip
+            ));
+        }
+
+        /**
+         * Whether an IP has used up its allowance for a document.
+         *
+         * This is the question to ask *before* recording a download. Every recorded row counts
+         * against the limit and feeds the download counter, so a refusal decided after the
+         * insert is a download that never happened but was still charged for.
+         *
+         * @param int         $document_id Document ID.
+         * @param string|null $ip          Client IP; defaults to the current request's.
+         * @return bool
+         */
+        public static function download_limit_reached($document_id, $ip = null)
+        {
+            $limit = self::download_limit($document_id);
+
+            if ($limit <= 0) {
+                return false;
+            }
+
+            return self::download_count_for_ip($document_id, $ip) >= $limit;
+        }
+
+        /**
+         * Backstop for the delivery endpoint: whether an IP has more recorded downloads than
+         * its allowance permits.
+         *
+         * Deliberately looser than download_limit_reached(). By the time a request reaches the
+         * delivery route the row for the download in flight has already been written, so an
+         * equal count is the last legitimate download rather than an over-run. What actually
+         * stops a single issued URL being replayed is spend_download_token(), not this.
+         *
+         * @param int         $document_id Document ID.
+         * @param string|null $ip          Client IP; defaults to the current request's.
+         * @return bool
+         */
+        public static function download_allowance_exceeded($document_id, $ip = null)
+        {
+            $limit = self::download_limit($document_id);
+
+            if ($limit <= 0) {
+                return false;
+            }
+
+            return self::download_count_for_ip($document_id, $ip) > $limit;
+        }
+
+        /**
          * How long an issued download token stays valid.
          *
          * @return int Seconds.
@@ -211,27 +294,161 @@ if (!class_exists('Functions')) {
         }
 
         /**
+         * How many times one issued download URL may deliver the file.
+         *
+         * Not 1. This endpoint answers a Range request with the whole body, so a browser
+         * resuming an interrupted transfer starts over rather than continuing, and at one
+         * delivery per grant a single dropped connection would cost the visitor a download
+         * they were entitled to. Two is the smallest number that survives that without
+         * turning the URL into an open tap.
+         *
+         * @return int
+         */
+        public static function download_token_max_uses()
+        {
+            /**
+             * Filters how many deliveries one issued download URL is good for.
+             *
+             * @param int $uses Deliveries per grant. Defaults to 2.
+             */
+            return max(1, (int) apply_filters('bplde_download_token_max_uses', 2));
+        }
+
+        /**
+         * How long after its first delivery a token may still be re-used.
+         *
+         * The spare delivery exists to cover a transfer that dropped, which happens within
+         * minutes. Past this window the grant is done even if a use is left, so a link cannot
+         * sit around for the rest of its 12-hour lifetime holding a second download.
+         *
+         * @return int Seconds.
+         */
+        public static function download_token_retry_window()
+        {
+            /**
+             * Filters the window during which a download URL may be re-used.
+             *
+             * @param int $window Seconds. Defaults to 10 minutes.
+             */
+            return max(0, (int) apply_filters('bplde_download_token_retry_window', 10 * MINUTE_IN_SECONDS));
+        }
+
+        /**
+         * Records one delivery against an issued token, and reports whether it was allowed.
+         *
+         * Without this a signed URL is good for unlimited downloads until it expires: the
+         * limit counts rows in the leads table, those rows are written when a URL is minted
+         * and never when the file is actually sent, so replaying one URL spends nothing.
+         *
+         * Call this at the point the response is committed to sending the file, never earlier
+         * -- a request that turns out to fail an access check must not burn the visitor's link.
+         *
+         * @param string $token Verified download token from the request.
+         * @return bool Whether this delivery may proceed.
+         */
+        public static function spend_download_token($token)
+        {
+            if (!is_string($token) || '' === $token) {
+                return false;
+            }
+
+            // Keyed on a hash so the token itself is never written to the options table.
+            $key   = 'bplde_dl_' . md5($token);
+            $state = get_transient($key);
+            $now   = time();
+
+            if (!is_array($state) || !isset($state['uses'], $state['first'])) {
+                $state = array('uses' => 0, 'first' => $now);
+            }
+
+            if ((int) $state['uses'] >= self::download_token_max_uses()) {
+                return false;
+            }
+
+            if ((int) $state['uses'] > 0 && ($now - (int) $state['first']) > self::download_token_retry_window()) {
+                return false;
+            }
+
+            $state['uses'] = (int) $state['uses'] + 1;
+
+            // Outlives the token deliberately. If this record expired first, the token would
+            // go back to being replayable for whatever is left of its own lifetime.
+            set_transient($key, $state, self::download_token_ttl() + HOUR_IN_SECONDS);
+
+            return true;
+        }
+
+        /**
          * Issues a download token for a document.
          *
-         * Returned as "<timestamp>.<hash>" with the timestamp inside the signed material, so
-         * the token carries its own expiry and cannot be back-dated. The compound string is
-         * passed straight through as the de_nonce query arg by the existing front-end code,
-         * which needs no change to keep working.
+         * Returned as "<timestamp>.<nonce>.<hash>", with both the timestamp and the random
+         * nonce inside the signed material. The timestamp makes the token carry its own expiry
+         * and stops it being back-dated; the nonce makes each grant a distinct string.
          *
-         * @param int $document_id Document ID the token is issued for.
-         * @param int $timestamp   Issue time; defaults to now. Pass the embedded value to verify.
+         * That nonce is not decoration. Without it the token is fully determined by
+         * (document, IP, second), so two links issued in the same second are byte-identical
+         * and per-token delivery accounting silently collapses them into one grant -- which
+         * would cap a document at two downloads per second even with the limit set to
+         * "No Limit". The token is dot-delimited, so the segment has to stay alphanumeric.
+         *
+         * The compound string is passed straight through as the de_nonce query arg by the
+         * existing front-end code, which needs no change to keep working.
+         *
+         * @param int    $document_id Document ID the token is issued for.
+         * @param int    $timestamp   Issue time; defaults to now. Pass the embedded value to verify.
+         * @param string $nonce       Random segment; defaults to a fresh one. Pass the embedded value to verify.
          * @return string
          */
-        public static function create_download_token($document_id, $timestamp = 0)
+        public static function create_download_token($document_id, $timestamp = 0, $nonce = '')
         {
             $timestamp = $timestamp ? (int) $timestamp : time();
+            $nonce     = ('' === $nonce) ? wp_generate_password(12, false, false) : $nonce;
+            $ip        = self::get_client_ip();
+
+            $hash = wp_hash((int) $document_id . '|' . $ip . '|' . $timestamp . '|' . $nonce . '|de_download', 'nonce');
+
+            return $timestamp . '.' . $nonce . '.' . $hash;
+        }
+
+        /**
+         * Re-derives a token in the superseded two-segment format.
+         *
+         * Kept only so links minted before the nonce was added keep working for the rest of
+         * their 12-hour lifetime. The signed material has to stay byte-identical to the old
+         * create_download_token() or those links break on upgrade.
+         *
+         * @param int $document_id Document ID.
+         * @param int $timestamp   Issue time embedded in the token.
+         * @return string
+         */
+        private static function create_legacy_download_token($document_id, $timestamp)
+        {
+            $timestamp = (int) $timestamp;
             $ip        = self::get_client_ip();
 
             return $timestamp . '.' . wp_hash((int) $document_id . '|' . $ip . '|' . $timestamp . '|de_download', 'nonce');
         }
 
         /**
+         * Whether a token's embedded issue time is inside the accepted window.
+         *
+         * @param int $timestamp Issue time embedded in the token.
+         * @return bool
+         */
+        private static function download_token_time_valid($timestamp)
+        {
+            $age = time() - (int) $timestamp;
+
+            // Reject expired tokens, and anything dated more than a few minutes ahead of the
+            // server clock, which would otherwise extend the window indefinitely.
+            return !($age > self::download_token_ttl() || $age < -(5 * MINUTE_IN_SECONDS));
+        }
+
+        /**
          * Verifies a download token against a document.
+         *
+         * Accepts both the current three-segment format and the superseded two-segment one,
+         * so URLs already in flight when this ships stay valid until they expire on their own.
          *
          * @param string $token       Token from the request.
          * @param int    $document_id Document ID being requested.
@@ -243,21 +460,39 @@ if (!class_exists('Functions')) {
                 return false;
             }
 
-            list($timestamp, $hash) = explode('.', $token, 2);
+            $parts = explode('.', $token);
 
-            if ('' === $hash || !ctype_digit($timestamp)) {
-                return false;
+            // Current format: <timestamp>.<nonce>.<hash>
+            if (3 === count($parts)) {
+                list($timestamp, $nonce, $hash) = $parts;
+
+                if ('' === $hash || '' === $nonce || !ctype_digit($timestamp) || !ctype_alnum($nonce)) {
+                    return false;
+                }
+
+                if (!self::download_token_time_valid($timestamp)) {
+                    return false;
+                }
+
+                return hash_equals(self::create_download_token($document_id, (int) $timestamp, $nonce), $token);
             }
 
-            $age = time() - (int) $timestamp;
+            // Legacy format: <timestamp>.<hash>
+            if (2 === count($parts)) {
+                list($timestamp, $hash) = $parts;
 
-            // Reject expired tokens, and anything dated more than a few minutes ahead of the
-            // server clock, which would otherwise extend the window indefinitely.
-            if ($age > self::download_token_ttl() || $age < -(5 * MINUTE_IN_SECONDS)) {
-                return false;
+                if ('' === $hash || !ctype_digit($timestamp)) {
+                    return false;
+                }
+
+                if (!self::download_token_time_valid($timestamp)) {
+                    return false;
+                }
+
+                return hash_equals(self::create_legacy_download_token($document_id, (int) $timestamp), $token);
             }
 
-            return hash_equals(self::create_download_token($document_id, (int) $timestamp), $token);
+            return false;
         }
     }
 }

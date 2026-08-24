@@ -236,7 +236,22 @@ if ( ! class_exists( 'AJAXCall' ) ) {
             // file directly, so a legitimate visitor sees no change.
             if ( $document_id > 0 && Functions::can_read_document( $document_id ) ) {
                 global $wpdb;
-                
+
+                $ip = Functions::get_client_ip();
+
+                // Refuse before the row is written, not after. Every row inserted here counts
+                // against the per-IP limit and bumps the download counter, so a refusal left
+                // to the delivery endpoint is recorded as a download that never happened --
+                // and that endpoint answers with a bare JSON 403 body the viewer cannot read
+                // or render, so the visitor would just be navigated onto it.
+                if ( Functions::download_limit_reached( $document_id, $ip ) ) {
+                    wp_send_json_error( [
+                        'message'       => __( 'Download limit reached.', 'document-emberdder' ),
+                        'limit_reached' => true,
+                        'count'         => (int) get_post_meta( $document_id, '_de_download_count', true ),
+                    ] );
+                }
+
                 // Record in leads table for IP tracking
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery -- direct insert to custom table
                 $wpdb->insert(
@@ -247,7 +262,7 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                         'document_id'    => $document_id,
                         'document_title' => get_the_title( $document_id ),
                         'downloaded_at'  => current_time( 'mysql' ),
-                        'ip_address'     => Functions::get_client_ip()
+                        'ip_address'     => $ip
                     ],
                     ['%s', '%s', '%d', '%s', '%s', '%s']
                 );
@@ -260,11 +275,18 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                 update_post_meta( $document_id, '_de_download_count', $count + 1 );
 
                 wp_send_json_success( [
-                    'count' => $count + 1,
-                    'nonce' => $token
+                    // Site-wide total, which is what the "(N downloads)" label shows.
+                    'count'         => $count + 1,
+                    // Whether this visitor may download again is a per-IP question and a
+                    // different number entirely, so it is answered here rather than left to
+                    // the front end to infer from the total above -- comparing a site-wide
+                    // count against a per-IP limit locks the button after one download on any
+                    // document that already has history.
+                    'limit_reached' => Functions::download_limit_reached( $document_id, $ip ),
+                    'nonce'         => $token
                 ] );
             }
-            wp_send_json_error( 'Invalid document ID' );
+            wp_send_json_error( [ 'message' => __( 'Invalid document ID', 'document-emberdder' ) ] );
         }
 
         // --- Get Doc Meta Handlers ---

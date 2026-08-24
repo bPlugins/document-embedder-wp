@@ -33,19 +33,9 @@ if (!defined('ABSPATH')) {
         $download_count = (int) get_post_meta($post_id, '_de_download_count', true);
     }
 
-    if ($limit > 0 && $post_id) {
-        global $wpdb;
-        if (class_exists('\BPLDE\Helper\Functions')) {
-            $ip = \BPLDE\Helper\Functions::get_client_ip();
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- querying custom table
-            $downloaded_count = $wpdb->get_var($wpdb->prepare(
-                "SELECT COUNT(*) FROM {$wpdb->prefix}docembedder_leads WHERE document_id = %d AND ip_address = %s",
-                $post_id,
-                $ip
-            ));
-            if ($downloaded_count >= $limit) {
-                $limit_reached = true;
-            }
+    if ($limit > 0 && $post_id && class_exists('\BPLDE\Helper\Functions')) {
+        if (\BPLDE\Helper\Functions::download_count_for_ip($post_id) >= $limit) {
+            $limit_reached = true;
         }
     }
 
