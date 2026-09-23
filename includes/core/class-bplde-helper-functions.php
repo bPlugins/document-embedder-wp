@@ -15,6 +15,22 @@ if (!class_exists('Functions')) {
     class Functions
     {
 
+        /**
+         * Where every "See Pro pricing" link in the admin points.
+         *
+         * The Help & Demos dashboard carries its own pricing page, so the links stay
+         * inside WordPress instead of bouncing through the Freemius screen. It is a
+         * HashRouter route, hence the fragment.
+         *
+         * @return string
+         */
+        public static function pricing_url()
+        {
+            $url = admin_url('edit.php?post_type=ppt_viewer&page=bplde-dashboard') . '#/pricing';
+
+            return (string) apply_filters('bplde_pricing_url', $url);
+        }
+
         public static function meta($id, $key, $default = false)
         {
             $meta = get_post_meta($id, 'ppv', true);
@@ -70,7 +86,7 @@ if (!class_exists('Functions')) {
 
             $html .= '</ul>
             <div class="bplde-panel__foot-row">
-                <a href="' . esc_url(admin_url('edit.php?post_type=ppt_viewer&page=document-emberdder-pricing')) . '" class="bplde-panel__cta">' . esc_html__('See Pro pricing', 'document-emberdder') . '</a>
+                <a href="' . esc_url(self::pricing_url()) . '" class="bplde-panel__cta">' . esc_html__('See Pro pricing', 'document-emberdder') . '</a>
                 <p class="bplde-panel__foot">' . esc_html__('14-day refund policy · Trusted by 10,000+ WordPress sites', 'document-emberdder') . '</p>
             </div>
         </div>';

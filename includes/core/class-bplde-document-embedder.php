@@ -26,6 +26,7 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             add_action('plugins_loaded', [$this, 'load_dependencies']);
             add_action('admin_init', [$this, 'assign_file_type_to_all']);
             add_action('save_post_ppt_viewer', [$this, 'sync_post_file_type'], 10, 2);
+            add_action('before_delete_post', [$this, 'delete_document_leads'], 10, 2);
             add_action('wp_enqueue_scripts', [$this, 'ppv_public_scripts']);
 
             add_action('add_meta_boxes', [$this, 'add_stats_metabox']);
@@ -132,6 +133,38 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             }
         }
 
+        /**
+         * Leads follow the download count: both belong to the document, so both go when
+         * the document does.
+         *
+         * before_delete_post fires on permanent deletion only, which is the same point
+         * WordPress drops the _de_download_count meta. Trashing a document therefore
+         * keeps its leads, and restoring it from the trash brings them back with it.
+         *
+         * Rows already orphaned by documents deleted before this existed are left alone
+         * — removing someone's captured leads during a plugin update is not an upgrade.
+         *
+         * @param int          $post_id Post being deleted.
+         * @param \WP_Post|null $post    Post object, passed by WordPress since 5.5.
+         */
+        public function delete_document_leads($post_id, $post = null)
+        {
+            $post_type = ($post instanceof \WP_Post) ? $post->post_type : get_post_type($post_id);
+
+            if ($post_type !== 'ppt_viewer') {
+                return;
+            }
+
+            global $wpdb;
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table
+            $wpdb->delete(
+                $wpdb->prefix . 'docembedder_leads',
+                ['document_id' => (int) $post_id],
+                ['%d']
+            );
+        }
+
         public function de_track_download()
         {
             \BPLDE\Model\AJAXCall::instance()->de_track_download();
@@ -156,13 +189,20 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             $leads_count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}docembedder_leads WHERE document_id = %d", $post->ID));
             $leads_url = admin_url('edit.php?post_type=ppt_viewer&page=bplde-download-leads&filter_document_id=' . $post->ID);
             ?>
-            <div class="de-stats-container">
-                <p style="font-size: 14px; margin-bottom: 12px;"><strong>Total Downloads:</strong> <?php echo intval($count); ?>
-                </p>
-                <p style="font-size: 14px; margin-bottom: 18px;"><strong>Total Leads:</strong> <?php echo intval($leads_count); ?>
-                </p>
-                <a href="<?php echo esc_url($leads_url); ?>" class="button button-primary"
-                    style="width: 100%; text-align: center; height: 32px; line-height: 30px; display: flex; align-items: center; justify-content: center;">View Leads</a>
+            <div class="de-stats-container bplde-stats">
+                <div class="bplde-stats__grid">
+                    <div class="bplde-stat">
+                        <span class="bplde-stat__value"><?php echo esc_html(number_format_i18n(intval($count))); ?></span>
+                        <span class="bplde-stat__label"><?php esc_html_e('Downloads', 'document-emberdder'); ?></span>
+                    </div>
+                    <div class="bplde-stat">
+                        <span class="bplde-stat__value"><?php echo esc_html(number_format_i18n(intval($leads_count))); ?></span>
+                        <span class="bplde-stat__label"><?php esc_html_e('Leads', 'document-emberdder'); ?></span>
+                    </div>
+                </div>
+                <a href="<?php echo esc_url($leads_url); ?>" class="bplde-stats__cta">
+                    <?php esc_html_e('View leads', 'document-emberdder'); ?>
+                </a>
             </div>
             <?php
         }
@@ -252,16 +292,12 @@ if (!class_exists('BPLDE_Document_Embedder')) {
                 __('Toolbar themes, zoom and lightbox', 'document-emberdder'),
             ];
 
-            $pricing_url = admin_url('edit.php?post_type=ppt_viewer&page=document-emberdder-pricing');
+            $pricing_url = \BPLDE\Helper\Functions::pricing_url();
             ?>
             <div class="bplde-panel">
-                <p class="bplde-panel__badge"><?php esc_html_e('Pro Version', 'document-emberdder'); ?></p>
+                <p class="bplde-panel__badge"><?php esc_html_e('Pro', 'document-emberdder'); ?></p>
 
                 <h4 class="bplde-panel__title"><?php esc_html_e('Where the free version stops', 'document-emberdder'); ?></h4>
-
-                <p class="bplde-panel__note">
-                    <?php esc_html_e('Six settings the free version keeps locked:', 'document-emberdder'); ?>
-                </p>
 
                 <ul class="bplde-panel__list">
                     <?php foreach ($features as $feature) { ?>
@@ -281,31 +317,36 @@ if (!class_exists('BPLDE_Document_Embedder')) {
         }
 
         /**
-         * Builder compatibility note. Points at the shortcode field under the post
-         * title rather than repeating the tag, so there is only one copy of it to
-         * keep correct.
+         * Builder compatibility card. The builder names are chips rather than a
+         * sentence: the list is scanned, not read, and a run of seven names inside
+         * prose is the slowest possible way to answer "is mine supported?".
+         *
+         * It deliberately does not repeat the shortcode — that lives once, under the
+         * post title, so there is only one copy of it to keep correct.
          */
         public function render_builders_metabox()
         {
             $builders = ['Elementor', 'Divi', 'Bricks', 'WPBakery', 'Beaver Builder', 'Oxygen', 'Breakdance'];
 
-            $names = array_map(
-                function ($builder) {
-                    return '<span class="bplde-panel__name">' . esc_html($builder) . '</span>';
-                },
-                $builders
-            );
-
-            $note = sprintf(
-                /* translators: %s is a comma-separated list of page builder names. */
-                __('Paste the shortcode above into %s or any other builder.', 'document-emberdder'),
-                implode(', ', $names)
-            );
             ?>
-            <div class="bplde-panel">
-                <p class="bplde-panel__badge"><?php esc_html_e('Fully compatible', 'document-emberdder'); ?></p>
+            <div class="bplde-panel bplde-builders">
+                <div class="bplde-builders__head">
+                    <span class="bplde-builders__check" aria-hidden="true">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                    </span>
+                    <h4 class="bplde-builders__title"><?php esc_html_e('Works in every builder', 'document-emberdder'); ?></h4>
+                </div>
 
-                <p class="bplde-panel__note"><?php echo wp_kses_post($note); ?></p>
+                <p class="bplde-builders__note"><?php esc_html_e('Drop the shortcode into any of these.', 'document-emberdder'); ?></p>
+
+                <ul class="bplde-builders__chips">
+                    <?php foreach ($builders as $builder) { ?>
+                        <li class="bplde-chip"><?php echo esc_html($builder); ?></li>
+                    <?php } ?>
+                </ul>
             </div>
             <?php
         }

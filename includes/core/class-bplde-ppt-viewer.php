@@ -23,6 +23,8 @@ if (!class_exists('PPTViewer')) {
             if (is_admin()) {
                 add_filter("manage_{$this->post_type}_posts_columns", [$this, 'postTypeColumns'], 1);
                 add_action("manage_{$this->post_type}_posts_custom_column", [$this, 'postTypeContent'], 10, 2);
+                add_filter("manage_edit-{$this->post_type}_sortable_columns", [$this, 'sortableColumns']);
+                add_filter('display_post_states', [$this, 'postStates'], 10, 2);
                 add_filter('post_row_actions', [$this, 'removeRowAction'], 10, 2);
                 add_action('admin_head-post.php', [$this, 'ppv_hide_publishing_actions']);
                 add_action('admin_head-post-new.php', [$this, 'ppv_hide_publishing_actions']);
@@ -49,7 +51,7 @@ if (!class_exists('PPTViewer')) {
                 'labels' => array(
                     'name' => $cpt_title,
                     'singular_name' => __('Doc Embedder', 'document-emberdder'),
-                    'all_items' => __('Doc Embedder', 'document-emberdder'),
+                    'all_items' => __('All Documents', 'document-emberdder'),
                     'add_new' => __('Add New Doc', 'document-emberdder'),
                     'add_new_item' => __('Add New Doc', 'document-emberdder'),
                     'edit_item' => __('Edit', 'document-emberdder'),
@@ -74,8 +76,7 @@ if (!class_exists('PPTViewer')) {
             ));
         }
 
-        public function register_taxonomy()
-        {
+        public function register_taxonomy() {
             $post_type = $this->post_type;
             $slug = 'ppv_document_tags';
             $title = 'Tags';
@@ -123,41 +124,162 @@ if (!class_exists('PPTViewer')) {
                 )
             );
         }
-
-        public function postTypeColumns($columns)
-        {
-            $new = [
-                'cb' => $columns['cb'],
-                'title' => $columns['title'],
-                'shortcode' => 'Shortcode',
-                'taxonomy-ppv_document_tags' => 'Tags',
-                'taxonomy-ppv_file_type' => 'File Type',
-                'download_count' => 'Downloads',
-                'download_leads' => 'Download Leads',
-                'date' => $columns['date'],
+        
+        public function postTypeColumns($columns) {
+            return [
+                'cb'             => $columns['cb'],
+                'title'          => $columns['title'],
+                'shortcode'      => __('Shortcode', 'document-emberdder'),
+                'bplde_tags'     => __('Tags', 'document-emberdder'),
+                'bplde_type'     => __('Type', 'document-emberdder'),
+                'download_count' => __('Downloads', 'document-emberdder'),
+                'download_leads' => __('Leads', 'document-emberdder'),
+                'bplde_date'     => __('Date', 'document-emberdder'),
             ];
-            return $new;
         }
 
-        public function postTypeContent($column_name, $post_id)
-        {
+        public function sortableColumns($columns) {
+            $columns['bplde_date'] = 'date';
+            return $columns;
+        }
+
+        public function postStates($states, $post) {
+            if (!$post instanceof \WP_Post || $post->post_type !== $this->post_type) {
+                return $states;
+            }
+
+            $data = get_post_meta($post->ID, 'ppv', true);
+
+            if (empty($data['doc'])) {
+                $states['bplde_no_file'] = __('No file', 'document-emberdder');
+            }
+
+            if (empty($states)) {
+                return $states;
+            }
+
+            /*
+             * _post_states() joins several states with a comma placed INSIDE each span,
+             * so styling them as chips puts the separator inside the chip ("Draft,").
+             * Collapsing them into a single entry of our own markup means core emits one
+             * span with no separator at all.
+             */
+            $chips = '';
+
+            foreach ($states as $key => $label) {
+                $tone = ($key === 'bplde_no_file') ? ' bplde-state--warn' : '';
+                $chips .= '<span class="bplde-state' . $tone . '">'
+                    . esc_html(wp_strip_all_tags($label)) . '</span>';
+            }
+
+            return ['bplde_states' => $chips];
+        }
+        
+        private function leadCounts() {
+            static $counts = null;
+
+            if ($counts === null) {
+                global $wpdb;
+                $counts = [];
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table, one query per screen
+                $rows = $wpdb->get_results("SELECT document_id, COUNT(*) AS total FROM {$wpdb->prefix}docembedder_leads GROUP BY document_id");
+
+                foreach ((array) $rows as $row) {
+                    $counts[(int) $row->document_id] = (int) $row->total;
+                }
+            }
+
+            return $counts;
+        }
+
+        public function postTypeContent($column_name, $post_id) {
             switch ($column_name) {
                 case 'shortcode':
-                    echo '<div class="bplde_front_shortcode"><input style="text-align: center; border: none; outline: none; background-color: #2664eb; color: #fff; padding: 4px 10px; border-radius: 3px;" value="[doc id=' . esc_attr($post_id) . ']" ><span class="htooltip">Copy To Clipboard</span></div>';
+                    echo '<div class="bplde_front_shortcode"><input readonly value="[doc id=' . esc_attr($post_id) . ']"><span class="htooltip">Copy To Clipboard</span></div>';
                     break;
+
+                case 'bplde_tags':
+                    $terms = get_the_terms($post_id, 'ppv_document_tags');
+
+                    if (empty($terms) || is_wp_error($terms)) {
+                        echo '<span class="bplde-col-empty">&mdash;</span>';
+                        break;
+                    }
+
+                    foreach ($terms as $term) {
+                        $url = add_query_arg(
+                            ['post_type' => 'ppt_viewer', 'ppv_document_tags' => $term->slug],
+                            admin_url('edit.php')
+                        );
+                        echo '<a class="bplde-chip" href="' . esc_url($url) . '">' . esc_html($term->name) . '</a>';
+                    }
+                    break;
+
+                case 'bplde_type':
+                    $terms = get_the_terms($post_id, 'ppv_file_type');
+
+                    if (empty($terms) || is_wp_error($terms)) {
+                        echo '<span class="bplde-col-empty">&mdash;</span>';
+                        break;
+                    }
+
+                    $slug = $terms[0]->slug;
+                    $url  = add_query_arg(
+                        ['post_type' => 'ppt_viewer', 'ppv_file_type' => $slug],
+                        admin_url('edit.php')
+                    );
+                    echo '<a class="bplde-type bplde-type--' . esc_attr($slug) . '" href="' . esc_url($url) . '">'
+                        . esc_html(strtoupper($slug)) . '</a>';
+                    break;
+
                 case 'download_count':
-                    $count = get_post_meta($post_id, '_de_download_count', true);
-                    echo '<strong>' . intval($count) . '</strong>';
+                    $count = (int) get_post_meta($post_id, '_de_download_count', true);
+                    $class = $count ? 'bplde-count' : 'bplde-count is-zero';
+                    echo '<span class="' . esc_attr($class) . '">' . esc_html(number_format_i18n($count)) . '</span>';
                     break;
+
                 case 'download_leads':
+                    $counts = $this->leadCounts();
+                    $total  = isset($counts[$post_id]) ? $counts[$post_id] : 0;
+
+                    if (!$total) {
+                        echo '<span class="bplde-col-empty">&mdash;</span>';
+                        break;
+                    }
+
                     $leads_link = admin_url('edit.php?post_type=ppt_viewer&page=bplde-download-leads&filter_document_id=' . $post_id);
-                    echo '<a href="' . esc_url($leads_link) . '" class="button button-small">View Download Leads</a>';
+                    printf(
+                        '<a href="%s" class="bplde-leads">%s</a>',
+                        esc_url($leads_link),
+                        esc_html(
+                            sprintf(
+                                /* translators: %s: number of download leads. */
+                                _n('%s lead', '%s leads', $total, 'document-emberdder'),
+                                number_format_i18n($total)
+                            )
+                        )
+                    );
+                    break;
+
+                case 'bplde_date':
+                    $status = get_post_status($post_id);
+                    $labels = [
+                        'publish' => __('Published', 'document-emberdder'),
+                        'future'  => __('Scheduled', 'document-emberdder'),
+                        'draft'   => __('Draft', 'document-emberdder'),
+                        'pending' => __('Pending', 'document-emberdder'),
+                        'private' => __('Private', 'document-emberdder'),
+                    ];
+                    $label = isset($labels[$status]) ? $labels[$status] : ucfirst($status);
+
+                    echo '<span class="bplde-status bplde-status--' . esc_attr($status) . '">'
+                        . '<span class="bplde-status__dot" aria-hidden="true"></span>' . esc_html($label) . '</span>'
+                        . '<span class="bplde-date">' . esc_html(get_the_time(get_option('date_format'), $post_id)) . '</span>';
                     break;
             }
         }
 
-        public function shortcode_area()
-        {
+        public function shortcode_area() {
             global $post;
             if ($post->post_type !== $this->post_type) {
                 return;
@@ -217,8 +339,7 @@ if (!class_exists('PPTViewer')) {
             <?php
         }
 
-        public function removeRowAction($row)
-        {
+        public function removeRowAction($row) {
             global $post;
             if ($post->post_type == 'ppt_viewer') {
                 unset($row['view']);
@@ -227,16 +348,14 @@ if (!class_exists('PPTViewer')) {
             return $row;
         }
 
-        public function ppv_hide_publishing_actions()
-        {
+        public function ppv_hide_publishing_actions() {
             global $post;
             if ($post && $post->post_type == $this->post_type) {
                 echo '<style type="text/css">#misc-publishing-actions,#minor-publishing-actions{display:none;}</style>';
             }
         }
 
-        public function ppv_change_publish_button($translation, $text, $domain)
-        {
+        public function ppv_change_publish_button($translation, $text, $domain) {
             if (!is_admin()) {
                 return $translation;
             }
@@ -257,8 +376,7 @@ if (!class_exists('PPTViewer')) {
             return $translation;
         }
 
-        public function ppv_updated_messages($messages)
-        {
+        public function ppv_updated_messages($messages) {
             $messages['ppt_viewer'][1] = __('Updated', 'document-emberdder');
             return $messages;
         }

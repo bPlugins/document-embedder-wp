@@ -13,10 +13,9 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
     class BPLDEDocumentEmbedder
     {
 
-        public function __construct()
-        {
+        public function __construct() {
             add_action('plugins_loaded', [$this, 'load_dependencies'], 5);
-            add_action('admin_notices', [$this, 'upgrade_notice']);
+            // add_action('admin_notices', [$this, 'upgrade_notice']);
             add_filter('plugin_action_links_' . plugin_basename(BPLDE__FILE__), [$this, 'add_action_links']);
         }
 
@@ -24,15 +23,24 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
         {
             if (is_admin()) {
                 \BPLDE_Admin_Assets::instance();
+
+                // Not in the composer classmap (generated before these files existed), so
+                // they are required by hand rather than left to the autoloader.
+                require_once BPLDE_PLUGIN_PATH . 'includes/admin/class-bplde-edit-layout.php';
+                \BPLDE_Edit_Layout::instance();
+
+                require_once BPLDE_PLUGIN_PATH . 'includes/admin/class-bplde-list-screen.php';
+                \BPLDE_List_Screen::instance();
             }
             // Registers the front-end preview route too, so it must load on both sides.
             \BPLDE_Preview::instance();
             new BPLDE_Document_Library();
-            new BPLDE_Document_Embedder();
+            // Through instance(), not new: the edit-screen layout re-renders this class's
+            // cards and needs the one object that already owns the hooks.
+            BPLDE_Document_Embedder::instance();
         }
 
-        public function upgrade_notice()
-        {
+        public function upgrade_notice() {
             $page = get_current_screen();
             if (!$page) {
                 return;
@@ -47,7 +55,7 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
                     </div>
                     <p>The Ultimate Document Embedder Plugin for WordPress, Loved by Over 10,000+ Users.</p>
                     <div>
-                        <a href="<?php echo esc_url(admin_url('edit.php?post_type=ppt_viewer&page=document-emberdder-pricing')); ?>"
+                        <a href="<?php echo esc_url(\BPLDE\Helper\Functions::pricing_url()); ?>"
                             class="button button-primary" target="_blank">Upgrade To Pro <svg
                                 enable-background="new 0 0 515.283 515.283" height="16" viewBox="0 0 515.283 515.283" width="16"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -69,15 +77,13 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
             }
         }
 
-        public function add_action_links($links)
-        {
-            $help_link = '<a href="' . admin_url('edit.php?post_type=ppt_viewer&page=bplde-dashboard') . '"><span style="color: #f18500; font-weight: 600;">' . __('Help & Demo\'s', 'document-emberdder') . '</span></a>';
+        public function add_action_links($links) {
+            $help_link = '<a href="' . admin_url('edit.php?post_type=ppt_viewer&page=bplde-dashboard') . '"><span style="color: #f18500; font-weight: 600;">' . __('Get Helped', 'document-emberdder') . '</span></a>';
             array_unshift($links, $help_link);
             return $links;
         }
 
-        public static function activate()
-        {
+        public static function activate() {
             global $wpdb;
 
             $table_name = $wpdb->prefix . 'docembedder_leads';

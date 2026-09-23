@@ -1,0 +1,48 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/blocks/document-embedder/editor.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+.bplde-saved-doc__placeholder .components-placeholder__fieldset {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+.bplde-saved-doc__picker {
+  width: 100%;
+  max-width: 420px;
+}
+.bplde-saved-doc__placeholder-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bplde-saved-doc__frame {
+  display: block;
+  width: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  background: #fff;
+}
+.bplde-saved-doc__loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 0;
+  color: #757575;
+  font-size: 12px;
+}
+.bplde-saved-doc__loading--stage {
+  justify-content: center;
+  min-height: 240px;
+  margin: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  background: #f6f7f7;
+}
+.bplde-saved-doc__hint {
+  margin: 12px 0;
+  color: #757575;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/*# sourceMappingURL=index.css.map*/

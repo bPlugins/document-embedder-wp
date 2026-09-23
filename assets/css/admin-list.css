@@ -1,0 +1,897 @@
+/* ============================================================================
+   Doc Embedder list screen — "Deep Teal & Lime", matching the document editor.
+
+   Scoped to body.bplde-list, which BPLDE_List_Screen adds only on this screen.
+   The table is still WP_List_Table; everything here is presentation over the
+   markup core and the column callbacks produce.
+   ========================================================================== */
+
+.bplde-list {
+  --de-ground: #edf1f0;
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
+  --de-rule: #e3ebe9;
+
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+  --de-muted: #8ca09a;
+
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+
+  --de-pop-soft: #f4fce3;
+  --de-pop-ink: #3f5209;
+
+  --de-danger: #a32020;
+
+  --de-radius: 8px;
+  --de-radius-sm: 6px;
+}
+
+/* The heading, Add New button and search are reproduced in the action bar. */
+.bplde-list .wrap > h1.wp-heading-inline,
+.bplde-list .wrap > a.page-title-action,
+.bplde-list .search-box {
+  display: none;
+}
+
+.bplde-list .wrap > hr.wp-header-end {
+  visibility: hidden;
+  margin: 0;
+  height: 0;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Action bar
+   ------------------------------------------------------------------------- */
+
+/* Clears the floated Screen Options tab for the same reason the editor's bar
+   does: a flex container is a block formatting context and shrinks beside it. */
+.bplde-list .bplde-list-top {
+  clear: both;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 12px 20px 16px 0;
+  padding: 13px 16px 13px 20px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  border-radius: var(--de-radius);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+}
+
+.bplde-list .bplde-list-top__id {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bplde-list .bplde-list-top__eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}
+
+.bplde-list .bplde-list-top__title {
+  margin: 2px 0 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--de-ink);
+}
+
+.bplde-list .bplde-list-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 280px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--de-control);
+  border-radius: var(--de-radius-sm);
+  background: var(--de-surface);
+  color: var(--de-ink-3);
+}
+
+.bplde-list .bplde-list-search:focus-within {
+  border-color: var(--de-accent);
+  box-shadow: 0 0 0 3px var(--de-accent-soft);
+}
+
+.bplde-list .bplde-list-search input[type="search"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 13px;
+  color: var(--de-ink);
+}
+
+.bplde-list .bplde-list-search input[type="search"]:focus {
+  border: 0;
+  box-shadow: none;
+  outline: 0;
+}
+
+.bplde-list .bplde-list-top__new {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--de-radius-sm);
+  background: var(--de-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bplde-list .bplde-list-top__new:hover,
+.bplde-list .bplde-list-top__new:focus {
+  background: var(--de-accent-deep);
+  color: #fff;
+  box-shadow: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Totals
+   ------------------------------------------------------------------------- */
+
+.bplde-list .bplde-list-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 20px 18px 0;
+}
+
+.bplde-list .bplde-list-tile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  border-radius: var(--de-radius);
+}
+
+.bplde-list .bplde-list-tile__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+.bplde-list .bplde-list-tile__icon--accent {
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+.bplde-list .bplde-list-tile__icon--pop {
+  background: var(--de-pop-soft);
+  color: var(--de-pop-ink);
+}
+
+.bplde-list .bplde-list-tile__value {
+  display: block;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: var(--de-ink);
+}
+
+.bplde-list .bplde-list-tile__label {
+  display: block;
+  margin-top: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--de-ink-3);
+}
+
+/* ---------------------------------------------------------------------------
+   Status views + toolbar
+   ------------------------------------------------------------------------- */
+
+.bplde-list .subsubsub {
+  display: inline-flex;
+  gap: 3px;
+  float: none;
+  margin: 0 0 14px;
+  padding: 3px;
+  border-radius: var(--de-radius);
+  background: var(--de-rule);
+  font-size: 12.5px;
+}
+
+/* Each li holds its link plus a " | " text node. The link is a block-level flex
+   box, so that separator drops to a line of its own and doubles the group's
+   height — zeroing the li's font size removes both the pipe and its line box. */
+.bplde-list .subsubsub li {
+  margin: 0;
+  font-size: 0;
+  /* line-height is an absolute length here, so a zero-size text node still
+     reserves a full line unless this is zeroed as well. */
+  line-height: 0;
+}
+
+.bplde-list .subsubsub li a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 14px;
+  font-size: 12.5px;
+  line-height: 1;
+  border-radius: var(--de-radius-sm);
+  color: var(--de-ink-2);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bplde-list .subsubsub li a:hover {
+  color: var(--de-accent-deep);
+}
+
+.bplde-list .subsubsub li a.current {
+  background: var(--de-accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.bplde-list .subsubsub li a .count {
+  color: var(--de-ink-3);
+}
+
+.bplde-list .subsubsub li a.current .count {
+  color: #fff;
+  opacity: .75;
+}
+
+.bplde-list .tablenav {
+  height: auto;
+  margin: 0 20px 0 0;
+  padding: 0 0 12px;
+}
+
+.bplde-list .tablenav .actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+
+.bplde-list .tablenav select,
+.bplde-list .tablenav .button {
+  height: 36px;
+  min-height: 36px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--de-control);
+  border-radius: var(--de-radius-sm);
+  background-color: var(--de-surface);
+  color: var(--de-ink-2);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 34px;
+  box-shadow: none;
+}
+
+/* Room for the native dropdown arrow, which the padding above would sit under. */
+.bplde-list .tablenav select {
+  padding-right: 28px;
+}
+
+.bplde-list .tablenav .button:hover,
+.bplde-list .tablenav .button:focus {
+  border-color: var(--de-accent);
+  background-color: var(--de-surface);
+  color: var(--de-accent-deep);
+}
+
+.bplde-list .tablenav .displaying-num {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--de-ink-3);
+}
+
+.bplde-list .tablenav-pages .pagination-links a,
+.bplde-list .tablenav-pages .pagination-links span.tablenav-pages-navspan {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border: 1px solid var(--de-control);
+  border-radius: var(--de-radius-sm);
+  background: var(--de-surface);
+  color: var(--de-ink-2);
+}
+
+.bplde-list .tablenav-pages .pagination-links span.tablenav-pages-navspan {
+  border-color: var(--de-rule);
+  background: #f1f4f3;
+  color: var(--de-muted);
+}
+
+/* ---------------------------------------------------------------------------
+   The table
+   ------------------------------------------------------------------------- */
+
+.bplde-list .wp-list-table {
+  margin-right: 20px;
+  border: 1px solid var(--de-border);
+  border-radius: var(--de-radius);
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--de-surface);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.bplde-list .wp-list-table thead th,
+.bplde-list .wp-list-table thead td,
+.bplde-list .wp-list-table tfoot th,
+.bplde-list .wp-list-table tfoot td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--de-rule);
+  background: var(--de-tint);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}
+
+.bplde-list .wp-list-table tfoot th,
+.bplde-list .wp-list-table tfoot td {
+  border-bottom: 0;
+  border-top: 1px solid var(--de-rule);
+}
+
+.bplde-list .wp-list-table thead th a,
+.bplde-list .wp-list-table tfoot th a {
+  color: inherit;
+}
+
+.bplde-list .wp-list-table tbody td,
+.bplde-list .wp-list-table tbody th {
+  padding: 14px 10px;
+  border-bottom: 1px solid #eff3f2;
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+.bplde-list .wp-list-table tbody tr:last-child td,
+.bplde-list .wp-list-table tbody tr:last-child th {
+  border-bottom: 0;
+}
+
+.bplde-list .wp-list-table tbody tr:hover {
+  background: var(--de-tint);
+}
+
+/* Fixed widths for the short columns so the title takes the slack and the
+   shortcode chip stops spilling into Tags. */
+.bplde-list .wp-list-table .column-shortcode {
+  width: 170px;
+}
+
+.bplde-list .wp-list-table .column-bplde_tags {
+  width: 170px;
+}
+
+.bplde-list .wp-list-table .column-bplde_type {
+  width: 90px;
+}
+
+.bplde-list .wp-list-table .column-download_count {
+  width: 110px;
+}
+
+.bplde-list .wp-list-table .column-download_leads {
+  width: 130px;
+}
+
+.bplde-list .wp-list-table .column-bplde_date {
+  width: 170px;
+}
+
+.bplde-list .wp-list-table .row-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+.bplde-list .wp-list-table .row-title:hover {
+  color: var(--de-accent-deep);
+}
+
+/* Always visible: the actions are the reason people come to this table. */
+.bplde-list .wp-list-table .row-actions {
+  position: static;
+  left: auto;
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 11.5px;
+  color: var(--de-ink-3);
+}
+
+.bplde-list .wp-list-table tbody tr .row-actions {
+  visibility: visible;
+}
+
+.bplde-list .wp-list-table .row-actions a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bplde-list .wp-list-table .row-actions .trash a {
+  color: var(--de-danger);
+}
+
+/* Post states ("Draft", "No file") read as chips beside the title. Core's span is
+   only a wrapper now; the chips it contains come from postStates(). */
+.bplde-list .wp-list-table .post-state {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.bplde-list .bplde-state {
+  display: inline-flex;
+  align-items: center;
+  height: 19px;
+  padding: 0 7px;
+  border-radius: 4px;
+  background: var(--de-rule);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--de-ink-2);
+}
+
+.bplde-list .bplde-state--warn {
+  background: #fdeeee;
+  color: var(--de-danger);
+}
+
+/* Shortcode — same input script.js already binds the copy to. */
+.bplde-list .bplde_front_shortcode input {
+  width: 100%;
+  max-width: 150px;
+  min-height: 0;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid #dde7e4;
+  border-radius: var(--de-radius-sm);
+  background-color: #f0f5f3;
+  color: var(--de-accent-deep);
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.bplde-list .bplde_front_shortcode input:hover {
+  border-color: var(--de-accent);
+}
+
+/* Tag chips (the .bplde-chip base lives in style.css). */
+.bplde-list .wp-list-table .bplde-chip {
+  margin: 0 5px 5px 0;
+  border-radius: var(--de-radius-sm);
+  background: #ebf0ee;
+  color: var(--de-ink-2);
+  text-decoration: none;
+}
+
+.bplde-list .wp-list-table .bplde-chip:hover {
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+/* File type badge — one tone per family so the column scans at a glance. */
+.bplde-list .bplde-type {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 5px;
+  background: var(--de-ink);
+  color: #fff;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.bplde-list .bplde-type:hover {
+  color: #fff;
+  opacity: .85;
+}
+
+.bplde-list .bplde-type--doc,
+.bplde-list .bplde-type--docx,
+.bplde-list .bplde-type--rtf,
+.bplde-list .bplde-type--odt {
+  background: #1b4d8f;
+}
+
+.bplde-list .bplde-type--ppt,
+.bplde-list .bplde-type--pptx,
+.bplde-list .bplde-type--odp {
+  background: #4b3a73;
+}
+
+.bplde-list .bplde-type--csv,
+.bplde-list .bplde-type--ods {
+  background: #14614a;
+}
+
+.bplde-list .bplde-type--txt {
+  background: #4a4a4a;
+}
+
+.bplde-list .bplde-count {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+.bplde-list .bplde-count.is-zero {
+  color: var(--de-muted);
+}
+
+.bplde-list .bplde-leads {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 11px;
+  border: 1px solid var(--de-control);
+  border-radius: var(--de-radius-sm);
+  color: var(--de-ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.bplde-list .bplde-leads:hover,
+.bplde-list .bplde-leads:focus {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+  box-shadow: none;
+}
+
+.bplde-list .bplde-col-empty {
+  color: var(--de-muted);
+}
+
+.bplde-list .bplde-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--de-ink-2);
+}
+
+.bplde-list .bplde-status__dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #a7b8b2;
+}
+
+.bplde-list .bplde-status--publish .bplde-status__dot {
+  background: var(--de-accent);
+}
+
+.bplde-list .bplde-date {
+  display: block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: var(--de-ink-3);
+}
+
+/* ---------------------------------------------------------------------------
+   Narrow screens
+   ------------------------------------------------------------------------- */
+
+@media screen and (max-width: 1200px) {
+  .bplde-list .bplde-list-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  /* The fixed column widths add up to more than the content area here, and
+     WordPress does not start dropping columns until 782px. Let them size
+     themselves through that band instead of overflowing the page. */
+  .bplde-list .wp-list-table .column-shortcode,
+  .bplde-list .wp-list-table .column-bplde_tags,
+  .bplde-list .wp-list-table .column-bplde_type,
+  .bplde-list .wp-list-table .column-download_count,
+  .bplde-list .wp-list-table .column-download_leads,
+  .bplde-list .wp-list-table .column-bplde_date {
+    width: auto;
+  }
+
+  .bplde-list .wp-list-table tbody td,
+  .bplde-list .wp-list-table tbody th,
+  .bplde-list .wp-list-table thead th,
+  .bplde-list .wp-list-table thead td,
+  .bplde-list .wp-list-table tfoot th,
+  .bplde-list .wp-list-table tfoot td {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .bplde-list .bplde_front_shortcode input {
+    max-width: 120px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .bplde-list .bplde-list-tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bplde-list .bplde-list-top {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+
+  .bplde-list .bplde-list-top__id {
+    flex: 1 1 100%;
+  }
+
+  .bplde-list .bplde-list-search {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .bplde-list .tablenav .actions {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .bplde-list .bplde-list-top,
+  .bplde-list .bplde-list-tiles,
+  .bplde-list .tablenav,
+  .bplde-list .wp-list-table {
+    margin-right: 0;
+  }
+
+  .bplde-list .subsubsub {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Empty library — one card, one action
+   ------------------------------------------------------------------------- */
+
+/* Everything the list screen normally draws is hidden: the status views sit
+   outside #posts-filter, the toolbar and table inside it. */
+.bplde-list-empty .subsubsub,
+.bplde-list-empty #posts-filter,
+.bplde-list-empty .tablenav {
+  display: none;
+}
+
+/* The hero is a flex container, so it is a block formatting context and shrinks
+   away from the floated Screen Options tab — 150px of dead space on the right,
+   and only on the hero, because the rows below it clear the float naturally.
+   Clearing here keeps the whole block one width, and drops it clear of the tab. */
+.bplde-list .bplde-empty {
+  clear: both;
+  margin: 20px 20px 0 0;
+}
+
+.bplde-list .bplde-empty__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 52px 32px 44px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  text-align: center;
+}
+
+.bplde-list .bplde-empty__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 20px;
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+.bplde-list .bplde-empty__title {
+  margin: 0;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.2;
+  color: var(--de-ink);
+}
+
+.bplde-list .bplde-empty__note {
+  max-width: 470px;
+  margin: 10px 0 24px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--de-ink-3);
+}
+
+.bplde-list .bplde-empty__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 46px;
+  padding: 0 26px;
+  background: var(--de-accent);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bplde-list .bplde-empty__cta:hover,
+.bplde-list .bplde-empty__cta:focus {
+  background: var(--de-accent-deep);
+  color: #fff;
+  box-shadow: none;
+}
+
+.bplde-list .bplde-empty__formats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 26px 0 0;
+  max-width: 700px;
+}
+
+.bplde-list .bplde-empty__formats-label {
+  margin-right: 2px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--de-muted);
+}
+
+.bplde-list .bplde-empty__format {
+  padding: 3px 8px;
+  background: #eef2f1;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  color: var(--de-ink-2);
+}
+
+/* Three steps: what to do after pressing the button. */
+.bplde-list .bplde-empty__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.bplde-list .bplde-empty__step {
+  margin: 0;
+  padding: 18px 20px 20px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+}
+
+.bplde-list .bplde-empty__step-n {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 11px;
+  background: var(--de-ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.bplde-list .bplde-empty__step-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+.bplde-list .bplde-empty__step-note {
+  display: block;
+  margin-top: 4px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--de-ink-3);
+}
+
+.bplde-list .bplde-empty__foot {
+  margin: 16px 0 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--de-ink-3);
+  text-align: center;
+}
+
+.bplde-list .bplde-empty__foot a {
+  margin: 0 2px;
+  font-weight: 600;
+  color: var(--de-accent-deep);
+}
+
+@media screen and (max-width: 960px) {
+  .bplde-list .bplde-empty__steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .bplde-list .bplde-empty {
+    margin-right: 0;
+  }
+
+  .bplde-list .bplde-empty__hero {
+    padding: 36px 18px 32px;
+  }
+}
+}
+
+/* ---------------------------------------------------------------------------
+   Square corners — same language as the document editor.
+   ------------------------------------------------------------------------- */
+
+.bplde-list {
+  --de-radius: 0;
+  --de-radius-sm: 0;
+}
+
+.bplde-list .bplde-list-top,
+.bplde-list .bplde-list-top *,
+.bplde-list .bplde-list-tiles,
+.bplde-list .bplde-list-tiles *,
+.bplde-list .bplde-empty,
+.bplde-list .bplde-empty *,
+.bplde-list .subsubsub,
+.bplde-list .subsubsub *,
+.bplde-list .tablenav,
+.bplde-list .tablenav *,
+.bplde-list .wp-list-table,
+.bplde-list .wp-list-table * {
+  border-radius: 0;
+}

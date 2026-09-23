@@ -1,0 +1,230 @@
+/* ============================================================================
+   Settings — "Deep Teal & Lime", matching the editor, the list and the leads
+   screens. Scoped to body.bplde-settings. Square corners throughout.
+   ========================================================================== */
+
+.bplde-settings {
+  --de-ground: #edf1f0;
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-border: #d5e0dd;
+  --de-rule: #e3ebe9;
+
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+
+  --de-pop: #a3e635;
+  --de-pop-soft: #f4fce3;
+  --de-pop-ink: #3f5209;
+  --de-on-pop: #1a2e05;
+}
+
+.bplde-settings .bplde-settings-wrap,
+.bplde-settings .bplde-settings-wrap * {
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+.bplde-settings .bplde-settings-wrap > hr.wp-header-end {
+  visibility: hidden;
+  margin: 0;
+  height: 0;
+  border: 0;
+}
+
+.bplde-settings #wpbody-content {
+  padding-bottom: 40px;
+}
+
+/* ---------------------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------------------- */
+
+.bplde-settings .bplde-settings-hero {
+  /* Screen Options / Help tabs float right above this; without clearing, the
+     flex box forms a narrower block and comes up short. */
+  clear: both;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin: 14px 20px 22px 0;
+  padding: 40px 44px;
+  background: var(--de-ink);
+  color: #fff;
+}
+
+.bplde-settings .bplde-settings-hero__copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bplde-settings .bplde-settings-hero__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.bplde-settings .bplde-settings-hero__title {
+  margin: 14px 0 0;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  color: #fff;
+}
+
+.bplde-settings .bplde-settings-hero__note {
+  margin: 12px 0 0;
+  max-width: 620px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #b9ccc4;
+}
+
+.bplde-settings .bplde-settings-hero__actions {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 280px;
+}
+
+.bplde-settings .bplde-settings-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 50px;
+  padding: 0 18px;
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+}
+
+.bplde-settings .bplde-settings-cta:hover,
+.bplde-settings .bplde-settings-cta:focus {
+  background: #b6ef52;
+  color: var(--de-on-pop);
+  box-shadow: none;
+  outline: 2px solid transparent;
+}
+
+.bplde-settings .bplde-settings-cta:focus-visible {
+  outline: 2px solid var(--de-pop);
+  outline-offset: 2px;
+}
+
+.bplde-settings .bplde-settings-hero__trust {
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: #8fa39e;
+}
+
+/* ---------------------------------------------------------------------------
+   Feature groups
+   ------------------------------------------------------------------------- */
+
+.bplde-settings .bplde-settings-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0 20px 0 0;
+}
+
+.bplde-settings .bplde-settings-group {
+  padding: 20px 22px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+}
+
+.bplde-settings .bplde-settings-group__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+.bplde-settings .bplde-settings-group__icon--pop {
+  background: var(--de-pop-soft);
+  color: var(--de-pop-ink);
+}
+
+.bplde-settings .bplde-settings-group__title {
+  margin: 12px 0 0;
+  padding: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--de-ink);
+}
+
+.bplde-settings .bplde-settings-group__list {
+  list-style: none;
+  margin: 9px 0 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--de-ink-2);
+}
+
+.bplde-settings .bplde-settings-group__list li {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Narrow screens
+   ------------------------------------------------------------------------- */
+
+@media screen and (max-width: 1200px) {
+  .bplde-settings .bplde-settings-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .bplde-settings .bplde-settings-hero {
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 28px 24px;
+  }
+
+  .bplde-settings .bplde-settings-hero__title {
+    font-size: 28px;
+  }
+
+  .bplde-settings .bplde-settings-hero__actions {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .bplde-settings .bplde-settings-hero,
+  .bplde-settings .bplde-settings-groups {
+    margin-right: 0;
+  }
+
+  .bplde-settings .bplde-settings-groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

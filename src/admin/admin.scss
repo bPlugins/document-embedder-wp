@@ -1,12 +1,216 @@
+/**
+ * Help & Demos dashboard theming.
+ *
+ * The shared bpl-tools dashboard draws every colour from these four custom
+ * properties, so the whole screen can be retinted from here without touching
+ * ../bpl-tools, which the other bPlugins products share.
+ *
+ * Palette is "Deep Teal & Lime", the same tokens as admin-layout.css,
+ * admin-list.css, admin-leads.css and admin-settings.css.
+ */
+
 :root {
-  --bpl-dashboard-primary-color: #8c74fd;
-  --bpl-dashboard-primary-color-rgb: 11, 129, 238;
-  --bpl-dashboard-secondary-color: #ff7c5f;
-  --bpl-dashboard-secondary-color-rgb: 140, 116, 253;
-  --bpl-dashboard-title-color: #070127;
-  --bpl-dashboard-title-color-rgb: 7, 1, 39;
-  --bpl-dashboard-content-color: #1b2e4b;
-  --bpl-dashboard-content-color-rgb: 27, 46, 75;
+  // Teal carries the UI: links, tabs, numbered steps, focus rings.
+  --bpl-dashboard-primary-color: #0f766e;
+  --bpl-dashboard-primary-color-rgb: 15, 118, 110;
+
+  // Deeper teal, used for gradient ends and tint borders. Lime is deliberately
+  // not used here: the shared styles put white text on this colour in places,
+  // so it has to stay dark enough to read against. Lime is applied by hand to
+  // the two call-to-action buttons further down instead.
+  --bpl-dashboard-secondary-color: #0b5a54;
+  --bpl-dashboard-secondary-color-rgb: 11, 90, 84;
+
+  --bpl-dashboard-title-color: #0f1f1b;
+  --bpl-dashboard-title-color-rgb: 15, 31, 27;
+
+  --bpl-dashboard-content-color: #3f5750;
+  --bpl-dashboard-content-color-rgb: 63, 87, 80;
+}
+
+// The shared dashboard styles load first so that everything below can override
+// them: at equal specificity the later rule wins.
+@import './../bpl-tools/Admin/style.scss';
+
+// Local tokens, kept out of :root so they cannot leak into other plugins.
+$de-ground: #edf1f0;
+$de-ink: #0f1f1b;
+$de-accent: #0f766e;
+$de-accent-deep: #0b5a54;
+$de-pop: #a3e635;
+$de-pop-hover: #b6ef52;
+$de-on-pop: #1a2e05;
+
+.bPlDashboard {
+  background: $de-ground;
+
+  // Square corners everywhere, matching the rest of the plugin's admin screens.
+  &,
+  * {
+    border-radius: 0;
+  }
+
+  // …except the shapes that are only correct as circles. Spinners in particular
+  // stop reading as spinners once squared, because they rotate.
+  .actSpinner,
+  .pricingLoadingSpinner,
+  .fcSpinner,
+  .spinner,
+  .statusDot,
+  .actStatusDot,
+  .bPlAvatar,
+  img[class*='avatar'] {
+    border-radius: 50%;
+  }
+
+  // The two buttons that are meant to be the loudest thing on the screen: the
+  // header's Upgrade Pro and the Pro block's pricing button. Lime on dark ink,
+  // the same pairing as the Settings hero.
+  //
+  // !important because the shared sheet reaches these through much longer
+  // selectors (.bPlDashboardHeader .headerRight .bPlButton and friends). Raising
+  // specificity here would mean hard-coding that structure and breaking the next
+  // time bpl-tools moves a wrapper.
+  .bPlButton.upgrade,
+  .bPlDashboardWelcomeProAds .bPlButton {
+    background: $de-pop !important;
+    color: $de-on-pop !important;
+    font-weight: 700;
+
+    svg {
+      fill: $de-on-pop !important;
+    }
+
+    // The shared button wipes a fill across on hover; point it at the ink so the
+    // label can flip to white and stay legible.
+    &::before {
+      display: block;
+      background: $de-ink !important;
+    }
+
+    &:hover,
+    &:focus {
+      color: #fff !important;
+
+      svg {
+        fill: #fff !important;
+      }
+    }
+  }
+
+  // The Pro illustration sits on a lavender plate in the shared styles.
+  .bPlDashboardWelcomeProAds figure {
+    background: #e6f2f0;
+  }
+
+  // ---------------------------------------------------------------------------
+  // The shared sheet resolves nearly everything through the four custom
+  // properties above, but a handful of tints are written as literal
+  // rgba(97, 85, 245, …) -- the old violet -- and cannot be reached that way.
+  // Each rule below restates one of them in teal at the same alpha. Nesting
+  // under .bPlDashboard adds the class that wins the cascade, so no !important
+  // is needed except where the original declaration already had one.
+  // ---------------------------------------------------------------------------
+
+  .bPlDashboardWelcomeOverview {
+    .banner::before {
+      background: linear-gradient(180deg, transparent 40%, rgba($de-accent-deep, .7));
+    }
+
+    .formatChip {
+      background: rgba($de-accent, .08);
+    }
+
+    .planBadge.isPro {
+      box-shadow: 0 2px 6px rgba($de-accent, .25);
+    }
+
+    .primaryBtn {
+      box-shadow: 0 2px 6px rgba($de-accent, .25);
+
+      &:hover,
+      &:focus {
+        box-shadow: 0 8px 18px rgba($de-accent, .32);
+      }
+    }
+
+    .secondaryBtn {
+      border-color: rgba($de-accent, .4);
+
+      &:hover,
+      &:focus {
+        background: rgba($de-accent, .08) !important;
+      }
+    }
+
+    .ghostBtn {
+      &:hover,
+      &:focus {
+        background: rgba($de-accent, .06);
+      }
+    }
+  }
+
+  .bPlDashboardGettingStarted {
+    .step:hover {
+      border-color: rgba($de-accent, .4);
+    }
+
+    .docs {
+      background: linear-gradient(135deg, rgba($de-accent, .08), rgba($de-accent, .02));
+      border-color: rgba($de-accent, .18);
+    }
+  }
+
+  .bPlDashboardWelcomeInfo .infoCard .bPlButton {
+    border-color: rgba($de-accent, .35);
+  }
+
+  .bPlDashboardPricing {
+    // Orange and signal-green in the shared sheet; both become the lime pop so
+    // the pricing page uses the same two accents as everything else.
+    .pricingBadge {
+      background: $de-pop;
+      box-shadow: 0 6px 16px rgba($de-pop, .4);
+      color: $de-on-pop;
+    }
+
+    .pricingCycle .pricingSave {
+      background: $de-pop;
+      color: $de-on-pop;
+    }
+  }
+
+  .bPlDashboardDemos {
+    // The demo cards tint themselves through a local --accent rather than the
+    // dashboard properties, so it is retargeted here.
+    .card {
+      --accent: #{$de-accent};
+    }
+
+    .hero .eyebrow {
+      background: rgba($de-accent, .08);
+    }
+
+    .toolbar {
+      .search input:focus {
+        border-color: rgba($de-accent, .45);
+        box-shadow: 0 0 0 3px rgba($de-accent, .1);
+      }
+
+      .chips .chip:hover {
+        border-color: rgba($de-accent, .4);
+      }
+    }
+
+    .modal .modalContent .modalHead .modalActions .modalOpen {
+      background: rgba($de-accent, .08);
+
+      &:hover {
+        background: rgba($de-accent, .15);
+      }
+    }
+  }
 }
 
 .bPlDashboardProAds {
@@ -15,6 +219,3 @@
     display: none !important;
   }
 }
-
-
-@import './../bpl-tools/Admin/style.scss';

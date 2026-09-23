@@ -58,23 +58,44 @@ if (!class_exists('BPLDE_Preview')) {
          * ------------------------------------------------------------------------------ */
 
         /**
-         * Sit below the CSF configuration box.
+         * Sit beside the CSF configuration box, or below it.
          *
-         * Context matters more than priority here: WordPress renders the whole 'normal'
-         * context before 'advanced', so a box in 'normal' always lands above the CSF metabox
+         * In the split layout the preview owns the side column on its own, so it is the
+         * only box left in 'side' and takes 'high' to stay at the top of it; the stylesheet
+         * then pins it while the settings scroll.
+         *
+         * With the layout filtered off it falls back to where it has always been. Context
+         * matters more than priority there: WordPress renders the whole 'normal' context
+         * before 'advanced', so a box in 'normal' always lands above the CSF metabox
          * whatever its priority. CSF registers at context 'advanced', priority 'default'
          * (vendor/Codestar/classes/metabox-options.class.php), so matching the context and
          * dropping to 'low' is what actually puts this underneath it.
          */
         public function add_preview_metabox($post) {
+            $split = (bool) apply_filters('bplde_use_split_layout', true);
+
             add_meta_box(
                 'bplde_live_preview',
-                __('Live Preview (Click to Show/Hide)', 'document-emberdder'),
+                __('Live preview', 'document-emberdder'),
                 [$this, 'render_metabox'],
                 'ppt_viewer',
-                'advanced',
-                'low'
+                $split ? 'side' : 'advanced',
+                $split ? 'high' : 'low'
             );
+
+            add_filter('postbox_classes_ppt_viewer_bplde_live_preview', [$this, 'flat_preview_box']);
+        }
+
+        /**
+         * The panel draws its own header — title, live chip and refresh — so the postbox
+         * chrome around it is stripped in CSS. Hiding .postbox-header also takes the
+         * toggle and drag handle with it, which is why .inside is forced open: a box
+         * collapsed before this change would otherwise have no way back.
+         */
+        public function flat_preview_box($classes) {
+            $classes[] = 'bplde-flat-box';
+
+            return $classes;
         }
 
         /**
@@ -116,22 +137,29 @@ if (!class_exists('BPLDE_Preview')) {
             ];
             ?>
             <div class="bplde-preview" id="bplde-preview">
-                <div class="bplde-preview-bar">
+                <div class="bplde-preview-head">
+                    <h2 class="bplde-preview-heading"><?php esc_html_e('Live preview', 'document-emberdder'); ?></h2>
+
                     <span class="bplde-preview-status" aria-live="polite"></span>
-                    <div class="bplde-preview-actions">
-                        <div class="bplde-preview-devices">
-                            <?php foreach ($devices as $device => $label) : ?>
-                                <button type="button"
-                                        class="bplde-preview-device<?php echo $device === 'desktop' ? ' is-active' : ''; ?>"
-                                        data-device="<?php echo esc_attr($device); ?>">
-                                    <?php echo esc_html($label); ?>
-                                </button>
-                            <?php endforeach; ?>
-                        </div>
-                        <button type="button" class="bplde-preview-refresh bplde-preview-device">
-                            <?php esc_html_e('Refresh', 'document-emberdder'); ?>
+
+                    <button type="button" class="bplde-preview-refresh"
+                            aria-label="<?php esc_attr_e('Refresh preview', 'document-emberdder'); ?>">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12a9 9 0 1 1-2.6-6.4" />
+                            <path d="M21 3v6h-6" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="bplde-preview-devices">
+                    <?php foreach ($devices as $device => $label) : ?>
+                        <button type="button"
+                                class="bplde-preview-device<?php echo $device === 'desktop' ? ' is-active' : ''; ?>"
+                                data-device="<?php echo esc_attr($device); ?>">
+                            <?php echo esc_html($label); ?>
                         </button>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 <div class="bplde-preview-stage">
                     <?php // No src: an initial about:blank navigation would race the first POST and win. ?>
@@ -140,7 +168,7 @@ if (!class_exists('BPLDE_Preview')) {
                             title="<?php esc_attr_e('Document live preview', 'document-emberdder'); ?>"></iframe>
                 </div>
                 <p class="bplde-preview-note">
-                    <?php esc_html_e('Unsaved settings are shown here as visitors would see them. Nothing is saved until you press Update.', 'document-emberdder'); ?>
+                    <?php esc_html_e('Unsaved settings are shown here as visitors would see them. Nothing is saved until you press Save.', 'document-emberdder'); ?>
                 </p>
             </div>
             <?php
@@ -228,8 +256,9 @@ if (!class_exists('BPLDE_Preview')) {
             return [
                 'origin' => self::preview_origin(),
                 'i18n'   => [
-                    'updating' => __('Updating preview…', 'document-emberdder'),
-                    'ready'    => __('Preview up to date', 'document-emberdder'),
+                    // Short enough to sit in the chip beside the panel heading.
+                    'updating' => __('Updating…', 'document-emberdder'),
+                    'ready'    => __('Live', 'document-emberdder'),
                 ],
             ];
         }

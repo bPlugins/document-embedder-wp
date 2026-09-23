@@ -4,9 +4,9 @@
          is built light at the top and already purple at the bottom: the wash deepens it
          instead of muddying a light area. -->
     <linearGradient id="sky" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0" stop-color="#f4f5ff" />
-      <stop offset="0.52" stop-color="#e5e4ff" />
-      <stop offset="1" stop-color="#4a3ed2" />
+      <stop offset="0" stop-color="#f6faf9" />
+      <stop offset="0.52" stop-color="#d9ebe8" />
+      <stop offset="1" stop-color="#0b5a54" />
     </linearGradient>
 
     <radialGradient id="glow" cx="0.5" cy="0.16" r="0.62">
@@ -15,11 +15,11 @@
     </radialGradient>
 
     <filter id="card" x="-25%" y="-25%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#241c63" flood-opacity="0.22" />
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f1f1b" flood-opacity="0.22" />
     </filter>
 
     <filter id="chip" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#241c63" flood-opacity="0.20" />
+      <feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#0f1f1b" flood-opacity="0.20" />
     </filter>
 
     <clipPath id="paper">
@@ -28,7 +28,7 @@
 
     <g id="fold">
       <path d="M0 0h72l26 26v96H0z" fill="#ffffff" />
-      <path d="M72 0l26 26H72z" fill="#e6e8f5" />
+      <path d="M72 0l26 26H72z" fill="#e3ebe9" />
     </g>
   </defs>
 
@@ -48,7 +48,7 @@
     <path d="M414 79h34v12h-34z" />
     <path d="M460 79h10v12h-10z" />
   </g>
-  <rect x="590" y="76" width="82" height="18" fill="#3858e9" />
+  <rect x="590" y="76" width="82" height="18" fill="#0f766e" />
   <g fill="#ffffff" opacity="0.92">
     <rect x="604" y="83" width="42" height="5" />
     <path d="M654 81l5 6 5-6z" />
@@ -58,17 +58,17 @@
   <rect x="210" y="108" width="480" height="262" fill="#f6f7f9" />
   <rect x="228" y="118" width="444" height="252" fill="#ffffff" />
   <g clip-path="url(#paper)">
-    <rect x="252" y="146" width="196" height="16" fill="#c9cddb" />
-    <g fill="#e2e5ee">
+    <rect x="252" y="146" width="196" height="16" fill="#bfd0cc" />
+    <g fill="#e3ebe9">
       <rect x="252" y="184" width="396" height="10" />
       <rect x="252" y="204" width="396" height="10" />
       <rect x="252" y="224" width="284" height="10" />
     </g>
     <!-- a figure on the page, so it reads as a real document and not just ruled lines -->
-    <rect x="252" y="256" width="180" height="96" fill="#eef0fb" />
-    <path d="M252 330l42-38 34 30 30-26 74 62v24h-180z" fill="#c3c9ea" />
+    <rect x="252" y="256" width="180" height="96" fill="#eef4f2" />
+    <path d="M252 330l42-38 34 30 30-26 74 62v24h-180z" fill="#bfd0cc" />
     <circle cx="292" cy="284" r="12" fill="#ffd25c" />
-    <g fill="#e2e5ee">
+    <g fill="#e3ebe9">
       <rect x="452" y="256" width="196" height="10" />
       <rect x="452" y="276" width="196" height="10" />
       <rect x="452" y="296" width="150" height="10" />
@@ -82,7 +82,7 @@
 
     <g transform="rotate(-8 128 176)" filter="url(#card)">
       <use href="#fold" x="80" y="116" />
-      <g fill="#dfe3ee">
+      <g fill="#dde7e4">
         <rect x="94" y="164" width="44" height="7" />
         <rect x="94" y="180" width="44" height="7" />
       </g>
@@ -92,7 +92,7 @@
 
     <g transform="rotate(6 138 366)" filter="url(#card)">
       <use href="#fold" x="90" y="306" />
-      <g fill="#dfe3ee">
+      <g fill="#dde7e4">
         <rect x="104" y="354" width="44" height="7" />
         <rect x="104" y="370" width="44" height="7" />
       </g>
@@ -102,7 +102,7 @@
 
     <g transform="rotate(7 772 168)" filter="url(#card)">
       <use href="#fold" x="724" y="108" />
-      <g fill="#dfe3ee">
+      <g fill="#dde7e4">
         <rect x="738" y="156" width="44" height="7" />
         <rect x="738" y="172" width="44" height="7" />
       </g>
@@ -112,7 +112,7 @@
 
     <g transform="rotate(-6 762 358)" filter="url(#card)">
       <use href="#fold" x="714" y="298" />
-      <g fill="#dfe3ee">
+      <g fill="#dde7e4">
         <rect x="728" y="346" width="44" height="7" />
         <rect x="728" y="362" width="44" height="7" />
       </g>
@@ -125,11 +125,11 @@
   <g filter="url(#chip)">
     <rect x="556" y="24" width="196" height="42" fill="#ffffff" />
   </g>
-  <g transform="translate(574 36)" fill="none" stroke="#6155f5" stroke-width="2">
+  <g transform="translate(574 36)" fill="none" stroke="#0f766e" stroke-width="2">
     <path d="M5.5 15.5a5 5 0 0 1 .8-9.9A7 7 0 0 1 19.6 7a4.3 4.3 0 0 1-.6 8.5z" />
     <path d="M12.5 10v7M9 13.2l3.5-3.4 3.5 3.4" />
   </g>
-  <text x="608" y="51" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#2b2a4a">Drive &amp; Dropbox</text>
+  <text x="608" y="51" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#0f1f1b">Drive &amp; Dropbox</text>
 
   <!-- ================= how it goes on the page ================= -->
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
@@ -137,25 +137,25 @@
     <g filter="url(#chip)">
       <rect x="96" y="452" width="214" height="54" fill="#ffffff" />
     </g>
-    <rect x="118" y="468" width="22" height="22" fill="#6155f5" />
+    <rect x="118" y="468" width="22" height="22" fill="#0f766e" />
     <path d="M124 474h10v10h-10z" fill="#ffffff" />
-    <text x="150" y="486" font-size="18" font-weight="600" fill="#2b2a4a">Gutenberg block</text>
+    <text x="150" y="486" font-size="18" font-weight="600" fill="#0f1f1b">Gutenberg block</text>
 
     <g filter="url(#chip)">
-      <rect x="340" y="452" width="200" height="54" fill="#2b2a4a" />
+      <rect x="340" y="452" width="200" height="54" fill="#0f1f1b" />
     </g>
     <text x="440" y="486" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" fill="#ffffff">[doc id="12"]</text>
 
     <g filter="url(#chip)">
       <rect x="570" y="452" width="228" height="54" fill="#ffffff" />
     </g>
-    <g fill="#6155f5">
+    <g fill="#0f766e">
       <rect x="592" y="468" width="9" height="9" />
       <rect x="605" y="468" width="9" height="9" />
       <rect x="592" y="481" width="9" height="9" />
       <rect x="605" y="481" width="9" height="9" />
     </g>
-    <text x="626" y="486" font-size="18" font-weight="600" fill="#2b2a4a">Document Library</text>
+    <text x="626" y="486" font-size="18" font-weight="600" fill="#0f1f1b">Document Library</text>
 
     <text x="450" y="558" text-anchor="middle" font-size="21" font-weight="600" fill="#ffffff">Embed any document. Nothing for your visitors to download.</text>
   </g>

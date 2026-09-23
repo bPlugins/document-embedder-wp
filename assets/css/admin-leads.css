@@ -1,0 +1,467 @@
+/* ============================================================================
+   Download Leads — "Deep Teal & Lime", matching the editor and the list screen.
+
+   Scoped to body.bplde-leads. Square corners throughout, same as the other two.
+   ========================================================================== */
+
+.bplde-leads {
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
+  --de-rule: #e3ebe9;
+
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+  --de-muted: #8ca09a;
+
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+
+  --de-danger: #a32020;
+  --de-danger-soft: #fdeeee;
+}
+
+.bplde-leads .bplde-leads-wrap,
+.bplde-leads .bplde-leads-wrap * {
+  border-radius: 0;
+}
+
+.bplde-leads .bplde-leads-wrap > hr.wp-header-end {
+  visibility: hidden;
+  margin: 0;
+  height: 0;
+  border: 0;
+}
+
+.bplde-leads #wpbody-content {
+  padding-bottom: 40px;
+}
+
+/* ---------------------------------------------------------------------------
+   Action bar
+   ------------------------------------------------------------------------- */
+
+.bplde-leads .bplde-leads-top {
+  clear: both;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 20px 16px 0;
+  padding: 13px 16px 13px 20px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+}
+
+.bplde-leads .bplde-leads-top__id {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bplde-leads .bplde-leads-top__eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}
+
+.bplde-leads .bplde-leads-top__title {
+  display: block;
+  margin: 2px 0 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--de-ink);
+}
+
+.bplde-leads .bplde-leads-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--de-control);
+  background: var(--de-surface);
+  color: var(--de-ink);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bplde-leads .bplde-leads-btn:hover,
+.bplde-leads .bplde-leads-btn:focus {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+  box-shadow: none;
+  outline: 0;
+}
+
+.bplde-leads .bplde-leads-btn--primary {
+  padding: 0 20px;
+  border-color: var(--de-accent);
+  background: var(--de-accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.bplde-leads .bplde-leads-btn--primary:hover,
+.bplde-leads .bplde-leads-btn--primary:focus {
+  border-color: var(--de-accent-deep);
+  background: var(--de-accent-deep);
+  color: #fff;
+}
+
+.bplde-leads .bplde-leads-btn--danger {
+  border-color: #e7c4c4;
+  color: var(--de-danger);
+}
+
+.bplde-leads .bplde-leads-btn--danger:hover,
+.bplde-leads .bplde-leads-btn--danger:focus {
+  border-color: var(--de-danger);
+  background: var(--de-danger-soft);
+  color: var(--de-danger);
+}
+
+/* ---------------------------------------------------------------------------
+   Totals
+   ------------------------------------------------------------------------- */
+
+.bplde-leads .bplde-leads-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 20px 18px 0;
+}
+
+.bplde-leads .bplde-leads-tile {
+  padding: 14px 18px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+}
+
+.bplde-leads .bplde-leads-tile__value {
+  display: block;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1;
+  color: var(--de-ink);
+}
+
+.bplde-leads .bplde-leads-tile__label {
+  display: block;
+  margin-top: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--de-ink-3);
+}
+
+/* ---------------------------------------------------------------------------
+   Toolbar
+   ------------------------------------------------------------------------- */
+
+.bplde-leads .bplde-leads-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 20px 14px 0;
+}
+
+.bplde-leads .bplde-leads-toolbar__spacer {
+  flex: 1 1 auto;
+}
+
+.bplde-leads .bplde-leads-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--de-ink-2);
+  text-decoration: none;
+}
+
+.bplde-leads .bplde-leads-back:hover,
+.bplde-leads .bplde-leads-back:focus {
+  color: var(--de-accent-deep);
+}
+
+.bplde-leads .bplde-leads-doc {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bplde-leads .bplde-leads-input {
+  height: 36px;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--de-control);
+  background: var(--de-surface);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--de-ink);
+  box-shadow: none;
+}
+
+.bplde-leads .bplde-leads-input:focus {
+  border-color: var(--de-accent);
+  box-shadow: 0 0 0 3px var(--de-accent-soft);
+  outline: 0;
+}
+
+.bplde-leads .bplde-leads-input--search {
+  width: 240px;
+}
+
+.bplde-leads .bplde-leads-toolbar .bplde-leads-btn {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.bplde-leads .bplde-leads-clear {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--de-ink-3);
+  text-decoration: none;
+}
+
+.bplde-leads .bplde-leads-clear:hover,
+.bplde-leads .bplde-leads-clear:focus {
+  color: var(--de-danger);
+}
+
+/* ---------------------------------------------------------------------------
+   Table
+   ------------------------------------------------------------------------- */
+
+.bplde-leads .bplde-leads-card {
+  margin-right: 20px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+}
+
+.bplde-leads .bplde-leads-scroll {
+  overflow-x: auto;
+}
+
+.bplde-leads .bplde-leads-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.bplde-leads .bplde-leads-table th {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--de-rule);
+  background: var(--de-tint);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--de-ink-3);
+  white-space: nowrap;
+}
+
+.bplde-leads .bplde-leads-table td {
+  padding: 14px;
+  border-bottom: 1px solid #eff3f2;
+  font-size: 13.5px;
+  color: var(--de-ink-2);
+  vertical-align: middle;
+}
+
+.bplde-leads .bplde-leads-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.bplde-leads .bplde-leads-table tbody tr:hover {
+  background: var(--de-tint);
+}
+
+.bplde-leads .bplde-leads-table__check {
+  width: 44px;
+  text-align: center;
+}
+
+.bplde-leads .bplde-leads-id {
+  font-weight: 600;
+  color: var(--de-muted);
+}
+
+.bplde-leads .bplde-leads-name {
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+.bplde-leads .bplde-leads-email,
+.bplde-leads .bplde-leads-doclink {
+  font-weight: 600;
+  color: var(--de-accent-deep);
+  text-decoration: none;
+}
+
+.bplde-leads .bplde-leads-email:hover,
+.bplde-leads .bplde-leads-doclink:hover {
+  text-decoration: underline;
+}
+
+.bplde-leads .bplde-leads-ip {
+  display: inline-block;
+  padding: 3px 8px;
+  background: #f0f5f3;
+  border: 1px solid #dde7e4;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  color: var(--de-ink-2);
+}
+
+.bplde-leads .bplde-leads-date {
+  white-space: nowrap;
+  color: var(--de-ink-3);
+}
+
+.bplde-leads .bplde-leads-none {
+  padding: 64px 24px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--de-ink-3);
+}
+
+/* ---------------------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------------------- */
+
+.bplde-leads .bplde-leads-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--de-rule);
+  background: var(--de-tint);
+}
+
+.bplde-leads .bplde-leads-foot__count {
+  flex: 1 1 auto;
+  font-size: 12.5px;
+  color: var(--de-ink-3);
+}
+
+.bplde-leads .bplde-leads-pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  padding: 0 8px;
+  border: 1px solid var(--de-control);
+  background: var(--de-surface);
+  color: var(--de-ink-2);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.bplde-leads .bplde-leads-pagination .page-numbers:hover {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+}
+
+.bplde-leads .bplde-leads-pagination .page-numbers.current {
+  border-color: var(--de-accent);
+  background: var(--de-accent);
+  color: #fff;
+}
+
+.bplde-leads .bplde-leads-pagination .page-numbers.dots {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+   Narrow screens
+   ------------------------------------------------------------------------- */
+
+@media screen and (max-width: 960px) {
+  .bplde-leads .bplde-leads-tiles {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .bplde-leads .bplde-leads-top {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+
+  .bplde-leads .bplde-leads-top__id {
+    flex: 1 1 100%;
+  }
+
+  .bplde-leads .bplde-leads-input--search {
+    width: auto;
+    flex: 1 1 160px;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .bplde-leads .bplde-leads-top,
+  .bplde-leads .bplde-leads-tiles,
+  .bplde-leads .bplde-leads-toolbar,
+  .bplde-leads .bplde-leads-card {
+    margin-right: 0;
+  }
+}
+
+/* Context line shown whenever the view is narrowed, so the library total is
+   still visible and there is always a way back to everything. */
+.bplde-leads .bplde-leads-scope {
+  margin: -6px 20px 14px 0;
+  padding: 9px 14px;
+  background: var(--de-accent-soft);
+  border: 1px solid var(--de-border);
+  font-size: 12.5px;
+  color: var(--de-ink-2);
+}
+
+.bplde-leads .bplde-leads-scope a {
+  margin-left: 6px;
+  font-weight: 700;
+  color: var(--de-accent-deep);
+}
+
+/* A lead whose document was deleted before leads followed their document. */
+.bplde-leads .bplde-leads-gone-title {
+  color: var(--de-ink-3);
+}
+
+.bplde-leads .bplde-leads-gone {
+  display: inline-block;
+  margin-left: 7px;
+  padding: 2px 7px;
+  background: var(--de-rule);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}

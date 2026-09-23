@@ -35,6 +35,57 @@ if ( ! class_exists( RESTController::class ) ) {
                 'callback'            => [$this, 'handle_direct_download'],
                 'permission_callback' => '__return_true'
             ] );
+
+            // Preview URL for the Saved Document block. Editors only: it mints the nonce that
+            // BPLDE_Preview checks, so the capability is verified here as well as there.
+            register_rest_route( 'docembedder/v1', '/preview-url/(?P<id>\d+)', [
+                'methods'             => 'GET',
+                'callback'            => [$this, 'get_preview_url'],
+                'args'                => [
+                    'id' => [
+                        'required'          => true,
+                        'sanitize_callback' => 'absint',
+                    ],
+                ],
+                'permission_callback' => function( $request ) {
+                    $id = absint( $request['id'] );
+
+                    return $id && current_user_can( 'edit_post', $id );
+                }
+            ] );
+        }
+
+        /**
+         * Hand the block editor a preview URL for one saved document.
+         *
+         * The URL is the same nonce-guarded front-end route the document edit screen
+         * previews into, so the block shows the document through the real renderer rather
+         * than a second, drifting copy of it.
+         */
+        public function get_preview_url( $request ) {
+            $id = absint( $request['id'] );
+
+            if ( get_post_type( $id ) !== 'ppt_viewer' ) {
+                return new \WP_Error(
+                    'bplde_not_a_document',
+                    __( 'That is not a Document Embedder document.', 'document-emberdder' ),
+                    ['status' => 404]
+                );
+            }
+
+            if ( ! class_exists( 'BPLDE_Preview' ) ) {
+                return new \WP_Error(
+                    'bplde_preview_unavailable',
+                    __( 'Preview is unavailable on this site.', 'document-emberdder' ),
+                    ['status' => 500]
+                );
+            }
+
+            return new \WP_REST_Response( [
+                'id'    => $id,
+                'title' => get_the_title( $id ),
+                'url'   => \BPLDE_Preview::preview_url( $id ),
+            ], 200 );
         }
 
         public function get_leads( $request ) {

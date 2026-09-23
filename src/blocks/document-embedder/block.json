@@ -2,10 +2,28 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "meta-box/document-embedder",
-  "title": "Documenter Embedder",
+  "title": "Saved Document",
   "category": "common",
   "icon": "media-document",
-  "keywords": ["Documenter Embedder", "Document"],
+  "description": "Place a document you already created under Document Embedder. Pick it from the list and it renders with the settings saved on that document.",
+  "keywords": [
+    "document",
+    "saved",
+    "embed",
+    "pdf",
+    "docx",
+    "xlsx",
+    "viewer",
+    "library"
+  ],
+  "textdomain": "document-emberdder",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
   "attributes": {
     "selected": {
       "type": "number",
@@ -21,6 +39,9 @@
       "data": {}
     }
   },
-  "editorScript": ["file:./index.js"],
+  "editorScript": [
+    "file:./index.js"
+  ],
+  "editorStyle": "file:./index.css",
   "render": "file:./render.php"
 }

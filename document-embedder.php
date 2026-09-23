@@ -5,7 +5,7 @@
  * Description: Embed Any document easily in wordpress such as word, excel, powerpoint, pdf and more
  * Version:     2.3.2
  * Author:      bPlugins
- * Author URI:  http://bplugins.com
+ * Author URI:  https://bplugins.com/
  * License:     GPLv2 or later
  * Text Domain: document-emberdder
  * Domain Path: /languages

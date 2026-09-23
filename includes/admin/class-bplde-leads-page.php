@@ -27,6 +27,20 @@ if ( ! class_exists( 'LeadsPage' ) ) {
             add_action( 'admin_init', [$this, 'handle_export'] );
             add_action( 'admin_init', [$this, 'handle_bulk_delete'] );
             add_action( 'admin_init', [$this, 'set_page_title'] );
+            add_filter( 'admin_body_class', [$this, 'body_class'] );
+        }
+
+        /**
+         * Scope for admin-leads.css, matching how the editor and list screens are scoped.
+         */
+        public function body_class( $classes ) {
+            $screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+            if ( $screen && $screen->id === 'ppt_viewer_page_bplde-download-leads' ) {
+                $classes .= ' bplde-leads ';
+            }
+
+            return $classes;
         }
 
         /**
@@ -102,8 +116,13 @@ if ( ! class_exists( 'LeadsPage' ) ) {
                     // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- query built with prepare() clauses
                     $leads = $wpdb->get_results( $wpdb->prepare( $sql, ...$params ), ARRAY_A );
                 } else {
-                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- static query
-                    $leads = $wpdb->get_results( $wpdb->prepare( $sql ), ARRAY_A );
+                    /*
+                     * No filters means no values to bind, and wpdb::prepare() raises
+                     * "must have a placeholder" when handed a query without one. The
+                     * string here is built only from literals and $wpdb->prefix.
+                     */
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- no user input in this query
+                    $leads = $wpdb->get_results( $sql, ARRAY_A );
                 }
 
                 header( 'Content-Type: text/csv' );
@@ -172,8 +191,9 @@ if ( ! class_exists( 'LeadsPage' ) ) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- query built with prepare() clauses
                 $total_items = $wpdb->get_var( $wpdb->prepare( $count_sql . $where, ...$params ) );
             } else {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- static base query
-                $total_items = $wpdb->get_var( $wpdb->prepare( $count_sql ) );
+                // Same reason as above: nothing to bind, so prepare() would only warn.
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- no user input in this query
+                $total_items = $wpdb->get_var( $count_sql );
             }
 
             $sql = "SELECT * FROM {$wpdb->prefix}docembedder_leads WHERE 1=1" . $where;
@@ -197,72 +217,149 @@ if ( ! class_exists( 'LeadsPage' ) ) {
             if ( $date_filter ) $export_args['date_filter'] = $date_filter;
             $export_url = add_query_arg( $export_args, admin_url( 'edit.php?post_type=ppt_viewer&page=bplde-download-leads' ) );
             
+            $has_filters = ( $email_search || $date_filter );
+            $is_filtered = ( $has_filters || $document_filter );
+
+            /*
+             * The tiles describe the rows actually on screen, so they carry the same
+             * WHERE clause the table does. Global totals over a filtered table read as
+             * a contradiction — "36 leads" above an empty list for a document that has
+             * none — which is exactly how this was first built.
+             */
+            $agg_sql = "SELECT COUNT(*) AS total, COUNT(DISTINCT email) AS emails, COUNT(DISTINCT document_id) AS docs
+                        FROM {$wpdb->prefix}docembedder_leads WHERE 1=1" . $where;
+
+            if ( ! empty( $params ) ) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- built with prepare() clauses
+                $totals = $wpdb->get_row( $wpdb->prepare( $agg_sql, ...$params ), ARRAY_A );
+            } else {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- static aggregate
+                $totals = $wpdb->get_row( $agg_sql, ARRAY_A );
+            }
+
+            $totals = is_array( $totals ) ? $totals : [ 'total' => 0, 'emails' => 0, 'docs' => 0 ];
+
+            // Only worth a second query when the view is narrowed; otherwise it is the same number.
+            if ( $is_filtered ) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table
+                $library_total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}docembedder_leads" );
+            } else {
+                $library_total = (int) $totals['total'];
+            }
+
+            $show_all_url = admin_url( 'edit.php?post_type=ppt_viewer&page=bplde-download-leads' );
+
             $back_url = admin_url( 'edit.php?post_type=ppt_viewer' );
             $doc_edit_url = $document_filter ? get_edit_post_link( $document_filter ) : '#';
 
             ?>
-            <div class="wrap" style="background: #f0f0f1;">
-                <h1 class="wp-heading-inline">Download Leads</h1>
+            <div class="wrap bplde-leads-wrap">
+                <?php // .wp-header-end stays as the marker common.js moves admin notices to. ?>
                 <hr class="wp-header-end">
-                
-                <div class="bplde-custom-table-container">
-                    <form method="post" action="">
-                        <?php wp_nonce_field( 'bplde_bulk_delete_leads' ); ?>
-                        <div class="bplde-header-actions">
-                        <div class="bplde-header-left">
-                            <a href="<?php echo esc_url( $back_url ); ?>" class="bplde-btn bplde-btn-back">
-                                &arr; Back To Doc List
-                            </a>
-                            
-                            <?php if ( $document_filter && $doc_title ): ?>
-                                <a href="<?php echo esc_url( $doc_edit_url ); ?>" class="bplde-btn bplde-btn-title">
-                                    <?php echo esc_html( $doc_title ); ?>
-                                </a>
-                            <?php endif; ?>
+
+                <form method="post" action="">
+                    <?php wp_nonce_field( 'bplde_bulk_delete_leads' ); ?>
+
+                    <div class="bplde-leads-top">
+                        <div class="bplde-leads-top__id">
+                            <span class="bplde-leads-top__eyebrow"><?php esc_html_e( 'Document Embedder', 'document-emberdder' ); ?></span>
+                            <h1 class="bplde-leads-top__title"><?php esc_html_e( 'Download Leads', 'document-emberdder' ); ?></h1>
                         </div>
-                        
-                        <div class="bplde-header-right">
-                            <button type="submit" name="delete_selected" class="bplde-btn bplde-btn-delete"
-                                onclick="return confirm('Are you sure you want to delete the selected leads? This cannot be undone.');">
-                                Delete Selected
-                            </button>
-                            
-                            <a href="<?php echo esc_url( $export_url ); ?>" class="bplde-btn bplde-btn-export">
-                                <span style="margin-right: 6px;">&darr;</span> Export Data
-                            </a>
-                            
+
+                        <button type="submit" name="delete_selected" class="bplde-leads-btn bplde-leads-btn--danger"
+                            onclick="return confirm('<?php echo esc_js( __( 'Delete the selected leads? This cannot be undone.', 'document-emberdder' ) ); ?>');">
+                            <?php esc_html_e( 'Delete selected', 'document-emberdder' ); ?>
+                        </button>
+
+                        <a href="<?php echo esc_url( $export_url ); ?>" class="bplde-leads-btn bplde-leads-btn--primary">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 3v12" /><path d="M7 11l5 5 5-5" /><path d="M4 20h16" />
+                            </svg>
+                            <?php esc_html_e( 'Export CSV', 'document-emberdder' ); ?>
+                        </a>
+                    </div>
+
+                    <div class="bplde-leads-tiles">
+                        <div class="bplde-leads-tile">
+                            <span class="bplde-leads-tile__value"><?php echo esc_html( number_format_i18n( (int) $totals['total'] ) ); ?></span>
+                            <span class="bplde-leads-tile__label">
+                                <?php
+                                echo $is_filtered
+                                    ? esc_html__( 'Leads in this view', 'document-emberdder' )
+                                    : esc_html__( 'Total leads', 'document-emberdder' );
+                                ?>
+                            </span>
+                        </div>
+                        <div class="bplde-leads-tile">
+                            <span class="bplde-leads-tile__value"><?php echo esc_html( number_format_i18n( (int) $totals['emails'] ) ); ?></span>
+                            <span class="bplde-leads-tile__label"><?php esc_html_e( 'Unique emails', 'document-emberdder' ); ?></span>
+                        </div>
+                        <div class="bplde-leads-tile">
+                            <span class="bplde-leads-tile__value"><?php echo esc_html( number_format_i18n( (int) $totals['docs'] ) ); ?></span>
+                            <span class="bplde-leads-tile__label"><?php esc_html_e( 'Documents with leads', 'document-emberdder' ); ?></span>
                         </div>
                     </div>
 
-                    <div class="bplde-filters-row">
-                            <div class="bplde-filters-left">
-                                <input type="date" name="date_filter" value="<?php echo esc_attr( $date_filter ); ?>" class="bplde-input">
-                                <input type="text" name="email_search" value="<?php echo esc_attr( $email_search ); ?>" placeholder="Search Email or Name..." class="bplde-input" style="width: 240px;">
-                                <button type="submit" formaction="" formmethod="get" class="bplde-btn bplde-btn-filter">Filter</button>
-                                
-                                <input type="hidden" name="post_type" value="ppt_viewer">
-                                <input type="hidden" name="page" value="bplde-download-leads">
-                                <?php if ( $document_filter ): ?>
-                                    <input type="hidden" name="filter_document_id" value="<?php echo esc_attr( $document_filter ); ?>">
-                                <?php endif; ?>
-                                
-                                <?php if ( $email_search || $date_filter ): ?>
-                                    <?php 
-                                        $clear_url = admin_url( 'edit.php?post_type=ppt_viewer&page=bplde-download-leads' );
-                                        if ( $document_filter ) {
-                                            $clear_url = add_query_arg( 'filter_document_id', $document_filter, $clear_url );
-                                        }
-                                    ?>
-                                    <a href="<?php echo esc_url( $clear_url ); ?>" class="bplde-btn bplde-btn-clear">Clear Filters</a>
-                                <?php endif; ?>
-                            </div>
-                        </div>
+                    <?php if ( $is_filtered ) : ?>
+                        <p class="bplde-leads-scope">
+                            <?php
+                            printf(
+                                /* translators: 1: leads in the filtered view, 2: leads in the whole library. */
+                                esc_html__( 'Filtered view — showing %1$s of %2$s leads in the library.', 'document-emberdder' ),
+                                esc_html( number_format_i18n( (int) $totals['total'] ) ),
+                                esc_html( number_format_i18n( $library_total ) )
+                            );
+                            ?>
+                            <a href="<?php echo esc_url( $show_all_url ); ?>"><?php esc_html_e( 'Show all leads', 'document-emberdder' ); ?></a>
+                        </p>
+                    <?php endif; ?>
 
-                        <div style="overflow-x: auto;">
-                            <table class="bplde-custom-table">
+                    <div class="bplde-leads-toolbar">
+                        <a href="<?php echo esc_url( $back_url ); ?>" class="bplde-leads-back">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M19 12H5" /><path d="M11 18l-6-6 6-6" />
+                            </svg>
+                            <?php esc_html_e( 'All documents', 'document-emberdder' ); ?>
+                        </a>
+
+                        <?php if ( $document_filter && $doc_title ) : ?>
+                            <a href="<?php echo esc_url( $doc_edit_url ); ?>" class="bplde-leads-doc"><?php echo esc_html( $doc_title ); ?></a>
+                        <?php endif; ?>
+
+                        <div class="bplde-leads-toolbar__spacer"></div>
+
+                        <input type="date" name="date_filter" value="<?php echo esc_attr( $date_filter ); ?>" class="bplde-leads-input"
+                               aria-label="<?php esc_attr_e( 'Filter by date', 'document-emberdder' ); ?>">
+                        <input type="search" name="email_search" value="<?php echo esc_attr( $email_search ); ?>" class="bplde-leads-input bplde-leads-input--search"
+                               placeholder="<?php esc_attr_e( 'Search email or name', 'document-emberdder' ); ?>"
+                               aria-label="<?php esc_attr_e( 'Search email or name', 'document-emberdder' ); ?>">
+                        <button type="submit" formaction="" formmethod="get" class="bplde-leads-btn"><?php esc_html_e( 'Filter', 'document-emberdder' ); ?></button>
+
+                        <input type="hidden" name="post_type" value="ppt_viewer">
+                        <input type="hidden" name="page" value="bplde-download-leads">
+                        <?php if ( $document_filter ) : ?>
+                            <input type="hidden" name="filter_document_id" value="<?php echo esc_attr( $document_filter ); ?>">
+                        <?php endif; ?>
+
+                        <?php if ( $has_filters ) : ?>
+                            <?php
+                            $clear_url = admin_url( 'edit.php?post_type=ppt_viewer&page=bplde-download-leads' );
+                            if ( $document_filter ) {
+                                $clear_url = add_query_arg( 'filter_document_id', $document_filter, $clear_url );
+                            }
+                            ?>
+                            <a href="<?php echo esc_url( $clear_url ); ?>" class="bplde-leads-clear"><?php esc_html_e( 'Clear', 'document-emberdder' ); ?></a>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="bplde-leads-card">
+                        <div class="bplde-leads-scroll">
+                            <table class="bplde-leads-table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 40px; text-align: center;"><input type="checkbox" class="bplde-checkbox" onclick="document.querySelectorAll('.bplde-row-checkbox').forEach(cb => cb.checked = this.checked);"></th>
+                                        <th class="bplde-leads-table__check"><input type="checkbox" class="bplde-leads-checkall" aria-label="<?php esc_attr_e( 'Select all leads', 'document-emberdder' ); ?>" onclick="document.querySelectorAll('.bplde-row-checkbox').forEach(cb => cb.checked = this.checked);"></th>
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
@@ -276,57 +373,99 @@ if ( ! class_exists( 'LeadsPage' ) ) {
                                 <tbody>
                                     <?php if ( empty( $leads ) ): ?>
                                         <tr>
-                                            <td colspan="<?php echo $document_filter ? 6 : 7; ?>" style="text-align: center; padding: 60px; color: #9ca3af;">
-                                                No leads found matching your criteria.
+                                            <td colspan="<?php echo $document_filter ? 6 : 7; ?>" class="bplde-leads-none">
+                                                <?php
+                                                if ( $has_filters ) {
+                                                    esc_html_e( 'No leads match those filters.', 'document-emberdder' );
+                                                } elseif ( $document_filter ) {
+                                                    esc_html_e( 'No leads for this document yet.', 'document-emberdder' );
+                                                } else {
+                                                    esc_html_e( 'No leads captured yet. They appear here once someone downloads an email-gated document.', 'document-emberdder' );
+                                                }
+                                                ?>
                                             </td>
                                         </tr>
                                     <?php else: ?>
                                         <?php foreach ( $leads as $lead ): ?>
                                             <tr>
-                                                <td style="text-align: center;">
-                                                    <input type="checkbox" name="bulk_delete[]" value="<?php echo esc_attr( $lead['id'] ); ?>" class="bplde-checkbox bplde-row-checkbox">
+                                                <td class="bplde-leads-table__check">
+                                                    <input type="checkbox" name="bulk_delete[]" value="<?php echo esc_attr( $lead['id'] ); ?>" class="bplde-row-checkbox" aria-label="<?php esc_attr_e( 'Select this lead', 'document-emberdder' ); ?>">
                                                 </td>
-                                                <td><strong style="color: #6b7280;">#<?php echo esc_html( $lead['id'] ); ?></strong></td>
-                                                <td><span style="font-weight: 500; color: #111827;"><?php echo esc_html( $lead['name'] ); ?></span></td>
-                                                <td><a href="mailto:<?php echo esc_attr( $lead['email'] ); ?>" style="color: #3b82f6; text-decoration: none;"><?php echo esc_html( $lead['email'] ); ?></a></td>
+                                                <td><span class="bplde-leads-id">#<?php echo esc_html( $lead['id'] ); ?></span></td>
+                                                <td><span class="bplde-leads-name"><?php echo esc_html( $lead['name'] ); ?></span></td>
+                                                <td><a class="bplde-leads-email" href="mailto:<?php echo esc_attr( $lead['email'] ); ?>"><?php echo esc_html( $lead['email'] ); ?></a></td>
                                                 <?php if ( ! $document_filter ): ?>
                                                     <td>
                                                         <?php 
                                                         $link = get_edit_post_link( $lead['document_id'] );
                                                         if ( $link ) {
-                                                            printf( '<a href="%s" style="color: #4b5563; text-decoration: none; font-weight: 500;">%s</a>', esc_url( $link ), esc_html( $lead['document_title'] ) );
+                                                            printf( '<a class="bplde-leads-doclink" href="%s">%s</a>', esc_url( $link ), esc_html( $lead['document_title'] ) );
                                                         } else {
-                                                            echo esc_html( $lead['document_title'] );
+                                                            /*
+                                                             * Captured before documents took their leads with them, so the
+                                                             * document is gone but the lead remains. Say so rather than
+                                                             * leaving a title that silently links nowhere.
+                                                             */
+                                                            printf(
+                                                                '<span class="bplde-leads-gone-title">%s</span><span class="bplde-leads-gone">%s</span>',
+                                                                esc_html( $lead['document_title'] ? $lead['document_title'] : __( 'Untitled', 'document-emberdder' ) ),
+                                                                esc_html__( 'deleted', 'document-emberdder' )
+                                                            );
                                                         }
                                                         ?>
                                                     </td>
                                                 <?php endif; ?>
-                                                <td><span class="code" style="background: #f3f4f6; padding: 4px 8px; border-radius: 0; font-family: monospace; font-size: 12px; color: #4b5563;"><?php echo esc_html( $lead['ip_address'] ); ?></span></td>
-                                                <td><?php echo esc_html( wp_date( get_option( 'date_format' ) . ' \a\t ' . get_option( 'time_format' ), strtotime( $lead['downloaded_at'] ) ) ); ?></td>
+                                                <td><span class="bplde-leads-ip"><?php echo esc_html( $lead['ip_address'] ); ?></span></td>
+                                                <td class="bplde-leads-date"><?php echo esc_html( wp_date( get_option( 'date_format' ) . ' \a\t ' . get_option( 'time_format' ), strtotime( $lead['downloaded_at'] ) ) ); ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </tbody>
                             </table>
                         </div>
-                    </form>
-                    
-                    <?php if ( $total_pages > 1 ): ?>
-                        <div class="bplde-pagination">
-                            <?php
-                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links() returns safe HTML
-                            echo paginate_links( [
-                                'base'      => add_query_arg( 'paged', '%#%' ),
-                                'format'    => '',
-                                'prev_text' => '&arr; Prev',
-                                'next_text' => 'Next &rarr;',
-                                'total'     => $total_pages,
-                                'current'   => $page_number
-                            ] );
-                            ?>
+
+                        <div class="bplde-leads-foot">
+                            <span class="bplde-leads-foot__count">
+                                <?php
+                                $range_start = $total_items ? ( ( $page_number - 1 ) * $per_page ) + 1 : 0;
+                                $range_end   = min( $page_number * $per_page, (int) $total_items );
+
+                                if ( $total_items > $per_page ) {
+                                    printf(
+                                        /* translators: 1: first row shown, 2: last row shown, 3: total rows. */
+                                        esc_html__( 'Showing %1$s–%2$s of %3$s leads', 'document-emberdder' ),
+                                        esc_html( number_format_i18n( $range_start ) ),
+                                        esc_html( number_format_i18n( $range_end ) ),
+                                        esc_html( number_format_i18n( (int) $total_items ) )
+                                    );
+                                } else {
+                                    printf(
+                                        /* translators: %s: number of leads matching the current filters. */
+                                        esc_html( _n( '%s lead', '%s leads', (int) $total_items, 'document-emberdder' ) ),
+                                        esc_html( number_format_i18n( (int) $total_items ) )
+                                    );
+                                }
+                                ?>
+                            </span>
+
+                            <?php if ( $total_pages > 1 ) : ?>
+                                <div class="bplde-leads-pagination">
+                                    <?php
+                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links() returns safe HTML
+                                    echo paginate_links( [
+                                        'base'      => add_query_arg( 'paged', '%#%' ),
+                                        'format'    => '',
+                                        'prev_text' => '&larr;',
+                                        'next_text' => '&rarr;',
+                                        'total'     => $total_pages,
+                                        'current'   => $page_number,
+                                    ] );
+                                    ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                </form>
             </div>
             <?php
         }

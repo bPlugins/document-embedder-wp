@@ -1,0 +1,876 @@
+/* ============================================================================
+   Add / Edit Doc — split workspace layout, "Deep Teal & Lime".
+
+   Every rule is scoped to body.bplde-l2, which BPLDE_Edit_Layout adds only on the
+   single document edit screen. Nothing in here selects .csf-* : the Document
+   Configuration panel is CodeStar's and is left exactly as the framework draws
+   it, including its blue, its greys and its badges.
+   ========================================================================== */
+
+.bplde-l2 {
+  --de-ground: #edf1f0;
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
+  --de-rule: #e3ebe9;
+
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+  --de-accent-line: rgba(15, 118, 110, .32);
+
+  --de-pop: #a3e635;
+  --de-pop-soft: #f4fce3;
+  --de-pop-line: #ddf3ae;
+  --de-pop-ink: #3f5209;
+  --de-on-pop: #1a2e05;
+
+  --de-on-ink: #d6e2da;
+  --de-on-ink-muted: #9db0a9;
+  --de-danger: #a32020;
+
+  --de-radius: 8px;
+  --de-radius-sm: 6px;
+}
+
+/* ---------------------------------------------------------------------------
+   Page chrome
+   ------------------------------------------------------------------------- */
+
+.bplde-l2 #wpbody-content {
+  padding-bottom: 40px;
+}
+
+/* The heading is reproduced inside the top bar, so the stock one goes — keeping
+   both would put two H1s on the screen. .wp-header-end stays in the flow as the
+   marker common.js moves admin notices to, it is just not drawn. */
+.bplde-l2 .wrap > h1.wp-heading-inline,
+.bplde-l2 .wrap > a.page-title-action {
+  display: none;
+}
+
+.bplde-l2 .wrap > hr.wp-header-end {
+  visibility: hidden;
+  margin: 0;
+  height: 0;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Top bar — heading, status, and the core Publish box rendered inline
+   ------------------------------------------------------------------------- */
+
+/* display:flex makes this a block formatting context, which shrinks away from
+   floats — and #screen-meta-links ("Screen Options") floats right just above it.
+   The stock heading used to clear that float; it is hidden here, so the bar has
+   to clear it itself or it renders 150px short of every card below it. */
+.bplde-l2 .bplde-topbar {
+  clear: both;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 12px 0 20px;
+  padding: 13px 16px 13px 20px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  border-radius: var(--de-radius);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+}
+
+.bplde-l2 .bplde-topbar__id {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bplde-l2 .bplde-topbar__eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}
+
+.bplde-l2 .bplde-topbar__title {
+  margin: 2px 0 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--de-ink);
+}
+
+.bplde-l2 .bplde-topbar__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--de-border);
+  border-radius: 999px;
+  background: var(--de-tint);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--de-ink-2);
+  white-space: nowrap;
+}
+
+.bplde-l2 .bplde-topbar__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #9db0a9;
+}
+
+.bplde-l2 .bplde-topbar__status--publish {
+  background: var(--de-pop-soft);
+  border-color: var(--de-pop-line);
+  color: var(--de-pop-ink);
+}
+
+.bplde-l2 .bplde-topbar__status--publish .bplde-topbar__dot {
+  background: var(--de-accent);
+}
+
+.bplde-l2 .bplde-topbar__new {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--de-control);
+  border-radius: var(--de-radius-sm);
+  background: var(--de-surface);
+  color: var(--de-ink);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.bplde-l2 .bplde-topbar__new:hover,
+.bplde-l2 .bplde-topbar__new:focus {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+}
+
+/* The Publish box, unwrapped. #minor-publishing and #misc-publishing-actions are
+   already hidden by the post type class; the rest is flattened into one row. */
+.bplde-l2 .bplde-topbar__actions {
+  flex: 0 0 auto;
+}
+
+.bplde-l2 .bplde-topbar__actions .submitbox {
+  display: flex;
+  align-items: center;
+}
+
+.bplde-l2 .bplde-topbar__actions #minor-publishing {
+  display: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #major-publishing-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  overflow: visible;
+}
+
+.bplde-l2 .bplde-topbar__actions #delete-action,
+.bplde-l2 .bplde-topbar__actions #publishing-action {
+  float: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  text-align: left;
+}
+
+.bplde-l2 .bplde-topbar__actions .submitbox .clear {
+  display: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #delete-action a.submitdelete {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--de-danger);
+  text-decoration: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #publish {
+  height: 40px;
+  min-height: 40px;
+  padding: 0 22px;
+  border-radius: var(--de-radius-sm);
+  background: var(--de-accent);
+  border-color: var(--de-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 38px;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #publish:hover,
+.bplde-l2 .bplde-topbar__actions #publish:focus {
+  background: var(--de-accent-deep);
+  border-color: var(--de-accent-deep);
+  color: #fff;
+}
+
+.bplde-l2 .bplde-topbar__actions #publish:focus {
+  box-shadow: 0 0 0 3px var(--de-accent-soft);
+}
+
+/* ---------------------------------------------------------------------------
+   The grid: title card on top, settings + preview side by side, strip below
+   ------------------------------------------------------------------------- */
+
+.bplde-l2 #poststuff {
+  padding-top: 0;
+  min-width: 0;
+}
+
+.bplde-l2 #poststuff #post-body.columns-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(360px, 27vw, 500px);
+  grid-template-rows: auto auto auto;
+  gap: 20px;
+  float: none;
+  margin-right: 0;
+}
+
+.bplde-l2 #post-body.columns-2 #post-body-content,
+.bplde-l2 #post-body.columns-2 #postbox-container-1,
+.bplde-l2 #post-body.columns-2 #postbox-container-2,
+.bplde-l2 #post-body.columns-2 .bplde-strip {
+  float: none;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.bplde-l2 #post-body.columns-2 #post-body-content {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.bplde-l2 #post-body.columns-2 #postbox-container-2 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.bplde-l2 #post-body.columns-2 #postbox-container-1 {
+  grid-column: 2;
+  grid-row: 2;
+  margin-right: 0;
+}
+
+.bplde-l2 #post-body.columns-2 .bplde-strip {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+/* Core pins the side column's sortable to 280px from a three-ID selector
+   (wp-admin/css/edit.css), which outranks the container reset above and would
+   leave the preview 280px wide inside a much wider grid column. Matched here
+   with the body class on top so the box fills whatever the column gives it. */
+.bplde-l2 #poststuff #post-body.columns-2 #side-sortables,
+.bplde-l2 #poststuff #post-body.columns-2 #normal-sortables,
+.bplde-l2 #poststuff #post-body.columns-2 #advanced-sortables {
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.bplde-l2 #poststuff > br.clear {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Title + shortcode card (#post-body-content holds both already)
+   ------------------------------------------------------------------------- */
+
+.bplde-l2 #post-body-content {
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  border-radius: var(--de-radius);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+  overflow: hidden;
+}
+
+.bplde-l2 #titlediv {
+  margin: 0;
+  padding: 16px 20px 14px;
+}
+
+.bplde-l2 #titlediv #title,
+.bplde-l2 #titlediv #title-prompt-text {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 4px 0 10px;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.015em;
+}
+
+.bplde-l2 #titlediv #title {
+  border: 0;
+  border-bottom: 2px solid var(--de-rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--de-ink);
+  box-shadow: none;
+}
+
+.bplde-l2 #titlediv #title:focus {
+  border-bottom-color: var(--de-accent);
+  box-shadow: none;
+  outline: none;
+}
+
+.bplde-l2 #titlediv #title-prompt-text {
+  position: absolute;
+  color: var(--de-ink-3);
+  font-weight: 500;
+}
+
+/* The shortcode row becomes the card's footer. */
+.bplde-l2 .bplde_shortcode_area_after_title {
+  margin: 0;
+  padding: 12px 20px;
+  gap: 14px;
+  background: var(--de-tint);
+  border: 0;
+  border-top: 1px solid var(--de-rule);
+  border-radius: 0;
+}
+
+.bplde-l2 .bplde_shortcode_area_after_title label {
+  flex: 1 1 auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--de-ink-2);
+}
+
+.bplde-l2 .bplde_shortcode_area_after_title .button.button-bplugins {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: var(--de-radius-sm);
+  background: var(--de-accent);
+  border-color: var(--de-accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 32px;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.bplde-l2 .bplde_shortcode_area_after_title .button.button-bplugins:hover,
+.bplde-l2 .bplde_shortcode_area_after_title .button.button-bplugins:focus {
+  background: var(--de-accent-deep);
+  border-color: var(--de-accent-deep);
+  color: #fff;
+}
+
+.bplde-l2 .bplde_shortcode_area_after_title .shortcode_area svg path {
+  stroke: var(--de-ink-2);
+}
+
+/* ---------------------------------------------------------------------------
+   Live preview, pinned in the side column
+   ------------------------------------------------------------------------- */
+
+.bplde-l2 #postbox-container-1 .postbox {
+  margin-bottom: 0;
+}
+
+/* The postbox is flattened to nothing and only carries the pin; the card itself
+   is .bplde-preview, so the radius and clipping belong there. */
+.bplde-l2 #bplde_live_preview {
+  position: sticky;
+  top: 46px;
+}
+
+.bplde-l2 .bplde-preview {
+  border-color: var(--de-border);
+  border-radius: var(--de-radius);
+}
+
+.bplde-l2 .bplde-preview-head {
+  border-bottom-color: var(--de-rule);
+}
+
+.bplde-l2 .bplde-preview-heading {
+  color: var(--de-ink);
+}
+
+.bplde-l2 .bplde-preview-status {
+  border-color: var(--de-pop-line);
+  background: var(--de-pop-soft);
+  color: var(--de-pop-ink);
+}
+
+.bplde-l2 .bplde-preview-status::before {
+  background: var(--de-accent);
+}
+
+.bplde-l2 .bplde-preview-status.is-busy {
+  border-color: var(--de-accent-line);
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+.bplde-l2 .bplde-preview-refresh {
+  border-color: var(--de-control);
+  border-radius: var(--de-radius-sm);
+  color: var(--de-ink-2);
+}
+
+.bplde-l2 .bplde-preview-refresh:hover,
+.bplde-l2 .bplde-preview-refresh:focus {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+}
+
+.bplde-l2 .bplde-preview-devices {
+  border-bottom-color: var(--de-rule);
+}
+
+.bplde-l2 .bplde-preview-device {
+  border-radius: var(--de-radius-sm);
+  color: var(--de-ink-2);
+}
+
+.bplde-l2 .bplde-preview-device:hover {
+  background: var(--de-tint);
+  color: var(--de-accent-deep);
+}
+
+.bplde-l2 .bplde-preview-device.is-active {
+  background: var(--de-accent);
+  color: #fff;
+}
+
+/* The stage gets the height and scrolls; the iframe keeps whatever height
+   preview.js measures from the document, so the messaging is untouched. */
+.bplde-l2 .bplde-preview-stage {
+  box-sizing: border-box;
+  height: calc(100vh - 230px);
+  min-height: 380px;
+  padding: 14px;
+  align-items: flex-start;
+  overflow: auto;
+  background: var(--de-tint);
+}
+
+
+.bplde-l2 .bplde-preview-note {
+  background: var(--de-tint);
+  border-top-color: var(--de-rule);
+  color: var(--de-ink-3);
+}
+
+/* Redundant while the preview sits in view; still useful once the columns stack,
+   where its stock right:260px lands it in the middle of the page. */
+@media screen and (min-width: 1201px) {
+  .bplde-l2 .bplde-preview-jump {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .bplde-l2 .bplde-preview-jump {
+    right: 24px;
+    bottom: 24px;
+    border-color: var(--de-accent);
+    background: var(--de-accent);
+    border-radius: var(--de-radius-sm);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The strip under both columns
+   ------------------------------------------------------------------------- */
+
+.bplde-l2 .bplde-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+}
+
+.bplde-l2 .bplde-strip__col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Tags, stats and builders share one row and split it evenly; the teaser takes
+   the next row on its own. Squeezed into the same row as the other three it has
+   barely 700px, which wraps its feature list onto four lines each and makes it
+   the tallest thing in the strip — every neighbour then stretches to match. */
+.bplde-l2 .bplde-strip__col--tags,
+.bplde-l2 .bplde-strip__col--stats,
+.bplde-l2 .bplde-strip__col--builders {
+  flex: 1 1 280px;
+}
+
+.bplde-l2 .bplde-strip__col--pro {
+  flex: 1 1 100%;
+}
+
+.bplde-l2 .bplde-strip__card {
+  flex: 1 1 auto;
+  padding: 15px 17px 17px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  border-radius: var(--de-radius);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+}
+
+.bplde-l2 .bplde-strip__heading {
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+/* The two panels bring their own surface; they only need the column height.
+   No top margin, or the builder card sits 10px lower than its neighbours and
+   ends up 10px shorter than them. */
+.bplde-l2 .bplde-strip .bplde-panel {
+  flex: 1 1 auto;
+  margin-top: 0;
+  border-color: var(--de-border);
+}
+
+/* The teaser's badge is in the flow now, so no room is reserved above it. */
+.bplde-l2 .bplde-strip__col--pro .bplde-panel {
+  margin-top: 0;
+}
+
+/* Tags */
+.bplde-l2 .bplde-strip .tagsdiv .the-tags,
+.bplde-l2 .bplde-strip .tagsdiv p {
+  color: var(--de-ink-3);
+}
+
+.bplde-l2 .bplde-strip .tagsdiv input.newtag {
+  border-color: var(--de-control);
+  border-radius: var(--de-radius-sm);
+}
+
+.bplde-l2 .bplde-strip .tagsdiv input.newtag:focus {
+  border-color: var(--de-accent);
+  box-shadow: 0 0 0 1px var(--de-accent);
+}
+
+.bplde-l2 .bplde-strip .tagsdiv .tagadd {
+  border-radius: var(--de-radius-sm);
+  border-color: var(--de-control);
+  color: var(--de-ink);
+}
+
+.bplde-l2 .bplde-strip .tagchecklist .ntdelbutton {
+  color: var(--de-ink-2);
+}
+
+/* Download stats */
+.bplde-l2 .bplde-strip .bplde-stat {
+  background: var(--de-tint);
+  border-color: var(--de-rule);
+  border-radius: var(--de-radius);
+}
+
+.bplde-l2 .bplde-strip .bplde-stat__value {
+  color: var(--de-ink);
+}
+
+.bplde-l2 .bplde-strip .bplde-stat__label {
+  color: var(--de-ink-3);
+}
+
+.bplde-l2 .bplde-strip .bplde-stats__cta {
+  border-radius: var(--de-radius-sm);
+  border-color: var(--de-control);
+  color: var(--de-ink);
+}
+
+.bplde-l2 .bplde-strip .bplde-stats__cta:hover,
+.bplde-l2 .bplde-strip .bplde-stats__cta:focus {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+}
+
+/* Builder support */
+.bplde-l2 .bplde-strip .bplde-builders__check {
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+}
+
+.bplde-l2 .bplde-strip .bplde-builders__title {
+  color: var(--de-ink);
+}
+
+.bplde-l2 .bplde-strip .bplde-builders__note {
+  color: var(--de-ink-3);
+}
+
+.bplde-l2 .bplde-strip .bplde-chip {
+  border-radius: var(--de-radius-sm);
+  background: #e7eeeb;
+  color: var(--de-ink-2);
+}
+
+/* Pro teaser, on ink */
+.bplde-l2 .bplde-strip__col--pro .bplde-panel {
+  background: var(--de-ink);
+  border-color: var(--de-ink);
+  box-shadow: none;
+}
+
+/* In the flow above the title rather than straddling the panel's top edge.
+   Only the teaser: the locked-settings panel inside the configuration box uses
+   the same class and keeps the blue tab the framework screen expects. */
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__badge {
+  position: static;
+  transform: none;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 0 10px;
+  padding: 3px 9px;
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__title {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -.015em;
+}
+
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__note,
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__foot {
+  color: var(--de-on-ink-muted);
+}
+
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 26px;
+  border-top-color: rgba(255, 255, 255, .14);
+}
+
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__list li {
+  color: var(--de-on-ink);
+  border-bottom-color: rgba(255, 255, 255, .12);
+}
+
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__cta {
+  border-radius: var(--de-radius-sm);
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+}
+
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__cta:hover,
+.bplde-l2 .bplde-strip__col--pro .bplde-panel__cta:focus {
+  background: #b6ee5c;
+  color: var(--de-on-pop);
+}
+
+/* Wide enough for three columns, the teaser lies down: heading, then the list,
+   then the button. Stacked it stands ~360px tall and every other card in the
+   row stretches to match it, which is where the empty space comes from. */
+@media screen and (min-width: 1201px) {
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel {
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr) minmax(180px, 220px);
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 26px;
+    padding: 20px 22px;
+  }
+
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel__badge {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel__title {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start;
+    margin: 0;
+  }
+
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel__list {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin: 0;
+    border-top: 0;
+  }
+
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel__cta {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin: 0;
+  }
+
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel__foot {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+    margin: 8px 0 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Narrow screens: stack, and let the preview scroll with the page again
+   ------------------------------------------------------------------------- */
+
+/* Under ~1200px the two columns no longer both earn their width, so the preview
+   drops below the settings, stops being pinned and goes back to sizing itself
+   from the document — which is what preview.js measures. */
+@media screen and (max-width: 1200px) {
+  .bplde-l2 #poststuff #post-body.columns-2 {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .bplde-l2 #post-body.columns-2 #postbox-container-2 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .bplde-l2 #post-body.columns-2 #postbox-container-1 {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .bplde-l2 #post-body.columns-2 .bplde-strip {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .bplde-l2 #bplde_live_preview {
+    position: static;
+  }
+
+  .bplde-l2 .bplde-preview-stage {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+}
+
+/* WordPress itself collapses the post screen to one column at 850px; the strip
+   follows so the cards stop being squeezed into slivers. */
+@media screen and (max-width: 960px) {
+  .bplde-l2 .bplde-strip {
+    gap: 16px;
+  }
+
+  .bplde-l2 .bplde-strip__col--tags,
+  .bplde-l2 .bplde-strip__col--stats,
+  .bplde-l2 .bplde-strip__col--builders,
+  .bplde-l2 .bplde-strip__col--pro {
+    flex: 1 1 100%;
+  }
+
+  .bplde-l2 .bplde-strip__col--pro .bplde-panel__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .bplde-l2 .bplde-topbar {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    row-gap: 12px;
+  }
+
+  .bplde-l2 .bplde-topbar__id {
+    flex: 1 1 100%;
+  }
+
+  /* Save stays on the right of the wrapped row rather than floating mid-bar. */
+  .bplde-l2 .bplde-topbar__actions {
+    margin-left: auto;
+  }
+
+  /* The admin bar stops being fixed below 782px, so there is nothing to clear. */
+  .bplde-l2 #bplde_live_preview {
+    top: 0;
+  }
+
+  .bplde-l2 #titlediv,
+  .bplde-l2 .bplde_shortcode_area_after_title {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .bplde-l2 .bplde_shortcode_area_after_title {
+    flex-wrap: wrap;
+  }
+
+  .bplde-l2 .bplde_shortcode_area_after_title label {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Square corners
+
+   Every surface and control the redesign draws has zero radius. The selectors
+   below deliberately list the regions this layout owns — the top bar, the title
+   card, the preview column and the strip — and leave #postbox-container-2 out,
+   so the CodeStar panel keeps the 3px corners the framework gives it.
+   ------------------------------------------------------------------------- */
+
+.bplde-l2 {
+  --de-radius: 0;
+  --de-radius-sm: 0;
+}
+
+.bplde-l2 .bplde-topbar,
+.bplde-l2 .bplde-topbar *,
+.bplde-l2 #post-body-content,
+.bplde-l2 #post-body-content *,
+.bplde-l2 #postbox-container-1,
+.bplde-l2 #postbox-container-1 *,
+.bplde-l2 .bplde-strip,
+.bplde-l2 .bplde-strip * {
+  border-radius: 0;
+}
+
+/* The one exception: the builder card's check stays a circle. */
+.bplde-l2 .bplde-strip .bplde-builders__check {
+  border-radius: 999px;
+}
