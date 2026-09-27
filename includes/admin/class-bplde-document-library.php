@@ -33,6 +33,8 @@ if (!class_exists('BPLDE_Document_Library_CPT')) {
             add_action('init', [$this, 'remove_title_from_cpt']);
             add_filter("manage_{$this->post_type}_posts_columns", [$this, 'postTypeColumns'], 1);
             add_action("manage_{$this->post_type}_posts_custom_column", [$this, 'postTypeContent'], 10, 2);
+            add_filter("manage_edit-{$this->post_type}_sortable_columns", [$this, 'sortableColumns']);
+            add_filter('display_post_states', [$this, 'postStates'], 10, 2);
         }
 
         /**
@@ -122,24 +124,49 @@ if (!class_exists('BPLDE_Document_Library_CPT')) {
             remove_post_type_support('document_library', 'title');
         }
 
+        /**
+         * Same shape as the document list, so one stylesheet dresses both. The date
+         * column is the plugin's own rather than core's, because it carries the post
+         * status as a pill alongside the date.
+         */
         public function postTypeColumns($columns)
         {
-            $new = [
-                'cb' => $columns['cb'],
-                'title' => $columns['title'],
-                'shortcode' => 'Shortcode',
-                'date' => $columns['date'],
+            return [
+                'cb'         => $columns['cb'],
+                'title'      => $columns['title'],
+                'shortcode'  => __('Shortcode', 'document-emberdder'),
+                'bplde_date' => __('Date', 'document-emberdder'),
             ];
-            return $new;
         }
 
         public function postTypeContent($column_name, $post_id)
         {
             switch ($column_name) {
                 case 'shortcode':
-                    echo '<div class="bplde_front_shortcode"><input style="text-align: center; border: none; outline: none; background-color: #2664eb; color: #fff; padding: 4px 10px; border-radius: 3px;" value="[document_library id=' . esc_attr($post_id) . ']" ><span class="htooltip">Copy To Clipboard</span></div>';
+                    \BPLDE_List_Screen::shortcode_cell('[document_library id=' . $post_id . ']');
+                    break;
+
+                case 'bplde_date':
+                    \BPLDE_List_Screen::status_date_cell($post_id);
                     break;
             }
+        }
+
+        /** Draft / Pending / Private as chips, the same as the document list. */
+        public function postStates($states, $post)
+        {
+            if (!$post instanceof \WP_Post || $post->post_type !== $this->post_type) {
+                return $states;
+            }
+
+            return \BPLDE_List_Screen::state_chips($states);
+        }
+
+        /** Sortable by date, as the column it replaces was. */
+        public function sortableColumns($columns)
+        {
+            $columns['bplde_date'] = 'date';
+            return $columns;
         }
     }
 }

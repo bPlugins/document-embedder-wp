@@ -230,11 +230,16 @@ if ( ! class_exists( 'LeadsPage' ) ) {
                         FROM {$wpdb->prefix}docembedder_leads WHERE 1=1" . $where;
 
             if ( ! empty( $params ) ) {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- built with prepare() clauses
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- query built with prepare() clauses
                 $totals = $wpdb->get_row( $wpdb->prepare( $agg_sql, ...$params ), ARRAY_A );
             } else {
+                // No params means $where is empty, so the same query is written out literally.
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- static aggregate
-                $totals = $wpdb->get_row( $agg_sql, ARRAY_A );
+                $totals = $wpdb->get_row(
+                    "SELECT COUNT(*) AS total, COUNT(DISTINCT email) AS emails, COUNT(DISTINCT document_id) AS docs
+                     FROM {$wpdb->prefix}docembedder_leads",
+                    ARRAY_A
+                );
             }
 
             $totals = is_array( $totals ) ? $totals : [ 'total' => 0, 'emails' => 0, 'docs' => 0 ];
@@ -246,6 +251,20 @@ if ( ! class_exists( 'LeadsPage' ) ) {
             } else {
                 $library_total = (int) $totals['total'];
             }
+
+            /*
+             * The picker lists only documents that actually have leads, so no option
+             * ever leads to an empty table. document_title is read from the leads table
+             * rather than the post, because a lead outlives the document it came from.
+             */
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table, one query per screen
+            $lead_documents = $wpdb->get_results(
+                "SELECT document_id, MAX(document_title) AS title, COUNT(*) AS total
+                 FROM {$wpdb->prefix}docembedder_leads
+                 GROUP BY document_id
+                 ORDER BY title ASC",
+                ARRAY_A
+            );
 
             $show_all_url = admin_url( 'edit.php?post_type=ppt_viewer&page=bplde-download-leads' );
 
@@ -330,6 +349,29 @@ if ( ! class_exists( 'LeadsPage' ) ) {
 
                         <div class="bplde-leads-toolbar__spacer"></div>
 
+                        <label class="screen-reader-text" for="bplde-leads-document"><?php esc_html_e( 'Show leads for', 'document-emberdder' ); ?></label>
+                        <select name="filter_document_id" id="bplde-leads-document" class="bplde-leads-input bplde-leads-input--doc">
+                            <option value=""><?php
+                                printf(
+                                    /* translators: %s: number of leads across every document. */
+                                    esc_html__( 'All documents (%s)', 'document-emberdder' ),
+                                    esc_html( number_format_i18n( $library_total ) )
+                                );
+                            ?></option>
+                            <?php foreach ( $lead_documents as $row ) : ?>
+                                <option value="<?php echo esc_attr( $row['document_id'] ); ?>" <?php selected( $document_filter, (int) $row['document_id'] ); ?>>
+                                    <?php
+                                    $option_title = $row['title'] ? $row['title'] : sprintf(
+                                        /* translators: %d: document id, used when the document itself is gone. */
+                                        __( 'Document #%d', 'document-emberdder' ),
+                                        (int) $row['document_id']
+                                    );
+                                    printf( '%s (%s)', esc_html( $option_title ), esc_html( number_format_i18n( (int) $row['total'] ) ) );
+                                    ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+
                         <input type="date" name="date_filter" value="<?php echo esc_attr( $date_filter ); ?>" class="bplde-leads-input"
                                aria-label="<?php esc_attr_e( 'Filter by date', 'document-emberdder' ); ?>">
                         <input type="search" name="email_search" value="<?php echo esc_attr( $email_search ); ?>" class="bplde-leads-input bplde-leads-input--search"
@@ -339,16 +381,10 @@ if ( ! class_exists( 'LeadsPage' ) ) {
 
                         <input type="hidden" name="post_type" value="ppt_viewer">
                         <input type="hidden" name="page" value="bplde-download-leads">
-                        <?php if ( $document_filter ) : ?>
-                            <input type="hidden" name="filter_document_id" value="<?php echo esc_attr( $document_filter ); ?>">
-                        <?php endif; ?>
 
-                        <?php if ( $has_filters ) : ?>
+                        <?php if ( $is_filtered ) : ?>
                             <?php
                             $clear_url = admin_url( 'edit.php?post_type=ppt_viewer&page=bplde-download-leads' );
-                            if ( $document_filter ) {
-                                $clear_url = add_query_arg( 'filter_document_id', $document_filter, $clear_url );
-                            }
                             ?>
                             <a href="<?php echo esc_url( $clear_url ); ?>" class="bplde-leads-clear"><?php esc_html_e( 'Clear', 'document-emberdder' ); ?></a>
                         <?php endif; ?>

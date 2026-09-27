@@ -56,10 +56,10 @@ if (!class_exists('Functions')) {
             $count = count($features);
 
             $title = sprintf(
-                /* translators: %d: number of locked settings in this section. */
+                /* translators: %d: number of Pro-only settings named in this block. */
                 _n(
-                    '%d setting this section keeps locked',
-                    '%d settings this section keeps locked',
+                    '%d more setting in Document Embedder Pro',
+                    '%d more settings in Document Embedder Pro',
                     $count,
                     'document-emberdder'
                 ),
@@ -68,32 +68,45 @@ if (!class_exists('Functions')) {
 
             $note = $section
                 ? sprintf(
-                    /* translators: %s: section name, e.g. "Access & Security". */
-                    __('%s is available on Document Embedder Pro.', 'document-emberdder'),
+                    /* translators: %s: section name, e.g. "Viewer & Display". */
+                    __('Everything below unlocks in %s with a licence key.', 'document-emberdder'),
                     $section
                 )
-                : __('These settings are available on Document Embedder Pro.', 'document-emberdder');
+                : __('Everything below unlocks with a licence key.', 'document-emberdder');
 
-            $html = '<div class="bplde-panel">
-            <p class="bplde-panel__badge">' . esc_html__('Pro Version', 'document-emberdder') . '</p>
-            <h4 class="bplde-panel__title">' . esc_html($title) . '</h4>
-            <p class="bplde-panel__note">' . esc_html($note) . '</p>
-            <ul class="bplde-panel__list bplde-panel__list--wide">';
+            $lock = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>';
+            $arrow = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
 
+            // Features may carry a small inline chip, e.g. a "PDF only" marker, so a
+            // narrow span is allowed through. Everything else is escaped.
+            $allowed = array('span' => array('class' => array()));
+
+            $html  = '<div class="bplde-pro">';
+            $html .= '<div class="bplde-pro__head">';
+            $html .= '<span class="bplde-pro__badge">' . esc_html__('Pro', 'document-emberdder') . '</span>';
+            $html .= '<div class="bplde-pro__headings">';
+            $html .= '<h5 class="bplde-pro__title">' . esc_html($title) . '</h5>';
+            $html .= '<p class="bplde-pro__note">' . esc_html($note) . '</p>';
+            $html .= '</div></div>';
+
+            $html .= '<ul class="bplde-pro__list">';
             foreach ($features as $feature) {
-                $html .= '<li>' . esc_html($feature) . '</li>';
+                $html .= '<li>' . $lock . '<span>' . wp_kses($feature, $allowed) . '</span></li>';
             }
+            $html .= '</ul>';
 
-            $html .= '</ul>
-            <div class="bplde-panel__foot-row">
-                <a href="' . esc_url(self::pricing_url()) . '" class="bplde-panel__cta">' . esc_html__('See Pro pricing', 'document-emberdder') . '</a>
-                <p class="bplde-panel__foot">' . esc_html__('14-day refund policy · Trusted by 10,000+ WordPress sites', 'document-emberdder') . '</p>
-            </div>
-        </div>';
+            $html .= '<div class="bplde-pro__foot">';
+            $html .= '<p>' . esc_html__('14-day refund policy · trusted by 9,000+ WordPress sites', 'document-emberdder') . '</p>';
+            $html .= '<a class="bplde-pro__cta" href="' . esc_url(self::pricing_url()) . '">'
+                . esc_html__('See Pro pricing', 'document-emberdder') . $arrow . '</a>';
+            $html .= '</div></div>';
 
             return array(
-                'type' => 'content',
-                'content' => $html
+                'type'    => 'content',
+                // CSF appends this to the field wrapper, which is how the stylesheet
+                // reaches this one field without touching any other.
+                'class'   => 'bplde-pro-field',
+                'content' => $html,
             );
         }
 

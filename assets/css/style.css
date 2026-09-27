@@ -268,34 +268,31 @@
   color: white;
 }
 
-/* New Badge */
-.bplde-new-badge {
-  color: #fff;
-  background: #ff9800;
+/* Badge family. One shape, one palette: NEW and PDF-only are quiet supporting
+   chips so the lime Pro badge stays the only loud marker on the screen. They
+   replace an orange NEW and a purple PDF ONLY that matched nothing else. */
+.bplde-new-badge,
+.bplde-pdf-only-badge {
+  display: inline-block;
+  margin-left: 5px;
   padding: 2px 6px;
   border-radius: 0;
   font-size: 9px;
-  margin-left: 5px;
-  vertical-align: middle;
-  text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: .06em;
   line-height: 1;
-  display: inline-block;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
-/* PDF Only Badge */
+.bplde-new-badge {
+  background: rgba(15, 118, 110, .1);
+  color: #0b5a54;
+}
+
 .bplde-pdf-only-badge {
-  color: #ffffff;
-  background: #8b5cf6;
-  padding: 2px 6px;
-  border-radius: 0;
-  font-size: 9px;
-  margin-left: 5px;
-  vertical-align: middle;
-  text-transform: uppercase;
-  font-weight: 600;
-  line-height: 1;
-  display: inline-block;
+  background: #eef2f1;
+  color: #5b7369;
 }
 /* Preview Metabox Styles
    The panel draws its own header, so the postbox chrome around it is stripped by

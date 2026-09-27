@@ -46,15 +46,15 @@ const AllContainer = ({ isPremium }) => {
         },
         header.isDisplayHeader
           ? {
-              label: "Header",
-              value: "general-header",
-            }
+            label: "Header",
+            value: "general-header",
+          }
           : null,
-        documentLibrary.toolbarBox.isDisplayToolbar && header.isDisplayHeader   
+        documentLibrary.toolbarBox.isDisplayToolbar && header.isDisplayHeader
           ? {
-              label: "Toolbar Box",
+            label: "Toolbar Box",
             value: "general-toolbarBox"
-            }
+          }
           : null,
         {
           label: "Document Box",
@@ -67,27 +67,27 @@ const AllContainer = ({ isPremium }) => {
       value: "styles",
       icon: <ColorIcon />,
       child: [
-          {
-            label: "Library Container",
-            value: "styles-docLibrary"
-          },
-          header.isDisplayHeader
-            ? {
-                label: "Header",
-              value: "styles-header"
-              }
-            : null,
-          documentLibrary.toolbarBox.isDisplayToolbar
-            ? {
-                label: "Toolbar Box",
-              value: "styles-toolbarBox"
-              }
-            : null,
-          {
-            label: "Document Box",
-            value: "styles-docBox"
-          },
-        ].filter(Boolean)
+        {
+          label: "Library Container",
+          value: "styles-docLibrary"
+        },
+        header.isDisplayHeader
+          ? {
+            label: "Header",
+            value: "styles-header"
+          }
+          : null,
+        documentLibrary.toolbarBox.isDisplayToolbar
+          ? {
+            label: "Toolbar Box",
+            value: "styles-toolbarBox"
+          }
+          : null,
+        {
+          label: "Document Box",
+          value: "styles-docBox"
+        },
+      ].filter(Boolean)
     },
   ];
 
@@ -293,7 +293,7 @@ const AllContainer = ({ isPremium }) => {
     });
   };
 
-  
+
 
   if (view === "create") {
     return (
@@ -322,14 +322,13 @@ const AllContainer = ({ isPremium }) => {
                   <>
                     <button
                       type="button"
-                    key={tab.value}
-                    className={`tab-btn ${
-                      activeTab === tab.value ? "active" : ""
-                    }`}
-                    onClick={() => setActiveTab(tab.value)}
-                  >
-                    {tab.icon}
-                    <span>{tab.label}</span>
+                      key={tab.value}
+                      className={`tab-btn ${activeTab === tab.value ? "active" : ""
+                        }`}
+                      onClick={() => setActiveTab(tab.value)}
+                    >
+                      {tab.icon}
+                      <span>{tab.label}</span>
                     </button>
 
                     {
@@ -338,9 +337,8 @@ const AllContainer = ({ isPremium }) => {
                           <button
                             type="button"
                             key={child.value}
-                            className={`tab-btn child ${
-                              activeTab === child.value ? "active" : ""
-                            }`}
+                            className={`tab-btn child ${activeTab === child.value ? "active" : ""
+                              }`}
                             onClick={() => setActiveTab(child.value)}
                           >
                             {child.icon}
@@ -349,7 +347,7 @@ const AllContainer = ({ isPremium }) => {
                         );
                       })
                     }
-                    
+
                   </>
                 );
               })}
@@ -409,13 +407,13 @@ const AllContainer = ({ isPremium }) => {
         <div className="bplde-nav-left">
 
           <div className="plugin-name">
-                <span>
-                    <PluginIcon />
-                </span>
-                <h1>Document Library</h1>
+            <span>
+              <PluginIcon />
+            </span>
+            <h1>Document Library</h1>
           </div>
 
-          
+
           <div className="bplde-add-new-btn" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <button className="add-new-btn" onClick={() => handleAddOrEdit(null)}>
               + Add New Library
@@ -433,11 +431,11 @@ const AllContainer = ({ isPremium }) => {
             >
               Upgrade to Pro
             </a>
-              Upgrade To Pro
+            Upgrade To Pro
           </button>
-          
+
         </div>
-        
+
       </div>
 
       <div className="vfd-content">

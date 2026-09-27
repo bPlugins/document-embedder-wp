@@ -8,6 +8,10 @@ $primaryColor: #4527a4;
 }
 
 .bplDl-container {
+      // Lets the toolbar below respond to this wrapper's width rather than the
+      // window's -- see the @container query on .bplDl-toolbar.
+      container-type: inline-size;
+
   overflow: auto;
 
   .bplDl-header {
@@ -43,25 +47,42 @@ $primaryColor: #4527a4;
       gap: 1rem;
       margin-bottom: 2rem;
 
+      // One height for every control in the bar. The selects previously set no
+      // height at all, so they took whatever line-height they inherited -- 38px
+      // plus padding and border came out at 56px against the search field's 46.
+      $bpldl-toolbar-control: 46px;
+
+      align-items: center;
+
       .bplDl-search {
         position: relative;
-        flex: 1;
+        flex: 1 1 220px;
+        min-width: 0;
+
         .bplDl-search-icon {
           position: absolute;
-          top: 13px;
+          // Centred rather than pinned to a magic top, so it stays put if the
+          // control height ever changes.
+          top: 50%;
+          transform: translateY(-50%);
           left: 0.75rem;
           width: 1.25rem;
           height: 1.25rem;
           color: #9ca3af;
+          pointer-events: none;
         }
+
         .bplDl-search-input {
+          box-sizing: border-box;
           width: 100%;
-          padding: 12px 40px;
+          height: $bpldl-toolbar-control;
+          padding: 0 1rem 0 40px;
           border: 1px solid #d1d5db;
           border-radius: 0.5rem;
           outline: none;
+          line-height: normal;
           transition: border 0.2s ease;
-          height: 46px;
+
           &:focus {
             border-color: #2563eb;
           }
@@ -70,11 +91,51 @@ $primaryColor: #4527a4;
 
       .bplDl-select,
       .bplDl-select-sort {
-        padding: 0.5rem 1rem;
+        box-sizing: border-box;
+        height: $bpldl-toolbar-control;
+        min-height: $bpldl-toolbar-control;
+        // Room on the right for the native arrow, which padding: 0 1rem clipped.
+        padding: 0 2rem 0 1rem;
         border: 1px solid #d1d5db;
         border-radius: 0.5rem;
         outline: none;
-        width: 120px;
+        line-height: 1.2;
+        // Was a hard 120px: too narrow for a long type name and unable to share
+        // the row when it wraps.
+        flex: 0 1 150px;
+        min-width: 120px;
+        width: auto;
+      }
+
+      // Narrow: search takes its own line, the two selects share the next one.
+      //
+      // Both a media and a container query on purpose. The media query covers
+      // phones. The container query covers the cases a viewport cannot see: the
+      // admin's device preview, and a library placed in a narrow column or
+      // sidebar on a wide screen. Where :has/@container is unsupported the
+      // media query alone still handles the phone case.
+      @media (max-width: 520px) {
+        .bplDl-search {
+          flex: 1 1 100%;
+        }
+
+        .bplDl-select,
+        .bplDl-select-sort {
+          flex: 1 1 140px;
+          min-width: 0;
+        }
+      }
+
+      @container (max-width: 520px) {
+        .bplDl-search {
+          flex: 1 1 100%;
+        }
+
+        .bplDl-select,
+        .bplDl-select-sort {
+          flex: 1 1 140px;
+          min-width: 0;
+        }
       }
 
       .bplDl-upload-btn {

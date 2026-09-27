@@ -31,15 +31,19 @@
         align-items: center;
         padding: 10px;
         font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
 
         &:hover {
-          border-color: #146ef5;
+          border-color: #0f766e;
           background: #faf5ff;
         }
 
         &.active {
-          border-color: #146ef5;
-          background: #146ef5;
+          border-color: #0f766e;
+          background: #0f766e;
           color: white;
         }
       }

@@ -1,69 +1,146 @@
-.upgrade-toast {
+/*
+ * Save toast — Deep Teal & Lime.
+ *
+ * Rendered inside #bpldeDocumentLibraryWrapper, so it reads the editor's --de-*
+ * tokens; the fallbacks keep it drawn correctly if it is ever mounted outside.
+ * Corners are square, as everywhere else in the editor.
+ */
+
+.bplde-toast {
   position: fixed;
-  bottom: 45px;
-  right: 80px;
-  background: #ffffff;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-  text-align: center;
-  opacity: 0;
-  transform: translateX(60px);
-  transition: all 0.35s ease;
-  pointer-events: none;
-  z-index: 9999;
+  right: 24px;
+  bottom: 32px;
+  z-index: 100000; // above the WP admin bar and editor chrome
   display: flex;
-  align-items: center;
-  gap: 14px;
-  border: 1px solid #1451de;
+  align-items: flex-start;
+  gap: 12px;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  padding: 14px 12px 16px 14px;
+  overflow: hidden;
+  background: var(--de-surface, #fff);
+  border: 1px solid var(--de-border, #d5e0dd);
+  border-left: 3px solid var(--de-accent, #0f766e);
+  border-radius: 0;
+  box-shadow: 0 12px 32px rgba(15, 31, 27, .14), 0 2px 6px rgba(15, 31, 27, .06);
+  font-family: inherit;
+  color: var(--de-ink, #0f1f1b);
 
-  &.show {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease, visibility 0s linear .22s;
+
+  &.is-visible {
     opacity: 1;
-  }
-
-  &__icon-wrapper {
-    position: relative;
-    display: inline-flex;
-    margin-right: 15px;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    transition: opacity .22s ease, transform .22s ease, visibility 0s;
   }
 
   &__icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(145deg, #146ef5, #3d81e9);
-    border-radius: 20px;
-    display: flex;
+    display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    background: var(--de-pop, #a3e635);
+    color: var(--de-on-pop, #1a2e05);
   }
 
-  &__spark {
-    position: absolute;
-    width: 6px;
-    height: 18px;
-    background: #146ef5;
-    border-radius: 4px;
-    opacity: 0.9;
+  &__body {
+    flex: 1;
+    min-width: 0;
+    padding-top: 1px;
   }
 
-  &__spark--one {
-    top: -8px;
-    right: -10px;
-    transform: rotate(25deg);
-  }
-
-  &__spark--two {
-    top: -2px;
-    right: -18px;
-    transform: rotate(65deg);
+  // Margins are set explicitly: wp-admin gives every <p> a top and bottom margin.
+  &__title {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -.01em;
+    color: var(--de-ink, #0f1f1b);
   }
 
   &__text {
-    font-size: 18px;
-    font-weight: 600;
-    color: #0f172a; // dark navy text
+    margin: 3px 0 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--de-ink-3, #5b7369);
+  }
+
+  &__close {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin: -2px -2px 0 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--de-muted, #8ca09a);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--de-tint, #f8fbfa);
+      border-color: var(--de-rule, #e3ebe9);
+      color: var(--de-ink, #0f1f1b);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--de-accent, #0f766e);
+      outline-offset: 1px;
+    }
+  }
+
+  // Drains left to right over the time the toast stays up; hover freezes it
+  // along with the timer.
+  &__timer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    background: var(--de-accent, #0f766e);
+    transform-origin: left center;
+    animation: bplde-toast-drain var(--bplde-toast-duration, 3000ms) linear forwards;
+  }
+
+  &.is-paused &__timer {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes bplde-toast-drain {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
+
+@media (max-width: 600px) {
+  .bplde-toast {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bplde-toast,
+  .bplde-toast.is-visible {
+    transform: none;
+    transition: opacity .01s, visibility 0s;
+  }
+
+  .bplde-toast__timer {
+    display: none;
   }
 }

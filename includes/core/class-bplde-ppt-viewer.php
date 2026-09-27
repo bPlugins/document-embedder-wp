@@ -52,8 +52,8 @@ if (!class_exists('PPTViewer')) {
                     'name' => $cpt_title,
                     'singular_name' => __('Doc Embedder', 'document-emberdder'),
                     'all_items' => __('All Documents', 'document-emberdder'),
-                    'add_new' => __('Add New Doc', 'document-emberdder'),
-                    'add_new_item' => __('Add New Doc', 'document-emberdder'),
+                    'add_new' => __('Add New Document', 'document-emberdder'),
+                    'add_new_item' => __('Add New Document', 'document-emberdder'),
                     'edit_item' => __('Edit', 'document-emberdder'),
                     'new_item' => __('New item', 'document-emberdder'),
                     'view_item' => __('View item', 'document-emberdder'),
@@ -154,25 +154,7 @@ if (!class_exists('PPTViewer')) {
                 $states['bplde_no_file'] = __('No file', 'document-emberdder');
             }
 
-            if (empty($states)) {
-                return $states;
-            }
-
-            /*
-             * _post_states() joins several states with a comma placed INSIDE each span,
-             * so styling them as chips puts the separator inside the chip ("Draft,").
-             * Collapsing them into a single entry of our own markup means core emits one
-             * span with no separator at all.
-             */
-            $chips = '';
-
-            foreach ($states as $key => $label) {
-                $tone = ($key === 'bplde_no_file') ? ' bplde-state--warn' : '';
-                $chips .= '<span class="bplde-state' . $tone . '">'
-                    . esc_html(wp_strip_all_tags($label)) . '</span>';
-            }
-
-            return ['bplde_states' => $chips];
+            return \BPLDE_List_Screen::state_chips($states, 'bplde_no_file');
         }
         
         private function leadCounts() {
@@ -195,7 +177,7 @@ if (!class_exists('PPTViewer')) {
         public function postTypeContent($column_name, $post_id) {
             switch ($column_name) {
                 case 'shortcode':
-                    echo '<div class="bplde_front_shortcode"><input readonly value="[doc id=' . esc_attr($post_id) . ']"><span class="htooltip">Copy To Clipboard</span></div>';
+                    \BPLDE_List_Screen::shortcode_cell('[doc id=' . $post_id . ']');
                     break;
 
                 case 'bplde_tags':
@@ -262,19 +244,7 @@ if (!class_exists('PPTViewer')) {
                     break;
 
                 case 'bplde_date':
-                    $status = get_post_status($post_id);
-                    $labels = [
-                        'publish' => __('Published', 'document-emberdder'),
-                        'future'  => __('Scheduled', 'document-emberdder'),
-                        'draft'   => __('Draft', 'document-emberdder'),
-                        'pending' => __('Pending', 'document-emberdder'),
-                        'private' => __('Private', 'document-emberdder'),
-                    ];
-                    $label = isset($labels[$status]) ? $labels[$status] : ucfirst($status);
-
-                    echo '<span class="bplde-status bplde-status--' . esc_attr($status) . '">'
-                        . '<span class="bplde-status__dot" aria-hidden="true"></span>' . esc_html($label) . '</span>'
-                        . '<span class="bplde-date">' . esc_html(get_the_time(get_option('date_format'), $post_id)) . '</span>';
+                    \BPLDE_List_Screen::status_date_cell($post_id);
                     break;
             }
         }

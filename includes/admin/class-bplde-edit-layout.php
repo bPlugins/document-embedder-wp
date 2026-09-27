@@ -167,8 +167,8 @@ if (!class_exists('BPLDE_Edit_Layout')) {
             $status = isset($statuses[$post->post_status]) ? $statuses[$post->post_status] : ucfirst($post->post_status);
             $is_new = in_array($post->post_status, ['auto-draft'], true);
             $heading = $is_new
-                ? __('Add New Doc', 'document-emberdder')
-                : __('Edit Doc', 'document-emberdder');
+                ? __('Add New Document', 'document-emberdder')
+                : __('Edit Document', 'document-emberdder');
             ?>
             <div class="bplde-topbar">
                 <div class="bplde-topbar__id">

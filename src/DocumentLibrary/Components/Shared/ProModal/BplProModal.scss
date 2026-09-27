@@ -73,7 +73,7 @@
   font-size: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   svg {
-    color: #146ef5;
+    color: #0f766e;
     width: 30px;
     height: 30px;
   }
@@ -82,8 +82,8 @@
 .bpl-premium-icon {
   width: 56px;
   height: 56px;
-  // background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  background: #146ef5;
+  // background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+  background: #0f766e;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -123,14 +123,14 @@
   padding: 16px;
   border-radius: 10px;
   margin-bottom: 20px;
-  // border-left: 4px solid #8b5cf6;
-  border-left: 4px solid #146ef5;
+  // border-left: 4px solid #0f766e;
+  border-left: 4px solid #0f766e;
 }
 
 .bpl-highlight-icon {
   width: 36px;
   height: 36px;
-  background: #146ef5;
+  background: #0f766e;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -189,7 +189,7 @@
 
 .bpl-upgrade-btn {
   width: 100%;
-  background: #146ef5;
+  background: #0f766e;
   border: none;
   padding: 14px 24px;
   border-radius: 10px;

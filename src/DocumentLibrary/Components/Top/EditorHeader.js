@@ -1,5 +1,5 @@
 import { Save } from "lucide-react";
-import { Copy, LeftArrow } from "../../Utils/icons";
+import { LeftArrow } from "../../Utils/icons";
 import "./EditorHeader.scss";
 
 const EditorHeader = ({
@@ -28,32 +28,20 @@ const EditorHeader = ({
 
         <div className="divider" />
 
-        <h1>{title}</h1>
+        {/* Eyebrow over heading, the same shape the document editor's top bar uses. */}
+        <div className="editor-header__id">
+          <span className="editor-header__eyebrow">Document Embedder</span>
+          <h1>{title}</h1>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Voice Feedback Title"
-          value={titleText}
-          onChange={onChange}
-        />
       </div>
 
       {/* RIGHT SIDE */}
       <div className="right-section">
-        {editingId > 0 && (
-          <div className="shortcode-box">
-            <code>[document_library id={`"${editingId}"`}]</code>
-
-            <button
-              type="button"
-              className="copy-btn"
-              onClick={() => handleCopyShortcode(editingId)}
-            >
-              <Copy />
-              {copiedId === editingId ? "Copied" : "Copy"}
-            </button>
-          </div>
-        )}
+        <span className={`editor-header__status editor-header__status--${editingId > 0 ? "saved" : "new"}`}>
+          <span className="editor-header__dot" aria-hidden="true" />
+          {editingId > 0 ? "Saved" : "Not saved yet"}
+        </span>
 
         <button
           className="save-btn"

@@ -540,7 +540,7 @@ msgid "These settings are available on Document Embedder Pro."
 msgstr ""
 
 #: includes/core/class-bplde-helper-functions.php:74
-msgid "14-day refund policy · Trusted by 10,000+ WordPress sites"
+msgid "14-day refund policy · Trusted by 9,000+ WordPress sites"
 msgstr ""
 
 #: includes/core/class-bplde-ppt-viewer.php:45

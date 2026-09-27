@@ -17,6 +17,7 @@ import RangeControl from "../../Fields/RangeControl/RangeControl";
 import BoxControl from "../../Fields/BoxControl/BoxControl";
 import DynamicTab from "../../Fields/DynamicTab/DynamicTab";
 import Border from "../../Fields/Border/Border";
+import { HEADER_PRESETS, HEADER_PRESET_PATHS } from "../../Utils/headerPresets";
 
 const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSettings }) => {
   const [activeHeaderTab, setActiveHeaderTab] = useState("general");
@@ -367,6 +368,42 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
                 {
                   activeHeaderTab == "styles" && (
                     <>
+                      {/* One click sets background, title and description together, so a
+                          preset can never leave unreadable text on the bar. */}
+                      <div className="bpldl-presets">
+                        <span className="bpldl-presets__label">Presets</span>
+                        {HEADER_PRESETS.map((preset) => {
+                          const isActive =
+                            _get(formData, HEADER_PRESET_PATHS.bgColor) === preset.bgColor &&
+                            _get(formData, HEADER_PRESET_PATHS.title) === preset.title;
+
+                          return (
+                            <button
+                              type="button"
+                              key={preset.label}
+                              className={`bpldl-preset${isActive ? " is-active" : ""}`}
+                              aria-pressed={isActive}
+                              onClick={() => {
+                                onFormDataUpdate(HEADER_PRESET_PATHS.bgColor, preset.bgColor);
+                                onFormDataUpdate(HEADER_PRESET_PATHS.title, preset.title);
+                                onFormDataUpdate(HEADER_PRESET_PATHS.description, preset.description);
+                              }}
+                            >
+                              <span
+                                className="bpldl-preset__swatch"
+                                style={{
+                                  background:
+                                    preset.bgColor === "transparent"
+                                      ? "repeating-conic-gradient(#e3ebe9 0% 25%, #fff 0% 50%) 50% / 10px 10px"
+                                      : preset.bgColor,
+                                }}
+                              />
+                              {preset.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+
                       <Color
                         isHeader={true}
                         title="Background Color"

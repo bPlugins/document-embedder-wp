@@ -465,3 +465,11 @@
   text-transform: uppercase;
   color: var(--de-ink-3);
 }
+
+/* The document picker. Wide enough for a title plus its lead count, but capped
+   so a long document name cannot push the search field off the toolbar. */
+.bplde-leads .bplde-leads-input--doc {
+  max-width: 280px;
+  padding-right: 8px;
+  font-weight: 600;
+}

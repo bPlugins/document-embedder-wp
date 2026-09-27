@@ -12,6 +12,8 @@ import EditorHeader from "../Components/Top/EditorHeader";
 import SettingsPanel from "./Settings";
 import PreviewPanel from "./Preview";
 import Toast from "../Components/Shared/Toast/Toast";
+import TabStrip, { LIBRARY_TABS } from './TabStrip';
+import TitleBar from './TitleBar';
 
 const AddNewLibrary = ({ isPremium }) => {
   const [showToast, setShowToast] = useState(false);
@@ -96,6 +98,8 @@ const AddNewLibrary = ({ isPremium }) => {
     });
   };
 
+  const [activeSettings, setActiveSettings] = useState(LIBRARY_TABS[0].value);
+
   const handleCopyShortcode = async (id) => {
     const shortcode = `[document_library id="${id}"]`;
 
@@ -132,22 +136,49 @@ const AddNewLibrary = ({ isPremium }) => {
         handleCopyShortcode={handleCopyShortcode}
       />
 
-      <main className="editor-main">
-        <div className="left-panel">
-          <SettingsPanel
-            formData={formData}
-            onFormDataUpdate={onFormDataUpdate}
-            isPremium={isPremium}
-            openProModal={openProModal}
-          />
-        </div>
+      <TitleBar
+        title={_get(formData, 'title')}
+        onChange={(e) => onFormDataUpdate('title', e.target.value)}
+        postId={postId}
+        onCopy={handleCopyShortcode}
+        copied={copiedId}
+      />
 
-        <div className="right-panel">
-          <PreviewPanel
-            postId={postId}
-            formData={formData}
-          />
-        </div>
+      <main className="editor-main">
+        {/* Two panels side by side, as the document editor has it: the
+            configuration box and the live preview are separate things. */}
+        <section className="bpldl-panel bpldl-panel--settings">
+          <header className="bpldl-panel__head">
+            <h2>Library Configuration</h2>
+          </header>
+
+          <div className="bpldl-panel__body">
+            <TabStrip
+              active={activeSettings}
+              onChange={setActiveSettings}
+              counts={{ uploadItems: _get(formData, 'settings.documentLibrary.docItems', []).length }}
+            />
+
+            <div className="left-panel">
+              <SettingsPanel
+                formData={formData}
+                onFormDataUpdate={onFormDataUpdate}
+                isPremium={isPremium}
+                openProModal={openProModal}
+                activeSettings={activeSettings}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className="bpldl-panel bpldl-panel--preview">
+          <div className="right-panel">
+            <PreviewPanel
+              postId={postId}
+              formData={formData}
+            />
+          </div>
+        </section>
       </main>
 
 

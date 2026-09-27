@@ -37,7 +37,7 @@
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  color: #2563eb;
+  color: #0f766e;
 }
 
 /* Toggle Switch */
@@ -69,12 +69,12 @@
     left: 3px;
     top: 3px;
     background-color: white;
-    border-radius: 50%;
+    // border-radius: 50%;
     transition: 0.3s;
   }
 
   input:checked+.slider {
-    background-color: #2563eb;
+    background-color: #0f766e;
   }
 
   input:checked+.slider::before {

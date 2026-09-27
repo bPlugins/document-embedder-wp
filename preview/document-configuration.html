@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Document Configuration — proposed</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --surface:#fff;--tint:#f8fbfa;--border:#d5e0dd;--control:#bfd0cc;--rule:#e3ebe9;
+  --ink:#0f1f1b;--ink2:#3f5750;--ink3:#5b7369;--muted:#8ca09a;
+  --accent:#0f766e;--accent-deep:#0b5a54;--accent-soft:rgba(15,118,110,.1);
+  --pop:#a3e635;--pop-soft:#f4fce3;--pop-ink:#3f5209;--on-pop:#1a2e05;
+  --csf-rule:#eee;
+}
+*{box-sizing:border-box;border-radius:0}
+body{margin:0;background:#dfe6e4;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--ink)}
+.page{max-width:1080px;margin:0 auto;padding:34px 20px 60px}
+.board__label{font-family:"Bricolage Grotesque",sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 0 4px}
+.board__title{font-family:"Bricolage Grotesque",sans-serif;font-size:27px;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+.board__note{font-size:13.5px;line-height:1.65;color:var(--ink2);margin:0 0 18px;max-width:840px}
+
+/* metabox at the measured size: nav 225 + section 719 */
+.mb{width:946px;background:var(--surface);border:1px solid var(--border);box-shadow:0 1px 2px rgba(15,31,27,.05)}
+.mb__head{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--rule);background:var(--tint)}
+.mb__head h2{margin:0;font-size:14px;font-weight:700}
+.mb__head .spacer{flex:1}
+.mb__body{display:flex}
+.mb__nav{width:225px;flex:0 0 225px;border-right:1px solid var(--rule);background:var(--tint);padding:8px 0}
+.navitem{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:13.5px;font-weight:600;color:var(--ink2);cursor:pointer;user-select:none;border-left:3px solid transparent}
+.navitem:hover{background:#fff}
+.navitem svg{width:17px;height:17px;flex:0 0 17px;stroke:currentColor;fill:none;stroke-width:1.8}
+.navitem.is-active{background:var(--surface);color:var(--accent-deep);border-left-color:var(--accent)}
+.navitem .count{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--muted)}
+.sect{width:719px;flex:0 0 719px}
+
+/* a real CSF field: padding 20px, title 136px float left, fieldset 523px float right */
+.csf-field{padding:20px;border-top:1px solid var(--csf-rule);overflow:hidden}
+.csf-field:first-child{border-top:0}
+.csf-title{float:left;width:136px}
+.csf-title h4{margin:0;font-size:13px;font-weight:600;line-height:1.45;color:#23282d}
+.csf-subtitle-text{margin-top:4px;font-size:11.5px;line-height:1.5;color:var(--ink3)}
+.csf-fieldset{float:right;width:523px}
+
+/* controls */
+.inp{height:34px;border:1px solid var(--control);background:var(--surface);padding:0 11px;font:500 13px/32px "Plus Jakarta Sans",sans-serif;color:var(--ink)}
+.upload{display:flex}.upload .inp{flex:1;border-right:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 15px;font-size:12.5px;font-weight:700;border:1px solid var(--accent);background:var(--accent);color:#fff;white-space:nowrap;cursor:pointer}
+.seg{display:inline-flex;border:1px solid var(--control);flex-wrap:wrap}
+.seg > span{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;font-size:12.5px;font-weight:600;color:var(--ink2);border-right:1px solid var(--control);white-space:nowrap}
+.seg > span:last-child{border-right:0}
+.seg > span.on{background:var(--accent);color:#fff;font-weight:700}
+.sw{display:inline-flex;align-items:center;width:42px;height:22px;border:1px solid var(--control);background:#eef2f1;padding:2px}
+.sw i{display:block;width:16px;height:16px;background:var(--muted)}
+.sw.on{background:var(--accent);border-color:var(--accent);justify-content:flex-end}
+.sw.on i{background:#fff}
+.dim{display:inline-flex}
+.dim .u{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--control);border-right:0;background:var(--tint);font-size:12px;color:var(--ink3)}
+.dim .inp{width:80px}
+.dim select,select.inp{height:34px;border:1px solid var(--control);background:var(--surface);padding:0 8px;font:600 12.5px "Plus Jakarta Sans",sans-serif;color:var(--ink)}
+.dim select{border-left:0}
+.note{margin:7px 0 0;font-size:11.5px;line-height:1.55;color:var(--ink3)}
+.mono{font-family:"JetBrains Mono",monospace;font-size:11.5px}
+
+/* ===== the ONE content field, last in every section ===== */
+.bplde-pro{border:1px solid var(--border);background:var(--surface)}
+.bplde-pro__head{display:flex;align-items:flex-start;gap:11px;padding:14px 16px;background:var(--pop-soft);border-bottom:1px solid var(--rule)}
+.bplde-pro__head h5{margin:0;font-size:14px;font-weight:700;line-height:1.35;color:var(--ink)}
+.bplde-pro__head p{margin:3px 0 0;font-size:12px;line-height:1.5;color:var(--pop-ink)}
+.bplde-pro__list{list-style:none;margin:0;padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:1px 22px}
+.bplde-pro__list li{display:flex;align-items:flex-start;gap:8px;padding:6px 0;font-size:12.5px;line-height:1.5;color:var(--ink2)}
+.bplde-pro__list li svg{width:12px;height:12px;flex:0 0 12px;margin-top:3px;stroke:var(--muted);fill:none;stroke-width:2.2}
+.bplde-pro__foot{display:flex;align-items:center;gap:14px;padding:13px 16px;background:var(--ink)}
+.bplde-pro__foot p{margin:0;flex:1;font-size:11.5px;line-height:1.5;color:#b9ccc4}
+.bplde-pro__cta{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;background:var(--pop);color:var(--on-pop);font-size:12.5px;font-weight:800;text-decoration:none;white-space:nowrap}
+.bplde-pro__cta svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.6}
+
+/* badges */
+.chip{display:inline-flex;align-items:center;gap:4px;height:18px;padding:0 6px;font-size:9.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;line-height:1;vertical-align:1px}
+.chip--pro{background:var(--pop);color:var(--on-pop)}
+.chip--new{background:var(--accent-soft);color:var(--accent-deep)}
+.chip--pdf{background:#eef2f1;color:var(--ink3)}
+.bplde-pro__head .chip{height:20px;padding:0 8px;font-size:10px;margin-top:2px;flex:0 0 auto}
+
+/* x-ray */
+.xray .csf-field{outline:1px dashed rgba(15,118,110,.45);outline-offset:-1px}
+.xray .bplde-pro-field{outline:2px solid #a32020;outline-offset:-2px;position:relative}
+.xray .bplde-pro-field::after{content:"ONE content field";position:absolute;bottom:0;right:0;background:#a32020;color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;z-index:5}
+.xray .csf-title{background:rgba(15,118,110,.07)}
+
+.bar{display:flex;align-items:center;gap:14px;margin:0 0 14px;font-size:12.5px;color:var(--ink2)}
+.bar label{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;font-weight:600}
+.fromtag{display:block;margin:10px 0 0;font-size:11.5px;color:var(--ink3)}
+.legend{margin-top:30px;background:var(--surface);border:1px solid var(--border)}
+.legend h3{margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--tint);font-size:12.5px;font-weight:700}
+.legend .b{padding:16px;display:flex;flex-wrap:wrap;gap:26px;align-items:center;font-size:13px}
+.legend .b span.k{display:inline-flex;align-items:center;gap:8px;color:var(--ink2)}
+.legend .p{margin:0;padding:14px 16px;font-size:12.5px;line-height:1.75;color:var(--ink2)}
+.legend code{font-family:"JetBrains Mono",monospace;font-size:11.5px;background:var(--tint);border:1px solid var(--rule);padding:1px 5px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:9px 16px;border-bottom:1px solid var(--rule)}
+th{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);background:var(--tint)}
+tr:last-child td{border-bottom:0}
+td.num{font-weight:700;width:80px}
+.old{color:var(--muted)}
+@media (max-width:1000px){
+  .mb,.sect{width:100%;flex:1 1 auto}
+  .mb__body{display:block}
+  .mb__nav{width:auto;flex:none;border-right:0;border-bottom:1px solid var(--rule);display:flex;flex-wrap:wrap}
+  .csf-title,.csf-fieldset{float:none;width:auto}
+  .csf-fieldset{margin-top:8px}
+  .bplde-pro__list{grid-template-columns:1fr}
+  .bplde-pro__foot{flex-wrap:wrap}
+}
+</style></head>
+<body>
+<div class="page">
+  <p class="board__label">Document Embedder · proposed redesign</p>
+  <h1 class="board__title">Document Configuration</h1>
+  <p class="board__note">Four sections, as specified. Pro features are named once at the <b>bottom of each section</b>, in a single <code style="font-family:JetBrains Mono,monospace">type =&gt; 'content'</code> field &mdash; never mixed in among the real settings. Everything above that block is your existing CSF fields, untouched. Geometry measured from the live install: section 719px, field padding 20px, title column 136px.</p>
+
+  <div class="bar">
+    <label><input type="checkbox" id="x" onchange="document.body.classList.toggle('xray', this.checked)"> X-ray: show CSF field boundaries</label>
+    <span class="old">dashed teal = a real CSF field &nbsp;·&nbsp; solid red = the one content field</span>
+  </div>
+
+  <div class="mb">
+    <div class="mb__head"><h2>Document Configuration</h2><span class="spacer"></span><span class="chip chip--pdf">Free plan</span></div>
+    <div class="mb__body"><div class="mb__nav"><div class="navitem is-active" data-t="0" onclick="go(0)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>General<span class="count">9</span></div><div class="navitem" data-t="1" onclick="go(1)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>Viewer &amp; Display<span class="count">3</span></div><div class="navitem" data-t="2" onclick="go(2)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Permissions &amp; Downloads<span class="count">5</span></div><div class="navitem" data-t="3" onclick="go(3)"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>Advanced Settings<span class="count">&mdash;</span></div></div><div class="sect" data-p="0" style=""><div class="csf-field"><div class="csf-title"><h4>Document File</h4></div><div class="csf-fieldset"><div class="upload"><input class="inp" placeholder="Choose or paste a file URL"><button class="btn">Upload</button></div><p class="note"><b style="color:var(--ink)">Supported Files:</b> <span class="mono">pdf · doc · docx · ppt · pptx · txt · rtf · csv · odt · ods · odp</span></p></div></div><div class="csf-field"><div class="csf-title"><h4>Viewer</h4><div class="csf-subtitle-text">Custom PDF, Flipbook and Slider engines only support PDF documents.</div></div><div class="csf-fieldset"><div class="seg"><span class="on">Default</span><span>Custom PDF <span class="chip chip--pro">Pro</span></span><span>Flipbook <span class="chip chip--pro">Pro</span></span><span>Slider <span class="chip chip--pro">Pro</span></span></div></div></div><div class="csf-field"><div class="csf-title"><h4>Set Height &amp; Width For</h4></div><div class="csf-fieldset"><div class="seg"><span class="on">Desktop</span><span>Tablet</span><span>Mobile</span></div></div></div><div class="csf-field"><div class="csf-title"><h4>Width (Desktop)</h4></div><div class="csf-fieldset"><span class="dim"><span class="u">&harr;</span><input class="inp" value="100"><select><option>%</option></select></span></div></div><div class="csf-field"><div class="csf-title"><h4>Height (Desktop)</h4></div><div class="csf-fieldset"><span class="dim"><span class="u">&updownarrow;</span><input class="inp" value="600"><select><option>px</option></select></span></div></div><div class="csf-field bplde-pro-field"><div class="bplde-pro"><div class="bplde-pro__head"><span class="chip chip--pro">Pro</span><div><h5>2 more settings in Document Embedder Pro</h5><p>Everything below unlocks on this tab with a licence key.</p></div></div><ul class="bplde-pro__list"><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Disable Popout to prevent direct file theft</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Enable a professional loading icon</span></li></ul><div class="bplde-pro__foot"><p>14-day refund policy &middot; trusted by 10,000+ WordPress sites</p><a class="bplde-pro__cta" href="#">See Pro pricing<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div></div></div></div><div class="sect" data-p="1" style="display:none"><div class="csf-field"><div class="csf-title"><h4>Display File Name</h4><div class="csf-subtitle-text">Not available for Google Drive and Dropbox.</div></div><div class="csf-fieldset"><span class="sw"><i></i></span></div></div><div class="csf-field"><div class="csf-title"><h4>Show Download Button</h4><div class="csf-subtitle-text">Not available for Google Drive and Dropbox.</div></div><div class="csf-fieldset"><span class="sw on"><i></i></span></div></div><div class="csf-field"><div class="csf-title"><h4>Toolbar Position</h4><div class="csf-subtitle-text">Choose where the toolbar appears.</div></div><div class="csf-fieldset"><select class="inp" style="width:200px"><option>Toolbar (Default)</option><option>Below Embed</option></select></div></div><div class="csf-field bplde-pro-field"><div class="bplde-pro"><div class="bplde-pro__head"><span class="chip chip--pro">Pro</span><div><h5>12 more settings in Document Embedder Pro</h5><p>Everything below unlocks on this tab with a licence key.</p></div></div><ul class="bplde-pro__list"><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Reader Mode for distraction-free reading</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Dark / Light / Custom toolbar themes</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Thumbnail Navigation sidebar</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Custom toolbar background &amp; text colours</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Force Sidebar Open by default</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Beautiful Lightbox view overlay</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Horizontal Scrollbar for wide layouts</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Custom lightbox trigger button</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Full-Screen button or Open in New Tab</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Custom Initial Page &amp; default Zoom level</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Load Latest Version (cache bypass)</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>On-Demand Page Rendering for heavy files</span></li></ul><div class="bplde-pro__foot"><p>14-day refund policy &middot; trusted by 10,000+ WordPress sites</p><a class="bplde-pro__cta" href="#">See Pro pricing<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div></div></div></div><div class="sect" data-p="2" style="display:none"><div class="csf-field"><div class="csf-title"><h4>Download Button Text</h4><div class="csf-subtitle-text">Specify the text for the download button.</div></div><div class="csf-fieldset"><input class="inp" style="width:220px" value="Download"></div></div><div class="csf-field"><div class="csf-title"><h4>Download Behavior</h4></div><div class="csf-fieldset"><select class="inp" style="width:200px"><option>Force Save Dialog</option><option>Open in New Tab</option></select></div></div><div class="csf-field"><div class="csf-title"><h4>Custom Filename</h4><div class="csf-subtitle-text">Will not work if Download Behavior is "Open in New Tab".</div></div><div class="csf-fieldset"><input class="inp" style="width:240px" placeholder="Optional"></div></div><div class="csf-field"><div class="csf-title"><h4>Show Download Count</h4><div class="csf-subtitle-text">Display how many times this document has been downloaded.</div></div><div class="csf-fieldset"><span class="sw"><i></i></span></div></div><div class="csf-field"><div class="csf-title"><h4>Download Limit</h4><div class="csf-subtitle-text">Limit downloads per visitor IP address.</div></div><div class="csf-fieldset"><select class="inp" style="width:170px"><option>No Limit</option><option>1</option><option>3</option><option>5</option></select></div></div><div class="csf-field bplde-pro-field"><div class="bplde-pro"><div class="bplde-pro__head"><span class="chip chip--pro">Pro</span><div><h5>8 more settings in Document Embedder Pro</h5><p>Everything below unlocks on this tab with a licence key.</p></div></div><ul class="bplde-pro__list"><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Email Gate to collect leads before downloading</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>View Access Control by login status / roles</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Download Access Control by login status / roles</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Allowed Roles (View) &mdash; pick exactly who can open it</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Dedicated Leads Dashboard &amp; stats tracking</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Custom Restricted Message in place of the viewer</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>One-click Lead export to CSV</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Secure Document Delivery <span class="chip chip--pdf">PDF only</span></span></li></ul><div class="bplde-pro__foot"><p>14-day refund policy &middot; trusted by 10,000+ WordPress sites</p><a class="bplde-pro__cta" href="#">See Pro pricing<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div></div></div></div><div class="sect" data-p="3" style="display:none"><div class="csf-field bplde-pro-field"><div class="bplde-pro"><div class="bplde-pro__head"><span class="chip chip--pro">Pro</span><div><h5>7 more settings in Document Embedder Pro</h5><p>Everything below unlocks on this tab with a licence key.</p></div></div><ul class="bplde-pro__list"><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Interactive Overlays <span class="chip chip--pdf">PDF only</span> &mdash; notes, highlights, links, CTAs</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Lazy Load to speed up page load time</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Per-overlay Page picker</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Google View Fallback for failed loads</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Percentage Position &amp; Size that survive any zoom</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Link URL to make an overlay clickable</span></li><li><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><span>Rich Content box with safe HTML</span></li></ul><div class="bplde-pro__foot"><p>14-day refund policy &middot; trusted by 10,000+ WordPress sites</p><a class="bplde-pro__cta" href="#">See Pro pricing<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></div></div></div></div></div>
+  </div>
+  <span class="fromtag">This section is: <b><span data-f="0" style="">unchanged &mdash; today&rsquo;s General settings, kept as the starting point</span><span data-f="1" style="display:none">Controls + Toolbar + Modal Pop Up (Lightbox)</span><span data-f="2" style="display:none">Access &amp; Security + Download Management</span><span data-f="3" style="display:none">Interactive Overlays + Performance &amp; Reliability</span></b></span>
+
+  <div class="legend">
+    <h3>The four sections</h3>
+    <table>
+      <tr><th>Section</th><th>Real fields</th><th>Pro named</th><th>Made from</th></tr>
+      <tr><td><b>1 · General</b></td><td class="num">9</td><td class="num">2</td><td>General <span class="old">(unchanged)</span></td></tr>
+      <tr><td><b>2 · Viewer &amp; Display</b></td><td class="num">3</td><td class="num">12</td><td>Controls + Toolbar + Modal Pop Up (Lightbox)</td></tr>
+      <tr><td><b>3 · Permissions &amp; Downloads</b></td><td class="num">5</td><td class="num">8</td><td>Access &amp; Security + Download Management</td></tr>
+      <tr><td><b>4 · Advanced Settings</b></td><td class="num">&mdash;</td><td class="num">7</td><td>Interactive Overlays + Performance &amp; Reliability</td></tr>
+    </table>
+  </div>
+
+  <div class="legend">
+    <h3>How it is built</h3>
+    <p class="p">
+      Each section keeps its existing CSF fields exactly as they are, then gets <b>one extra field appended last</b>:<br><br>
+      <code>array( 'id' =&gt; 'de_viewer_pro_info', 'type' =&gt; 'content', 'class' =&gt; 'bplde-pro-field', 'content' =&gt; '…html…' )</code><br><br>
+      That is the only thing added. No field id changes, so nothing saved on an existing document is orphaned. No fake inputs anywhere &mdash; the block is static markup with no <code>name</code> attributes, so it can never post a value or collide with a Pro field later. <code>vendor/Codestar/</code> is not touched.
+    </p>
+  </div>
+
+  <div class="legend">
+    <h3>Badge family</h3>
+    <div class="b">
+      <span class="k">Locked feature <span class="chip chip--pro">Pro</span></span>
+      <span class="k">Recently added <span class="chip chip--new">New</span></span>
+      <span class="k">Restriction <span class="chip chip--pdf">PDF only</span></span>
+      <span class="k old">replacing today's orange NEW, purple PDF ONLY and blue PRO VERSION</span>
+    </div>
+  </div>
+</div>
+<script>
+function go(n){
+  document.querySelectorAll('.navitem').forEach(function(e){ e.classList.toggle('is-active', +e.dataset.t === n); });
+  document.querySelectorAll('[data-p]').forEach(function(e){ e.style.display = (+e.dataset.p === n) ? '' : 'none'; });
+  document.querySelectorAll('[data-f]').forEach(function(e){ e.style.display = (+e.dataset.f === n) ? '' : 'none'; });
+}
+</script>
+</body></html>

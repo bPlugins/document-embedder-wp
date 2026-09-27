@@ -261,8 +261,8 @@ const Typography = ({
                 style={{
                   background: `linear-gradient(
                     to right,
-                    #146ef5 0%,
-                    #146ef5 ${((parseFloat(typography.letterSpace) - -2) / 32) * 100
+                    #0f766e 0%,
+                    #0f766e ${((parseFloat(typography.letterSpace) - -2) / 32) * 100
                     }%,
                     #e5e7eb ${((parseFloat(typography.letterSpace) - -2) / 32) * 100
                     }%,

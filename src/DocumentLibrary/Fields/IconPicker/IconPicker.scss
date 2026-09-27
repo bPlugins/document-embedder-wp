@@ -32,16 +32,16 @@
         background: #eef2f7;
         svg {
           transform: scale(1.15);
-          color: #146ef5;
+          color: #0f766e;
         }
       }
 
       &.selected {
-        border-color: #146ef5;
+        border-color: #0f766e;
         background: #eaf2ff;
 
         svg {
-          color: #146ef5;
+          color: #0f766e;
         }
       }
     }

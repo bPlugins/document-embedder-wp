@@ -6,6 +6,7 @@
   border-radius: .5rem;
   gap: 4px;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .tab-btn {
@@ -19,6 +20,7 @@
   color: #6b7280;
   cursor: pointer;
   transition: all 0.2s ease;
+  width: 100%;
 
   &:hover {
     color: #6b7280;
@@ -26,7 +28,7 @@
 
   &.active {
     background: #ffffff;
-    color: #2563eb;
+    color: #0f766e;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 }

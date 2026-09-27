@@ -39,8 +39,8 @@ $bg-light: #f8f9fa;
 
           &:focus {
             outline: none;
-            // border-color: #8B5CF6;
-            border-color: #146ef5;
+            // border-color: #0f766e;
+            border-color: #0f766e;
             box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
           }
         }
@@ -55,8 +55,8 @@ $bg-light: #f8f9fa;
         .bpl-boxControl__padding-icon {
           width: 80px;
           height: 45px;
-          // background: linear-gradient(135deg, #8B5CF6, #A855F7);
-          background: #146ef5;
+          // background: linear-gradient(135deg, #0f766e, #0f766e);
+          background: #0f766e;
           color: white;
           border-radius: 8px;
           display: flex;
@@ -65,8 +65,8 @@ $bg-light: #f8f9fa;
           font-weight: 600;
           font-size: 0.8rem;
           letter-spacing: 1px;
-          // border: 1px solid #7C3AED;
-          border: 1px solid #146ef5;
+          // border: 1px solid #0f766e;
+          border: 1px solid #0f766e;
         }
       }
     }

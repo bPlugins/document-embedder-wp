@@ -1,7 +1,7 @@
 === Document Embedder – let visitors read files without downloading ===
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
-Tested up to: 7.0
+Tested up to: 7.1
 Stable tag: 2.3.2
 Requires PHP: 7.1
 Requires at least: 6.5

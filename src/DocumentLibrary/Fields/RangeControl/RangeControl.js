@@ -44,8 +44,8 @@ const RangeControl = ({
               style={{
                 background: `linear-gradient(
                 to right,
-                #146ef5 0%,
-                #146ef5 ${((value - min) / (max - min)) * 100}%,
+                #0f766e 0%,
+                #0f766e ${((value - min) / (max - min)) * 100}%,
                 #e5e7eb ${((value - min) / (max - min)) * 100}%,
                 #e5e7eb 100%
               )`,

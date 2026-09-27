@@ -870,7 +870,6 @@
     padding: 36px 18px 32px;
   }
 }
-}
 
 /* ---------------------------------------------------------------------------
    Square corners — same language as the document editor.
@@ -894,4 +893,26 @@
 .bplde-list .wp-list-table,
 .bplde-list .wp-list-table * {
   border-radius: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Document Libraries
+
+   The same table, one column apart: [document_library id=12] is twice the
+   length of [doc id=12], so its column needs the room. Everything else is
+   inherited from the rules above.
+   ------------------------------------------------------------------------- */
+
+.bplde-list-document-library .wp-list-table .column-shortcode {
+  width: 250px;
+}
+
+/* The wrapper is inline-block in style.css, so the input's width:100% resolves
+   against a shrink-to-fit box and never reaches the column. Block lets it fill. */
+.bplde-list-document-library .bplde_front_shortcode {
+  display: block;
+}
+
+.bplde-list-document-library .bplde_front_shortcode input {
+  max-width: 230px;
 }

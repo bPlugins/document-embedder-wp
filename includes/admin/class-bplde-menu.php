@@ -25,7 +25,6 @@ if (!class_exists('BPLDE_Menu')) {
 
         private function __construct() {
             add_action('admin_menu', [$this, 'add_menus']);
-            add_action('admin_menu', [$this, 'remove_menus'], 999);
             add_action('admin_menu', [$this, 'reorder_menus'], 9999);
         }
 
@@ -43,24 +42,18 @@ if (!class_exists('BPLDE_Menu')) {
                 [$this, 'render_dashboard_page']
             );
 
-            // Add Leads submenu (registered but hidden from menu tree via remove_menus)
+            // Download Leads: every document's leads in one table, with a picker for
+            // narrowing to a single document.
             if (class_exists('\BPLDE\Admin\LeadsPage')) {
                 add_submenu_page(
                     'edit.php?post_type=ppt_viewer',
-                    'Download Leads',
-                    'Download Leads',
+                    __('Download Leads', 'document-emberdder'),
+                    __('Download Leads', 'document-emberdder'),
                     'manage_options',
                     'bplde-download-leads',
                     [\BPLDE\Admin\LeadsPage::instance(), 'render_page']
                 );
             }
-        }
-
-        /**
-         * Hide the registered leads page from the admin sidebar menu tree
-         */
-        public function remove_menus() {
-            remove_submenu_page('edit.php?post_type=ppt_viewer', 'bplde-download-leads');
         }
 
         /**

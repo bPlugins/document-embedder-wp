@@ -56,6 +56,16 @@ if (!class_exists('BPLDE_Admin_Assets')) {
                 wp_enqueue_style('ppv-admin', BPLDE_PLUGIN_DIR . 'assets/css/style.css', array(), BPLDE_VER);
             }
 
+            // 1a. The Document Configuration metabox, on the document edit screen only.
+            if ($screen->post_type === 'ppt_viewer' && $screen->base === 'post') {
+                wp_enqueue_style(
+                    'bplde-admin-metabox',
+                    BPLDE_PLUGIN_DIR . 'assets/css/admin-metabox.css',
+                    array(),
+                    $this->asset_version('assets/css/admin-metabox.css')
+                );
+            }
+
             // 1b. Live preview on the document edit screen only.
             if ($screen->post_type === 'ppt_viewer' && $screen->base === 'post' && class_exists('BPLDE_Preview')) {
                 wp_enqueue_script('bplde-preview', BPLDE_PLUGIN_DIR . 'assets/js/preview.js', array('jquery'), $this->asset_version('assets/js/preview.js'), true);

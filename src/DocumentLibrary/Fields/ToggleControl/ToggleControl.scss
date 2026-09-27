@@ -33,7 +33,7 @@
         height: 0;
 
         &:checked + .toggle-slider {
-          background-color: #146ef5;
+          background-color: #0f766e;
 
           &::before {
             transform: translateX(24px);
@@ -41,7 +41,7 @@
         }
 
         &:checked:hover + .toggle-slider {
-          background-color: #146ef5;
+          background-color: #0f766e;
         }
       }
 
@@ -63,7 +63,7 @@
           left: 3px;
           bottom: 3px;
           background-color: #fff;
-          border-radius: 50%;
+          // border-radius: 50%;
           transition:
             transform 0.4s ease,
             background-color 0.2s ease;

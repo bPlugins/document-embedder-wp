@@ -1,0 +1,274 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add New Library — options</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+:root{
+  --ground:#edf1f0;--surface:#fff;--tint:#f8fbfa;--border:#d5e0dd;--control:#bfd0cc;--rule:#e3ebe9;
+  --ink:#0f1f1b;--ink2:#3f5750;--ink3:#5b7369;--muted:#8ca09a;
+  --accent:#0f766e;--accent-deep:#0b5a54;--accent-soft:rgba(15,118,110,.1);
+  --pop:#a3e635;--pop-soft:#f4fce3;--pop-ink:#3f5209;--on-pop:#1a2e05;
+}
+*{box-sizing:border-box;border-radius:0}
+body{margin:0;background:#dfe6e4;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--ink)}
+.page{max-width:1500px;margin:0 auto;padding:30px 20px 60px}
+.lab{font-family:"Bricolage Grotesque",sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin:0 0 4px}
+h1.t{font-family:"Bricolage Grotesque",sans-serif;font-size:27px;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+p.n{font-size:13.5px;line-height:1.65;color:var(--ink2);margin:0 0 18px;max-width:900px}
+.board{margin-bottom:46px}
+.app{width:1400px;background:var(--surface);border:1px solid var(--border);box-shadow:0 1px 3px rgba(15,31,27,.08)}
+
+/* top bar */
+.bar{display:flex;align-items:center;gap:14px;padding:11px 16px;border-bottom:1px solid var(--rule);background:var(--surface)}
+.back{display:inline-flex;align-items:center;gap:7px;height:34px;padding:0 13px;border:1px solid var(--control);font-size:12.5px;font-weight:600;color:var(--ink2)}
+/* Every icon in the mock is a 24-grid stroked glyph; constrain them all so none
+   can default to filling its box. */
+.app svg{width:15px;height:15px;flex:0 0 auto;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.lib__card .th svg{width:22px;height:22px;stroke-width:1.5}
+.sec svg{stroke:var(--accent);stroke-width:2}
+.crumb{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.bar h2{margin:0;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.tin{height:34px;min-width:280px;padding:0 11px;border:1px solid var(--control);font:600 13px/32px "Plus Jakarta Sans",sans-serif;color:var(--ink)}
+.tin::placeholder{color:var(--muted);font-weight:400}
+.sp{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 16px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-size:12.5px;font-weight:700}
+.btn--ghost{background:var(--surface);color:var(--ink2);border-color:var(--control);font-weight:600}
+.btn--pop{background:var(--pop);border-color:var(--pop);color:var(--on-pop);font-weight:800}
+.chip{display:inline-flex;align-items:center;height:20px;padding:0 8px;background:var(--accent-soft);color:var(--accent-deep);font-size:10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.chip--pop{background:var(--pop);color:var(--on-pop)}
+.chip--mut{background:#eef2f1;color:var(--ink3)}
+
+/* body split */
+.split{display:flex;min-height:560px}
+.col-set{flex:1;min-width:0;display:flex;border-right:1px solid var(--rule)}
+.navcol{width:196px;flex:0 0 196px;border-right:1px solid var(--rule);background:var(--tint);padding:8px 0}
+.navi{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:13px;font-weight:600;color:var(--ink2);border-left:3px solid transparent;cursor:default}
+.navi.on{background:var(--surface);color:var(--accent-deep);border-left-color:var(--accent);font-weight:700}
+.navi .k{margin-left:auto;font-size:10px;font-weight:700;color:var(--muted)}
+.work{flex:1;min-width:0;padding:18px 20px}
+.col-prev{width:520px;flex:0 0 520px;background:var(--tint);padding:18px 20px}
+
+/* section heads */
+.sec{display:flex;align-items:center;gap:8px;margin:0 0 12px}
+.sec svg{width:14px;height:14px;stroke:var(--accent);fill:none;stroke-width:2}
+.sec h3{margin:0;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2)}
+.sec .r{margin-left:auto;font-size:11.5px;color:var(--muted)}
+
+/* dropzone */
+.drop{border:1px dashed var(--control);background:var(--tint);padding:22px;text-align:center}
+.drop__btns{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.drop__hint{margin:12px 0 0;font-size:12px;color:var(--ink3)}
+.empty{margin-top:14px;border:1px solid var(--border);background:var(--tint);padding:34px;text-align:center;font-size:13px;color:var(--ink3)}
+
+/* docs table */
+.dt{width:100%;border-collapse:collapse;border:1px solid var(--border);margin-top:14px}
+.dt th{padding:9px 12px;background:var(--tint);border-bottom:1px solid var(--rule);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);text-align:left}
+.dt td{padding:10px 12px;border-bottom:1px solid #eff3f2;font-size:12.5px;color:var(--ink2)}
+.dt tr:last-child td{border-bottom:0}
+.ft{display:inline-flex;align-items:center;height:18px;padding:0 6px;background:#eef2f1;color:var(--ink3);font-size:9.5px;font-weight:800;letter-spacing:.06em}
+
+/* preview pane */
+.pv{border:1px solid var(--border);background:var(--surface)}
+.pv__bar{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--rule);background:var(--tint)}
+.pv__bar b{font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2)}
+.pv__dev{margin-left:auto;display:inline-flex;border:1px solid var(--control)}
+.pv__dev span{display:inline-flex;align-items:center;height:24px;padding:0 9px;font-size:11px;font-weight:600;color:var(--ink3);border-right:1px solid var(--control)}
+.pv__dev span:last-child{border-right:0}
+.pv__dev span.on{background:var(--accent);color:#fff;font-weight:700}
+.pv__body{padding:14px}
+.lib__head{padding:20px;background:var(--ink);color:#fff}
+.lib__head h4{margin:0;font-family:"Bricolage Grotesque",sans-serif;font-size:19px;font-weight:700;letter-spacing:-.01em}
+.lib__head p{margin:5px 0 0;font-size:12.5px;color:#b9ccc4}
+.lib__tools{display:flex;gap:8px;margin-top:12px}
+.lib__tools .f{height:32px;border:1px solid var(--control);background:var(--surface);font-size:12px;color:var(--ink3);display:flex;align-items:center;padding:0 10px}
+.lib__tools .f--s{flex:1}
+.lib__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.lib__card{border:1px solid var(--border);padding:12px}
+.lib__card .th{height:52px;background:var(--tint);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.lib__card b{display:block;margin-top:9px;font-size:12px;font-weight:700;color:var(--ink)}
+.lib__card span{display:block;margin-top:3px;font-size:10.5px;color:var(--muted)}
+.libnone{padding:44px;text-align:center;color:var(--muted);font-size:13px;border:1px solid var(--rule);margin-top:12px}
+
+/* tabs across the top (L2) */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--rule);background:var(--tint);padding:0 16px}
+.tab{display:inline-flex;align-items:center;gap:8px;height:42px;padding:0 15px;font-size:13px;font-weight:600;color:var(--ink2);border-bottom:3px solid transparent}
+.tab.on{color:var(--accent-deep);border-bottom-color:var(--accent);background:var(--surface);font-weight:700}
+.tab .k{font-size:10px;font-weight:700;color:var(--muted)}
+
+/* L3 stepper */
+.steps{display:flex;align-items:center;gap:0;padding:0 16px;border-bottom:1px solid var(--rule);background:var(--tint)}
+.step{display:inline-flex;align-items:center;gap:9px;height:46px;padding:0 16px;font-size:13px;font-weight:600;color:var(--ink3)}
+.step .num{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:#dfe7e4;color:var(--ink3);font-size:11px;font-weight:800}
+.step.on{color:var(--ink)}
+.step.on .num{background:var(--accent);color:#fff}
+.step.done .num{background:var(--pop);color:var(--on-pop)}
+.step__sep{width:16px;height:1px;background:var(--control)}
+.hint{margin:0 0 14px;padding:9px 12px;background:var(--pop-soft);border-left:3px solid var(--pop);font-size:12px;line-height:1.55;color:var(--ink2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fieldrow{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--rule)}
+.fieldrow:last-child{border-bottom:0}
+.fieldrow label{font-size:12.5px;font-weight:600}
+.inp{height:32px;width:100%;border:1px solid var(--control);padding:0 10px;font:500 12.5px/30px "Plus Jakarta Sans",sans-serif}
+.sw{display:inline-flex;align-items:center;width:40px;height:21px;border:1px solid var(--control);background:#eef2f1;padding:2px}
+.sw i{width:15px;height:15px;background:var(--muted);display:block}
+.sw.on{background:var(--accent);border-color:var(--accent);justify-content:flex-end}
+.sw.on i{background:#fff}
+</style></head><body>
+<div class="page">
+  <p class="lab">Document Embedder · Add New Library</p>
+  <h1 class="t">Three ways to rebuild this screen</h1>
+  <p class="n">All three are the same palette, square corners, and the same content — what differs is how the five settings groups are reached and how much room the preview gets. Drawn at the real 1400px the editor occupies. Nothing is built yet.</p>
+
+  <div class="board">
+    <p class="lab">Option L1 · Retheme in place</p>
+    <h1 class="t" style="font-size:20px">Keep the shape, change the skin</h1>
+    <p class="n">The structure you have now — vertical settings nav on the left, preview on the right — recoloured and squared. The two panel headers ("Settings", "Live Preview") collapse into the top bar and the preview strip, which is where the vertical space comes back. <b>Smallest change: CSS and a couple of wrappers, no React restructuring.</b></p>
+    
+<div class="app">
+  <div class="bar">
+    <span class="back"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>Back to list</span>
+    <div><span class="crumb">Document Embedder</span><h2>Add New Library</h2></div>
+    <input class="tin" placeholder="Library title">
+    <span class="sp"></span>
+    <span class="chip--mut chip">Draft</span>
+    <span class="btn"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>Save</span>
+  </div>
+  <div class="split">
+    <div class="col-set"><div class="navcol"><div class="navi on"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V7"/><path d="M7 12l5-5 5 5"/><path d="M4 21h16"/></svg>Upload Items<span class="k">3</span></div><div class="navi"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1"/><path d="M3 14h18"/><path d="M3 19h12"/></svg>Header</div><div class="navi"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>Toolbar Box</div><div class="navi"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/></svg>Document Box</div><div class="navi"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg>Library Container</div></div><div class="work">
+<div class="sec"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V7"/><path d="M7 12l5-5 5 5"/><path d="M4 21h16"/></svg><h3>Add documents</h3><span class="r">PDF · DOC · XLS · PPT · images</span></div>
+<div class="drop">
+  <div class="drop__btns">
+    <span class="btn btn--ghost">Upload from device</span>
+    <span class="btn btn--ghost">Insert using URL</span>
+    <span class="btn btn--ghost">Choose from Media Library</span>
+  </div>
+  <p class="drop__hint">or drag and drop files here</p>
+</div>
+<div class="sec" style="margin-top:20px"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><h3>In this library</h3><span class="r">3 documents</span></div>
+<table class="dt">
+  <tr><th style="width:34px"></th><th>Title</th><th style="width:74px">Type</th><th style="width:80px">Size</th><th style="width:70px"></th></tr>
+  <tr><td>⠿</td><td><b>Annual Report 2026</b></td><td><span class="ft">PDF</span></td><td>2.4 MB</td><td>Remove</td></tr>
+  <tr><td>⠿</td><td><b>Price List Q3</b></td><td><span class="ft">XLSX</span></td><td>184 KB</td><td>Remove</td></tr>
+  <tr><td>⠿</td><td><b>Onboarding Pack</b></td><td><span class="ft">DOCX</span></td><td>710 KB</td><td>Remove</td></tr>
+</table></div></div>
+    <div class="col-prev">
+<div class="pv">
+  <div class="pv__bar"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><b>Live preview</b>
+    <span class="pv__dev"><span class="on">Desktop</span><span>Tablet</span><span>Mobile</span></span>
+  </div>
+  <div class="pv__body">
+    <div class="lib__head"><h4>Document Library</h4><p>The default subtitle text for my Document Library.</p></div>
+    <div class="lib__tools">
+      <span class="f f--s">Search documents, authors…</span><span class="f">All types</span><span class="f">Sort by</span>
+    </div>
+    <div class="lib__grid"><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Annual Report 2026</b><span>PDF · 2.4 MB</span></div><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Price List Q3</b><span>XLSX · 184 KB</span></div><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Onboarding Pack</b><span>DOCX · 710 KB</span></div></div>
+  </div>
+</div></div>
+  </div>
+</div>
+  </div>
+
+  <div class="board">
+    <p class="lab">Option L2 · Tabs across the top</p>
+    <h1 class="t" style="font-size:20px">Give the settings their full width</h1>
+    <p class="n">The 196px vertical nav becomes a tab strip under the title bar. The settings column gains that width back, which matters for the Header and Document Box panels where colour, typography and spacing controls sit two-up. <b>One component moves; the panels themselves are untouched.</b></p>
+    
+<div class="app">
+  <div class="bar">
+    <span class="back"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>Back to list</span>
+    <input class="tin" style="min-width:340px" placeholder="Library title">
+    <span class="sp"></span>
+    <span class="chip--mut chip">Draft</span>
+    <span class="btn btn--ghost">Preview</span>
+    <span class="btn"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>Save</span>
+  </div>
+  <div class="tabs"><div class="tab on"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V7"/><path d="M7 12l5-5 5 5"/><path d="M4 21h16"/></svg>Upload Items<span class="k">3</span></div><div class="tab"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1"/><path d="M3 14h18"/><path d="M3 19h12"/></svg>Header</div><div class="tab"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>Toolbar Box</div><div class="tab"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/></svg>Document Box</div><div class="tab"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg>Library Container</div></div>
+  <div class="split">
+    <div class="col-set" style="border-right:1px solid var(--rule)"><div class="work">
+<div class="sec"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V7"/><path d="M7 12l5-5 5 5"/><path d="M4 21h16"/></svg><h3>Add documents</h3><span class="r">PDF · DOC · XLS · PPT · images</span></div>
+<div class="drop">
+  <div class="drop__btns">
+    <span class="btn btn--ghost">Upload from device</span>
+    <span class="btn btn--ghost">Insert using URL</span>
+    <span class="btn btn--ghost">Choose from Media Library</span>
+  </div>
+  <p class="drop__hint">or drag and drop files here</p>
+</div>
+<div class="sec" style="margin-top:20px"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><h3>In this library</h3><span class="r">3 documents</span></div>
+<table class="dt">
+  <tr><th style="width:34px"></th><th>Title</th><th style="width:74px">Type</th><th style="width:80px">Size</th><th style="width:70px"></th></tr>
+  <tr><td>⠿</td><td><b>Annual Report 2026</b></td><td><span class="ft">PDF</span></td><td>2.4 MB</td><td>Remove</td></tr>
+  <tr><td>⠿</td><td><b>Price List Q3</b></td><td><span class="ft">XLSX</span></td><td>184 KB</td><td>Remove</td></tr>
+  <tr><td>⠿</td><td><b>Onboarding Pack</b></td><td><span class="ft">DOCX</span></td><td>710 KB</td><td>Remove</td></tr>
+</table></div></div>
+    <div class="col-prev">
+<div class="pv">
+  <div class="pv__bar"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><b>Live preview</b>
+    <span class="pv__dev"><span class="on">Desktop</span><span>Tablet</span><span>Mobile</span></span>
+  </div>
+  <div class="pv__body">
+    <div class="lib__head"><h4>Document Library</h4><p>The default subtitle text for my Document Library.</p></div>
+    <div class="lib__tools">
+      <span class="f f--s">Search documents, authors…</span><span class="f">All types</span><span class="f">Sort by</span>
+    </div>
+    <div class="lib__grid"><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Annual Report 2026</b><span>PDF · 2.4 MB</span></div><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Price List Q3</b><span>XLSX · 184 KB</span></div><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Onboarding Pack</b><span>DOCX · 710 KB</span></div></div>
+  </div>
+</div></div>
+  </div>
+</div>
+  </div>
+
+  <div class="board">
+    <p class="lab">Option L3 · Guided steps</p>
+    <h1 class="t" style="font-size:20px">Walk a first-time builder through it</h1>
+    <p class="n">Same five groups, presented as an ordered path with a Next button, and a wider preview. Aimed at the fact that a new library is empty and inert until documents are added — the order stops someone styling a container that has nothing in it. Experienced users can still click any step directly. <b>Biggest change: adds step state and navigation.</b></p>
+    
+<div class="app">
+  <div class="bar">
+    <span class="back"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>Back to list</span>
+    <input class="tin" style="min-width:340px" placeholder="Library title">
+    <span class="sp"></span>
+    <span class="chip--mut chip">Draft</span>
+    <span class="btn"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>Save</span>
+  </div>
+  <div class="steps">
+    <span class="step done"><span class="num">1</span>Documents</span><span class="step__sep"></span>
+    <span class="step on"><span class="num">2</span>Header</span><span class="step__sep"></span>
+    <span class="step"><span class="num">3</span>Toolbar</span><span class="step__sep"></span>
+    <span class="step"><span class="num">4</span>Document box</span><span class="step__sep"></span>
+    <span class="step"><span class="num">5</span>Container</span>
+  </div>
+  <div class="split">
+    <div class="col-set" style="border-right:1px solid var(--rule)">
+      <div class="work">
+        <p class="hint"><b>Step 2 of 5.</b> Everything you change here is drawn in the preview as you type. You can save and come back at any point.</p>
+        
+<div class="sec"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1"/><path d="M3 14h18"/><path d="M3 19h12"/></svg><h3>Header</h3></div>
+<div class="fieldrow"><label>Show header</label><div><span class="sw on"><i></i></span></div></div>
+<div class="fieldrow"><label>Title</label><input class="inp" value="Document Library"></div>
+<div class="fieldrow"><label>Subtitle</label><input class="inp" value="The default subtitle text for my Document Library."></div>
+<div class="fieldrow"><label>Background</label><div class="two"><input class="inp" value="#0F1F1B"><input class="inp" value="#FFFFFF"></div></div>
+<div class="fieldrow"><label>Alignment</label><div><span class="chip--mut chip">Left</span> <span class="chip">Center</span> <span class="chip--mut chip">Right</span></div></div>
+        <div style="display:flex;gap:10px;margin-top:20px">
+          <span class="btn btn--ghost"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>Documents</span>
+          <span class="sp"></span>
+          <span class="btn btn--pop">Next: Toolbar</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-prev" style="width:600px;flex:0 0 600px">
+<div class="pv">
+  <div class="pv__bar"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg><b>Live preview</b>
+    <span class="pv__dev"><span class="on">Desktop</span><span>Tablet</span><span>Mobile</span></span>
+  </div>
+  <div class="pv__body">
+    <div class="lib__head"><h4>Document Library</h4><p>The default subtitle text for my Document Library.</p></div>
+    <div class="lib__tools">
+      <span class="f f--s">Search documents, authors…</span><span class="f">All types</span><span class="f">Sort by</span>
+    </div>
+    <div class="lib__grid"><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Annual Report 2026</b><span>PDF · 2.4 MB</span></div><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Price List Q3</b><span>XLSX · 184 KB</span></div><div class="lib__card"><div class="th"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><b>Onboarding Pack</b><span>DOCX · 710 KB</span></div></div>
+  </div>
+</div></div>
+  </div>
+</div>
+  </div>
+</div></body></html>

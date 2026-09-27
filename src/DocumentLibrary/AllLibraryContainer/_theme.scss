@@ -1,0 +1,962 @@
+/**
+ * Document Library editor — "Deep Teal & Lime".
+ *
+ * The same tokens as the rest of the plugin's admin. Scoped to the editor root
+ * so nothing here can reach the WordPress chrome around it.
+ */
+
+#bpldeDocumentLibraryWrapper {
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-ground: #edf1f0;
+  --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
+  --de-rule: #e3ebe9;
+
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+  --de-muted: #8ca09a;
+
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+
+  --de-pop: #a3e635;
+  --de-pop-soft: #f4fce3;
+  --de-pop-ink: #3f5209;
+  --de-on-pop: #1a2e05;
+
+  background: var(--de-ground);
+  color: var(--de-ink);
+
+  /* Native controls -- checkboxes, radios, range thumbs -- take the browser's
+     own blue unless told otherwise. One line covers all of them. */
+  accent-color: var(--de-accent);
+}
+
+/*
+ * Square corners, as everywhere else. The id is doubled deliberately: the
+ * component styles reach these elements through six classes under the same id,
+ * e.g. `#bpldeDocumentLibraryWrapper .editor-main .right-panel .live-preview
+ * .preview-header .icon-box`, which outranks a single id plus two :not()s. A
+ * second id outranks any number of classes without resorting to !important.
+ *
+ * The preview pane is exempt: what it renders is the visitor-facing library,
+ * whose corner radius the user controls.
+ */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper,
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper
+  *:not(.preview-content):not(.preview-content *) {
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Group nav
+
+   A left rail inside the editor body, the same shape as the Document
+   Configuration metabox on the document editor: stacked items, the active one
+   picked out with a teal edge on a white ground.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper .bpldl-tabs {
+  width: 190px;
+  flex: 0 0 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  background: var(--de-tint);
+  border-right: 1px solid var(--de-rule);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-left: 3px solid transparent;
+  background: transparent;
+  color: var(--de-ink-2);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab:hover {
+  background: var(--de-surface);
+  color: var(--de-ink);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab.is-active {
+  background: var(--de-surface);
+  border-left-color: var(--de-accent);
+  color: var(--de-accent-deep);
+  font-weight: 700;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab:focus-visible {
+  outline: 2px solid var(--de-accent);
+  outline-offset: -3px;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab__icon svg {
+  width: 17px;
+  height: 17px;
+  stroke-width: 1.8;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: auto;
+  padding: 0 5px;
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+/* ---------------------------------------------------------------------------
+   Top bar
+
+   Eyebrow over heading, as the document editor's top bar does it.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper .editor-header__id {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+  line-height: 1.2;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header .left-section h1 {
+  margin: 2px 0 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  color: var(--de-ink);
+  white-space: nowrap;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 26px;
+  padding: 0 10px;
+  background: #eef2f1;
+  color: var(--de-ink-3);
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__dot {
+  width: 7px;
+  height: 7px;
+  background: var(--de-muted);
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__status--saved {
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__status--saved .editor-header__dot {
+  background: var(--de-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   Header colour presets
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper .bpldl-presets {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 0 14px;
+  border-bottom: 1px solid var(--de-rule);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-presets__label {
+  margin-right: 2px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-preset {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 10px 0 4px;
+  border: 1px solid var(--de-control);
+  background: var(--de-surface);
+  color: var(--de-ink-2);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-preset:hover {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-preset.is-active {
+  border-color: var(--de-accent);
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-preset__swatch {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(15, 31, 27, .12);
+}
+
+/* ---------------------------------------------------------------------------
+   Field rows
+
+   Every field in here renders the same shape: a `.section-title` label followed
+   by a control wrapper. That is enough to lay them out as the metabox does —
+   a fixed label column on the left, the control on the right, one rule between
+   rows — without touching a single field component.
+
+   The match is made with :has() rather than a list of two dozen wrapper class
+   names, so a new field type picks the layout up for free. Where :has() is
+   unsupported the rule is simply skipped and the fields stack as before, which
+   is a working layout rather than a broken one.
+   ------------------------------------------------------------------------- */
+
+/*
+ * The metabox uses 136px, but its section is 719px wide and its labels are
+ * short. This column is ~1000px and carries labels like "Description
+ * Typography", which wrap at 136px. Same proportion, more room.
+ */
+$bpldl-label-col: 140px;
+
+/*
+ * Flex, not grid: some rows carry an inline `display: flex` from the component,
+ * and an inline style beats a stylesheet rule. Matching what they already are
+ * gets every row onto the same geometry without an !important anywhere.
+ *
+ * The two-column form is a container query, not a media query. What decides
+ * whether a label fits beside its control is the width of THIS column, which
+ * depends on the panel split and the nav rail -- not the window. At a 50/50
+ * split the field area is 465px, and spending 180px of it on a label left the
+ * typography grid 217px for three columns. Below the threshold the label sits
+ * above its control and the control gets the full width.
+ */
+#bpldeDocumentLibraryWrapper .content-area {
+  container-type: inline-size;
+}
+
+#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) {
+  width: 100%;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 20px 0;
+  margin: 0;
+  border-bottom: 1px solid var(--de-rule);
+}
+
+/* Doubled id: this block sits ahead of the base label rule in the file, and an
+   equal-specificity rule would lose on source order. */
+@container (min-width: 430px) {
+  #bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  #bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) > .section-title {
+    flex: 0 0 $bpldl-label-col;
+    width: $bpldl-label-col;
+    padding-top: 7px;
+  }
+}
+
+/* The control column: fills the rest, and packs to the left the way a metabox
+   fieldset does rather than spreading to the far edge. */
+#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) > *:not(.section-title) {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: flex-start;
+}
+
+#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title):last-child {
+  border-bottom: 0;
+}
+
+/* The label column. Sentence case at field size, not an uppercase section
+   heading — it is labelling one control, not introducing a group. */
+#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) > .section-title {
+  flex: 0 0 auto;
+  width: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding-top: 7px;
+  border: 0;
+}
+
+#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) > .section-title h3 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--de-ink);
+}
+
+/*
+ * No icon in the label column. Twelve different glyphs down the left edge read
+ * as decoration rather than meaning -- the label already says what the field
+ * is -- and dropping them puts the text hard against the column edge, which is
+ * what makes the rows scan as a single list.
+ */
+#bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) > .section-title span {
+  display: none;
+}
+
+/* The help line belongs under its control, in the right-hand column. */
+#bpldeDocumentLibraryWrapper .help-text {
+  margin: 6px 0 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--de-ink-3);
+}
+
+/* The group's on/off card keeps its own shape: it introduces the panel rather
+   than labelling one setting. */
+#bpldeDocumentLibraryWrapper .option-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 4px;
+  padding: 14px 16px;
+  background: var(--de-tint);
+  border: 1px solid var(--de-border);
+}
+
+#bpldeDocumentLibraryWrapper .option-card h3 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+#bpldeDocumentLibraryWrapper .option-card p {
+  margin: 3px 0 0;
+  font-size: 11.5px;
+  color: var(--de-ink-3);
+}
+
+/* Sub-tabs (General / Styles) sit between the card and the rows. */
+#bpldeDocumentLibraryWrapper .segment-tabs {
+  margin: 14px 0 2px;
+}
+
+@media screen and (max-width: 1400px) {
+
+  #bpldeDocumentLibraryWrapper .vfd-main-settings *:has(> .section-title) > .section-title {
+    padding-top: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Title card and shortcode strip
+
+   The pair that sits under the top bar on the document editor: the title gets
+   a panel of its own at a size that says "this is the first thing you fill in",
+   and the shortcode sits right beneath it where it is copied from.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper .bpldl-titlecard {
+  padding: 18px 20px;
+  background: var(--de-surface);
+  border-bottom: 1px solid var(--de-rule);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-titleinput {
+  width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  border: 0;
+  border-bottom: 2px solid var(--de-control);
+  background: transparent;
+  box-shadow: none;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -.015em;
+  color: var(--de-ink);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-titleinput::placeholder {
+  color: var(--de-muted);
+  font-weight: 500;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-titleinput:focus {
+  outline: 0;
+  border-bottom-color: var(--de-accent);
+  box-shadow: none;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--de-tint);
+  border-bottom: 1px solid var(--de-rule);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode__note {
+  flex: 1;
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--de-ink-2);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode__code {
+  padding: 7px 12px;
+  background: var(--de-accent);
+  color: #fff;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--de-control);
+  background: var(--de-surface);
+  color: var(--de-ink-2);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode__copy:hover {
+  border-color: var(--de-accent);
+  color: var(--de-accent-deep);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode__copy svg {
+  width: 14px;
+  height: 14px;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode__pending {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--de-muted);
+}
+
+/* ---------------------------------------------------------------------------
+   Preview device widths
+   ------------------------------------------------------------------------- */
+
+/* An inline segmented control in the header row, not a bar of its own: it is a
+   view switch for the panel beside it, so it belongs on the same line as the
+   panel's name. */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .bpldl-devices {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-left: auto;
+  border: 1px solid var(--de-control);
+  background: var(--de-surface);
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .bpldl-device {
+  flex: 0 0 auto;
+  height: 28px;
+  padding: 0 13px;
+  border: 0;
+  border-right: 1px solid var(--de-control);
+  background: transparent;
+  color: var(--de-ink-2);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .bpldl-device:last-child {
+  border-right: 0;
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .bpldl-device:hover {
+  background: var(--de-tint);
+  color: var(--de-ink);
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .bpldl-device.is-active {
+  background: var(--de-accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-preview-note {
+  margin: 0 0 12px;
+  padding: 9px 12px;
+  background: var(--de-pop-soft);
+  border-left: 3px solid var(--de-pop);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--de-ink-2);
+}
+
+
+/* ---------------------------------------------------------------------------
+   Page gutter and panels
+
+   The screen is rendered full-bleed (the CPT zeroes #wpcontent's padding), so
+   the editor ran edge to edge against the admin menu and the window. It now
+   sits on a gutter, stacked as separate panels with a gap between them -- the
+   configuration box and the live preview are two different things, the same
+   way the document editor keeps its metabox and its preview apart.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 20px 24px;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header,
+#bpldeDocumentLibraryWrapper .bpldl-titleblock,
+#bpldeDocumentLibraryWrapper .bpldl-panel {
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+}
+
+/* Title and shortcode stay attached: one is the answer to the other. */
+#bpldeDocumentLibraryWrapper .bpldl-titlecard,
+#bpldeDocumentLibraryWrapper .bpldl-shortcode {
+  border-left: 0;
+  border-right: 0;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-shortcode {
+  border-bottom: 0;
+}
+
+#bpldeDocumentLibraryWrapper .editor-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+/* An even split. flex-basis 0 rather than auto, so the two share the row by
+   the ratio alone and neither is nudged wider by its own content. */
+#bpldeDocumentLibraryWrapper .bpldl-panel--settings,
+#bpldeDocumentLibraryWrapper .bpldl-panel--preview {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-panel--preview {
+  position: sticky;
+  top: 46px;
+}
+
+/* Each panel gets a title bar, the same as the metabox's. */
+#bpldeDocumentLibraryWrapper .bpldl-panel__head {
+  padding: 12px 16px;
+  background: var(--de-tint);
+  border-bottom: 1px solid var(--de-rule);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-panel__head h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  color: var(--de-ink);
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-panel__body {
+  display: flex;
+  align-items: stretch;
+}
+
+#bpldeDocumentLibraryWrapper .bpldl-panel--preview .preview-header {
+  background: var(--de-tint);
+  border-bottom: 1px solid var(--de-rule);
+}
+
+@media screen and (max-width: 1200px) {
+  #bpldeDocumentLibraryWrapper .editor-main {
+    flex-direction: column;
+  }
+
+  #bpldeDocumentLibraryWrapper .bpldl-panel--preview {
+    flex: 1 1 auto;
+    width: 100%;
+    position: static;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  #bpldeDocumentLibraryWrapper {
+    padding: 12px 10px 16px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Inner columns
+
+   .left-panel and .right-panel carry width: 58% / 42% from when both were
+   children of one flex row. Each now sits alone inside its own panel, so those
+   percentages resolve against the panel rather than the page and shrink the
+   content -- 42% of a 512px preview panel is 215px. They fill their panel
+   instead.
+
+   The fixed `height: calc(100vh - 100px)` and `overflow: hidden` went with the
+   same assumption: two columns scrolling independently inside a fixed shell.
+   The panels now grow with their content and the page scrolls, with the
+   preview stuck to the top of the viewport.
+
+   Three classes under the id, because the rules being replaced are
+   `#bpldeDocumentLibraryWrapper .editor-main .left-panel` and this stylesheet
+   is imported ahead of them -- an equal-specificity rule would lose on order.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper .editor-main .bpldl-panel .left-panel,
+#bpldeDocumentLibraryWrapper .editor-main .bpldl-panel .right-panel {
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: auto;
+  background: transparent;
+  border-right: 0;
+  overflow: visible;
+}
+
+/* The preview is sticky, so it needs a ceiling of its own or a long library
+   would push its bottom off screen with no way back. */
+#bpldeDocumentLibraryWrapper .bpldl-panel--preview .preview-content {
+  max-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+/* ---------------------------------------------------------------------------
+   Live preview head
+
+   Heading, a status chip and a refresh button -- the same three the document
+   editor's preview carries. No icon beside the heading: the panel title bar
+   already says what the panel is.
+
+   The id is doubled because the component reaches these through five classes
+   under the same id, and this stylesheet is imported ahead of them.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .preview-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: var(--de-tint);
+  border-bottom: 1px solid var(--de-rule);
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .preview-header .icon-box {
+  display: none;
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .preview-header h2 {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  color: var(--de-ink);
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .preview-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 26px;
+  padding: 0 10px;
+  background: var(--de-pop-soft);
+  color: var(--de-pop-ink);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Two classes so this clears the square-corner reset above, which is itself
+   doubled-id plus two :not()s. The status dot is the one round thing here. */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .preview-badge .preview-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--de-pop-ink);
+}
+
+
+/* ---------------------------------------------------------------------------
+   Group headings inside a panel
+
+   "Download Button", "View Button" and friends carry margin: 0 0 20px, so they
+   sat flush against the bottom rule of the row above with no breathing room.
+   The space belongs above the heading: it separates the previous group from
+   this one, while the row below brings its own top padding.
+   ------------------------------------------------------------------------- */
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .vfd-settings-content-header {
+  margin: 28px 0 0;
+  padding: 0 0 6px;
+}
+
+/* First in a panel: nothing above it to separate from. */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .vfd-settings-content-header:first-child {
+  margin-top: 6px;
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .vfd-settings-content-header h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  color: var(--de-ink);
+}
+
+/* ===========================================================================
+   Field controls
+
+   Audited before writing this: text inputs were 40px/14px, number inputs
+   40px/16px with a 2px border, selects 50px/14px and segment tabs 16px -- three
+   heights, three type sizes and a Tailwind grey (#d1d5db) that appears nowhere
+   else in the plugin. Everything below lands on one control: 34px tall, 13px
+   text, a 1px --de-control border, teal focus ring, square.
+
+   Doubled id throughout: the component styles reach these through four or five
+   classes under the same id, and this stylesheet is imported ahead of them.
+   =========================================================================== */
+
+$bpldl-control-h: 34px;
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper {
+  .vfd-main-settings {
+    input[type="text"],
+    input[type="number"],
+    input[type="search"],
+    input[type="email"],
+    input[type="url"],
+    select,
+    textarea {
+      height: $bpldl-control-h;
+      min-height: $bpldl-control-h;
+      padding: 0 11px;
+      border: 1px solid var(--de-control);
+      background: var(--de-surface);
+      box-shadow: none;
+      color: var(--de-ink);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    textarea {
+      height: auto;
+      min-height: 72px;
+      padding: 9px 11px;
+      line-height: 1.6;
+      resize: vertical;
+    }
+
+    select {
+      padding-right: 28px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--de-accent);
+      box-shadow: 0 0 0 3px var(--de-accent-soft);
+      outline: 0;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--de-muted);
+      font-weight: 400;
+    }
+
+    /* Segmented groups: the General/Styles pair and the alignment buttons are
+       the same control, so they get the same treatment -- one bordered group,
+       the active segment filled. */
+    /* Both ship sized to fill: .tab-btn is width:100% and .position-options is
+       a 3-column grid at width:60%, which made the segments stack once the
+       group became a flex row. They size to their labels instead. */
+    .segment-tabs,
+    .position-options {
+      display: inline-flex;
+      flex-wrap: nowrap;
+      width: auto;
+      margin-bottom: 0;
+      padding: 0;
+      border: 1px solid var(--de-control);
+      background: var(--de-surface);
+      gap: 0;
+    }
+
+    .tab-btn,
+    .position-option {
+      flex: 0 0 auto;
+      width: auto;
+      height: $bpldl-control-h;
+      padding: 0 15px;
+      border: 0;
+      border-right: 1px solid var(--de-control);
+      background: transparent;
+      color: var(--de-ink-2);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .tab-btn:last-child,
+    .position-option:last-child {
+      border-right: 0;
+    }
+
+    .tab-btn:hover,
+    .position-option:hover {
+      background: var(--de-tint);
+      color: var(--de-ink);
+    }
+
+    .tab-btn.active,
+    .position-option.active {
+      background: var(--de-accent);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Range: a flat track with a teal thumb, at the height of a rule rather
+       than a bar. */
+    input[type="range"] {
+      height: 4px;
+      padding: 0;
+      border: 0;
+      background: var(--de-rule);
+      accent-color: var(--de-accent);
+    }
+  }
+}
+
+
+/* ---------------------------------------------------------------------------
+   Composite controls
+
+   The typography grid is a hard three columns, which at this panel width gave
+   each select ~130px. Letting it fit as many columns as will hold a usable
+   control means it drops to two when the column is narrow instead of squeezing
+   three.
+   ------------------------------------------------------------------------- */
+
+/* 125px, not 150: the control column is 292px, and 150 + 12 gap + 150 needs
+   312, so two columns never fit and every field stacked one per row. */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .typography-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+  gap: 12px 10px;
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .field-label,
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .font-size-input-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--de-ink-3);
+}
+
+/* The colour field: swatch, then the hex, which takes the rest. */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .color-input-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .color-picker-preview {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--de-control);
+}
+
+/* A floor, not zero: min-width:0 let the hex field shrink away entirely when
+   the control column tightened. */
+#bpldeDocumentLibraryWrapper#bpldeDocumentLibraryWrapper .color-text-input {
+  flex: 1 1 auto;
+  min-width: 120px;
+  max-width: 220px;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+}

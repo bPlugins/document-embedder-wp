@@ -117,7 +117,7 @@
         border-left: 1px solid #e5e7eb;
 
         &:hover {
-          color: #2563eb; // hover:text-blue-600
+          color: #0f766e; // hover:text-blue-600
           background: #f9fafb;
         }
 
@@ -133,7 +133,7 @@
       align-items: center;
       gap: 8px;
       padding: 8px 20px;
-      background: #2563eb; // blue-600
+      background: #0f766e; // blue-600
       color: #ffffff;
       border: none;
       border-radius: 8px; // rounded-lg
@@ -144,7 +144,7 @@
       font-size: 18px;
 
       &:hover {
-        background: #1d4ed8;
+        background: #0b5a54;
       }
 
       &:active {
