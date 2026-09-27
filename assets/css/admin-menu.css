@@ -1,0 +1,56 @@
+
+#adminmenu .fs-submenu-item.document-emberdder.pricing.upgrade-mode {
+  --de-pop: #a3e635;
+  --de-pop-hover: #b6ee5c;
+  --de-on-pop: #1a2e05;
+  --de-radius-sm: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--de-radius-sm);
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* The <a> around it keeps WordPress's hover tint and current-item bar, which
+   would frame the button in a second colour. It becomes a plain container that
+   only spaces the button off the items above. :has() is only needed for that
+   frame; without it the button still renders. */
+#adminmenu .wp-submenu a:has(> .fs-submenu-item.document-emberdder.pricing.upgrade-mode) {
+  margin-top: 6px;
+  padding-top: 4px;
+  padding-bottom: 8px;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: 0;
+}
+
+#adminmenu .wp-submenu a:hover > .fs-submenu-item.document-emberdder.pricing.upgrade-mode,
+#adminmenu .wp-submenu a:focus > .fs-submenu-item.document-emberdder.pricing.upgrade-mode {
+  background: var(--de-pop-hover);
+  color: var(--de-on-pop);
+}
+
+#adminmenu .wp-submenu a:focus-visible > .fs-submenu-item.document-emberdder.pricing.upgrade-mode {
+  outline: 2px solid var(--de-pop);
+  outline-offset: 2px;
+}
+
+/* On the pricing page itself WordPress marks the item current. */
+#adminmenu .wp-submenu li.current > a > .fs-submenu-item.document-emberdder.pricing.upgrade-mode {
+  box-shadow: inset 0 0 0 2px var(--de-on-pop);
+}
+
+/* The collapsed-menu flyout is narrower; keep the button off its edges. */
+#adminmenu .opensub .wp-submenu a:has(> .fs-submenu-item.document-emberdder.pricing.upgrade-mode),
+.folded #adminmenu .wp-submenu a:has(> .fs-submenu-item.document-emberdder.pricing.upgrade-mode) {
+  padding-left: 12px;
+  padding-right: 12px;
+}

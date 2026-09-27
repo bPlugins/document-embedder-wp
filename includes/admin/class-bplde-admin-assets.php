@@ -32,6 +32,14 @@ if (!class_exists('BPLDE_Admin_Assets')) {
         }
 
         public function enqueue_admin_assets($hook) {
+            // 0. Freemius "Upgrade" submenu button. The admin menu is on every screen, so this is too.
+            wp_enqueue_style(
+                'bplde-admin-menu',
+                BPLDE_PLUGIN_DIR . 'assets/css/admin-menu.css',
+                array(),
+                $this->asset_version('assets/css/admin-menu.css')
+            );
+
             $screen = get_current_screen();
             if (!$screen) {
                 return;
