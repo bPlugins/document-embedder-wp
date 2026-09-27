@@ -68,6 +68,12 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.4.0 - 27 September 2026",
+        list: [
+          "**Improvement:** Redesigned the admin experience to be much cleaner and easier to understand."
+        ]
+      },
+      {
         version: "2.3.2 - 24 August 2026",
         list: [
           "**Fix:** Download Limit is now enforced. The per-visitor limit set on a document previously had no effect, so documents could be downloaded without restriction no matter which limit was chosen.",

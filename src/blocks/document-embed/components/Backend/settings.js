@@ -1,6 +1,5 @@
 import { InspectorControls } from "@wordpress/block-editor";
 import { Panel } from "@wordpress/components";
-import { __ } from "@wordpress/i18n";
 import DocumentSource from "./DocumentSource";
 import ViewerFeatures from "./ViewerFeatures";
 import Toolbar from "./Toolbar";

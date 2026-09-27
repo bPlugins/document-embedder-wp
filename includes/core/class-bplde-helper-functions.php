@@ -110,15 +110,6 @@ if (!class_exists('Functions')) {
             );
         }
 
-        public static function bplde_new_title ($title) {
-            return '
-                <div class="bplde-new-title">
-                    <h4>' . $title . '</h4>
-                    <span class="bplde-new-badge">NEW</span>
-                </div>
-            ';
-        }
-
         public static function get_client_ip()
         {
             $ipaddress = '';

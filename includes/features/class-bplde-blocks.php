@@ -64,8 +64,6 @@ if (!class_exists('BPLDE_Block')) {
         }
 
         public function bplde_block_assets() {
-            $option = get_option('_ppt_', []);
-            
             global $wp_roles;
             $roles = array();
             if (!empty($wp_roles->roles)) {
@@ -85,16 +83,6 @@ if (!class_exists('BPLDE_Block')) {
                 'pluginUrl'   => BPLDE_PLUGIN_DIR,
                 'settingsUrl' => admin_url('edit.php?post_type=ppt_viewer&page=settings'),
                 'isPremium'   => false,
-                'credentials' => [
-                    'google' => [
-                        'api_key'        => $option['google_apikey'] ?? '',
-                        'client_id'      => $option['google_client_id'] ?? '',
-                        'project_number' => $option['google_project_number'] ?? '',
-                    ],
-                    'dropbox' => [
-                        'app_key'        => $option['dropbox_app_key'] ?? '',
-                    ]
-                ]
             ];
 
             wp_localize_script('ppv-blocks', 'ppvBlocks', $ppv_blocks_data);

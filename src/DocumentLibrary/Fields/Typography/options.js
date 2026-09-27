@@ -42,17 +42,3 @@ export const fontVariantsOption = [
 	{ label: 'Black 900', value: '900' },
 	{ label: 'Black 900', value: '900i' },
 ]
-export const typoTextAlignOpts = [
-	{ label: "Inherit", value: "inherit" },
-	{ label: "Left", value: "left" },
-	{ label: "Center", value: "center" },
-	{ label: "Right", value: "right" },
-	{ label: "Justify", value: "justify" },
-	{ label: "Initial", value: "initial" }
-]
-
-export const typoFontVariant = [
-	{ label: "Normal", value: "normal" },
-	{ label: "Small Caps", value: "small-caps" },
-	{ label: "All Small Caps", value: "all-small-caps" },
-]

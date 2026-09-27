@@ -61,51 +61,6 @@ export const blockIcon = (
   </svg>
 );
 
-export const verticalLineIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={24}
-    height={24}
-    viewBox="0 0 14.707 14.707"
-  >
-    <rect x="6.275" y="0" width="2.158" height="14.707" />
-  </svg>
-);
-
-export const horizontalLineIcon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={24}
-    height={24}
-    viewBox="0 0 357 357"
-  >
-    <path d="M357,204H0v-51h357V204z" />
-  </svg>
-);
-
-export const LifeCirle = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="lucide lucide-life-buoy"
-  >
-    <circle cx="12" cy="12" r="10" />
-    <path d="m4.93 4.93 4.24 4.24" />
-    <path d="m14.83 9.17 4.24-4.24" />
-    <path d="m14.83 14.83 4.24 4.24" />
-    <path d="m9.17 14.83-4.24 4.24" />
-    <circle cx="12" cy="12" r="4" />
-  </svg>
-);
-
 export const FileText = (props) => (
   <svg
     {...props}
@@ -125,62 +80,5 @@ export const FileText = (props) => (
     <path d="M10 9H8" />
     <path d="M16 13H8" />
     <path d="M16 17H8" />
-  </svg>
-);
-
-export const ThumbUp = (props) => (
-  <svg
-    {...props}
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="lucide lucide-thumbs-up"
-  >
-    <path d="M7 10v12" />
-    <path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z" />
-  </svg>
-);
-
-export const Sparkles = (props) => (
-  <svg
-    {...props}
-    stroke="currentColor"
-    fill="currentColor"
-    strokeWidth="0"
-    viewBox="0 0 512 512"
-    height="1em"
-    width="1em"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="m208 512-52.38-139.62L16 320l139.62-52.38L208 128l52.38 139.62L400 320l-139.62 52.38zM88 176l-23.57-64.43L0 88l64.43-23.57L88 0l23.57 64.43L176 88l-64.43 23.57zm312 80-31.11-80.89L288 144l80.89-31.11L400 32l31.11 80.89L512 144l-80.89 31.11z"></path>
-  </svg>
-);
-
-export const Info = (props) => (
-  <svg
-    stroke="currentColor"
-    {...props}
-    fill="currentColor"
-    strokeWidth="0"
-    viewBox="0 0 24 24"
-    height="200px"
-    width="200px"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <g id="Square_Info">
-      <g>
-        <path d="M18.438,20.937H5.564a2.5,2.5,0,0,1-2.5-2.5V5.563a2.5,2.5,0,0,1,2.5-2.5H18.438a2.5,2.5,0,0,1,2.5,2.5V18.437A2.5,2.5,0,0,1,18.438,20.937ZM5.564,4.063a1.5,1.5,0,0,0-1.5,1.5V18.437a1.5,1.5,0,0,0,1.5,1.5H18.438a1.5,1.5,0,0,0,1.5-1.5V5.563a1.5,1.5,0,0,0-1.5-1.5Z"></path>
-        <g>
-          <path d="M12.5,9a.5.5,0,0,0-1,0h0v4.018a.5.5,0,0,0,1,0Z"></path>
-          <circle cx="12" cy="14.999" r="0.5"></circle>
-        </g>
-      </g>
-    </g>
   </svg>
 );

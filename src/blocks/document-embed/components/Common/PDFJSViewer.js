@@ -5,8 +5,7 @@ import "../../style.scss";
 const exampleFile = "http://localhost/freemius/wp-content/uploads/2022/02/temp.pdf";
 
 function PDFJSViewer({ __ = wpTranslate, attributes = {}, source = window.pdfp?.placeholder || exampleFile, className = "", isBackend = false, onGViewError, onLoad }) {
-  const { hrScroll = false, title = "", socialShare = {} } = attributes;
-  const { position = "" } = socialShare;
+  const { hrScroll = false, title = "" } = attributes;
   const [isLoaded, setIsLoaded] = useState(false);
   const [pdfError, setPdfError] = useState(null);
 

@@ -16,7 +16,7 @@ const UploadDocuments = ({
   const currentUser = window.bpldeSettings?.currentUser;
 
   const [url, setUrl] = useState("");
-  const [author, setAuthor] = useState(currentUser);
+  const author = currentUser;
   const [description, setDescription] = useState("");
   const [activeUploadOption, setActiveUploadOption] = useState("");
   const [pendingDoc, setPendingDoc] = useState(null);
