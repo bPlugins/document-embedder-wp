@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T11:38:36+00:00\n"
+"POT-Creation-Date: 2026-10-01T04:13:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:47
 #: includes/admin/class-bplde-document-library.php:48
-#: includes/admin/class-bplde-list-screen.php:341
+#: includes/admin/class-bplde-list-screen.php:343
 msgid "Document Library"
 msgstr ""
 
@@ -65,23 +65,23 @@ msgid "Date"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:160
-#: includes/admin/class-bplde-list-screen.php:449
+#: includes/admin/class-bplde-list-screen.php:451
 msgid "Published"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:161
 #: includes/admin/class-bplde-edit-layout.php:162
-#: includes/admin/class-bplde-list-screen.php:451
+#: includes/admin/class-bplde-list-screen.php:453
 msgid "Draft"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:163
-#: includes/admin/class-bplde-list-screen.php:452
+#: includes/admin/class-bplde-list-screen.php:454
 msgid "Pending"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:164
-#: includes/admin/class-bplde-list-screen.php:453
+#: includes/admin/class-bplde-list-screen.php:455
 msgid "Private"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:175
 #: includes/admin/class-bplde-leads-page.php:284
-#: includes/admin/class-bplde-list-screen.php:291
+#: includes/admin/class-bplde-list-screen.php:293
 #: includes/core/class-bplde-ppt-viewer.php:47
 msgid "Document Embedder"
 msgstr ""
@@ -247,7 +247,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: includes/admin/class-bplde-list-screen.php:61
-#: includes/admin/class-bplde-list-screen.php:342
+#: includes/admin/class-bplde-list-screen.php:344
 #: includes/core/class-bplde-ppt-viewer.php:54
 msgid "All Documents"
 msgstr ""
@@ -309,78 +309,78 @@ msgid "Build your first library"
 msgstr ""
 
 #: includes/admin/class-bplde-list-screen.php:98
-msgid "A library puts several documents on one page as a searchable, filterable grid or table — one shortcode instead of many."
-msgstr ""
-
-#: includes/admin/class-bplde-list-screen.php:99
-msgid "Layouts"
+msgid "A library puts several documents on one page as a searchable, filterable grid — one shortcode instead of many."
 msgstr ""
 
 #: includes/admin/class-bplde-list-screen.php:101
+msgid "Includes"
+msgstr ""
+
+#: includes/admin/class-bplde-list-screen.php:103
 msgid "Libraries draw from the documents you have already added."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:104
+#: includes/admin/class-bplde-list-screen.php:106
 msgid "Add some documents first"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:105
+#: includes/admin/class-bplde-list-screen.php:107
 msgid "A library lists documents from your existing library."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:108
-msgid "Choose a layout"
+#: includes/admin/class-bplde-list-screen.php:110
+msgid "Set up the grid"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:109
-msgid "Pick grid, list or table, and what each row shows."
+#: includes/admin/class-bplde-list-screen.php:111
+msgid "Choose the documents and how many show per row."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:112
+#: includes/admin/class-bplde-list-screen.php:114
 msgid "Paste the shortcode"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:113
+#: includes/admin/class-bplde-list-screen.php:115
 msgid "One shortcode renders the whole collection."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:212
+#: includes/admin/class-bplde-list-screen.php:214
 msgid "Documents"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:213
+#: includes/admin/class-bplde-list-screen.php:215
 #: includes/core/class-bplde-document-embedder.php:196
 #: includes/core/class-bplde-ppt-viewer.php:135
 msgid "Downloads"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:214
+#: includes/admin/class-bplde-list-screen.php:216
 msgid "Download leads"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:380
+#: includes/admin/class-bplde-list-screen.php:382
 msgid "Help &amp; demos"
 msgstr ""
 
 #. translators: %s: number of items in the trash.
-#: includes/admin/class-bplde-list-screen.php:389
+#: includes/admin/class-bplde-list-screen.php:391
 #, php-format
 msgid "Trash (%s)"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:415
+#: includes/admin/class-bplde-list-screen.php:417
 msgid "Copy To Clipboard"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:450
+#: includes/admin/class-bplde-list-screen.php:452
 msgid "Scheduled"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:481
+#: includes/admin/class-bplde-list-screen.php:483
 msgid "Filter by file type"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:483
+#: includes/admin/class-bplde-list-screen.php:485
 msgid "All file types"
 msgstr ""
 
@@ -1351,39 +1351,39 @@ msgstr ""
 msgid "Preview is not available for dropbox"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:295
+#: src/blocks/document-embed/components/Common/Viewer.js:296
 msgid "Open in new tab"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:296
+#: src/blocks/document-embed/components/Common/Viewer.js:297
 msgid "Full screen"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:382
+#: src/blocks/document-embed/components/Common/Viewer.js:383
 msgid "Preview temporarily unavailable."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:389
+#: src/blocks/document-embed/components/Common/Viewer.js:390
 msgid "Download"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:540
+#: src/blocks/document-embed/components/Common/Viewer.js:541
 msgid "No document added yet"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:541
+#: src/blocks/document-embed/components/Common/Viewer.js:542
 msgid "Document unavailable"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:546
+#: src/blocks/document-embed/components/Common/Viewer.js:547
 msgid "Upload a file from your Media Library or paste a document link in the settings, and it will appear here."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:550
+#: src/blocks/document-embed/components/Common/Viewer.js:551
 msgid "No document has been added to this embed yet."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:558
+#: src/blocks/document-embed/components/Common/Viewer.js:559
 msgid "Document Configuration → General → Document File"
 msgstr ""
 

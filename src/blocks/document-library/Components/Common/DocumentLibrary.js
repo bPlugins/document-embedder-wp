@@ -62,7 +62,7 @@ function DocumentLibrary(props) {
     Images: ["png", "jpg", "jpeg", "gif", "webp"],
     Videos: ["mp4", "avi", "mov", "mkv"],
     PDF: ["pdf"],
-    Documents: ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "pages"],
+    Documents: ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "pages", "rtf", "csv", "odt", "ods", "odp"],
     Audio: ["mp3", "wav", "ogg"],
     Archives: ["zip", "rar", "7z"],
   };

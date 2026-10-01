@@ -165,7 +165,8 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
     } else {
       frameUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(doc)}`;
     }
-  } else if (["ppt", "pptx", "xls", "xlsx", "doc", "docx"].includes(ext)) {
+  } else if (["ppt", "pptx", "xls", "xlsx", "doc", "docx", "odt", "ods", "odp"].includes(ext)) {
+    // Office Online also renders OpenDocument files (odt/ods/odp). rtf/csv fall through to Google.
     frameUrl = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(doc)}`;
   } else {
     frameUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(doc)}`;
@@ -485,7 +486,7 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
       }
     }
 
-    if (["ppt", "pptx", "xls", "xlsx", "doc", "docx", "txt", "pages", "xps", "ai", "psd", "eps", "dxf", "ttf", "zip", "rar"].includes(ext)) {
+    if (["ppt", "pptx", "xls", "xlsx", "doc", "docx", "odt", "ods", "odp", "txt", "rtf", "csv", "pages", "xps", "ai", "psd", "eps", "dxf", "ttf", "zip", "rar"].includes(ext)) {
       return (
         <IframePreview
           src={frameUrl}

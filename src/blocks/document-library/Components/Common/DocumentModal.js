@@ -36,6 +36,12 @@ const isSameOrigin = (url) => {
 const gviewSrc = (url) =>
   `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(url)}`;
 
+// Google Docs Viewer sometimes answers with the file itself (saved as "gview") instead of the
+// viewer page, which a plain iframe downloads. Sandboxing without `allow-downloads` blocks that
+// while keeping the viewer's scripts and its pop-out button working.
+const GVIEW_SANDBOX =
+  "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms";
+
 // "raw=1" is the viewer's reader mode: it hides the pdf.js toolbar and bottom bar so the modal
 // shows nothing but the pages. The card's own Download button covers the toolbar's only action
 // the modal would otherwise lose.
@@ -61,16 +67,15 @@ const pdfjsSrc = (pluginUrl, url) =>
  */
 const PdfPreview = ({ doc }) => {
   const pluginUrl = getPluginUrl();
-  const src =
-    pluginUrl && isSameOrigin(doc.url)
-      ? pdfjsSrc(pluginUrl, doc.url)
-      : gviewSrc(doc.url);
+  const usePdfjs = pluginUrl && isSameOrigin(doc.url);
+  const src = usePdfjs ? pdfjsSrc(pluginUrl, doc.url) : gviewSrc(doc.url);
 
   return (
     <iframe
       src={src}
       title={doc.title}
       className="bplDl-preview-iframe"
+      sandbox={usePdfjs ? undefined : GVIEW_SANDBOX}
       allowFullScreen
       allow="fullscreen"
     />
@@ -144,6 +149,31 @@ const renderPreview = (doc) => {
         )}`}
         className="bplDl-preview-iframe"
         title={doc.title}
+      />
+    );
+  }
+
+  // ✅ OpenDocument (Writer / Calc / Impress)
+  if (["odt", "ods", "odp"].includes(type)) {
+    return (
+      <iframe
+        src={`https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(
+          url
+        )}`}
+        className="bplDl-preview-iframe"
+        title={doc.title}
+      />
+    );
+  }
+
+  // ✅ Rich text / CSV — the browser would download these instead of showing them inline
+  if (["rtf", "csv"].includes(type)) {
+    return (
+      <iframe
+        src={gviewSrc(url)}
+        className="bplDl-preview-iframe"
+        title={doc.title}
+        sandbox={GVIEW_SANDBOX}
       />
     );
   }

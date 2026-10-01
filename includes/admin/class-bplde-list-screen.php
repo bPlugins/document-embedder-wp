@@ -95,9 +95,11 @@ if (!class_exists('BPLDE_List_Screen')) {
                     'query_vars'   => ['s', 'm', 'author', 'post_status'],
                     'empty_icon'   => '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18"/><path d="M9 21V9"/>',
                     'empty_title'  => __('Build your first library', 'document-emberdder'),
-                    'empty_note'   => __('A library puts several documents on one page as a searchable, filterable grid or table — one shortcode instead of many.', 'document-emberdder'),
-                    'chips_label'  => __('Layouts', 'document-emberdder'),
-                    'chips'        => ['GRID', 'LIST', 'TABLE'],
+                    'empty_note'   => __('A library puts several documents on one page as a searchable, filterable grid — one shortcode instead of many.', 'document-emberdder'),
+                    // What the library actually ships with. It has a single layout (the card
+                    // grid), so don't list layout names here.
+                    'chips_label'  => __('Includes', 'document-emberdder'),
+                    'chips'        => ['SEARCH', 'FILTER', 'SORT', 'PREVIEW', 'DOWNLOAD'],
                     'empty_foot'   => __('Libraries draw from the documents you have already added.', 'document-emberdder'),
                     'steps'        => [
                         [
@@ -105,8 +107,8 @@ if (!class_exists('BPLDE_List_Screen')) {
                             'note'  => __('A library lists documents from your existing library.', 'document-emberdder'),
                         ],
                         [
-                            'title' => __('Choose a layout', 'document-emberdder'),
-                            'note'  => __('Pick grid, list or table, and what each row shows.', 'document-emberdder'),
+                            'title' => __('Set up the grid', 'document-emberdder'),
+                            'note'  => __('Choose the documents and how many show per row.', 'document-emberdder'),
                         ],
                         [
                             'title' => __('Paste the shortcode', 'document-emberdder'),

@@ -64,8 +64,15 @@ const FlipbookViewer = ({ attributes = {}, source = "", viewerType = "flipbook",
         hideControls += (hideControls ? "," : "") + "fullScreen";
       }
 
+      // dFlip's own download control is a bare <a download> to the PDF, in its "more" menu. It
+      // must never show: with downloads disabled it ignored that setting outright, and with them
+      // enabled the plugin toolbar already offers Download -- through the tracker, so the download
+      // limit, email gate and access rules apply, all of which dFlip's link walked straight past.
+      hideControls += (hideControls ? "," : "") + "download";
+
       const options = {
         viewerType: dflipViewerType,
+        showDownloadControl: false,
         openPage: initialPage,
         backgroundColor: "transparent",
         height: "100%",
