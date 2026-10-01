@@ -36,6 +36,29 @@ const EditorHeader = ({
 
       </div>
 
+      {/* CENTRE: the shortcode itself is the copy control, no separate button. */}
+      <div className="editor-header__shortcode">
+        <span className="editor-header__eyebrow">
+          Copy and paste this shortcode into your posts, pages and widgets
+        </span>
+
+        {editingId > 0 ? (
+          <button
+            type="button"
+            className={`editor-header__code${copiedId === editingId ? ' is-copied' : ''}`}
+            onClick={() => handleCopyShortcode(editingId)}
+            title="Click to copy"
+            aria-label="Copy shortcode"
+          >
+            {copiedId === editingId
+              ? '✓ Copied!'
+              : `[document_library id="${editingId}"]`}
+          </button>
+        ) : (
+          <span className="editor-header__pending">Available once you save</span>
+        )}
+      </div>
+
       {/* RIGHT SIDE */}
       <div className="right-section">
         <span className={`editor-header__status editor-header__status--${editingId > 0 ? "saved" : "new"}`}>

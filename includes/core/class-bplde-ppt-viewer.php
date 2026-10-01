@@ -30,7 +30,7 @@ if (!class_exists('PPTViewer')) {
                 add_action('admin_head-post-new.php', [$this, 'ppv_hide_publishing_actions']);
                 add_filter('gettext', [$this, 'ppv_change_publish_button'], 10, 3);
                 add_filter('post_updated_messages', [$this, 'ppv_updated_messages']);
-                add_action('edit_form_after_title', [$this, 'shortcode_area']);
+                add_action('edit_form_after_title', [$this, 'shortcode_area'], 99);
             }
         }
 
@@ -255,9 +255,14 @@ if (!class_exists('PPTViewer')) {
                 return;
             }
 
+            // // The split layout shows the shortcode in its top bar instead.
+            // if (class_exists('BPLDE_Edit_Layout') && BPLDE_Edit_Layout::instance()->is_active()) {
+            //     return;
+            // }
+
             $shortcode = "[doc id='" . esc_attr($post->ID) . "']";
             ?>
-            <div class="bplde_shortcode_area_after_title">
+            <!-- <div class="bplde_shortcode_area_after_title">
                 <label><?php esc_html_e('Copy and paste this shortcode into your posts, pages and widget', 'document-emberdder'); ?></label>
                 <div class="shortcode_area">
                     <button class="button button-bplugins button-large bplde_shortcode_copy_btn"
@@ -272,7 +277,7 @@ if (!class_exists('PPTViewer')) {
                             stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
-            </div>
+            </div> -->
 
             <script>
                 document.addEventListener('click', function (e) {

@@ -139,9 +139,6 @@ const AddNewLibrary = ({ isPremium }) => {
       <TitleBar
         title={_get(formData, 'title')}
         onChange={(e) => onFormDataUpdate('title', e.target.value)}
-        postId={postId}
-        onCopy={handleCopyShortcode}
-        copied={copiedId}
       />
 
       <main className="editor-main">

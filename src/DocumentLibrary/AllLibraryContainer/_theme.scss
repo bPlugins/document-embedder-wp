@@ -189,6 +189,116 @@
   background: var(--de-accent);
 }
 
+/* Shortcode in the middle of the bar. The code box is the copy control: a
+   click copies it and the label swaps to "Copied!" for two seconds. */
+#bpldeDocumentLibraryWrapper .editor-header__shortcode {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  margin: 0 24px;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__shortcode .editor-header__eyebrow {
+  max-width: 100%;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__code {
+  min-width: 220px;
+  margin: 0;
+  padding: 7px 14px;
+  border: 0;
+  background: var(--de-accent);
+  color: #fff;
+  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: copy;
+  transition: background .15s ease;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__code:hover,
+#bpldeDocumentLibraryWrapper .editor-header__code.is-copied {
+  background: var(--de-accent-deep);
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__code:focus-visible {
+  outline: 2px solid var(--de-accent);
+  outline-offset: 2px;
+}
+
+#bpldeDocumentLibraryWrapper .editor-header__pending {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--de-muted);
+}
+
+/* Not enough room for three columns: title and Save share the first row, the
+   shortcode drops to a full-width row of its own underneath. */
+@media screen and (max-width: 1480px) {
+  #bpldeDocumentLibraryWrapper .editor-header {
+    flex-wrap: wrap;
+    height: auto;
+    row-gap: 12px;
+    padding: 12px 20px;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header__shortcode {
+    order: 3;
+    flex: 1 1 100%;
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--de-rule);
+  }
+}
+
+/* Phones: everything stacks, left-aligned, and the shortcode may wrap. */
+@media screen and (max-width: 600px) {
+  #bpldeDocumentLibraryWrapper .editor-header {
+    padding: 12px 14px;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header .left-section {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header .left-section .divider {
+    display: none;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header .left-section h1 {
+    white-space: normal;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header .right-section {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header__shortcode {
+    align-items: stretch;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header__shortcode .editor-header__eyebrow {
+    text-align: left;
+  }
+
+  #bpldeDocumentLibraryWrapper .editor-header__code {
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    Header colour presets
    ------------------------------------------------------------------------- */
@@ -399,11 +509,10 @@ $bpldl-label-col: 140px;
 }
 
 /* ---------------------------------------------------------------------------
-   Title card and shortcode strip
+   Title card
 
-   The pair that sits under the top bar on the document editor: the title gets
-   a panel of its own at a size that says "this is the first thing you fill in",
-   and the shortcode sits right beneath it where it is copied from.
+   Sits under the top bar on the document editor: the title gets a panel of its
+   own at a size that says "this is the first thing you fill in".
    ------------------------------------------------------------------------- */
 
 #bpldeDocumentLibraryWrapper .bpldl-titlecard {
@@ -436,63 +545,6 @@ $bpldl-label-col: 140px;
   outline: 0;
   border-bottom-color: var(--de-accent);
   box-shadow: none;
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  background: var(--de-tint);
-  border-bottom: 1px solid var(--de-rule);
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode__note {
-  flex: 1;
-  margin: 0;
-  font-size: 12.5px;
-  color: var(--de-ink-2);
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode__code {
-  padding: 7px 12px;
-  background: var(--de-accent);
-  color: #fff;
-  font-family: "JetBrains Mono", Menlo, Consolas, monospace;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode__copy {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  height: 32px;
-  padding: 0 12px;
-  border: 1px solid var(--de-control);
-  background: var(--de-surface);
-  color: var(--de-ink-2);
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  cursor: pointer;
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode__copy:hover {
-  border-color: var(--de-accent);
-  color: var(--de-accent-deep);
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode__copy svg {
-  width: 14px;
-  height: 14px;
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode__pending {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--de-muted);
 }
 
 /* ---------------------------------------------------------------------------
@@ -576,15 +628,8 @@ $bpldl-label-col: 140px;
   box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
 }
 
-/* Title and shortcode stay attached: one is the answer to the other. */
-#bpldeDocumentLibraryWrapper .bpldl-titlecard,
-#bpldeDocumentLibraryWrapper .bpldl-shortcode {
-  border-left: 0;
-  border-right: 0;
-}
-
-#bpldeDocumentLibraryWrapper .bpldl-shortcode {
-  border-bottom: 0;
+#bpldeDocumentLibraryWrapper .bpldl-titlecard {
+  border: 0;
 }
 
 #bpldeDocumentLibraryWrapper .editor-main {
@@ -643,9 +688,16 @@ $bpldl-label-col: 140px;
     flex-direction: column;
   }
 
+  /* Stacked, both panels take the full width. Without the settings panel here
+     it shrinks to its narrowest content, since .editor-main aligns its items
+     to flex-start. */
+  #bpldeDocumentLibraryWrapper .bpldl-panel--settings,
   #bpldeDocumentLibraryWrapper .bpldl-panel--preview {
     flex: 1 1 auto;
     width: 100%;
+  }
+
+  #bpldeDocumentLibraryWrapper .bpldl-panel--preview {
     position: static;
   }
 }
@@ -653,6 +705,39 @@ $bpldl-label-col: 140px;
 @media screen and (max-width: 782px) {
   #bpldeDocumentLibraryWrapper {
     padding: 12px 10px 16px;
+  }
+
+  /* The tab column would leave the settings a sliver, so it becomes a row of
+     tabs above them that scrolls sideways if it has to. */
+  #bpldeDocumentLibraryWrapper .bpldl-panel__body {
+    flex-direction: column;
+  }
+
+  #bpldeDocumentLibraryWrapper .bpldl-tabs {
+    width: auto;
+    flex: 0 0 auto;
+    flex-direction: row;
+    padding: 0;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--de-rule);
+  }
+
+  #bpldeDocumentLibraryWrapper .bpldl-tab {
+    width: auto;
+    flex: 0 0 auto;
+    padding: 10px 14px;
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+  }
+
+  #bpldeDocumentLibraryWrapper .bpldl-tab.is-active {
+    border-bottom-color: var(--de-accent);
+  }
+
+  #bpldeDocumentLibraryWrapper .bpldl-tab__count {
+    margin-left: 4px;
   }
 }
 

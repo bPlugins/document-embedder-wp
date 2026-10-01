@@ -50,7 +50,7 @@ if (!class_exists('BPLDE_Edit_Layout')) {
          * The filter is the escape hatch: returning false anywhere restores the stock
          * WordPress column layout with every box back in the side column.
          */
-        private function is_active() {
+        public function is_active() {
             if (!function_exists('get_current_screen')) {
                 return false;
             }
@@ -176,6 +176,15 @@ if (!class_exists('BPLDE_Edit_Layout')) {
                     <h1 class="bplde-topbar__title"><?php echo esc_html($heading); ?></h1>
                 </div>
 
+                <?php $shortcode = "[doc id='" . $post->ID . "']"; ?>
+                <div class="bplde-topbar__shortcode">
+                    <span class="bplde-topbar__eyebrow"><?php esc_html_e('Copy and paste this shortcode into your posts, pages and widgets', 'document-emberdder'); ?></span>
+                    <button type="button" class="bplde-topbar__code"
+                        data-clipboard-text="<?php echo esc_attr($shortcode); ?>"
+                        title="<?php esc_attr_e('Click to copy', 'document-emberdder'); ?>"
+                        aria-label="<?php esc_attr_e('Copy shortcode', 'document-emberdder'); ?>"><?php echo esc_html($shortcode); ?></button>
+                </div>
+
                 <span class="bplde-topbar__status bplde-topbar__status--<?php echo esc_attr($post->post_status); ?>">
                     <span class="bplde-topbar__dot" aria-hidden="true"></span>
                     <?php echo esc_html($status); ?>
@@ -191,6 +200,41 @@ if (!class_exists('BPLDE_Edit_Layout')) {
                     <?php post_submit_meta_box($post); ?>
                 </div>
             </div>
+
+            <script>
+                (function () {
+                    var el = document.querySelector('.bplde-topbar__code');
+                    if (!el) return;
+                    var text = el.getAttribute('data-clipboard-text');
+                    var timer;
+
+                    function fallbackCopy() {
+                        var input = document.createElement('textarea');
+                        input.value = text;
+                        document.body.appendChild(input);
+                        input.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(input);
+                    }
+
+                    el.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (navigator.clipboard && window.isSecureContext) {
+                            navigator.clipboard.writeText(text).catch(fallbackCopy);
+                        } else {
+                            fallbackCopy();
+                        }
+
+                        clearTimeout(timer);
+                        el.classList.add('is-copied');
+                        el.textContent = '<?php echo esc_js('✓ ' . __('Copied!', 'document-emberdder')); ?>';
+                        timer = setTimeout(function () {
+                            el.classList.remove('is-copied');
+                            el.textContent = text;
+                        }, 2000);
+                    });
+                })();
+            </script>
             <?php
         }
 

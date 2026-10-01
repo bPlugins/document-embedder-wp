@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-01T04:13:06+00:00\n"
+"POT-Creation-Date: 2026-10-01T09:03:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
@@ -103,16 +103,32 @@ msgstr ""
 msgid "Document Embedder"
 msgstr ""
 
-#: includes/admin/class-bplde-edit-layout.php:186
+#: includes/admin/class-bplde-edit-layout.php:181
+msgid "Copy and paste this shortcode into your posts, pages and widgets"
+msgstr ""
+
+#: includes/admin/class-bplde-edit-layout.php:184
+msgid "Click to copy"
+msgstr ""
+
+#: includes/admin/class-bplde-edit-layout.php:185
+msgid "Copy shortcode"
+msgstr ""
+
+#: includes/admin/class-bplde-edit-layout.php:195
 msgid "Add New Doc"
 msgstr ""
 
-#: includes/admin/class-bplde-edit-layout.php:217
+#: includes/admin/class-bplde-edit-layout.php:230
+msgid "Copied!"
+msgstr ""
+
+#: includes/admin/class-bplde-edit-layout.php:261
 #: includes/core/class-bplde-ppt-viewer.php:133
 msgid "Tags"
 msgstr ""
 
-#: includes/admin/class-bplde-edit-layout.php:227
+#: includes/admin/class-bplde-edit-layout.php:271
 msgid "Download stats"
 msgstr ""
 
@@ -1011,15 +1027,15 @@ msgstr ""
 msgid "No file"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:261
+#: includes/core/class-bplde-ppt-viewer.php:266
 msgid "Copy and paste this shortcode into your posts, pages and widget"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:343
+#: includes/core/class-bplde-ppt-viewer.php:348
 msgid "Save"
 msgstr ""
 
-#: includes/core/class-bplde-ppt-viewer.php:350
+#: includes/core/class-bplde-ppt-viewer.php:355
 msgid "Updated"
 msgstr ""
 
