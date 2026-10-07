@@ -68,7 +68,7 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
-        version: "2.4.0 - 1 October 2026",
+        version: "2.4.0 - 7 October 2026",
         list: [
           "**Improvement:** Redesigned the admin experience to be much cleaner and easier to understand."
         ]

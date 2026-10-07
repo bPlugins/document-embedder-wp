@@ -313,7 +313,7 @@ Please report security bugs found in the source code of the Document Embedder pl
 
 == Changelog ==
 
-= 2.4.0 - 3 October 2026 =
+= 2.4.0 - 7 October 2026 =
 * **Improvement:** Redesigned the admin experience to be much cleaner and easier to understand.
 
 = 2.3.1 - 22 August 2026 =
