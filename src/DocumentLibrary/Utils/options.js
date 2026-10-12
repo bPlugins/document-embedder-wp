@@ -2,6 +2,10 @@
 export const defaultValues = {
   title: "Document Library Title",
   settings: {
+    // Which layout renders the library. Libraries saved before layouts existed
+    // have no such key, and normalizeKeys() fills it in from here, so they keep
+    // rendering as the grid they always were. Nothing is migrated in the DB.
+    template: "grid",
     header: {
       isDisplayHeader: true,
       title: "Document Library",
@@ -115,8 +119,34 @@ export const defaultValues = {
         },
       },
     },
+    // Settings that belong to one layout. Kept side by side so switching
+    // layout and back restores them. perPage 0 means "show everything", which
+    // is how every library behaved before pagination existed.
+    templates: {
+      grid: {
+        perPage: 0,
+      },
+      list: {
+        density: "comfortable",
+        showDescription: true,
+        showType: true,
+        showAuthor: false,
+        perPage: 0,
+        // Rows are see-through by default so the Library Container background
+        // shows behind the list, the way it shows between Grid cards.
+        rowBg: { normal: "transparent", hover: "#f8fafc" },
+        dividerColor: "#e5e7eb",
+        borderRadius: 10,
+      },
+    },
   },
 };
+
+/** Layouts in the order the picker shows them. */
+export const LIBRARY_TEMPLATES = ["grid", "list"];
+
+export const getTemplate = (settings) =>
+  LIBRARY_TEMPLATES.includes(settings?.template) ? settings.template : "grid";
 
 export function normalizeKeys(saved, reference) {
   // If saved is an empty array but the reference is an object, convert it to an empty object

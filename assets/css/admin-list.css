@@ -916,3 +916,22 @@
 .bplde-list-document-library .bplde_front_shortcode input {
   max-width: 230px;
 }
+
+/* ---------------------------------------------------------------------------
+   Document Library: Layout column (Grid, List).
+   ------------------------------------------------------------------------- */
+
+.bplde-list-document-library .wp-list-table .column-bplde_layout {
+  width: 110px;
+}
+
+.bplde-list-document-library .bplde-layout-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid var(--de-border);
+  background: var(--de-accent-soft);
+  color: var(--de-ink);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.5;
+}

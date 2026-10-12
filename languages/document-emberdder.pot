@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Document Embedder – Embed PDFs, Word, Excel, and Other Files 2.4.0\n"
+"Project-Id-Version: Document Embedder – Embed PDFs, Word, Excel, and Other Files 2.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/document-emberdder\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-07T03:21:44+00:00\n"
+"POT-Creation-Date: 2026-10-12T04:04:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
@@ -47,21 +47,40 @@ msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:49
 #: includes/admin/class-bplde-list-screen.php:94
+#: includes/features/elementor/class-bplde-elementor-widget.php:134
 msgid "Add New Library"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:50
+#: includes/features/elementor/class-bplde-elementor-widget.php:134
 msgid "Edit Library"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:137
 #: includes/core/class-bplde-ppt-viewer.php:132
+#: includes/features/elementor/class-bplde-elementor-widget.php:97
+#: includes/features/elementor/class-bplde-elementor-widget.php:137
 msgid "Shortcode"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:138
+#: includes/features/elementor/class-bplde-elementor-widget.php:122
+msgid "Layout"
+msgstr ""
+
+#: includes/admin/class-bplde-document-library.php:139
 #: includes/core/class-bplde-ppt-viewer.php:137
 msgid "Date"
+msgstr ""
+
+#: includes/admin/class-bplde-document-library.php:152
+#: includes/features/elementor/class-bplde-elementor-widget.php:127
+msgid "Grid"
+msgstr ""
+
+#: includes/admin/class-bplde-document-library.php:153
+#: includes/features/elementor/class-bplde-elementor-widget.php:128
+msgid "List"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:160
@@ -89,10 +108,12 @@ msgstr ""
 #: includes/admin/class-bplde-list-screen.php:63
 #: includes/core/class-bplde-ppt-viewer.php:55
 #: includes/core/class-bplde-ppt-viewer.php:56
+#: includes/features/elementor/class-bplde-elementor-widget.php:110
 msgid "Add New Document"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:171
+#: includes/features/elementor/class-bplde-elementor-widget.php:110
 msgid "Edit Document"
 msgstr ""
 
@@ -100,6 +121,8 @@ msgstr ""
 #: includes/admin/class-bplde-leads-page.php:284
 #: includes/admin/class-bplde-list-screen.php:293
 #: includes/core/class-bplde-ppt-viewer.php:47
+#: includes/features/class-bplde-elementor.php:66
+#: includes/features/elementor/class-bplde-elementor-widget.php:36
 msgid "Document Embedder"
 msgstr ""
 
@@ -912,7 +935,7 @@ msgstr ""
 msgid "14-day refund policy · trusted by 9,000+ sites"
 msgstr ""
 
-#: includes/class-bplde-init.php:43
+#: includes/class-bplde-init.php:47
 msgid "Get Helped"
 msgstr ""
 
@@ -1039,11 +1062,11 @@ msgstr ""
 msgid "Updated"
 msgstr ""
 
-#: includes/features/class-bplde-ajaxcall.php:249
+#: includes/features/class-bplde-ajaxcall.php:256
 msgid "Download limit reached."
 msgstr ""
 
-#: includes/features/class-bplde-ajaxcall.php:289
+#: includes/features/class-bplde-ajaxcall.php:296
 msgid "Invalid document ID"
 msgstr ""
 
@@ -1053,6 +1076,232 @@ msgstr ""
 
 #: includes/features/class-bplde-rest.php:79
 msgid "Preview is unavailable on this site."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:85
+msgid "Source"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:90
+msgid "Show"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:95
+#: includes/features/elementor/class-bplde-elementor-widget.php:102
+msgid "Document"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:96
+#: includes/features/elementor/class-bplde-elementor-widget.php:113
+msgid "Library"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:126
+msgid "Library default"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:130
+msgid "Shows the library in another layout on this page only."
+msgstr ""
+
+#. translators: 1: document shortcode, 2: library shortcode
+#: includes/features/elementor/class-bplde-elementor-widget.php:144
+#, php-format
+msgid "Paste a document shortcode such as %1$s or a library shortcode such as %2$s."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:175
+msgid "Manage all"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:209
+msgid "(no title)"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:222
+msgid "Size"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:229
+msgid "Leave empty to use the size saved with the document. Applies to documents, not libraries."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:239
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:57
+msgid "Width"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:254
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:72
+msgid "Height"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:268
+msgid "Alignment"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:271
+msgid "Left"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:272
+msgid "Center"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:273
+msgid "Right"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:289
+msgid "Container"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:302
+#: includes/features/elementor/class-bplde-elementor-widget.php:358
+#: includes/features/elementor/class-bplde-elementor-widget.php:622
+msgid "Padding"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:315
+#: includes/features/elementor/class-bplde-elementor-widget.php:552
+#: includes/features/elementor/class-bplde-elementor-widget.php:629
+msgid "Border Radius"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:334
+msgid "Document Toolbar"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:340
+#: includes/features/elementor/class-bplde-elementor-widget.php:432
+#: includes/features/elementor/class-bplde-elementor-widget.php:440
+#: includes/features/elementor/class-bplde-elementor-widget.php:591
+msgid "Background"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:346
+#: includes/features/elementor/class-bplde-elementor-widget.php:493
+msgid "File Name Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:353
+#: includes/features/elementor/class-bplde-elementor-widget.php:500
+msgid "File Name Typography"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:368
+msgid "Document Buttons"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:388
+msgid "Library Grid"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:394
+msgid "Columns"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:398
+msgid "Grid layout only."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:403
+msgid "Gap"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:411
+msgid "Library Background"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:420
+msgid "Library Items"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:430
+#: includes/features/elementor/class-bplde-elementor-widget.php:582
+msgid "Normal"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:438
+#: includes/features/elementor/class-bplde-elementor-widget.php:582
+msgid "Hover"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:445
+#: includes/features/elementor/class-bplde-elementor-widget.php:597
+msgid "Border Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:455
+msgid "Card Border"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:461
+msgid "Card Border Radius"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:468
+msgid "Card Padding"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:476
+msgid "Card Shadow"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:484
+msgid "Library Text"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:505
+msgid "Meta Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:513
+msgid "Meta Typography"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:521
+msgid "Library Buttons"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:527
+msgid "View Button"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:539
+msgid "Download Button"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:586
+msgid "Text Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:613
+msgid "Font Size"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:661
+msgid "Nothing to show. Check that the document exists and is published."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:676
+msgid "Select a document in the widget settings."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:685
+msgid "Select a library in the widget settings."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:696
+msgid "Paste a Document Embedder shortcode in the widget settings to show a document or library here."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:702
+msgid "That is not a Document Embedder shortcode. Use [doc id=\"…\"] or [document_library id=\"…\"]."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:708
+msgid "The shortcode needs a numeric id, e.g. [doc id=\"123\"]."
 msgstr ""
 
 #: src/blocks/document-embed/render.php:97
@@ -1088,10 +1337,6 @@ msgstr ""
 msgid "Display & Dimensions"
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:57
-msgid "Width"
-msgstr ""
-
 #: src/blocks/document-embed/components/Backend/DisplayDimension.js:68
 msgid "Set the width of the viewer for tablet."
 msgstr ""
@@ -1102,10 +1347,6 @@ msgstr ""
 
 #: src/blocks/document-embed/components/Backend/DisplayDimension.js:68
 msgid "Set the width of the viewer for desktop."
-msgstr ""
-
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:72
-msgid "Height"
 msgstr ""
 
 #: src/blocks/document-embed/components/Backend/DisplayDimension.js:83

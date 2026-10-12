@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Search,
   File,
@@ -7,35 +7,41 @@ import {
   Video,
   Music,
   Archive,
-  Download,
-  Eye,
-  Calendar,
 } from "lucide-react";
 import "../../style.scss";
+import "./Templates/templates.scss";
 import DocumentModal from "./DocumentModal";
 import Style from "./Style";
-import { defaultValues, normalizeKeys } from "../../../../DocumentLibrary/Utils/options";
+import { defaultValues, getTemplate, normalizeKeys } from "../../../../DocumentLibrary/Utils/options";
+import { handleDownload, useLibraryDocuments } from "./libraryData";
+import Grid from "./Templates/Grid";
+import List from "./Templates/List";
 
 function DocumentLibrary(props) {
   const { settingsData: rawSettingsData, id = null } = props;
   const settingsData = normalizeKeys(rawSettingsData, defaultValues.settings);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("all");
   const [previewDoc, setPreviewDoc] = useState(null);
-  const [sortOption, setSortOption] = useState("default");
+
+  // A shortcode can ask for a different layout than the one saved: [document_library id="5" template="list"].
+  const template = getTemplate({ template: props.template || settingsData.template });
+  const layouts = settingsData?.templates || {};
 
   const { header, documentLibrary } = settingsData;
   const { documentBox, docItems = [] } = documentLibrary;
   const { downloadButton, viewButton, options } = documentBox;
-  const { displaySize, displayDate, displayIcon } = options;
 
-  const [documents, setDocuments] = useState([...docItems]);
+  const {
+    searchTerm,
+    setSearchTerm,
+    selectedType,
+    setSelectedType,
+    sortOption,
+    setSortOption,
+    existingCategories,
+    sortedDocuments,
+  } = useLibraryDocuments(docItems);
 
-  useEffect(() => {
-    setDocuments([...docItems]);
-  }, [docItems]);
-
-  const getFileIcon = (type) => {
+  const getFileIcon = (type = "") => {
     if (type.includes("pdf") || type.includes("doc"))
       return <FileText className="bplDl-icon" />;
     if (type.includes("png") || type.includes("jpg") || type.includes("jpeg"))
@@ -49,93 +55,17 @@ function DocumentLibrary(props) {
     return <File className="bplDl-icon" />;
   };
 
-  const handleDownload = (doc) => {
-    const url = doc.url;
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = doc.title;
-    link.click();
-    URL.revokeObjectURL(url);
+  const actions = {
+    viewButton,
+    downloadButton,
+    onView: (doc) => setPreviewDoc(doc),
+    onDownload: handleDownload,
   };
-
-  const CATEGORY_MAP = {
-    Images: ["png", "jpg", "jpeg", "gif", "webp"],
-    Videos: ["mp4", "avi", "mov", "mkv"],
-    PDF: ["pdf"],
-    Documents: ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "pages", "rtf", "csv", "odt", "ods", "odp"],
-    Audio: ["mp3", "wav", "ogg"],
-    Archives: ["zip", "rar", "7z"],
-  };
-
-  const getCategory = (doc) => {
-    const url = doc.url || "";
-    const lower = url.toLowerCase();
-    const ext = lower.split(".").pop().split("?")[0].split("#")[0];
-
-    for (const [category, exts] of Object.entries(CATEGORY_MAP)) {
-      if (exts.includes(ext)) return category;
-    }
-
-    return "Others";
-  };
-
-  const existingCategories = Array.from(
-    new Set(documents.map((doc) => getCategory(doc)))
-  );
-
-  const filteredDocuments = documents.filter((doc) => {
-    const search = searchTerm.toLowerCase();
-    const matchesSearch =
-      doc.title.toLowerCase().includes(search) ||
-      (doc.url?.toLowerCase() ?? "").includes(search);
-
-    const category = getCategory(doc);
-    const matchesType = selectedType === "all" || category === selectedType;
-
-    return matchesSearch && matchesType;
-  });
-
-  // Convert "13/07/2025" → Date object
-  const parseDate = (dateStr) => {
-    if (!dateStr) return new Date(0);
-    const [day, month, year] = dateStr.split("/").map(Number);
-    return new Date(year, month - 1, day);
-  };
-
-  // Convert "370.92 KB" → bytes
-  const parseSize = (sizeStr) => {
-    if (!sizeStr) return 0;
-    const units = { B: 1, KB: 1024, MB: 1024 ** 2, GB: 1024 ** 3 };
-    const [num, unit] = sizeStr.split(" ");
-    return parseFloat(num) * (units[unit] || 1);
-  };
-
-  const sortedDocuments = [...filteredDocuments].sort((a, b) => {
-    switch (sortOption) {
-      case "name-asc":
-        return a.title.localeCompare(b.title);
-      case "name-desc":
-        return b.title.localeCompare(a.title);
-
-      case "date-asc":
-        return parseDate(a.date) - parseDate(b.date);
-      case "date-desc":
-        return parseDate(b.date) - parseDate(a.date);
-
-      case "size-asc":
-        return parseSize(a.size) - parseSize(b.size);
-      case "size-desc":
-        return parseSize(b.size) - parseSize(a.size);
-
-      default:
-        return 0;
-    }
-  });
 
   return (
     <>
-      <Style settingsData={settingsData} id={id} />
-      <div className="bplDl-container">
+      <Style settingsData={settingsData} id={id} template={template} />
+      <div className={`bplDl-container bplDl-layout-${template}`}>
         <div className="bplDl-header">
           <h1 className="bplDl-title">{header.title}</h1>
           <p className="bplDl-subtitle">{header.description}</p>
@@ -182,56 +112,22 @@ function DocumentLibrary(props) {
             </select>
           </div>
 
-          {sortedDocuments.length !== 0 ? (
-            <div className="bplDl-grid">
-              {sortedDocuments.map((doc) => (
-                <div key={`${doc.id}-${doc.title}`} className="bplDl-card">
-                  {displayIcon && (
-                    <div className="bplDl-card-top">
-                      {getFileIcon(doc?.type)}
-                    </div>
-                  )}
-
-                  <h3 className="bplDl-name">{doc.title}</h3>
-                  {displaySize && (
-                    <p className="bplDl-size">Size: {doc.size}</p>
-                  )}
-
-                  {displayDate && (
-                    <div className="bplDl-meta">
-                      <Calendar className="bplDl-meta-icon" /> {doc.date}
-                    </div>
-                  )}
-
-                  <div className="bplDl-actions">
-                    <button
-                      type="button"
-                      className="bplDl-btn bplDl-view-btn"
-                      onClick={() => {
-                        setPreviewDoc(doc);
-                      }}
-                    >
-                      <Eye className="bplDl-btn-icon" />
-                      <span>{viewButton.text}</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      className="bplDl-btn bplDl-download-btn"
-                      onClick={() => handleDownload(doc)}
-                    >
-                      <Download className="bplDl-btn-icon" />
-                      <span>{downloadButton.text}</span>
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {template === "list" ? (
+            <List
+              docs={sortedDocuments}
+              options={options}
+              list={layouts.list || {}}
+              perPage={layouts.list?.perPage}
+              {...actions}
+            />
           ) : (
-            <div className="bplDl-empty">
-              <File className="bplDl-empty-icon" />
-              <p className="bplDl-empty-text">No documents found</p>
-            </div>
+            <Grid
+              docs={sortedDocuments}
+              options={options}
+              getFileIcon={getFileIcon}
+              perPage={layouts.grid?.perPage}
+              {...actions}
+            />
           )}
         </div>
       </div>

@@ -12,8 +12,16 @@ if ( ! empty( $attributes['selectedPostId'] ) ) {
 
     if ( get_post_type( $post_id ) === 'document_library' ) {
         $bplde_form_data = get_post_meta( $post_id, 'bplde_settings', true );
-        if ( empty( $bplde_form_data ) ) {
+        if ( empty( $bplde_form_data ) || ! is_array( $bplde_form_data ) ) {
             $bplde_form_data = [];
+        }
+
+        $bplde_form_data = BPLDE_Functions::with_attachment_descriptions( $bplde_form_data );
+
+        // [document_library id="5" template="list"] shows the library in another layout on this page only.
+        $bplde_template_override = isset( $attributes['template'] ) ? sanitize_key( $attributes['template'] ) : '';
+        if ( in_array( $bplde_template_override, BPLDE_Functions::library_templates(), true ) ) {
+            $bplde_form_data['template'] = $bplde_template_override;
         }
     }
 }

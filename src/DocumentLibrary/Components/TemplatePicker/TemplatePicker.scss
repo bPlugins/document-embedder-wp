@@ -1,0 +1,397 @@
+// Layout picker. It renders on <body> (outside the editor root), so it carries
+// its own copy of the editor's --de-* tokens from _theme.scss.
+
+#bpldl-picker-root {
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-ground: #edf1f0;
+  --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+  --de-pop: #a3e635;
+  --de-pop-soft: #f4fce3;
+  --de-pop-ink: #3f5209;
+  --de-on-pop: #1a2e05;
+
+  font-family: "Segoe UI", sans-serif;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+#bpldl-picker-root,
+#bpldeDocumentLibraryWrapper {
+  &.bpldl-picker-overlay,
+  .bpldl-picker-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000; // above the WP admin bar
+    display: grid;
+    place-items: center;
+    padding: 24px 16px;
+    overflow-y: auto;
+    background: rgba(15, 31, 27, 0.55);
+  }
+
+  .bpldl-picker {
+    position: relative;
+    width: 100%;
+    max-width: 920px;
+    display: grid;
+    gap: 20px;
+    padding: 28px;
+    background: var(--de-surface);
+    border: 1px solid var(--de-border);
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.4);
+  }
+
+  .bpldl-picker__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--de-border);
+    background: var(--de-tint);
+    color: var(--de-ink-2);
+    cursor: pointer;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .bpldl-picker__head {
+    display: grid;
+    gap: 6px;
+    padding-right: 40px;
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--de-ink);
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--de-ink-3);
+    }
+  }
+
+  .bpldl-picker__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 520px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .bpldl-picker__card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    padding: 12px;
+    border: 2px solid var(--de-border);
+    background: var(--de-surface);
+    color: var(--de-ink);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+      border-color: var(--de-control);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--de-accent);
+      outline-offset: 2px;
+    }
+
+    &.is-selected {
+      border-color: var(--de-accent);
+      box-shadow: 0 0 0 3px var(--de-accent-soft);
+    }
+
+    // Shown but not pickable: dimmed, and the hover hints at Pro rather than selection.
+    &.is-locked {
+      cursor: pointer;
+
+      .bpldl-thumb {
+        opacity: 0.45;
+        filter: grayscale(0.6);
+      }
+
+      .bpldl-picker__name,
+      .bpldl-picker__desc,
+      .bpldl-picker__best {
+        opacity: 0.6;
+      }
+
+      &:hover {
+        border-color: var(--de-pop);
+      }
+    }
+  }
+
+  .bpldl-picker__tick {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+    width: 22px;
+    height: 22px;
+    display: grid;
+    place-items: center;
+    background: var(--de-accent);
+    color: #fff;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .bpldl-picker__badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+
+    svg {
+      width: 11px;
+      height: 11px;
+    }
+
+    &.is-default {
+      background: var(--de-accent);
+      color: #fff;
+    }
+
+    &.is-pro {
+      background: var(--de-pop-soft);
+      color: var(--de-pop-ink);
+      border: 1px solid var(--de-pop);
+    }
+  }
+
+  .bpldl-picker__name {
+    margin-top: 4px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .bpldl-picker__desc {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--de-ink-3);
+  }
+
+  .bpldl-picker__best {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--de-ink-2);
+  }
+
+  .bpldl-picker__upsell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 10px 14px;
+    background: var(--de-pop-soft);
+    border: 1px solid var(--de-pop);
+    color: var(--de-on-pop);
+    font-size: 14px;
+
+    svg {
+      flex: none;
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  .bpldl-picker__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .bpldl-picker__hint {
+    flex: 1 1 240px;
+    font-size: 13px;
+    color: var(--de-ink-3);
+  }
+
+  .bpldl-picker__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .bpldl-picker__btn {
+    padding: 9px 18px;
+    border: 1px solid var(--de-control);
+    background: var(--de-surface);
+    color: var(--de-ink);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &.is-primary {
+      background: var(--de-accent);
+      border-color: var(--de-accent);
+      color: #fff;
+
+      &:hover {
+        background: var(--de-accent-deep);
+      }
+    }
+  }
+
+  // ---------- Thumbnails ----------
+  .bpldl-thumb {
+    display: grid;
+    gap: 5px;
+    aspect-ratio: 4 / 3;
+    max-width: 100%;
+    padding: 12px;
+    overflow: hidden;
+    background: var(--de-ground);
+
+    b,
+    i,
+    em {
+      display: block;
+      height: 9px;
+      background: var(--de-control);
+    }
+  }
+
+  .bpldl-thumb--grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bpldl-thumb__card {
+    border: 1px solid var(--de-accent);
+    background: var(--de-surface);
+  }
+
+  .bpldl-thumb--list .bpldl-thumb__row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px;
+    background: var(--de-surface);
+
+    i {
+      flex: none;
+      width: 11px;
+      height: 14px;
+      background: var(--de-accent);
+    }
+
+    b {
+      flex: 1;
+    }
+
+    em {
+      width: 20%;
+    }
+  }
+
+  .bpldl-thumb--table .bpldl-thumb__row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    gap: 5px;
+
+    &.is-head b {
+      background: var(--de-accent);
+      opacity: 0.75;
+    }
+  }
+
+  .bpldl-thumb--folder {
+    grid-template-columns: repeat(3, 1fr);
+    align-content: start;
+    padding-top: 18px;
+    row-gap: 14px;
+  }
+
+  .bpldl-thumb__folder {
+    position: relative;
+    height: 30px;
+    background: var(--de-accent);
+    opacity: 0.85;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 42%;
+      height: 7px;
+      background: var(--de-accent);
+    }
+  }
+
+  // ---------- Layout button in the title bar ----------
+  .bpldl-layout-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+    padding: 8px 14px;
+    border: 1px solid var(--de-accent);
+    background: var(--de-accent-soft);
+    color: var(--de-ink);
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: var(--de-accent);
+    }
+
+    .bpldl-layout-btn__change {
+      color: var(--de-accent);
+    }
+
+    &:hover {
+      background: var(--de-surface);
+    }
+  }
+}

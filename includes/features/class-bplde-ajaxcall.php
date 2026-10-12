@@ -118,6 +118,12 @@ if ( ! class_exists( 'AJAXCall' ) ) {
             };
             $settings = $sanitize_settings( $settings );
 
+            // The layout is free text in the JSON; only known layouts get stored.
+            // A missing key is left missing, which the renderer reads as Grid.
+            if ( isset( $settings['template'] ) && ! in_array( $settings['template'], \BPLDE_Functions::library_templates(), true ) ) {
+                $settings['template'] = 'grid';
+            }
+
             $post_data = [
                 'post_title'  => $title,
                 'post_type'   => 'document_library',
@@ -167,8 +173,9 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                 wp_send_json_error( ['message' => 'Unauthorized.'] );
             }
         
-            $settings = get_post_meta( $id, 'bplde_settings', true );
-        
+            // Same descriptions the front end shows, so the editor preview matches.
+            $settings = \BPLDE_Functions::with_attachment_descriptions( get_post_meta( $id, 'bplde_settings', true ) );
+
             wp_send_json_success( [
                 'id'       => $id,
                 'title'    => $post->post_title,

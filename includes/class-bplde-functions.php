@@ -48,6 +48,12 @@ class BPLDE_Functions {
                     </div>
                 <?php endif; ?>
 
+                <?php
+                $template = self::library_template( $form_data );
+                if ( 'grid' !== $template ) :
+                    echo self::layout_skeleton_markup( $form_data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static markup
+                else :
+                ?>
                 <!-- Document Grid Skeleton -->
                 <div class="bplDl-grid" style="grid-template-columns: repeat(<?php echo esc_attr( isset( $form_data['documentLibrary']['docsViewPerRow'] ) ? $form_data['documentLibrary']['docsViewPerRow'] : 3 ); ?> , minmax(0, 1fr));">
                     <?php
@@ -78,7 +84,105 @@ class BPLDE_Functions {
                         </div>
                     <?php endfor; ?>
                 </div>
+                <?php endif; ?>
             </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    /**
+     * Fills in a missing document description from its Media Library entry
+     * (caption first, then description). Files added from the Media Library
+     * were saved with an empty description, so this is where the text people
+     * wrote in WordPress comes from. A description set in the library wins.
+     *
+     * @param array $form_data Saved library settings.
+     * @return array
+     */
+    public static function with_attachment_descriptions( $form_data ) {
+        if ( ! is_array( $form_data ) || empty( $form_data['documentLibrary']['docItems'] ) || ! is_array( $form_data['documentLibrary']['docItems'] ) ) {
+            return $form_data;
+        }
+
+        foreach ( $form_data['documentLibrary']['docItems'] as $i => $doc ) {
+            if ( ! is_array( $doc ) || ( isset( $doc['description'] ) && '' !== trim( (string) $doc['description'] ) ) ) {
+                continue;
+            }
+
+            // Items added by URL carry a timestamp id, not an attachment id.
+            $attachment_id = isset( $doc['id'] ) ? absint( $doc['id'] ) : 0;
+            if ( ! $attachment_id || 'attachment' !== get_post_type( $attachment_id ) ) {
+                continue;
+            }
+
+            $text = wp_get_attachment_caption( $attachment_id );
+            if ( ! $text ) {
+                $text = get_post_field( 'post_content', $attachment_id );
+            }
+
+            $text = trim( wp_strip_all_tags( (string) $text ) );
+            if ( '' !== $text ) {
+                $form_data['documentLibrary']['docItems'][ $i ]['description'] = $text;
+            }
+        }
+
+        return $form_data;
+    }
+
+    /**
+     * Layouts a Document Library can use. Anything else is treated as Grid.
+     *
+     * @return string[]
+     */
+    public static function library_templates() {
+        return [ 'grid', 'list' ];
+    }
+
+    /**
+     * The layout a library renders with. Libraries saved before layouts existed
+     * have no template key and render as Grid, as they always did.
+     *
+     * @param array $form_data Saved library settings.
+     * @return string
+     */
+    public static function library_template( $form_data ) {
+        $template = is_array( $form_data ) && isset( $form_data['template'] ) ? $form_data['template'] : 'grid';
+        return in_array( $template, self::library_templates(), true ) ? $template : 'grid';
+    }
+
+    /**
+     * Placeholder for the List layout, shaped like what loads in so the page
+     * doesn't jump when the script takes over.
+     *
+     * @param array $form_data Saved library settings.
+     * @return string
+     */
+    private static function layout_skeleton_markup( $form_data ) {
+        $items = isset( $form_data['documentLibrary']['docItems'] ) && is_array( $form_data['documentLibrary']['docItems'] )
+            ? count( $form_data['documentLibrary']['docItems'] )
+            : 0;
+        $rows  = min( $items, 8 );
+
+        if ( $rows < 1 ) {
+            return '';
+        }
+
+        ob_start();
+        ?>
+        <div class="bplDl-list">
+            <ul class="bplDl-list-items">
+                <?php for ( $i = 0; $i < $rows; $i++ ) : ?>
+                    <li class="bplDl-list-row">
+                        <div class="skeleton" style="width: 36px; height: 44px; border-radius: 5px; flex: none;"></div>
+                        <div class="bplDl-list-body">
+                            <div class="skeleton" style="height: 18px; width: 50%;"></div>
+                            <div class="skeleton" style="height: 14px; width: 30%;"></div>
+                        </div>
+                        <div class="skeleton" style="height: 32px; width: 120px; border-radius: 6px;"></div>
+                    </li>
+                <?php endfor; ?>
+            </ul>
         </div>
         <?php
         return ob_get_clean();

@@ -37,6 +37,10 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
             // Through instance(), not new: the edit-screen layout re-renders this class's
             // cards and needs the one object that already owns the hooks.
             BPLDE_Document_Embedder::instance();
+
+            // Only hooks Elementor actions, so it is inert when Elementor isn't active.
+            require_once BPLDE_PLUGIN_PATH . 'includes/features/class-bplde-elementor.php';
+            \BPLDE_Elementor::instance();
         }
 
         public function add_action_links($links) {

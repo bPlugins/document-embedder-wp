@@ -68,6 +68,13 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.4.1 - 18 October 2026",
+        list: [
+          "**New:** Library layout templates. Choose Grid or List when you create a Document Library (Table and Folder are available in Pro).",
+          "**New:** Dedicated Elementor widget for embedding documents and libraries."
+        ]
+      },
+      {
         version: "2.4.0 - 7 October 2026",
         list: [
           "**Improvement:** Redesigned the admin experience to be much cleaner and easier to understand."

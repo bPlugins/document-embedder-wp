@@ -3,7 +3,9 @@ import "./BplProModal.scss";
 import bPlugins from "../../../../../assets/bPlugins.png";
 import { PluginIcon } from "../../../Utils/icons";
 
-const BplProModal = ({ isProModalOpen, onClose }) => {
+// `message` and `highlight` let a caller explain which feature is locked; without
+// them the modal keeps its original wording about the upload limit.
+const BplProModal = ({ isProModalOpen, onClose, message = null, highlight = null }) => {
   if (!isProModalOpen) return null;
 
   return (
@@ -28,16 +30,20 @@ const BplProModal = ({ isProModalOpen, onClose }) => {
         <div className="bpl-content-area">
           <h2>Premium Feature</h2>
           <p>
-            Upload more than{" "}
-            <span style={{ fontWeight: "bolder" }}>5 files</span> is available
-            in pro version.
+            {message || (
+              <>
+                Upload more than{" "}
+                <span style={{ fontWeight: "bolder" }}>5 files</span> is available
+                in pro version.
+              </>
+            )}
           </p>
 
           <div className="bpl-highlight-box">
             <div className="bpl-highlight-icon">✅</div>
             <div className="bpl-highlight-text">
-              <strong>Upload Unlimited</strong>
-              <span>Upload unlimited files for your library</span>
+              <strong>{highlight?.title || "Upload Unlimited"}</strong>
+              <span>{highlight?.text || "Upload unlimited files for your library"}</span>
             </div>
           </div>
 

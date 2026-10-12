@@ -22,7 +22,7 @@ if ( ! class_exists( 'BPLDE_Document_Library' ) ) {
         }
 
         public function bplde_document_library_shortcode( $atts ) {
-            $atts = shortcode_atts( ['id' => 0], $atts );
+            $atts = shortcode_atts( ['id' => 0, 'template' => ''], $atts );
             $id   = (int) $atts['id'];
 
             $post = get_post( $id );
@@ -33,7 +33,10 @@ if ( ! class_exists( 'BPLDE_Document_Library' ) ) {
 
             $block = [
                 'blockName'    => 'bpldl/document-library', 
-                'attrs'        => ['selectedPostId' => $id],
+                'attrs'        => [
+                    'selectedPostId' => $id,
+                    'template'       => sanitize_key( $atts['template'] ),
+                ],
                 'innerBlocks'  => [],
                 'innerHTML'    => '',
                 'innerContent' => [],

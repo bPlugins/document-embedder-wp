@@ -18,6 +18,10 @@
     "selectedPostId": {
       "type": "number",
       "default": 0
+    },
+    "template": {
+      "type": "string",
+      "default": ""
     }
   },
   "supports": {
