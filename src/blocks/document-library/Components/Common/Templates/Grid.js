@@ -1,5 +1,5 @@
 import { Calendar, Download, Eye, File } from "lucide-react";
-import { useLoadMore } from "../libraryData";
+import { insightsProps, useLoadMore } from "../libraryData";
 import { EmptyState, LoadMore } from "./parts";
 
 /**
@@ -52,6 +52,7 @@ const Grid = ({ docs, options = {}, viewButton = {}, downloadButton = {}, getFil
                 type="button"
                 className="bplDl-btn bplDl-download-btn"
                 onClick={() => onDownload(doc)}
+                {...insightsProps(doc)}
               >
                 <Download className="bplDl-btn-icon" />
                 <span>{downloadButton.text}</span>

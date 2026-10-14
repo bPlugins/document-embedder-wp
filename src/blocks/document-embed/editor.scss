@@ -121,3 +121,200 @@
 //   backdrop-filter: blur(4px) !important;
 //   z-index: 100000 !important;
 // }
+
+/* "New" badge on inspector panel titles, the same chip the Pro build uses. */
+.bplde-panel-title .bplde-panel-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  color: #fff;
+  background: #ff9800;
+  border-radius: 0;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* Insights panel — the Insights screen's "Deep Teal & Lime" tokens at sidebar width.
+   Square corners, like every other surface in the plugin. */
+.bplde-ins-panel {
+  --ins-ink: #0f1f1b;
+  --ins-ink-2: #3f5750;
+  --ins-ink-3: #5b7369;
+  --ins-border: #d5e0dd;
+  --ins-rule: #e3ebe9;
+  --ins-tint: #f8fbfa;
+  --ins-accent-deep: #0b5a54;
+  --ins-views: #0d9488;
+  --ins-downloads: #b45309;
+
+  .bplde-ins-panel__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 4px;
+    border: 1px solid var(--ins-border);
+  }
+
+  .bplde-ins-panel__stat {
+    padding: 10px 12px 12px;
+    border-top: 3px solid var(--ins-views);
+
+    &.is-downloads {
+      border-top-color: var(--ins-downloads);
+      border-left: 1px solid var(--ins-border);
+    }
+  }
+
+  .bplde-ins-panel__label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ins-ink-3);
+  }
+
+  .bplde-ins-panel__value {
+    display: block;
+    margin-top: 4px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ins-ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bplde-ins-panel__spark {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 10px;
+
+    &.is-example {
+      filter: blur(1.5px);
+      opacity: 0.6;
+    }
+  }
+
+  .bplde-ins-panel__more {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 10px 0 0;
+
+    dt {
+      font-size: 11px;
+      color: var(--ins-ink-3);
+    }
+
+    dd {
+      margin: 2px 0 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ins-ink);
+    }
+  }
+
+  .bplde-ins-panel__note {
+    margin: 10px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ins-ink-2);
+  }
+
+  .bplde-ins-panel__loading {
+    height: 74px;
+    margin-top: 4px;
+    background: linear-gradient(90deg, #eef3f1 0%, #e2eae7 50%, #eef3f1 100%);
+    background-size: 200% 100%;
+    animation: bplde-ins-panel-shimmer 1.2s ease-in-out infinite;
+  }
+
+  .bplde-ins-panel__locked {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px 12px 12px;
+    border: 1px dashed #bfd0cc;
+    background: var(--ins-tint);
+    text-align: left;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--ins-accent-deep);
+      outline: 0;
+    }
+  }
+
+  .bplde-ins-panel__locked-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bplde-ins-panel__locked-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 7px;
+    background: #a3e635;
+    color: #1a2e05;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .bplde-ins-panel__example {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ins-ink-3);
+  }
+
+  .bplde-ins-panel__locked-text {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ins-ink-2);
+  }
+
+  .bplde-ins-panel__open {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ins-accent-deep);
+    text-decoration: none;
+
+    &::after {
+      content: " \2192";
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bplde-ins-panel__loading {
+      animation: none;
+    }
+  }
+}
+
+@keyframes bplde-ins-panel-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

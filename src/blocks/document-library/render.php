@@ -23,6 +23,24 @@ if ( ! empty( $attributes['selectedPostId'] ) ) {
         if ( in_array( $bplde_template_override, BPLDE_Functions::library_templates(), true ) ) {
             $bplde_form_data['template'] = $bplde_template_override;
         }
+
+        // Document Insights: library downloads are direct links, so each item's download
+        // control carries a signed key for the browser to report against.
+        if ( class_exists( '\BPLDE\Model\Insights' ) ) {
+            foreach ( [ 'docItems', 'docitems' ] as $bplde_items_key ) {
+                if ( empty( $bplde_form_data['documentLibrary'][ $bplde_items_key ] ) || ! is_array( $bplde_form_data['documentLibrary'][ $bplde_items_key ] ) ) {
+                    continue;
+                }
+                foreach ( $bplde_form_data['documentLibrary'][ $bplde_items_key ] as $bplde_i => $bplde_item ) {
+                    $bplde_insights = ( is_array( $bplde_item ) && ! empty( $bplde_item['url'] ) )
+                        ? \BPLDE\Model\Insights::markup( \BPLDE\Model\Insights::doc_key( $bplde_item['url'] ) )
+                        : [];
+                    if ( $bplde_insights ) {
+                        $bplde_form_data['documentLibrary'][ $bplde_items_key ][ $bplde_i ]['insights'] = $bplde_insights;
+                    }
+                }
+            }
+        }
     }
 }
 

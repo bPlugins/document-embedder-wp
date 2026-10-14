@@ -152,12 +152,12 @@ if (!class_exists('BPLDE_Settings_Free')) {
         private static function groups() {
             return (array) apply_filters('bplde_settings_feature_groups', array(
                 array(
-                    'icon' => 'viewers',
-                    'title' => __('Three more viewers', 'document-emberdder'),
+                    'icon' => 'insights',
+                    'title' => __('Insights history', 'document-emberdder'),
                     'items' => array(
-                        __('Custom PDF engine', 'document-emberdder'),
-                        __('Flipbook with page turn', 'document-emberdder'),
-                        __('Slider viewer', 'document-emberdder'),
+                        __('Date ranges and a daily chart', 'document-emberdder'),
+                        __('Top documents and host pages', 'document-emberdder'),
+                        __('Per-document view and CSV export', 'document-emberdder'),
                     ),
                 ),
                 array(
@@ -191,8 +191,8 @@ if (!class_exists('BPLDE_Settings_Free')) {
                     'icon' => 'experience',
                     'title' => __('Viewer experience', 'document-emberdder'),
                     'items' => array(
-                        __('Toolbar themes', 'document-emberdder'),
-                        __('Zoom and lightbox', 'document-emberdder'),
+                        __('Toolbar themes, zoom and lightbox', 'document-emberdder'),
+                        __('Flipbook hard cover, sound and auto play', 'document-emberdder'),
                         __('Professional loading icon', 'document-emberdder'),
                     ),
                 ),
@@ -211,7 +211,7 @@ if (!class_exists('BPLDE_Settings_Free')) {
 
         private static function icon($name) {
             $paths = array(
-                'viewers' => '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M12 4v16"/>',
+                'insights' => '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
                 'leads' => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/>',
                 'access' => '<rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
                 'cloud' => '<path d="M18 16a4 4 0 0 0-1-7.9A6 6 0 1 0 6 15"/><path d="M12 12v8"/><path d="M9 17l3 3 3-3"/>',
@@ -241,11 +241,18 @@ if (!class_exists('BPLDE_Settings_Free')) {
                 <h1 class="screen-reader-text"><?php esc_html_e('Settings', 'document-emberdder'); ?></h1>
                 <hr class="wp-header-end">
 
+                <?php
+                // The one thing on this screen the free version can change, so it comes first.
+                if (class_exists('\BPLDE\Model\Insights')) {
+                    \BPLDE\Model\Insights::render_settings_form();
+                }
+                ?>
+
                 <div class="bplde-settings-hero">
                     <div class="bplde-settings-hero__copy">
                         <span class="bplde-settings-hero__badge"><?php esc_html_e('Pro', 'document-emberdder'); ?></span>
                         <h2 class="bplde-settings-hero__title"><?php esc_html_e('The free version ends here.', 'document-emberdder'); ?></h2>
-                        <p class="bplde-settings-hero__note"><?php esc_html_e('Document Embedder Pro adds three more viewers, lead capture, access control and cloud integrations — everything on this page is switched on by a licence key.', 'document-emberdder'); ?></p>
+                        <p class="bplde-settings-hero__note"><?php esc_html_e('Document Embedder Pro adds Insights history, lead capture, access control and cloud integrations — everything on this page is switched on by a licence key.', 'document-emberdder'); ?></p>
                     </div>
 
                     <div class="bplde-settings-hero__actions">

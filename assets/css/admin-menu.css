@@ -54,3 +54,19 @@
   padding-left: 12px;
   padding-right: 12px;
 }
+
+/* NEW chip on the Insights submenu. Solid teal so it reads on the dark sidebar;
+   lime stays reserved for the Pro marker. */
+#adminmenu .bplde-menu-new {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 2px 5px;
+  background: #0f766e;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}

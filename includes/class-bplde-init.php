@@ -68,6 +68,12 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
 
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
             dbDelta($sql);
+
+            \BPLDE\Model\InsightsSchema::install();
+        }
+
+        public static function deactivate() {
+            wp_clear_scheduled_hook('bplde_insights_prune');
         }
     }
 }

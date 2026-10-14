@@ -228,3 +228,102 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Insights settings: the one form on the free Settings screen. */
+.bplde-settings .bplde-insights-settings {
+  margin: 14px 20px 0 0;
+  padding: 20px 22px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+}
+
+.bplde-settings .bplde-insights-settings__title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+.bplde-settings .bplde-insights-settings__note,
+.bplde-settings .bplde-insights-settings__help {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--de-ink-3);
+}
+
+.bplde-settings .bplde-insights-settings__row {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 8px 20px;
+  margin: 0;
+  padding: 16px 0;
+  border: 0;
+  border-top: 1px solid var(--de-rule);
+}
+
+.bplde-settings .bplde-insights-settings__head + .bplde-insights-settings__row {
+  margin-top: 14px;
+}
+
+.bplde-settings .bplde-insights-settings__label {
+  float: left;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--de-ink);
+}
+
+.bplde-settings .bplde-insights-settings__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.bplde-settings .bplde-insights-settings__row .bplde-insights-settings__help {
+  grid-column: 2;
+}
+
+.bplde-settings .bplde-insights-settings__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--de-rule);
+}
+
+.bplde-settings .bplde-insights-settings__save {
+  height: 38px;
+  padding: 0 18px;
+  border: 1px solid var(--de-accent);
+  background: var(--de-accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bplde-settings .bplde-insights-settings__save:hover,
+.bplde-settings .bplde-insights-settings__save:focus {
+  border-color: var(--de-accent-deep);
+  background: var(--de-accent-deep);
+}
+
+.bplde-settings .bplde-insights-settings__reset {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #a32020;
+}
+
+@media screen and (max-width: 782px) {
+  .bplde-settings .bplde-insights-settings {
+    margin-right: 0;
+  }
+
+  .bplde-settings .bplde-insights-settings__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bplde-settings .bplde-insights-settings__row .bplde-insights-settings__help {
+    grid-column: 1;
+  }
+}

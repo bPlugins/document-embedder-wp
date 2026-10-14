@@ -134,6 +134,17 @@ export const useLoadMore = (items, perPage) => {
   };
 };
 
+// Signed Insights key the server attached to this item, if counting is on.
+export const insightsProps = (doc) => {
+  const attrs = doc?.insights;
+  if (!attrs || !attrs["data-bplde-doc"]) return {};
+  return {
+    "data-bplde-doc": attrs["data-bplde-doc"],
+    "data-bplde-sig": attrs["data-bplde-sig"],
+    "data-bplde-origin": attrs["data-bplde-origin"],
+  };
+};
+
 export const handleDownload = (doc) => {
   const link = document.createElement("a");
   link.href = doc.url;

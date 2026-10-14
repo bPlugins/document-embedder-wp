@@ -105,6 +105,10 @@
         "lazyLoad": false,
         "gviewFallback": true
       }
+    },
+    "flipbook": {
+      "type": "object",
+      "default": {}
     }
   },
   "editorScript": [

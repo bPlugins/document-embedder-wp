@@ -156,6 +156,15 @@ if (!class_exists('BPLDE_Admin_Assets')) {
             }
 
             // 5. Enqueue Leads Page
+            if ($hook === 'ppt_viewer_page_bplde-insights') {
+                $asset_file = BPLDE_PLUGIN_PATH . 'build/admin-insights.asset.php';
+                $asset      = file_exists($asset_file) ? include $asset_file : ['dependencies' => [], 'version' => BPLDE_VER];
+
+                wp_enqueue_script('bplde-admin-insights', BPLDE_PLUGIN_DIR . 'build/admin-insights.js', $asset['dependencies'], $asset['version'], true);
+                wp_set_script_translations('bplde-admin-insights', 'document-emberdder', BPLDE_PLUGIN_PATH . 'languages');
+                wp_enqueue_style('bplde-admin-insights', BPLDE_PLUGIN_DIR . 'build/admin-insights.css', [], $asset['version']);
+            }
+
             if ($hook === 'ppt_viewer_page_bplde-download-leads') {
                 $leads_css = BPLDE_PLUGIN_PATH . 'assets/css/admin-leads.css';
 

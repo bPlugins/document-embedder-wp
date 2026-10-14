@@ -55,6 +55,21 @@ if (!defined('ABSPATH')) {
         $attributes['_de_preview_editing'] = true;
     }
 
+    if (class_exists('\BPLDE\Helper\Functions')) {
+        $attributes['flipbook'] = \BPLDE\Helper\Functions::sanitize_flipbook(isset($attributes['flipbook']) ? $attributes['flipbook'] : []);
+    }
+
+    // Document Insights. A pasted URL has no id the download endpoint can serve, so its
+    // downloads are reported by the browser instead.
+    $de_raw_doc  = isset($attributes['documentSource']['doc']) ? (string) $attributes['documentSource']['doc'] : '';
+    $de_insights = [];
+    if (class_exists('\BPLDE\Model\Insights') && $de_raw_doc !== '') {
+        $de_insights = \BPLDE\Model\Insights::markup(
+            \BPLDE\Model\Insights::doc_key($de_raw_doc, $post_id),
+            $post_id ? [] : ['data-bplde-dl' => '1']
+        );
+    }
+
     // Enqueue frontend scripts and styles registered in block.json
     if (function_exists('enqueue_block_assets')) {
         wp_enqueue_script('wp-element');
@@ -92,7 +107,7 @@ if (!defined('ABSPATH')) {
          data-attributes="<?php echo esc_attr(wp_json_encode($attributes)); ?>"
          data-user="<?php echo esc_attr(wp_json_encode($user_data)); ?>"
          data-plugin-url="<?php echo esc_url(BPLDE_PLUGIN_DIR); ?>"
-         data-post-id="<?php echo esc_attr($post_id); ?>">
+         data-post-id="<?php echo esc_attr($post_id); ?>"<?php foreach ($de_insights as $de_attr => $de_value) { printf(' %s="%s"', esc_attr($de_attr), esc_attr($de_value)); } ?>>
         <div class="bplde-loading-placeholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px;">
             <p><?php esc_html_e('Loading Viewer...', 'document-emberdder'); ?></p>
         </div>

@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { FLIPBOOK_DEFAULTS, getFlipbookOptions, getFlipbookEnvironment } from "./flipbookOptions";
 
 /**
  * FlipbookViewer
@@ -32,6 +33,8 @@ const FlipbookViewer = ({ attributes = {}, source = "", viewerType = "flipbook",
   const enableFullscreen = docSource.enableFullscreen || false;
   const fullscreenNewTab = docSource.fullscreenNewTab || false;
   const onDemandRendering = docSource.onDemandRendering || false;
+  // Raw, not normalized: a flipbook without a style keeps dFlip's own 3D default untouched.
+  const { style: flipStyle, mobile2D = FLIPBOOK_DEFAULTS.mobile2D } = attributes?.flipbook || {};
 
   useEffect(() => {
     let cancelled = false;
@@ -86,6 +89,10 @@ const FlipbookViewer = ({ attributes = {}, source = "", viewerType = "flipbook",
 
       if (hideControls) {
         options.hideControls = hideControls;
+      }
+
+      if (dflipViewerType === "flipbook") {
+        Object.assign(options, getFlipbookOptions({ style: flipStyle, mobile2D }, getFlipbookEnvironment()));
       }
 
       // 3. Fullscreen in New Tab behavior
@@ -149,6 +156,10 @@ const FlipbookViewer = ({ attributes = {}, source = "", viewerType = "flipbook",
       observer.disconnect();
       if (flipbookRef.current && typeof flipbookRef.current.dispose === "function") {
         try {
+          // dFlip disposes the THREE renderer but leaves its WebGL context to garbage collection;
+          // the editor re-creates the viewer on every setting change and would run into the
+          // browser's live-context limit.
+          flipbookRef.current.viewer?.stage?.renderer?.forceContextLoss?.();
           flipbookRef.current.dispose();
         } catch (err) {
           // eslint-disable-next-line no-console
@@ -176,6 +187,8 @@ const FlipbookViewer = ({ attributes = {}, source = "", viewerType = "flipbook",
     enableFullscreen,
     fullscreenNewTab,
     onDemandRendering,
+    flipStyle,
+    mobile2D,
   ]);
 
   return (

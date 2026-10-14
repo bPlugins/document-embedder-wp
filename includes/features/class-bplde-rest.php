@@ -118,6 +118,12 @@ if ( ! class_exists( RESTController::class ) ) {
          * route has no caller and is not registered.
          */
 
+        private function count_insights_download( $doc_url, $document_id, $token ) {
+            if ( class_exists( '\BPLDE\Model\Insights' ) ) {
+                \BPLDE\Model\Insights::record_download( \BPLDE\Model\Insights::doc_key( $doc_url, $document_id ), (string) $token );
+            }
+        }
+
         public function handle_direct_download( \WP_REST_Request $request ) {
             $document_id = intval( $request->get_param( 'id' ) );
             $nonce       = $request->get_param( 'de_nonce' );
@@ -218,6 +224,7 @@ if ( ! class_exists( RESTController::class ) ) {
                 }
             } else {
                 // External URL, redirect safely
+                $this->count_insights_download( $doc_url, $document_id, $nonce );
                 wp_safe_redirect( $doc_url );
                 exit;
             }
@@ -260,6 +267,7 @@ if ( ! class_exists( RESTController::class ) ) {
             if ( ! \BPLDE\Helper\Functions::spend_download_token( $nonce ) ) {
                 return new \WP_REST_Response( 'Download link already used.', 403 );
             }
+            $this->count_insights_download( $doc_url, $document_id, $nonce );
 
             header( 'Content-Type: ' . $mime_type );
             header( 'Content-Disposition: ' . $disposition . '; filename="' . esc_attr( $filename ) . '"' );

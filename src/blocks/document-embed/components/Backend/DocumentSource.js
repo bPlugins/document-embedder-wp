@@ -71,7 +71,19 @@ const DocumentSource = ({ attributes, setAttributes }) => {
           label={__("Viewer", "document-emberdder")}
           labelPosition="top"
           value={viewer}
-          onChange={(val) => updateSource("viewer", val)}
+          onChange={(val) => {
+            // A block that becomes a flipbook here starts in 3D with the phone fallback on.
+            // Blocks saved before Flip Style existed are already flipbooks, never come through
+            // here, and keep dFlip's default 3D book.
+            if (val === "flipbook" && !attributes.flipbook?.style) {
+              setAttributes({
+                documentSource: { ...documentSource, viewer: val },
+                flipbook: { ...attributes.flipbook, style: "3d" },
+              });
+              return;
+            }
+            updateSource("viewer", val);
+          }}
           options={[
             { label: __("Default", "document-emberdder"), value: "default" },
             {

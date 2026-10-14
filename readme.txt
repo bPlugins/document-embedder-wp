@@ -2,7 +2,7 @@
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: pdf viewer, embed pdf, document viewer, document library, pdf embedder
 Tested up to: 7.1
-Stable tag: 2.4.1
+Stable tag: 2.5.0
 Requires PHP: 7.1
 Requires at least: 6.5
 Donate link: https://www.buymeacoffee.com/abuhayat/
@@ -38,7 +38,7 @@ Add documents with the **Gutenberg block**, the dedicated **Elementor widget**, 
 
 * **Embed PDF, Word, Excel, PowerPoint and 16+ file types**: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, Google Docs, images, code files and more.
 * **Four viewer engines, all free**: Google viewer, local PDF.js viewer, 3D/2D FlipBook and slider.
-* **3D PDF FlipBook**: page-turn animation for brochures, magazines and catalogues, with no add-on needed.
+* **Real 3D PDF FlipBook**: pick the page turn for each PDF flipbook: 3D (a lit WebGL book with curling pages), Soft (curling paper pages) or Flat (pages turn as rigid sheets). Browsers without WebGL, and phones unless you switch that off, show 3D as Soft, and visitors who ask their device for reduced motion get the Flat page turn. A flipbook with overlays (Pro) always uses the Flat page turn.
 * **Responsive embeds**: set width and height separately for desktop, tablet and mobile.
 * **Live preview**: see exactly what visitors will see while you edit.
 * **File name display**: show the document title above the viewer.
@@ -66,9 +66,32 @@ Create a **document library** to list many files on one page, like a resource ce
 * **Shortcodes**: `[doc id="123"]` for a document and `[document_library id="123"]` for a library. They work in the Classic Editor, Divi, Bricks, WPBakery, Beaver Builder, Oxygen, Breakdance and any builder that supports shortcodes.
 * **Document post type**: every document is saved as its own post, so you can manage and reuse it anywhere.
 
+= Insights: document views and downloads =
+
+See how your documents are used, from Document Embedder > Insights. Counting is anonymous: no IP address is stored and no cookies are set. You can switch it off, exclude roles (administrators by default), choose how long history is kept, and reset the data in Settings.
+
+* **Views and daily unique views**: every viewer and file type (PDF in the Default/Google, Custom PDF, Flipbook and Slider viewers, Word, Excel and PowerPoint, images, video, Google Drive and Dropbox links), whether it is embedded with the block, the Saved Document block, the shortcode or the Elementor widget. A view counts once the document has been at least half on screen for a second. A lightbox document counts when its lightbox is opened.
+* **Time on screen**: how long a document was visible in an open browser tab, for every viewer and file type.
+* **Downloads**: counted when the file is delivered for saved documents and Media Library files. For a pasted external URL, counted when the download button is used. In a Document Library, counted when a visitor clicks Download.
+* **Full-screen use**: the full-screen or open-in-new-tab button on the plugin toolbar of the Custom PDF viewer.
+* **Leads and conversion rate**: leads for saved documents, compared with their views.
+* **List and editor**: a "Views today" column on the Documents list and today's figures in each document's Download Stats box.
+
+The free version shows today's figures. Every day is recorded from the moment you update, so upgrading to Pro reads back the history you already have: date ranges, a daily chart, top documents, top host pages and CSV export.
+
 ### Pro Features
 
-Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-embedder/pricing) for advanced library layouts, lead capture, access control and cloud integrations.
+Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-embedder/pricing) for Insights history, advanced library layouts, lead capture, access control and cloud integrations.
+
+= Insights history =
+
+The free version shows today's figures. Pro reads back every day recorded since you updated, straight from your own database.
+
+* **Date ranges**: today, the last 7, 30 or 90 days, or any range you pick.
+* **Daily chart**: views, downloads and leads day by day.
+* **Top documents and top host pages**: see which files are read most and which pages they are read on.
+* **Per-document view**: open any document to see its own figures and daily chart for the range you pick.
+* **CSV export**: download the figures for any range.
 
 = Advanced document library =
 
@@ -90,6 +113,7 @@ Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-em
 = More viewer features =
 
 * **Interactive overlays**: place notes, highlights, links and call-to-action buttons on any page of a PDF. They stay aligned at every zoom level.
+* **Flipbook controls**: hard covers, page-turn sound, auto play with your own interval, single or double page mode, page-turn speed and the 3D book's page edge colour.
 * **Lightbox popup**: open a document in a popup from a button, an image or any element on the page.
 * **Toolbar themes**: dark, light or fully custom toolbar colours.
 * **Advanced viewer settings**: reader mode, thumbnail sidebar, full-screen button, starting page, default zoom and automatic loading of the latest file version.
@@ -270,7 +294,11 @@ Yes. Paste the public link to the file. With Pro you can also browse your Google
 
 = Can I turn a PDF into a flipbook? =
 
-Yes, for free. Choose the FlipBook viewer to show any PDF as a 3D or 2D book with page-turn animation.
+Yes, for free. Choose the Flipbook viewer and a Flip Style: 3D, Soft or Flat. Flipbooks work with PDF files only. Flipbooks you created before Flip Style existed keep their current look until you change it. Pro adds hard covers, page-turn sound, auto play, single or double page mode, page-turn speed and the 3D page edge colour.
+
+= Can I see how many people view my documents? =
+
+Yes. Document Embedder > Insights counts views, daily unique views, downloads, full-screen use and time on screen for every embedded document and Document Library file, anonymously. The free version shows today's figures. Pro adds date ranges, a daily chart, top documents, top host pages, a per-document view and CSV export, reading back every day recorded since you updated.
 
 = Can I limit how many times someone can download a file? =
 
@@ -317,9 +345,17 @@ Please report security bugs found in the source code of the Document Embedder pl
 8. Every lead, logged and exportable (Pro) — Search, filter by date or document, and export the whole list to CSV in one click.
 9. Pin notes, links and CTAs on a page (Pro) — Percentage-based positions keep every overlay aligned at any zoom level.
 10. Lock a document to the right people (Pro) — Restrict the viewer by login or role — blocked visitors never receive the file URL at all.
+11. See how every document is read — Views, downloads, leads and time on screen for every document. Today in Free, full history, funnel and CSV export in Pro.
 
 
 == Changelog ==
+
+= 2.5.0 - RELEASE DATE =
+* **New:** Real 3D Flipbook mode (3D, soft curl or flat page turn) with hard cover, sound, auto play and page mode options. Existing flipbooks keep their current look.
+* **New:** Insights. Anonymous view, daily unique view, download, full-screen and time-on-screen counts for every embedded document and Document Library file, with today's figures on a new Insights screen.
+* **New:** Pro: Insights history with date ranges, a daily chart, top documents, top host pages, a per-document view and CSV export. Every day is recorded from the moment you update, so upgrading reads back the history you already have.
+* **New:** "Views today" column on the Documents list, and today's figures in each document's Download Stats box.
+* **New:** Insights settings: switch counting on or off, exclude roles, choose data retention, and reset the data.
 
 = 2.4.1 - 18 October 2026 =
 * **New:** Library layout templates. Choose Grid or List when you create a Document Library (Table and Folder are available in Pro).

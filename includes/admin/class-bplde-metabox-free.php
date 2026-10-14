@@ -168,6 +168,32 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         'desc' => esc_html__('Choose where the toolbar appears.', 'document-emberdder'),
                         'default' => 'toolbar',
                     ],
+                    [
+                        'type'       => 'subheading',
+                        'content'    => esc_html__('Flipbook', 'document-emberdder'),
+                        'dependency' => ['viewer', '==', 'flipbook', true],
+                    ],
+                    [
+                        'id' => 'flipbook_style',
+                        'type' => 'button_set',
+                        'title' => esc_html__('Flip Style', 'document-emberdder'),
+                        'options' => [
+                            '3d' => esc_html__('3D', 'document-emberdder'),
+                            'soft' => esc_html__('Soft', 'document-emberdder'),
+                            'flat' => esc_html__('Flat', 'document-emberdder'),
+                        ],
+                        'desc' => esc_html__('3D is a realistic WebGL book, Soft curls the pages, Flat turns them as rigid sheets.', 'document-emberdder'),
+                        'default' => '3d',
+                        'dependency' => ['viewer', '==', 'flipbook', true],
+                    ],
+                    [
+                        'id' => 'flipbook_mobile_2d',
+                        'type' => 'switcher',
+                        'title' => esc_html__('Use Soft Style on Phones', 'document-emberdder'),
+                        'desc' => esc_html__('Phones get the lighter soft style instead of WebGL 3D.', 'document-emberdder'),
+                        'default' => \BPLDE\Helper\Functions::flipbook_mobile_2d_default(),
+                        'dependency' => [['viewer', '==', 'flipbook', true], ['flipbook_style', '==', '3d']],
+                    ],
                     \BPLDE\Helper\Functions::bplde_pro_feature_list(
                         array(
                             __('Reader Mode for minimalist distraction-free reading', 'document-emberdder'),
@@ -182,6 +208,7 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                             __('Specify Custom Initial Page and Default Zoom Level', 'document-emberdder'),
                             __('Load Latest Version automatically (cache bypass)', 'document-emberdder'),
                             __('On-Demand Page Rendering for heavy documents', 'document-emberdder'),
+                            __('Flipbook hard cover, page-turn sound, auto play, page mode, turn speed and page edge color', 'document-emberdder'),
                         ),
                         __('Viewer & Display', 'document-emberdder')
                     )

@@ -1,5 +1,5 @@
 import { Download, Eye } from "lucide-react";
-import { getCategory, getExtension } from "../libraryData";
+import { getCategory, getExtension, insightsProps } from "../libraryData";
 
 const BADGE_TONE = {
   PDF: "pdf",
@@ -59,6 +59,7 @@ export const RowActions = ({ doc, viewButton = {}, downloadButton = {}, onView, 
           type="button"
           className="bplDl-btn bplDl-download-btn"
           onClick={() => onDownload(doc)}
+          {...insightsProps(doc)}
           aria-label={downloadButton.isText === false ? `${downloadText}: ${doc.title}` : undefined}
         >
           <Download className="bplDl-btn-icon" aria-hidden="true" />

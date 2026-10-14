@@ -408,6 +408,25 @@
   width: 130px;
 }
 
+.bplde-list .wp-list-table .column-bplde_views {
+  width: 110px;
+}
+
+/* Three count columns side by side leave the title too little room on laptop widths. */
+@media screen and (max-width: 1500px) {
+  .bplde-list .wp-list-table .column-download_count {
+    width: 90px;
+  }
+
+  .bplde-list .wp-list-table .column-bplde_views {
+    width: 44px;
+  }
+
+  .bplde-list .wp-list-table .column-download_leads {
+    width: 76px;
+  }
+}
+
 .bplde-list .wp-list-table .column-bplde_date {
   width: 170px;
 }
@@ -561,6 +580,16 @@
   color: var(--de-muted);
 }
 
+.bplde-list a.bplde-count {
+  text-decoration: none;
+}
+
+.bplde-list a.bplde-count:hover,
+.bplde-list a.bplde-count:focus {
+  color: var(--de-accent-deep);
+  text-decoration: underline;
+}
+
 .bplde-list .bplde-leads {
   display: inline-flex;
   align-items: center;
@@ -632,6 +661,7 @@
   .bplde-list .wp-list-table .column-bplde_type,
   .bplde-list .wp-list-table .column-download_count,
   .bplde-list .wp-list-table .column-download_leads,
+  .bplde-list .wp-list-table .column-bplde_views,
   .bplde-list .wp-list-table .column-bplde_date {
     width: auto;
   }
