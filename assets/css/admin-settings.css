@@ -8,6 +8,7 @@
   --de-surface: #fff;
   --de-tint: #f8fbfa;
   --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
   --de-rule: #e3ebe9;
 
   --de-ink: #0f1f1b;
@@ -22,6 +23,9 @@
   --de-pop-soft: #f4fce3;
   --de-pop-ink: #3f5209;
   --de-on-pop: #1a2e05;
+
+  --de-danger: #a32020;
+  --de-danger-soft: #fdeeee;
 }
 
 .bplde-settings .bplde-settings-wrap,
@@ -52,7 +56,7 @@
   display: flex;
   align-items: center;
   gap: 48px;
-  margin: 14px 20px 22px 0;
+  margin: 28px 20px 22px 0;
   padding: 40px 44px;
   background: var(--de-ink);
   color: #fff;
@@ -229,101 +233,73 @@
   }
 }
 
-/* Insights settings: the one form on the free Settings screen. */
-.bplde-settings .bplde-insights-settings {
-  margin: 14px 20px 0 0;
-  padding: 20px 22px;
+/* ---------------------------------------------------------------------------
+   CodeStar Save / Reset buttons, matching the Download Leads buttons
+   ------------------------------------------------------------------------- */
+
+.bplde-settings .csf-options .csf-buttons .button {
+  height: 40px;
+  min-height: 40px;
+  margin: 0 0 0 6px;
+  padding: 0 16px;
+  border: 1px solid var(--de-control);
+  border-radius: 0;
   background: var(--de-surface);
-  border: 1px solid var(--de-border);
-}
-
-.bplde-settings .bplde-insights-settings__title {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 700;
   color: var(--de-ink);
-}
-
-.bplde-settings .bplde-insights-settings__note,
-.bplde-settings .bplde-insights-settings__help {
-  margin: 4px 0 0;
-  font-size: 12.5px;
-  color: var(--de-ink-3);
-}
-
-.bplde-settings .bplde-insights-settings__row {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 8px 20px;
-  margin: 0;
-  padding: 16px 0;
-  border: 0;
-  border-top: 1px solid var(--de-rule);
-}
-
-.bplde-settings .bplde-insights-settings__head + .bplde-insights-settings__row {
-  margin-top: 14px;
-}
-
-.bplde-settings .bplde-insights-settings__label {
-  float: left;
-  padding: 0;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--de-ink);
-}
-
-.bplde-settings .bplde-insights-settings__choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-}
-
-.bplde-settings .bplde-insights-settings__row .bplde-insights-settings__help {
-  grid-column: 2;
-}
-
-.bplde-settings .bplde-insights-settings__actions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--de-rule);
-}
-
-.bplde-settings .bplde-insights-settings__save {
-  height: 38px;
-  padding: 0 18px;
-  border: 1px solid var(--de-accent);
-  background: var(--de-accent);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 38px;
+  text-shadow: none;
+  box-shadow: none;
   cursor: pointer;
 }
 
-.bplde-settings .bplde-insights-settings__save:hover,
-.bplde-settings .bplde-insights-settings__save:focus {
+.bplde-settings .csf-options .csf-buttons .button:hover,
+.bplde-settings .csf-options .csf-buttons .button:focus {
+  border-color: var(--de-accent);
+  background: var(--de-surface);
+  color: var(--de-accent-deep);
+  box-shadow: none;
+  outline: 0;
+}
+
+.bplde-settings .csf-options .csf-buttons .button:focus-visible {
+  outline: 2px solid var(--de-accent);
+  outline-offset: 2px;
+}
+
+.bplde-settings .csf-options .csf-buttons .csf-save {
+  padding: 0 20px;
+  border-color: var(--de-accent);
+  background: var(--de-accent);
+  color: #fff;
+  font-weight: 700;
+}
+
+.bplde-settings .csf-options .csf-buttons .csf-save:hover,
+.bplde-settings .csf-options .csf-buttons .csf-save:focus {
   border-color: var(--de-accent-deep);
   background: var(--de-accent-deep);
+  color: #fff;
 }
 
-.bplde-settings .bplde-insights-settings__reset {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: #a32020;
+.bplde-settings .csf-options .csf-buttons .csf-save:disabled {
+  opacity: .6;
+  cursor: default;
 }
 
-@media screen and (max-width: 782px) {
-  .bplde-settings .bplde-insights-settings {
-    margin-right: 0;
-  }
+/* CodeStar paints .csf-warning-primary with !important, so these must match it. */
+.bplde-settings .csf-options .csf-buttons .csf-reset-all {
+  border-color: #e7c4c4 !important;
+  background: var(--de-surface) !important;
+  color: var(--de-danger) !important;
+}
 
-  .bplde-settings .bplde-insights-settings__row {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .bplde-settings .bplde-insights-settings__row .bplde-insights-settings__help {
-    grid-column: 1;
-  }
+.bplde-settings .csf-options .csf-buttons .csf-reset-all:hover,
+.bplde-settings .csf-options .csf-buttons .csf-reset-all:focus,
+.bplde-settings .csf-options .csf-buttons .csf-reset-all:active {
+  border-color: var(--de-danger) !important;
+  background: var(--de-danger-soft) !important;
+  color: var(--de-danger) !important;
+  box-shadow: none !important;
 }

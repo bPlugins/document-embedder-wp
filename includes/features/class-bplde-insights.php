@@ -37,7 +37,6 @@ if (!class_exists('BPLDE\Model\Insights')) {
             add_action(self::PRUNE_HOOK, [__CLASS__, 'prune']);
             add_action('admin_init', [$this, 'privacy_policy']);
             add_action('admin_post_' . self::RESET_ACTION, [$this, 'handle_reset']);
-            add_action('admin_post_' . self::SAVE_ACTION, [$this, 'handle_save']);
             add_action('admin_notices', [$this, 'reset_notice']);
             add_action('before_delete_post', [$this, 'delete_document_stats'], 10, 2);
         }
@@ -542,106 +541,71 @@ if (!class_exists('BPLDE\Model\Insights')) {
                 return;
             }
 
-            // phpcs:disable WordPress.Security.NonceVerification.Recommended -- display-only flags set by the handlers
-            if (!empty($_GET['bplde_insights_reset'])) {
-                $message = __('Insights data has been reset.', 'document-emberdder');
-            } elseif (!empty($_GET['bplde_insights_saved'])) {
-                $message = __('Insights settings saved.', 'document-emberdder');
-            } else {
-                return;
-            }
-            // phpcs:enable
-
-            printf('<div class="notice notice-success is-dismissible"><p>%s</p></div>', esc_html($message));
-        }
-
-        const SAVE_ACTION = 'bplde_insights_save';
-
-        /**
-         * The free Settings screen has no Codestar form, so Insights carries its own. It writes
-         * the same `_ppt_` keys the Pro settings page uses, so the choices survive an upgrade.
-         */
-        public static function render_settings_form()
-        {
-            if (!current_user_can('manage_options')) {
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- display-only flag set by handle_reset()
+            if (empty($_GET['bplde_insights_reset'])) {
                 return;
             }
 
-            $selected = self::excluded_roles();
-            $retention = (string) self::retention_months();
-            ?>
-            <form class="bplde-insights-settings" method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
-                <input type="hidden" name="action" value="<?php echo esc_attr(self::SAVE_ACTION); ?>">
-                <?php wp_nonce_field(self::SAVE_ACTION); ?>
-
-                <div class="bplde-insights-settings__head">
-                    <h2 class="bplde-insights-settings__title"><?php esc_html_e('Insights', 'document-emberdder'); ?></h2>
-                    <p class="bplde-insights-settings__note"><?php esc_html_e('Counts views, downloads, full-screen use and time on screen for embedded documents. Anonymous: no IP addresses are stored and no cookies are set.', 'document-emberdder'); ?></p>
-                </div>
-
-                <div class="bplde-insights-settings__row">
-                    <span class="bplde-insights-settings__label"><?php esc_html_e('Enable Insights', 'document-emberdder'); ?></span>
-                    <label><input type="checkbox" name="bplde_insights_enable" value="1" <?php checked(self::tracking_enabled()); ?>> <?php esc_html_e('Count document views and downloads', 'document-emberdder'); ?></label>
-                </div>
-
-                <fieldset class="bplde-insights-settings__row">
-                    <legend class="bplde-insights-settings__label"><?php esc_html_e('Exclude roles', 'document-emberdder'); ?></legend>
-                    <div class="bplde-insights-settings__choices">
-                        <?php foreach (wp_roles()->get_names() as $slug => $name) : ?>
-                            <label><input type="checkbox" name="bplde_insights_exclude_roles[]" value="<?php echo esc_attr($slug); ?>" <?php checked(in_array($slug, $selected, true)); ?>> <?php echo esc_html(translate_user_role($name)); ?></label>
-                        <?php endforeach; ?>
-                    </div>
-                    <p class="bplde-insights-settings__help"><?php esc_html_e('Visits by logged-in users with these roles are not counted.', 'document-emberdder'); ?></p>
-                </fieldset>
-
-                <div class="bplde-insights-settings__row">
-                    <label class="bplde-insights-settings__label" for="bplde-insights-retention"><?php esc_html_e('Data retention', 'document-emberdder'); ?></label>
-                    <div>
-                        <select id="bplde-insights-retention" name="bplde_insights_retention">
-                            <option value="forever" <?php selected($retention, '0'); ?>><?php esc_html_e('Keep forever', 'document-emberdder'); ?></option>
-                            <option value="12" <?php selected($retention, '12'); ?>><?php esc_html_e('12 months', 'document-emberdder'); ?></option>
-                            <option value="24" <?php selected($retention, '24'); ?>><?php esc_html_e('24 months', 'document-emberdder'); ?></option>
-                        </select>
-                        <p class="bplde-insights-settings__help"><?php esc_html_e('Older daily totals are deleted once a day.', 'document-emberdder'); ?></p>
-                    </div>
-                </div>
-
-                <div class="bplde-insights-settings__actions">
-                    <button type="submit" class="bplde-insights-settings__save"><?php esc_html_e('Save Insights settings', 'document-emberdder'); ?></button>
-                    <a class="bplde-insights-settings__reset" href="<?php echo esc_url(self::reset_url()); ?>"
-                        onclick="return confirm('<?php echo esc_js(__('Delete every recorded view, download and time-on-screen figure? Leads and download counts are not affected. This cannot be undone.', 'document-emberdder')); ?>');">
-                        <?php esc_html_e('Reset Insights data', 'document-emberdder'); ?>
-                    </a>
-                </div>
-            </form>
-            <?php
+            printf(
+                '<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+                esc_html__('Insights data has been reset.', 'document-emberdder')
+            );
         }
 
-        public function handle_save()
+        /** The Insights section of the Codestar settings page, shared by the Free and Pro builds. */
+        public static function settings_section()
         {
-            if (!current_user_can('manage_options')) {
-                wp_die(esc_html__('You do not have sufficient permissions to access this page.', 'document-emberdder'), 403);
+            $roles = [];
+            foreach (wp_roles()->get_names() as $slug => $name) {
+                $roles[$slug] = translate_user_role($name);
             }
 
-            check_admin_referer(self::SAVE_ACTION);
+            $reset = sprintf(
+                '<a href="%1$s" class="button" onclick="return confirm(\'%2$s\');">%3$s</a><p class="description">%4$s</p>',
+                esc_url(self::reset_url()),
+                esc_js(__('Delete every recorded view, download and time-on-screen figure? Leads and download counts are not affected. This cannot be undone.', 'document-emberdder')),
+                esc_html__('Reset Insights data', 'document-emberdder'),
+                esc_html__('Deletes all Insights history. Download Leads and the lifetime download count on each document are kept.', 'document-emberdder')
+            );
 
-            // phpcs:disable WordPress.Security.NonceVerification.Missing -- verified above
-            $roles = isset($_POST['bplde_insights_exclude_roles']) ? array_map('sanitize_key', (array) wp_unslash($_POST['bplde_insights_exclude_roles'])) : [];
-            $retention = isset($_POST['bplde_insights_retention']) ? sanitize_key(wp_unslash($_POST['bplde_insights_retention'])) : 'forever';
-            // phpcs:enable
-
-            $options = get_option('_ppt_');
-            $options = is_array($options) ? $options : [];
-
-            $options['bplde_insights_enable']        = empty($_POST['bplde_insights_enable']) ? '0' : '1'; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified above
-            $options['bplde_insights_exclude_roles'] = array_values(array_intersect($roles, array_keys(wp_roles()->get_names())));
-            $options['bplde_insights_retention']     = in_array($retention, ['12', '24'], true) ? $retention : 'forever';
-
-            update_option('_ppt_', $options);
-
-            $back = wp_get_referer() ? wp_get_referer() : admin_url('edit.php?post_type=ppt_viewer&page=settings');
-            wp_safe_redirect(add_query_arg('bplde_insights_saved', '1', remove_query_arg('bplde_insights_reset', $back)));
-            exit;
+            return [
+                'title'  => esc_html__('Insights', 'document-emberdder'),
+                'fields' => [
+                    [
+                        'id'      => 'bplde_insights_enable',
+                        'type'    => 'switcher',
+                        'title'   => esc_html__('Enable Insights', 'document-emberdder'),
+                        'desc'    => esc_html__('Counts views, downloads, full-screen use and time on screen for embedded documents. Anonymous: no IP addresses are stored and no cookies are set.', 'document-emberdder'),
+                        'default' => true,
+                    ],
+                    [
+                        'id'         => 'bplde_insights_exclude_roles',
+                        'type'       => 'checkbox',
+                        'title'      => esc_html__('Exclude roles', 'document-emberdder'),
+                        'desc'       => esc_html__('Visits by logged-in users with these roles are not counted.', 'document-emberdder'),
+                        'options'    => $roles,
+                        'default'    => ['administrator'],
+                        'dependency' => ['bplde_insights_enable', '==', 'true'],
+                    ],
+                    [
+                        'id'      => 'bplde_insights_retention',
+                        'type'    => 'select',
+                        'title'   => esc_html__('Data retention', 'document-emberdder'),
+                        'desc'    => esc_html__('Older daily totals are deleted once a day.', 'document-emberdder'),
+                        'options' => [
+                            'forever' => esc_html__('Keep forever', 'document-emberdder'),
+                            '12'      => esc_html__('12 months', 'document-emberdder'),
+                            '24'      => esc_html__('24 months', 'document-emberdder'),
+                        ],
+                        'default' => 'forever',
+                    ],
+                    [
+                        'type'    => 'content',
+                        'title'   => esc_html__('Reset', 'document-emberdder'),
+                        'content' => $reset,
+                    ],
+                ],
+            ];
         }
     }
 

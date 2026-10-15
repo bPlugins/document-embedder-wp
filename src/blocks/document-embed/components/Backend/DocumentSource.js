@@ -26,7 +26,7 @@ const DocumentSource = ({ attributes, setAttributes }) => {
             width="20"
             height="20"
             fill="none"
-            stroke="#3858E9"
+            stroke="#0f766e"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -88,96 +88,30 @@ const DocumentSource = ({ attributes, setAttributes }) => {
             { label: __("Default", "document-emberdder"), value: "default" },
             {
               label: (
-                <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                <span className="bplde-badge-row">
                   {__("Custom PDF", "document-emberdder")}
-                  <span style={{
-                    backgroundColor: "#8b5cf6",
-                    color: "#ffffff",
-                    fontSize: "9px",
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    textTransform: "uppercase"
-                  }}>
-                    {__("PDF Only", "document-emberdder")}
-                  </span>
-                  <span style={{
-                    backgroundColor: "#3858e9",
-                    color: "#ffffff",
-                    fontSize: "9px",
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    textTransform: "uppercase"
-                  }}>
-                    {__("New", "document-emberdder")}
-                  </span>
+                  <span className="bplde-badge bplde-badge--pdf">{__("PDF Only", "document-emberdder")}</span>
+                  <span className="bplde-badge bplde-badge--new">{__("New", "document-emberdder")}</span>
                 </span>
               ),
               value: "custom"
             },
             {
               label: (
-                <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                <span className="bplde-badge-row">
                   {__("Flipbook", "document-emberdder")}
-                  <span style={{
-                    backgroundColor: "#8b5cf6",
-                    color: "#ffffff",
-                    fontSize: "9px",
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    textTransform: "uppercase"
-                  }}>
-                    {__("PDF Only", "document-emberdder")}
-                  </span>
-                  <span style={{
-                    backgroundColor: "#3858e9",
-                    color: "#ffffff",
-                    fontSize: "9px",
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    textTransform: "uppercase"
-                  }}>
-                    {__("New", "document-emberdder")}
-                  </span>
+                  <span className="bplde-badge bplde-badge--pdf">{__("PDF Only", "document-emberdder")}</span>
+                  <span className="bplde-badge bplde-badge--new">{__("New", "document-emberdder")}</span>
                 </span>
               ),
               value: "flipbook"
             },
             {
               label: (
-                <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                <span className="bplde-badge-row">
                   {__("Slider", "document-emberdder")}
-                  <span style={{
-                    backgroundColor: "#8b5cf6",
-                    color: "#ffffff",
-                    fontSize: "9px",
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    textTransform: "uppercase"
-                  }}>
-                    {__("PDF Only", "document-emberdder")}
-                  </span>
-                  <span style={{
-                    backgroundColor: "#3858e9",
-                    color: "#ffffff",
-                    fontSize: "9px",
-                    padding: "2px 5px",
-                    borderRadius: "3px",
-                    fontWeight: "bold",
-                    lineHeight: "1",
-                    textTransform: "uppercase"
-                  }}>
-                    {__("New", "document-emberdder")}
-                  </span>
+                  <span className="bplde-badge bplde-badge--pdf">{__("PDF Only", "document-emberdder")}</span>
+                  <span className="bplde-badge bplde-badge--new">{__("New", "document-emberdder")}</span>
                 </span>
               ),
               value: "slider"
@@ -190,7 +124,7 @@ const DocumentSource = ({ attributes, setAttributes }) => {
 
       <Notice status="premium" isIcon={true}>
         {__(
-          "Skip the manual uploads — embed directly from Google Drive and Dropbox with one click. The cloud document picker is available in Document Embedder Pro.",
+          "Skip the manual uploads — embed directly from Google Drive, Dropbox and Box with one click. The cloud document picker is available in Document Embedder Pro.",
           "document-emberdder"
         )}
       </Notice>

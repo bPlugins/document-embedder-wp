@@ -1,5 +1,18 @@
 @import "../../../../bpl-tools/Components/style.scss";
 
+// "Deep Teal & Lime", the admin palette. SCSS variables rather than custom
+// properties so nothing is added to the editor's :root.
+$de-ink: #0f1f1b;
+$de-ink-2: #3f5750;
+$de-ink-3: #5b7369;
+$de-border: #d5e0dd;
+$de-tint: #f8fbfa;
+$de-accent: #0f766e;
+$de-accent-deep: #0b5a54;
+$de-pop: #a3e635;
+$de-on-pop: #1a2e05;
+$de-warn: #b45309;
+
 .bplde-document-embed-editor-preview {
   background: #f1f1f1;
   border: 1px dashed #ccc;
@@ -16,17 +29,26 @@
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
+  // Fills the toggle (whose padding already leaves room for the arrow), so a
+  // badge can sit at the far right instead of against the title.
+  flex: 1 1 auto;
+  width: 100%;
   margin-left: 0 !important;
 
   * {
     margin-left: 0 !important;
   }
 
+  // A light teal tile behind a teal icon: easy to spot in a long sidebar
+  // without twelve solid blocks of colour competing with the badges.
   svg {
-    stroke: #3858E9 !important;
+    box-sizing: content-box !important;
+    padding: 5px !important;
+    background: rgba($de-accent, .1) !important;
+    stroke: $de-accent !important;
     fill: none !important;
-    width: 20px !important;
-    height: 20px !important;
+    width: 16px !important;
+    height: 16px !important;
     flex-shrink: 0 !important;
 
     path,
@@ -35,7 +57,7 @@
     polyline,
     circle,
     polygon {
-      stroke: #3858E9 !important;
+      stroke: $de-accent !important;
       fill: none !important;
     }
   }
@@ -61,50 +83,346 @@
   }
 }
 
-/* Placeholder styles */
-.bplde-placeholder {
-  border: 2px dashed #cbd5e0;
-  border-radius: 6px;
-  background: #f7fafc;
-  padding: 40px 20px;
-  text-align: center;
-  font-family: sans-serif;
+/* ---------------------------------------------------------------------------
+   Source picker -- the first screen of an empty block.
+
+   "Deep Teal & Lime", the same tokens as the plugin's admin screens. They live on
+   the picker root, not :root, so nothing leaks into the editor canvas or other
+   blocks. Every element is restyled explicitly because the canvas loads the
+   active theme's button, link, heading and input styles.
+   ------------------------------------------------------------------------- */
+
+.bplde-source-picker {
+  --de-ground: #edf1f0;
+  --de-surface: #fff;
+  --de-tint: #f8fbfa;
+  --de-border: #d5e0dd;
+  --de-control: #bfd0cc;
+  --de-rule: #e3ebe9;
+
+  --de-ink: #0f1f1b;
+  --de-ink-2: #3f5750;
+  --de-ink-3: #5b7369;
+  --de-muted: #8ca09a;
+
+  --de-accent: #0f766e;
+  --de-accent-deep: #0b5a54;
+  --de-accent-soft: rgba(15, 118, 110, .1);
+  --de-accent-line: rgba(15, 118, 110, .32);
+
+  --de-pop: #a3e635;
+  --de-pop-hover: #b6ef52;
+  --de-on-pop: #1a2e05;
+
+  box-sizing: border-box;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+  color: var(--de-ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: left;
+
+  // Square corners, as on every other admin screen of the plugin.
+  &,
+  * {
+    border-radius: 0;
+    box-sizing: border-box;
+  }
 }
 
-.bplde-placeholder-icon {
-  font-size: 40px;
+/* Header: eyebrow over heading, as the document editor's top bar does it. */
+
+.bplde-source-picker .bplde-sp-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--de-tint);
+  border-bottom: 1px solid var(--de-rule);
+}
+
+.bplde-source-picker .bplde-sp-head__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40px;
   width: 40px;
   height: 40px;
-  color: #a0aec0;
-  margin-bottom: 16px;
+  background: var(--de-accent);
+  color: #fff;
 }
 
-.bplde-placeholder-title {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #4a5568;
-}
-
-.bplde-placeholder-text {
-  margin: 0 0 20px 0;
-  font-size: 13px;
-  color: #718096;
-}
-
-.bplde-placeholder-controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-.bplde-placeholder-button {
-  flex-shrink: 0;
-}
-
-.bplde-placeholder-input {
+.bplde-source-picker .bplde-sp-eyebrow {
+  display: block;
   margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--de-ink-3);
+}
+
+.bplde-source-picker .bplde-sp-title {
+  margin: 2px 0 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--de-ink);
+}
+
+.bplde-source-picker .bplde-sp-sub {
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 13px;
+  color: var(--de-ink-2);
+}
+
+.bplde-source-picker .bplde-sp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: var(--de-ground);
+}
+
+/* Source cards */
+
+// Four sources: two columns keep them a balanced 2x2 instead of three plus an orphan.
+.bplde-source-picker .bplde-sp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.bplde-source-picker .bplde-sp-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 16px 16px 14px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-border);
+  border-left: 3px solid transparent;
+  box-shadow: 0 1px 2px rgba(15, 31, 27, .05);
+  color: var(--de-ink);
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+  transition: border-color .15s ease, box-shadow .15s ease;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    border-color: var(--de-accent-line);
+    border-left-color: var(--de-accent);
+    box-shadow: 0 4px 12px rgba(15, 31, 27, .08);
+    color: var(--de-ink);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--de-accent);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: progress;
+    opacity: .7;
+  }
+}
+
+.bplde-source-picker .bplde-sp-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+  background: var(--de-accent-soft);
+  color: var(--de-accent-deep);
+}
+
+.bplde-source-picker .bplde-sp-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--de-ink);
+}
+
+.bplde-source-picker .bplde-sp-card__text {
+  flex: 1 1 auto;
+  font-size: 12.5px;
+  color: var(--de-ink-3);
+}
+
+.bplde-source-picker .bplde-sp-card__action {
+  margin-top: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--de-accent);
+}
+
+// Upload is the one lime call to action on the screen.
+.bplde-source-picker .bplde-sp-card.is-primary .bplde-sp-card__action {
+  padding: 6px 14px;
+  background: var(--de-pop);
+  color: var(--de-on-pop);
+}
+
+.bplde-source-picker .bplde-sp-card.is-primary:hover .bplde-sp-card__action,
+.bplde-source-picker .bplde-sp-card.is-primary:focus-visible .bplde-sp-card__action {
+  background: var(--de-pop-hover);
+}
+
+// Pro-only source: still shown, quieter, with a PRO badge and an upgrade link.
+.bplde-source-picker .bplde-sp-card.is-pro {
+  position: relative;
+  background: var(--de-tint);
+  border-style: dashed;
+  border-left-style: solid;
+  box-shadow: none;
+
+  .bplde-sp-card__icon {
+    background: var(--de-surface);
+    border: 1px solid var(--de-rule);
+    filter: grayscale(.6);
+  }
+
+  .bplde-sp-card__action {
+    color: var(--de-ink-2);
+  }
+
+  &:hover,
+  &:focus-visible {
+    .bplde-sp-card__icon {
+      filter: none;
+    }
+
+    .bplde-sp-card__action {
+      color: var(--de-accent);
+    }
+  }
+}
+
+.bplde-source-picker .bplde-sp-card__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+/* URL row */
+
+.bplde-source-picker .bplde-sp-url {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.bplde-source-picker .bplde-sp-url__row {
+  display: flex;
+  gap: 8px;
+}
+
+.bplde-source-picker .bplde-sp-url__field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 12px;
+  background: var(--de-surface);
+  border: 1px solid var(--de-control);
+  color: var(--de-muted);
+
+  &:focus-within {
+    border-color: var(--de-accent);
+    box-shadow: 0 0 0 1px var(--de-accent);
+  }
+
+  input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    outline: 0;
+    color: var(--de-ink);
+    font: inherit;
+    font-size: 13px;
+
+    &::placeholder {
+      color: var(--de-muted);
+    }
+
+    &:focus {
+      border: 0;
+      box-shadow: none;
+      outline: 0;
+    }
+  }
+}
+
+.bplde-source-picker .bplde-sp-url__submit {
+  flex: 0 0 auto;
+  height: 40px;
+  margin: 0;
+  padding: 0 20px;
+  background: var(--de-accent);
+  border: 1px solid var(--de-accent);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: var(--de-accent-deep);
+    border-color: var(--de-accent-deep);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--de-accent);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    background: var(--de-control);
+    border-color: var(--de-control);
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 480px) {
+  .bplde-source-picker .bplde-sp-head,
+  .bplde-source-picker .bplde-sp-body {
+    padding: 16px;
+  }
+
+  .bplde-source-picker .bplde-sp-url__row {
+    flex-direction: column;
+  }
+
+  .bplde-source-picker .bplde-sp-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 // /* Fix for Pro Modal Overlay positioning in newer WordPress versions */
@@ -122,19 +440,101 @@
 //   z-index: 100000 !important;
 // }
 
-/* "New" badge on inspector panel titles, the same chip the Pro build uses. */
+/* ---------------------------------------------------------------------------
+   Inspector badges -- the admin's badge family (assets/css/style.css).
+
+   NEW and PDF ONLY are quiet chips; NEW is solid teal like the admin menu's
+   NEW chip, and lime stays reserved for PRO. Square, like every other surface.
+   ------------------------------------------------------------------------- */
+
+.bplde-badge,
 .bplde-panel-title .bplde-panel-badge {
   display: inline-block;
+  flex: 0 0 auto;
   padding: 2px 6px;
-  color: #fff;
-  background: #ff9800;
   border-radius: 0;
   font-size: 9px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: .06em;
   line-height: 1;
-  letter-spacing: 0.3px;
   text-transform: uppercase;
+  white-space: nowrap;
   vertical-align: middle;
+}
+
+// Pushed to the right edge of the panel header, beside the arrow. Two classes so
+// it outranks the `.bplde-panel-title * { margin-left: 0 !important }` reset.
+.bplde-panel-title .bplde-panel-badge {
+  margin-left: auto !important;
+}
+
+// Solid teal, as the NEW chip on the admin menu: loud enough to notice, while
+// lime stays reserved for PRO.
+.bplde-badge--new,
+.bplde-panel-title .bplde-panel-badge {
+  padding: 3px 7px;
+  background: $de-accent;
+  color: #fff;
+  font-weight: 800;
+}
+
+.bplde-badge--pdf {
+  background: #eef2f1;
+  color: $de-ink-3;
+}
+
+.bplde-badge--pro {
+  background: $de-pop;
+  color: $de-on-pop;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+// Inside a selected or hovered button (the Viewer button group), the quiet chips
+// sit on a dark fill, so they turn into light-on-dark versions of themselves.
+.bPlBtnGroup .components-button.is-primary,
+.bPlBtnGroup .components-button:hover {
+  .bplde-badge--pdf {
+    background: rgba(255, 255, 255, .2);
+    color: #fff;
+  }
+
+  .bplde-badge--new {
+    background: #fff;
+    color: $de-accent-deep;
+  }
+}
+
+.bplde-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* PRO badge drawn by the shared bpl-tools PremiumBadge on locked panels. The
+   library writes its orange as inline styles, so the lime has to win with
+   !important; the class is passed in from this plugin's panels, so no other
+   bPlugins product is affected. */
+// .medium is the size PremiumBadge always passes; naming it outranks the
+// library's own `.bPlBadge.medium` padding and font size.
+.bplde-pro-badge.bPlBadge,
+.bplde-pro-badge.bPlBadge.medium {
+  gap: 4px;
+  padding: 3px 7px;
+  background: $de-pop !important;
+  border-color: $de-pop !important;
+  color: $de-on-pop !important;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  line-height: 1;
+  text-transform: uppercase;
+
+  svg {
+    width: 10px;
+    height: 10px;
+    fill: currentColor;
+  }
 }
 
 /* Insights panel — the Insights screen's "Deep Teal & Lime" tokens at sidebar width.
@@ -294,7 +694,9 @@
     text-decoration: none;
 
     &::after {
-      content: " \2192";
+      // Kept as an escape: Sass would otherwise write a raw "→", which the editor
+      // misreads as "â†'" because the built CSS carries no charset.
+      content: unquote('" \\2192"');
     }
 
     &:hover,

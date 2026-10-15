@@ -279,7 +279,7 @@ export const dashboardInfo = (info) => {
       "Interactive overlays on any page",
       "Print, copy and right-click protection",
       "Access limited by user role",
-      "Google Drive and Dropbox embeds",
+      "Google Drive, Dropbox and Box embeds",
       "Toolbar themes, zoom and lightbox"
     ],
     startButton: {

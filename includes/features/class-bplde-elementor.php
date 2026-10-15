@@ -30,6 +30,21 @@ if (!class_exists('BPLDE_Elementor')) {
             add_action('elementor/elements/categories_registered', [$this, 'register_category']);
             add_action('elementor/widgets/register', [$this, 'register_widgets']);
             add_action('elementor/editor/after_enqueue_scripts', [$this, 'editor_scripts']);
+            add_action('elementor/editor/after_enqueue_styles', [$this, 'editor_styles']);
+        }
+
+        /**
+         * Elementor widget icons are icon-font classes. This one is a plain class that paints
+         * the plugin icon instead, sized in em so it scales wherever Elementor shows it (the
+         * widget panel, the navigator).
+         */
+        public function editor_styles() {
+            $icon = BPLDE_PLUGIN_DIR . 'assets/img/icon-128x128.png';
+            wp_add_inline_style('elementor-editor', sprintf(
+                '.bplde-elementor-icon{display:inline-block;width:1em;height:1em;background:url(%s) center/contain no-repeat;vertical-align:middle}'
+                . '.bplde-elementor-icon::before{content:""}',
+                esc_url($icon)
+            ));
         }
 
         /**

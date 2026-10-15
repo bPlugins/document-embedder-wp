@@ -19,7 +19,7 @@ Embed PDF, Word, Excel & PowerPoint in WordPress. PDF viewer, 3D flipbook and do
 
 [**Document Embedder**](https://bplugins.com/products/document-embedder/) is a **PDF viewer, document viewer and document library** for WordPress. Embed a PDF in any post or page, show Word documents, Excel spreadsheets and PowerPoint presentations inline, turn a PDF into a 3D **flipbook**, or build a searchable **document library** where visitors can view and download your files.
 
-Upload files from your computer or the Media Library, or paste a link to a file on Google Drive, Dropbox or any public URL. Choose from four viewers: the Google viewer for Office files, a fast local **PDF.js viewer**, an interactive **3D FlipBook**, or a slider. Every viewer is responsive on desktop, tablet and mobile.
+Upload files from your computer or the Media Library, or paste a link to a file on Google Drive, Dropbox, Box or any public URL. Choose from four viewers: the Google viewer for Office files, a fast local **PDF.js viewer**, an interactive **3D FlipBook**, or a slider. Every viewer is responsive on desktop, tablet and mobile.
 
 Add documents with the **Gutenberg block**, the dedicated **Elementor widget**, or a shortcode in any page builder.
 
@@ -79,6 +79,18 @@ See how your documents are used, from Document Embedder > Insights. Counting is 
 
 The free version shows today's figures. Every day is recorded from the moment you update, so upgrading to Pro reads back the history you already have: date ranges, a daily chart, top documents, top host pages and CSV export.
 
+= AI Agent Access =
+
+Ask an AI assistant about your documents. Document Embedder registers read-only abilities with the WordPress Abilities API, so AI assistants (Claude, ChatGPT and others, connected through the WordPress MCP Adapter) and REST API clients can read your data. They never change anything.
+
+* **document-embedder/list-documents**: your documents with file type, viewer, shortcode, tags, downloads and leads.
+* **document-embedder/get-document**: one document's settings and the pages that embed it.
+* **document-embedder/get-download-stats**: lifetime downloads and leads, and downloads in any date range.
+* **document-embedder/list-leads**: download leads. Off until you switch on "Allow AI agents to read leads".
+* **document-embedder/get-insights**: today's views, downloads, leads, conversion rate and time on screen, and today's top documents.
+
+Requires WordPress 6.9 or newer, plus the WordPress MCP Adapter plugin for AI assistants. Only logged-in users with the right permissions can use the abilities. Switch them off in Settings > AI Agent Access. If you allow leads, lead names and emails are sent to the AI service you connect. IP addresses are never shared.
+
 ### Pro Features
 
 Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-embedder/pricing) for Insights history, advanced library layouts, lead capture, access control and cloud integrations.
@@ -123,6 +135,7 @@ The free version shows today's figures. Pro reads back every day recorded since 
 
 * **Google Drive integration**: browse and embed files straight from Google Drive.
 * **Dropbox integration**: browse and embed files straight from Dropbox.
+* **Box integration**: connect your Box account, then browse and embed Box files from the block. The public shared link is created for you.
 * **Faster pages**: lazy load documents until they scroll into view, render long PDFs page by page, and fall back automatically if the Google viewer does not respond.
 * **Priority support**: direct help from the team that builds the plugin.
 
@@ -136,7 +149,7 @@ https://youtube.com/watch?v=mUlMpuPMP5Q
 
 1. Open any post or page and click **+**.
 2. Search for **Document Embed** and add the block.
-3. Upload a file, pick one from the Media Library, or paste a Google Drive, Dropbox or other link.
+3. Upload a file, pick one from the Media Library, or paste a Google Drive, Dropbox, Box or other link.
 4. Choose a viewer and adjust the size, toolbar and download button in the sidebar.
 5. Publish.
 
@@ -288,9 +301,9 @@ Yes. Document Embedder has its own Elementor widget. Search for **Document Embed
 
 Yes. Paste the `[doc id="123"]` or `[document_library id="123"]` shortcode into any builder that supports shortcodes.
 
-= Can I embed files from Google Drive or Dropbox? =
+= Can I embed files from Google Drive, Dropbox or Box? =
 
-Yes. Paste the public link to the file. With Pro you can also browse your Google Drive and Dropbox accounts and pick files directly.
+Yes. Paste the public link to the file. Box shared links open in Box's own viewer. With Pro you can also browse your Google Drive, Dropbox and Box accounts and pick files directly.
 
 = Can I turn a PDF into a flipbook? =
 
@@ -356,6 +369,8 @@ Please report security bugs found in the source code of the Document Embedder pl
 * **New:** Pro: Insights history with date ranges, a daily chart, top documents, top host pages, a per-document view and CSV export. Every day is recorded from the moment you update, so upgrading reads back the history you already have.
 * **New:** "Views today" column on the Documents list, and today's figures in each document's Download Stats box.
 * **New:** Insights settings: switch counting on or off, exclude roles, choose data retention, and reset the data.
+* **New:** AI Agent Access: AI assistants can read your documents, download stats, leads (opt-in) and today's Insights through the WordPress Abilities API / MCP.
+* **New:** Box embeds. Paste a Box shared link and the file shows in Box's own viewer (browsing your Box account from the block is available in Pro).
 
 = 2.4.1 - 18 October 2026 =
 * **New:** Library layout templates. Choose Grid or List when you create a Document Library (Table and Folder are available in Pro).

@@ -70,6 +70,10 @@ if (!defined('ABSPATH')) {
         );
     }
 
+    // Wide/Full alignment hands the width to the theme. Blocks saved before alignment
+    // support have no `align` and keep their width settings exactly as before.
+    $de_align = isset($attributes['align']) && in_array($attributes['align'], ['wide', 'full'], true) ? $attributes['align'] : '';
+
     // Enqueue frontend scripts and styles registered in block.json
     if (function_exists('enqueue_block_assets')) {
         wp_enqueue_script('wp-element');
@@ -85,24 +89,24 @@ if (!defined('ABSPATH')) {
     ?>
     <style>
         #<?php echo esc_html($id); ?> {
-            width: <?php echo esc_html($w_d); ?>;
+            <?php if (!$de_align) : ?>width: <?php echo esc_html($w_d); ?>;<?php endif; ?>
             height: <?php echo esc_html($h_d); ?>;
         }
         @media (max-width: 991px) {
             #<?php echo esc_html($id); ?> {
-                width: <?php echo esc_html($w_t); ?>;
+                <?php if (!$de_align) : ?>width: <?php echo esc_html($w_t); ?>;<?php endif; ?>
                 height: <?php echo esc_html($h_t); ?>;
             }
         }
         @media (max-width: 767px) {
             #<?php echo esc_html($id); ?> {
-                width: <?php echo esc_html($w_m); ?>;
+                <?php if (!$de_align) : ?>width: <?php echo esc_html($w_m); ?>;<?php endif; ?>
                 height: <?php echo esc_html($h_m); ?>;
             }
         }
     </style>
 
-    <div class="bplde-document-embed-frontend"
+    <div class="bplde-document-embed-frontend<?php echo $de_align ? ' align' . esc_attr($de_align) : ''; ?>"
          id="<?php echo esc_attr($id); ?>"
          data-attributes="<?php echo esc_attr(wp_json_encode($attributes)); ?>"
          data-user="<?php echo esc_attr(wp_json_encode($user_data)); ?>"

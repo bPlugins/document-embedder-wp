@@ -122,7 +122,7 @@ const Insights = ({ attributes }) => {
       className="bPlPanelBody bplde-ins-panel"
       title={
         <div className="bplde-panel-title">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3858E9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0f766e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
             <path d="M3 3v18h18" />
             <path d="M7 15l4-4 3 3 5-6" />
           </svg>

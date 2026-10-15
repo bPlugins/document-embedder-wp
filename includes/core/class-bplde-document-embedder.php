@@ -60,6 +60,13 @@ if (!class_exists('BPLDE_Document_Embedder')) {
                 class_exists('\BPLDE\Admin\InsightsPage');
             }
 
+            // AI Agent Access. Required by hand (the classmap predates it); the settings page needs
+            // the class on every WordPress version, the hooks only where the Abilities API exists.
+            require_once BPLDE_PLUGIN_PATH . 'includes/features/abilities/class-bplde-abilities.php';
+            if (\BPLDE\Abilities\Abilities::supported()) {
+                \BPLDE\Abilities\Abilities::instance();
+            }
+
             if (class_exists('\BPLDE_Block')) {
                 new \BPLDE_Block();
             }
@@ -334,7 +341,7 @@ if (!class_exists('BPLDE_Document_Embedder')) {
                 __('Interactive overlays on any page', 'document-emberdder'),
                 __('Print, copy and right-click protection', 'document-emberdder'),
                 __('Access limited by user role', 'document-emberdder'),
-                __('Google Drive and Dropbox embeds', 'document-emberdder'),
+                __('Google Drive, Dropbox and Box embeds', 'document-emberdder'),
                 __('Toolbar themes, zoom and lightbox', 'document-emberdder'),
             ];
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { __ } from "@wordpress/i18n";
 import PDFJSViewer from "./PDFJSViewer";
 import IframePreview from "./IframePreview";
+import { isBoxUrl, getBoxEmbedUrl } from "./boxUrl";
 import FlipbookViewer from "./FlipbookViewer";
 import Style from "./Style";
 import DocToolbar from "./DocToolbar";
@@ -126,8 +127,12 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
   let frameUrl = "";
 
   const isGoogleUrl = doc.includes("drive.google.com") || doc.includes("docs.google.com");
+  // Checked first, and only on a Box shared-link URL, so no URL an existing block holds changes engine.
+  const isBox = isBoxUrl(doc);
 
-  if (doc.includes("dropbox.com")) {
+  if (isBox) {
+    frameUrl = getBoxEmbedUrl(doc);
+  } else if (doc.includes("dropbox.com")) {
     frameUrl = doc.replace("www.dropbox.com", "dl.dropboxusercontent.com");
   } else if (isGoogleUrl) {
     frameUrl = doc.replace("/view", "/preview");
@@ -390,6 +395,18 @@ const Viewer = ({ attributes, userData = {}, pluginUrl = "", postId = 0, id = ""
             {downloadButtonText || __("Download", "document-emberdder")}
           </a>
         </div>
+      );
+    }
+
+    // Box renders every type in its own previewer, whichever engine is selected: the shared link is
+    // a Box page, not the file, so pdf.js and dFlip have nothing to load.
+    if (isBox) {
+      return (
+        <IframePreview src={frameUrl} title={filename} className="bplDl-preview-iframe" onLoad={() => setIsLoading(false)}>
+          {disablePopout && (
+            <div style={{ width: "80px", height: "80px", position: "absolute", opacity: 0, right: "0px", top: "0px", zIndex: 9999 }} />
+          )}
+        </IframePreview>
       );
     }
 

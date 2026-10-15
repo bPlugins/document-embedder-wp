@@ -31,6 +31,11 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
                 require_once BPLDE_PLUGIN_PATH . 'includes/admin/class-bplde-list-screen.php';
                 \BPLDE_List_Screen::instance();
             }
+            // The metabox builds its fields on init on both sides, so the class must exist
+            // everywhere; its enqueue hook only acts on the document edit screen.
+            require_once BPLDE_PLUGIN_PATH . 'includes/admin/class-bplde-source-picker.php';
+            \BPLDE_Source_Picker::instance();
+
             // Registers the front-end preview route too, so it must load on both sides.
             \BPLDE_Preview::instance();
             new BPLDE_Document_Library();

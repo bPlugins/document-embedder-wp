@@ -37,7 +37,9 @@ if (!class_exists('BPLDE_Elementor_Widget')) {
         }
 
         public function get_icon() {
-            return 'eicon-document-file';
+            // The plugin's own icon, drawn by BPLDE_Elementor::editor_styles(), so the widget
+            // looks the same as the Document Embed block in the Gutenberg inserter.
+            return 'bplde-elementor-icon';
         }
 
         public function get_categories() {

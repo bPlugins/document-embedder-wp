@@ -54,14 +54,9 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                 'title' => self::icon('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>')
                     . __('General', 'document-emberdder'),
                 'fields' => array(
-                    [
-                        'id' => 'doc',
-                        'type' => 'upload',
-                        'title' => esc_html__('Document File', 'document-emberdder'),
-                        'attributes' => array('id' => 'picker_field'),
-                        'desc' => '<p class="bplde-supported"><strong>' . esc_html__('Supported Files:', 'document-emberdder') . '</strong> '
-                            . '<span>pdf, doc, docx, ppt, pptx, txt, rtf, csv, odt, ods, odp.</span></p>',
-                    ],
+                    // Upload plus the Pro cloud sources, drawn locked; see BPLDE_Source_Picker.
+                    \BPLDE_Source_Picker::field(),
+                    \BPLDE_Source_Picker::url_field(),
                     [
                         'id' => 'viewer',
                         'type' => 'button_set',

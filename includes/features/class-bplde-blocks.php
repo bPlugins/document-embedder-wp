@@ -83,6 +83,8 @@ if (!class_exists('BPLDE_Block')) {
                 'pluginUrl'   => BPLDE_PLUGIN_DIR,
                 'settingsUrl' => admin_url('edit.php?post_type=ppt_viewer&page=settings'),
                 'isPremium'   => false,
+                // Where the block's Pro cards and badges link: the Help & Demos pricing page.
+                'pricingUrl'  => \BPLDE\Helper\Functions::pricing_url(),
                 // The block sidebar's Insights panel: numbers only for those who may open Insights.
                 'insights'    => class_exists('\BPLDE\Model\Insights') ? [
                     'canView'    => current_user_can('manage_options'),
