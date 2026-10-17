@@ -2,7 +2,6 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { Panel } from "@wordpress/components";
 import DocumentSource from "./DocumentSource";
 import ViewerFeatures from "./ViewerFeatures";
-import Flipbook from "./Flipbook";
 import Toolbar from "./Toolbar";
 import DisplayDimension from "./DisplayDimension";
 import SecurityRestriction from "./SecurityRestriction";
@@ -11,7 +10,6 @@ import Overlays from "./Overlays";
 import DownloadManagement from "./DownloadManagement";
 import Lightbox from "./Lightbox";
 import Performance from "./Performance";
-import Insights from "./Insights";
 
 const Settings = ({ attributes, setAttributes }) => {
   
@@ -20,9 +18,7 @@ const Settings = ({ attributes, setAttributes }) => {
       <InspectorControls> 
         <Panel>
           <DocumentSource attributes={attributes} setAttributes={setAttributes} />
-          <Insights attributes={attributes} />
           <ViewerFeatures attributes={attributes} setAttributes={setAttributes} />
-          <Flipbook attributes={attributes} setAttributes={setAttributes} />
           <Toolbar attributes={attributes} setAttributes={setAttributes} />
           <DisplayDimension attributes={attributes} setAttributes={setAttributes} />
           <SecurityRestriction attributes={attributes} setAttributes={setAttributes}/>

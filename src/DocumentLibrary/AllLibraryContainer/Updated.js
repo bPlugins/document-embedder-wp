@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./AllFeedback.scss";
 
-import { defaultValues, getTemplate, normalizeKeys } from "../Utils/options";
+import { defaultValues, normalizeKeys } from "../Utils/options";
 
 import BplProModal from "../Components/Shared/ProModal/BplProModal";
 
@@ -12,9 +12,8 @@ import EditorHeader from "../Components/Top/EditorHeader";
 import SettingsPanel from "./Settings";
 import PreviewPanel from "./Preview";
 import Toast from "../Components/Shared/Toast/Toast";
-import TabStrip, { getLibraryTabs } from './TabStrip';
+import TabStrip, { LIBRARY_TABS } from './TabStrip';
 import TitleBar from './TitleBar';
-import TemplatePicker, { getTemplateMeta } from "../Components/TemplatePicker/TemplatePicker";
 
 const AddNewLibrary = ({ isPremium }) => {
   const [showToast, setShowToast] = useState(false);
@@ -27,42 +26,10 @@ const AddNewLibrary = ({ isPremium }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isProModalOpen, setIsProModalOpen] = useState(false);
-  const [proModalContent, setProModalContent] = useState(null);
 
 
-  // The layout picker opens by itself only for a new library. Existing ones,
-  // including every library saved before layouts existed, open straight into
-  // the editor on the layout they already have.
-  const [picker, setPicker] = useState(isEdit ? null : "new");
-  const layoutButtonRef = useRef(null);
-  const template = getTemplate(formData.settings);
-  const templateMeta = getTemplateMeta();
-
-  // Callers without arguments (the upload limit) keep the modal's own wording.
-  const openProModal = (content) => {
-    setProModalContent(content && content.message ? content : null);
+  const openProModal = () => {
     setIsProModalOpen(true);
-  };
-
-  // Table and Folder show in the picker but are Pro only.
-  const openLockedTemplate = (locked) => {
-    openProModal({
-      message: `The ${templateMeta[locked].name} layout is available in the Pro version.`,
-      highlight: {
-        title: "Table and Folder layouts",
-        text: "Sortable tables and folder navigation for large libraries",
-      },
-    });
-  };
-
-  const closePicker = () => {
-    setPicker(null);
-    setTimeout(() => layoutButtonRef.current?.focus(), 0);
-  };
-
-  const chooseTemplate = (next) => {
-    onFormDataUpdate("settings.template", next);
-    closePicker();
   };
 
   /**
@@ -131,13 +98,7 @@ const AddNewLibrary = ({ isPremium }) => {
     });
   };
 
-  const tabs = getLibraryTabs(template);
-  const [activeSettings, setActiveSettings] = useState(tabs[0].value);
-
-  // Switching layout can remove the open tab (List Rows when leaving List).
-  useEffect(() => {
-    if (!tabs.some((t) => t.value === activeSettings)) setActiveSettings(tabs[0].value);
-  }, [template]);
+  const [activeSettings, setActiveSettings] = useState(LIBRARY_TABS[0].value);
 
   const handleCopyShortcode = async (id) => {
     const shortcode = `[document_library id="${id}"]`;
@@ -178,9 +139,6 @@ const AddNewLibrary = ({ isPremium }) => {
       <TitleBar
         title={_get(formData, 'title')}
         onChange={(e) => onFormDataUpdate('title', e.target.value)}
-        layoutName={templateMeta[template].name}
-        onChangeLayout={() => setPicker("change")}
-        layoutButtonRef={layoutButtonRef}
       />
 
       <main className="editor-main">
@@ -193,7 +151,6 @@ const AddNewLibrary = ({ isPremium }) => {
 
           <div className="bpldl-panel__body">
             <TabStrip
-              tabs={tabs}
               active={activeSettings}
               onChange={setActiveSettings}
               counts={{ uploadItems: _get(formData, 'settings.documentLibrary.docItems', []).length }}
@@ -206,7 +163,6 @@ const AddNewLibrary = ({ isPremium }) => {
                 isPremium={isPremium}
                 openProModal={openProModal}
                 activeSettings={activeSettings}
-                template={template}
               />
             </div>
           </div>
@@ -222,20 +178,10 @@ const AddNewLibrary = ({ isPremium }) => {
         </section>
       </main>
 
-      <TemplatePicker
-        open={picker !== null}
-        mode={picker || "new"}
-        current={template}
-        onConfirm={chooseTemplate}
-        onClose={closePicker}
-        onLocked={openLockedTemplate}
-      />
 
       <BplProModal
         isProModalOpen={isProModalOpen}
         onClose={() => setIsProModalOpen(false)}
-        message={proModalContent?.message}
-        highlight={proModalContent?.highlight}
       />
     </>
   );

@@ -18,12 +18,8 @@ import BoxControl from "../../Fields/BoxControl/BoxControl";
 import DynamicTab from "../../Fields/DynamicTab/DynamicTab";
 import Border from "../../Fields/Border/Border";
 import { HEADER_PRESETS, HEADER_PRESET_PATHS } from "../../Utils/headerPresets";
-import { ListRowsSettings } from "./LayoutSettings";
 
-const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSettings, template = "grid" }) => {
-  // Cards (with borders, padding, columns and an icon) only exist in Grid.
-  // List draws rows instead, styled from its own List Rows tab.
-  const usesCards = template === "grid";
+const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSettings }) => {
   const [activeHeaderTab, setActiveHeaderTab] = useState("general");
   const [activeDocumentBoxTab, setActiveDocumentBoxTab] = useState("visibility-options");
   const [activeToolbarTab, setActiveToolbarTab] = useState("visibility-options");
@@ -47,24 +43,22 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
       label: "Normal",
       content: (
         <div>
-          {template !== "list" && (
-            <Color
-              isHeader={true}
-              title="Background Color"
-              value={_get(
-                formData,
-                "settings.documentLibrary.documentBox.bgColor.normal"
-              )}
-              onChange={(val) =>
-                onFormDataUpdate(
-                  "settings.documentLibrary.documentBox.bgColor.normal",
-                  val
-                )
-              }
-            />
-          )}
+          <Color
+            isHeader={true}
+            title="Background Color"
+            value={_get(
+              formData,
+              "settings.documentLibrary.documentBox.bgColor.normal"
+            )}
+            onChange={(val) =>
+              onFormDataUpdate(
+                "settings.documentLibrary.documentBox.bgColor.normal",
+                val
+              )
+            }
+          />
 
-          {usesCards && _get(
+          {_get(
             formData,
             "settings.documentLibrary.documentBox.options.displayIcon"
           ) && (
@@ -138,21 +132,19 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
               />
             )}
 
-          {usesCards && (
-            <Border
-              title="Box Border"
-              value={_get(
-                formData,
-                "settings.documentLibrary.documentBox.border.normal"
-              )}
-              onChange={(val) =>
-                onFormDataUpdate(
-                  "settings.documentLibrary.documentBox.border.normal",
-                  val
-                )
-              }
-            />
-          )}
+          <Border
+            title="Box Border"
+            value={_get(
+              formData,
+              "settings.documentLibrary.documentBox.border.normal"
+            )}
+            onChange={(val) =>
+              onFormDataUpdate(
+                "settings.documentLibrary.documentBox.border.normal",
+                val
+              )
+            }
+          />
         </div>
       ),
     },
@@ -160,23 +152,21 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
       label: "Hover",
       content: (
         <div>
-          {template !== "list" && (
-            <Color
-              isHeader={true}
-              title="Background Color"
-              value={_get(
-                formData,
-                "settings.documentLibrary.documentBox.bgColor.hover"
-              )}
-              onChange={(val) =>
-                onFormDataUpdate(
-                  "settings.documentLibrary.documentBox.bgColor.hover",
-                  val
-                )
-              }
-            />
-          )}
-          {usesCards && _get(
+          <Color
+            isHeader={true}
+            title="Background Color"
+            value={_get(
+              formData,
+              "settings.documentLibrary.documentBox.bgColor.hover"
+            )}
+            onChange={(val) =>
+              onFormDataUpdate(
+                "settings.documentLibrary.documentBox.bgColor.hover",
+                val
+              )
+            }
+          />
+          {_get(
             formData,
             "settings.documentLibrary.documentBox.options.displayIcon"
           ) && (
@@ -248,21 +238,19 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
                 }
               />
             )}
-          {usesCards && (
-            <Border
-              title="Box Border"
-              value={_get(
-                formData,
-                "settings.documentLibrary.documentBox.border.hover"
-              )}
-              onChange={(val) =>
-                onFormDataUpdate(
-                  "settings.documentLibrary.documentBox.border.hover",
-                  val
-                )
-              }
-            />
-          )}
+          <Border
+            title="Box Border"
+            value={_get(
+              formData,
+              "settings.documentLibrary.documentBox.border.hover"
+            )}
+            onChange={(val) =>
+              onFormDataUpdate(
+                "settings.documentLibrary.documentBox.border.hover",
+                val
+              )
+            }
+          />
         </div>
       ),
     },
@@ -315,10 +303,6 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
               onFormDataUpdate={onFormDataUpdate}
             />
           </>
-        )}
-
-        {activeSettings === "listRows" && (
-          <ListRowsSettings formData={formData} onFormDataUpdate={onFormDataUpdate} />
         )}
 
         {activeSettings === "header" && (
@@ -832,7 +816,6 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
               <>
                 <DynamicTab tabs={tabs} />
 
-                {usesCards && (<>
                 <BoxControl
                   title="Document Box Padding"
                   name="Padding"
@@ -864,7 +847,6 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
                   // openProModal={openProModal}
                   help="Border radius of Document Box in PX"
                 />
-                </>)}
 
                 {_get(
                   formData,
@@ -946,7 +928,6 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
                 onFormDataUpdate("settings.documentLibrary.bgColor", val)
               }
             />
-            {usesCards && (<>
             <RangeControl
               title="Document Columns"
               value={_get(
@@ -974,17 +955,6 @@ const General = ({ formData, onFormDataUpdate, isPremium, openProModal, activeSe
               min={0}
               max={50}
               help="Set gap between documents in PX"
-              fieldIcon={<RangeControlIcon />}
-            />
-            </>)}
-
-            <RangeControl
-              title="Documents per Page"
-              value={Number(_get(formData, `settings.templates.${template}.perPage`)) || 0}
-              onChange={(val) => onFormDataUpdate(`settings.templates.${template}.perPage`, val)}
-              min={0}
-              max={60}
-              help="0 shows every document. Any other number shows that many with a Load more button."
               fieldIcon={<RangeControlIcon />}
             />
 

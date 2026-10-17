@@ -31,21 +31,12 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
                 require_once BPLDE_PLUGIN_PATH . 'includes/admin/class-bplde-list-screen.php';
                 \BPLDE_List_Screen::instance();
             }
-            // The metabox builds its fields on init on both sides, so the class must exist
-            // everywhere; its enqueue hook only acts on the document edit screen.
-            require_once BPLDE_PLUGIN_PATH . 'includes/admin/class-bplde-source-picker.php';
-            \BPLDE_Source_Picker::instance();
-
             // Registers the front-end preview route too, so it must load on both sides.
             \BPLDE_Preview::instance();
             new BPLDE_Document_Library();
             // Through instance(), not new: the edit-screen layout re-renders this class's
             // cards and needs the one object that already owns the hooks.
             BPLDE_Document_Embedder::instance();
-
-            // Only hooks Elementor actions, so it is inert when Elementor isn't active.
-            require_once BPLDE_PLUGIN_PATH . 'includes/features/class-bplde-elementor.php';
-            \BPLDE_Elementor::instance();
         }
 
         public function add_action_links($links) {
@@ -73,12 +64,6 @@ if (!class_exists('BPLDEDocumentEmbedder')) {
 
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
             dbDelta($sql);
-
-            \BPLDE\Model\InsightsSchema::install();
-        }
-
-        public static function deactivate() {
-            wp_clear_scheduled_hook('bplde_insights_prune');
         }
     }
 }

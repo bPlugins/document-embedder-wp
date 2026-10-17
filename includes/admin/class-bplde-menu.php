@@ -42,17 +42,6 @@ if (!class_exists('BPLDE_Menu')) {
                 [$this, 'render_dashboard_page']
             );
 
-            if (class_exists('\BPLDE\Admin\InsightsPage')) {
-                add_submenu_page(
-                    'edit.php?post_type=ppt_viewer',
-                    __('Insights', 'document-emberdder'),
-                    esc_html__('Insights', 'document-emberdder') . ' <span class="bplde-menu-new">' . esc_html__('New', 'document-emberdder') . '</span>',
-                    'manage_options',
-                    \BPLDE\Admin\InsightsPage::SLUG,
-                    [\BPLDE\Admin\InsightsPage::instance(), 'render_page']
-                );
-            }
-
             // Download Leads: every document's leads in one table, with a picker for
             // narrowing to a single document.
             if (class_exists('\BPLDE\Admin\LeadsPage')) {

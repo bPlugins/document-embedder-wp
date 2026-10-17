@@ -8,7 +8,6 @@
   --de-surface: #fff;
   --de-tint: #f8fbfa;
   --de-border: #d5e0dd;
-  --de-control: #bfd0cc;
   --de-rule: #e3ebe9;
 
   --de-ink: #0f1f1b;
@@ -23,9 +22,6 @@
   --de-pop-soft: #f4fce3;
   --de-pop-ink: #3f5209;
   --de-on-pop: #1a2e05;
-
-  --de-danger: #a32020;
-  --de-danger-soft: #fdeeee;
 }
 
 .bplde-settings .bplde-settings-wrap,
@@ -56,7 +52,7 @@
   display: flex;
   align-items: center;
   gap: 48px;
-  margin: 28px 20px 22px 0;
+  margin: 14px 20px 22px 0;
   padding: 40px 44px;
   background: var(--de-ink);
   color: #fff;
@@ -231,75 +227,4 @@
   .bplde-settings .bplde-settings-groups {
     grid-template-columns: minmax(0, 1fr);
   }
-}
-
-/* ---------------------------------------------------------------------------
-   CodeStar Save / Reset buttons, matching the Download Leads buttons
-   ------------------------------------------------------------------------- */
-
-.bplde-settings .csf-options .csf-buttons .button {
-  height: 40px;
-  min-height: 40px;
-  margin: 0 0 0 6px;
-  padding: 0 16px;
-  border: 1px solid var(--de-control);
-  border-radius: 0;
-  background: var(--de-surface);
-  color: var(--de-ink);
-  font-size: 13.5px;
-  font-weight: 600;
-  line-height: 38px;
-  text-shadow: none;
-  box-shadow: none;
-  cursor: pointer;
-}
-
-.bplde-settings .csf-options .csf-buttons .button:hover,
-.bplde-settings .csf-options .csf-buttons .button:focus {
-  border-color: var(--de-accent);
-  background: var(--de-surface);
-  color: var(--de-accent-deep);
-  box-shadow: none;
-  outline: 0;
-}
-
-.bplde-settings .csf-options .csf-buttons .button:focus-visible {
-  outline: 2px solid var(--de-accent);
-  outline-offset: 2px;
-}
-
-.bplde-settings .csf-options .csf-buttons .csf-save {
-  padding: 0 20px;
-  border-color: var(--de-accent);
-  background: var(--de-accent);
-  color: #fff;
-  font-weight: 700;
-}
-
-.bplde-settings .csf-options .csf-buttons .csf-save:hover,
-.bplde-settings .csf-options .csf-buttons .csf-save:focus {
-  border-color: var(--de-accent-deep);
-  background: var(--de-accent-deep);
-  color: #fff;
-}
-
-.bplde-settings .csf-options .csf-buttons .csf-save:disabled {
-  opacity: .6;
-  cursor: default;
-}
-
-/* CodeStar paints .csf-warning-primary with !important, so these must match it. */
-.bplde-settings .csf-options .csf-buttons .csf-reset-all {
-  border-color: #e7c4c4 !important;
-  background: var(--de-surface) !important;
-  color: var(--de-danger) !important;
-}
-
-.bplde-settings .csf-options .csf-buttons .csf-reset-all:hover,
-.bplde-settings .csf-options .csf-buttons .csf-reset-all:focus,
-.bplde-settings .csf-options .csf-buttons .csf-reset-all:active {
-  border-color: var(--de-danger) !important;
-  background: var(--de-danger-soft) !important;
-  color: var(--de-danger) !important;
-  box-shadow: none !important;
 }

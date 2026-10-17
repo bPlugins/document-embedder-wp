@@ -2,11 +2,13 @@
 /**
  * BPLDE_Settings_Free Class.
  *
- * The free Settings screen is the same CodeStar options page the Pro build uses,
- * holding the two settings the free version has (Insights, AI Agent Access). The
- * "free version ends here" hero and the Pro feature cards are printed below it.
+ * In the free build the Settings screen has no fields to save, so instead of a
+ * CodeStar options page with Save / Reset buttons that write nothing, it renders
+ * a plain page that explains what Pro adds.
  *
- * Both sections write the `_ppt_` option, so the choices survive an upgrade.
+ * The Pro build keeps the CodeStar page untouched: Pro stores real credentials
+ * under the `_ppt_` option (Google Drive keys, Dropbox app key) which
+ * BPLDE_Block reads, and those fields need somewhere to live.
  *
  * @package DocumentEmbedder
  */
@@ -18,46 +20,105 @@ if (!defined('ABSPATH')) {
 if (!class_exists('BPLDE_Settings_Free')) {
     class BPLDE_Settings_Free {
 
-        const PREFIX = '_ppt_';
+        /** Unchanged from the CodeStar page, so every existing link still lands. */
         const MENU_SLUG = 'settings';
         const PARENT_SLUG = 'edit.php?post_type=ppt_viewer';
         const BODY_CLASS = 'bplde-settings';
 
-        /** Hook suffix WordPress gives the CodeStar submenu page. */
-        const PAGE_HOOK = 'ppt_viewer_page_settings';
+        /** Page hook returned by add_submenu_page(), used to scope the stylesheet. */
+        private static $hook = '';
 
         public static function init() {
+            if (self::use_banner()) {
+                add_action('admin_menu', ['BPLDE_Settings_Free', 'add_page']);
+                add_filter('admin_body_class', ['BPLDE_Settings_Free', 'body_class']);
+                add_action('admin_enqueue_scripts', ['BPLDE_Settings_Free', 'enqueue']);
+                return;
+            }
+
+            self::register_csf_page();
+        }
+
+        /**
+         * One line to go back to the CodeStar options page:
+         *   add_filter( 'bplde_use_settings_banner', '__return_false' );
+         */
+        public static function use_banner() {
+            $has_pro = defined('BPLDE_HAS_PRO') && BPLDE_HAS_PRO;
+
+            return (bool) apply_filters('bplde_use_settings_banner', !$has_pro);
+        }
+
+        /* -------------------------------------------------------------------
+           The original CodeStar page, kept verbatim for the Pro build.
+           ----------------------------------------------------------------- */
+
+        private static function register_csf_page() {
             if (!class_exists('CSF')) {
                 return;
             }
 
-            \CSF::createOptions(self::PREFIX, [
+            $prefix = '_ppt_';
+
+            \CSF::createOptions($prefix, [
                 'menu_title' => __('Settings', 'document-emberdder'),
                 'menu_slug' => self::MENU_SLUG,
                 'menu_type' => 'submenu',
                 'menu_parent' => self::PARENT_SLUG,
                 'theme' => 'light',
-                'framework_title' => __('Settings', 'document-emberdder'),
-                'footer_credit' => __('Thanks for being with bPlugins', 'document-emberdder')
+                'framework_title' => 'Settings',
+                'footer_credit' => 'Thanks for being with bPlugins'
             ]);
 
-            if (class_exists('\BPLDE\Model\Insights')) {
-                \CSF::createSection(self::PREFIX, \BPLDE\Model\Insights::settings_section());
-            }
+            \CSF::createSection($prefix, array(
+                'title' => __('Premium Integrations', 'document-emberdder'),
+                'fields' => array(
+                    \BPLDE\Helper\Functions::bplde_pro_feature_list(array(
+                            __('Google Drive API Integration to embed files directly', 'document-emberdder'),
+                            __('Dropbox API Integration to embed files directly', 'document-emberdder'),
+                            __('Secure Email Gate to Collect Leads before Downloading', 'document-emberdder'),
+                            __('Download Access Control by Login Status & User Roles', 'document-emberdder'),
+                            __('Dedicated Leads Dashboard & Stats Tracking', 'document-emberdder'),
+                        ),
+                        __('Premium Integrations', 'document-emberdder'))
+                )
+            ));
+        }
 
-            if (class_exists('\BPLDE\Abilities\Abilities', false)) {
-                \CSF::createSection(self::PREFIX, \BPLDE\Abilities\Abilities::settings_section());
-            }
+        /* -------------------------------------------------------------------
+           Free build
+           ----------------------------------------------------------------- */
 
-            add_filter('admin_body_class', ['BPLDE_Settings_Free', 'body_class']);
-            add_action('admin_enqueue_scripts', ['BPLDE_Settings_Free', 'enqueue']);
-            add_action('csf_options_after', ['BPLDE_Settings_Free', 'render_pro_cards']);
+        public static function add_page() {
+            self::$hook = add_submenu_page(
+                self::PARENT_SLUG,
+                __('Settings', 'document-emberdder'),
+                self::menu_title(),
+                'manage_options',
+                self::MENU_SLUG,
+                ['BPLDE_Settings_Free', 'render_page']
+            );
+        }
+
+        /**
+         * Sidebar label with the Pro badge beside it. Styled inline because the
+         * sidebar is on every admin screen and this is cheaper than loading a
+         * stylesheet everywhere for one chip -- the Help & Demos item already
+         * colours itself the same way.
+         */
+        private static function menu_title() {
+            $badge = '<span class="bplde-menu-badge" style="display:inline-block;margin-left:6px;padding:1px 5px;'
+                . 'background:#a3e635;color:#1a2e05;font-size:9px;font-weight:700;line-height:1.5;'
+                . 'letter-spacing:.06em;text-transform:uppercase;vertical-align:middle;">'
+                . esc_html__('Pro', 'document-emberdder') . '</span>';
+
+            return __('Settings', 'document-emberdder') . $badge;
         }
 
         private static function is_current_screen() {
             $screen = function_exists('get_current_screen') ? get_current_screen() : null;
 
-            return $screen && $screen->id === self::PAGE_HOOK;
+            return $screen && self::$hook && $screen->id === self::$hook;
         }
 
         public static function body_class($classes) {
@@ -69,7 +130,7 @@ if (!class_exists('BPLDE_Settings_Free')) {
         }
 
         public static function enqueue($hook) {
-            if ($hook !== self::PAGE_HOOK) {
+            if ($hook !== self::$hook) {
                 return;
             }
 
@@ -91,12 +152,12 @@ if (!class_exists('BPLDE_Settings_Free')) {
         private static function groups() {
             return (array) apply_filters('bplde_settings_feature_groups', array(
                 array(
-                    'icon' => 'insights',
-                    'title' => __('Insights history', 'document-emberdder'),
+                    'icon' => 'viewers',
+                    'title' => __('Three more viewers', 'document-emberdder'),
                     'items' => array(
-                        __('Date ranges and a daily chart', 'document-emberdder'),
-                        __('Top documents and host pages', 'document-emberdder'),
-                        __('Per-document view and CSV export', 'document-emberdder'),
+                        __('Custom PDF engine', 'document-emberdder'),
+                        __('Flipbook with page turn', 'document-emberdder'),
+                        __('Slider viewer', 'document-emberdder'),
                     ),
                 ),
                 array(
@@ -123,15 +184,15 @@ if (!class_exists('BPLDE_Settings_Free')) {
                     'items' => array(
                         __('Google Drive embeds', 'document-emberdder'),
                         __('Dropbox embeds', 'document-emberdder'),
-                        __('Box embeds', 'document-emberdder'),
+                        __('No re-uploading files', 'document-emberdder'),
                     ),
                 ),
                 array(
                     'icon' => 'experience',
                     'title' => __('Viewer experience', 'document-emberdder'),
                     'items' => array(
-                        __('Toolbar themes, zoom and lightbox', 'document-emberdder'),
-                        __('Flipbook hard cover, sound and auto play', 'document-emberdder'),
+                        __('Toolbar themes', 'document-emberdder'),
+                        __('Zoom and lightbox', 'document-emberdder'),
                         __('Professional loading icon', 'document-emberdder'),
                     ),
                 ),
@@ -150,7 +211,7 @@ if (!class_exists('BPLDE_Settings_Free')) {
 
         private static function icon($name) {
             $paths = array(
-                'insights' => '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>',
+                'viewers' => '<rect x="3" y="4" width="18" height="16" rx="1"/><path d="M12 4v16"/>',
                 'leads' => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/>',
                 'access' => '<rect x="4" y="10" width="16" height="10" rx="1"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
                 'cloud' => '<path d="M18 16a4 4 0 0 0-1-7.9A6 6 0 1 0 6 15"/><path d="M12 12v8"/><path d="M9 17l3 3 3-3"/>',
@@ -170,19 +231,21 @@ if (!class_exists('BPLDE_Settings_Free')) {
             );
         }
 
-        /** Printed after the CodeStar panel; `csf_options_after` fires for every CodeStar options page. */
-        public static function render_pro_cards() {
-            if (!self::is_current_screen() || !current_user_can('manage_options')) {
+        public static function render_page() {
+            if (!current_user_can('manage_options')) {
                 return;
             }
 
             ?>
-            <div class="bplde-settings-wrap">
+            <div class="wrap bplde-settings-wrap">
+                <h1 class="screen-reader-text"><?php esc_html_e('Settings', 'document-emberdder'); ?></h1>
+                <hr class="wp-header-end">
+
                 <div class="bplde-settings-hero">
                     <div class="bplde-settings-hero__copy">
                         <span class="bplde-settings-hero__badge"><?php esc_html_e('Pro', 'document-emberdder'); ?></span>
                         <h2 class="bplde-settings-hero__title"><?php esc_html_e('The free version ends here.', 'document-emberdder'); ?></h2>
-                        <p class="bplde-settings-hero__note"><?php esc_html_e('Document Embedder Pro adds Insights history, lead capture, access control and cloud integrations — everything below is switched on by a licence key.', 'document-emberdder'); ?></p>
+                        <p class="bplde-settings-hero__note"><?php esc_html_e('Document Embedder Pro adds three more viewers, lead capture, access control and cloud integrations — everything on this page is switched on by a licence key.', 'document-emberdder'); ?></p>
                     </div>
 
                     <div class="bplde-settings-hero__actions">

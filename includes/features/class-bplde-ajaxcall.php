@@ -103,7 +103,11 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                     if ( is_array( $val ) ) {
                         $clean[$clean_key] = $sanitize_settings( $val );
                     } else {
-                        if ( filter_var( $val, FILTER_VALIDATE_URL ) ) {
+                        if ( Functions::is_unsafe_url( $val ) ) {
+                            // "javascript:alert(1)" fails FILTER_VALIDATE_URL and would
+                            // otherwise be stored by sanitize_text_field() untouched.
+                            $clean[$clean_key] = '';
+                        } elseif ( filter_var( $val, FILTER_VALIDATE_URL ) ) {
                             $clean[$clean_key] = esc_url_raw( $val );
                         } elseif ( is_numeric( $val ) ) {
                             $clean[$clean_key] = $val;
@@ -117,12 +121,6 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                 return $clean;
             };
             $settings = $sanitize_settings( $settings );
-
-            // The layout is free text in the JSON; only known layouts get stored.
-            // A missing key is left missing, which the renderer reads as Grid.
-            if ( isset( $settings['template'] ) && ! in_array( $settings['template'], \BPLDE_Functions::library_templates(), true ) ) {
-                $settings['template'] = 'grid';
-            }
 
             $post_data = [
                 'post_title'  => $title,
@@ -173,9 +171,9 @@ if ( ! class_exists( 'AJAXCall' ) ) {
                 wp_send_json_error( ['message' => 'Unauthorized.'] );
             }
         
-            // Same descriptions the front end shows, so the editor preview matches.
-            $settings = \BPLDE_Functions::with_attachment_descriptions( get_post_meta( $id, 'bplde_settings', true ) );
-
+            $settings = get_post_meta( $id, 'bplde_settings', true );
+            $settings = Functions::strip_unsafe_urls( $settings, ['url'] );
+        
             wp_send_json_success( [
                 'id'       => $id,
                 'title'    => $post->post_title,
@@ -201,6 +199,7 @@ if ( ! class_exists( 'AJAXCall' ) ) {
             $items = [];
             foreach ( $query->posts as $post ) {
                 $settings = get_post_meta( $post->ID, 'bplde_settings', true );
+                $settings = Functions::strip_unsafe_urls( $settings, ['url'] );
         
                 $items[] = [
                     'id'       => $post->ID,

@@ -1,177 +1,164 @@
 === Document Embedder – let visitors read files without downloading ===
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
-Tags: pdf viewer, embed pdf, document viewer, document library, pdf embedder
+Tags: document embedder, embed pdf, embed any document, pdf embedder, document library
 Tested up to: 7.1
-Stable tag: 2.5.0
+Stable tag: 2.4.1
 Requires PHP: 7.1
 Requires at least: 6.5
 Donate link: https://www.buymeacoffee.com/abuhayat/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Embed PDF, Word, Excel & PowerPoint in WordPress. PDF viewer, 3D flipbook and document library with Gutenberg block & Elementor widget.
+Embed PDF, Word, Excel, PowerPoint and 16+ file types in WordPress with a responsive viewer, FlipBook mode, download button and document library.
 
 == Description ==
 
-**Embed PDF, Word, Excel and PowerPoint files in WordPress and let visitors read them right on the page. No downloads, no plugins for your visitors, no leaving your site.**
+**Let visitors read your PDFs, Word docs, spreadsheets, and presentations right on the page – no downloads, no leaving your site.**
 
 [**Document Embedder**](https://bplugins.com/products/document-embedder/) | [**Documentation**](https://bplugins.com/docs/document-embedder/getting-started/) | [**Pricing**](https://bplugins.com/products/document-embedder/pricing) | [**Support**](https://bplugins.com/support/) | [**Demo**](https://bplugins.com/products/document-embedder/#demos)
 
-[**Document Embedder**](https://bplugins.com/products/document-embedder/) is a **PDF viewer, document viewer and document library** for WordPress. Embed a PDF in any post or page, show Word documents, Excel spreadsheets and PowerPoint presentations inline, turn a PDF into a 3D **flipbook**, or build a searchable **document library** where visitors can view and download your files.
+[**Document Embedder**](https://bplugins.com/products/document-embedder/) allows you to embed PDF, Word, Excel, PowerPoint, and other document formats directly into WordPress posts and pages. It supports local file uploads as well as files hosted on platforms like Google Drive and Dropbox. Files are displayed using the Google Drive viewer and can be configured to match your layout.
 
-Upload files from your computer or the Media Library, or paste a link to a file on Google Drive, Dropbox, Box or any public URL. Choose from four viewers: the Google viewer for Office files, a fast local **PDF.js viewer**, an interactive **3D FlipBook**, or a slider. Every viewer is responsive on desktop, tablet and mobile.
+The new Document Library module adds a powerful way to organize and display multiple documents in a structured library. You can upload files from your device, WordPress Media Library, or via URL, rename or delete documents easily, and display them with customizable layouts. The library includes search, filter, and sorting options, a responsive design, and full control over view and download buttons. Shortcode and Gutenberg block support make it easy to add libraries anywhere on your site.
 
-Add documents with the **Gutenberg block**, the dedicated **Elementor widget**, or a shortcode in any page builder.
+Want to capture leads before someone downloads? The **Email Gate** (Pro) requires visitors to submit their name and email before they can access a file. Every submission is logged to a built-in **Leads Dashboard** you can search, filter, and export as CSV.
 
-= Who uses Document Embedder =
+This plugin is ideal for sharing reports, presentations, worksheets, guides, and other materials without requiring visitors to download them or leave your site.
 
-* **Schools, teachers and online courses**: share worksheets, syllabi, lecture slides and course notes. Works with TutorLMS.
-* **Businesses and intranets**: publish policies, handbooks, forms and HR documents in one searchable library.
-* **Product and support teams**: embed manuals, spec sheets, datasheets and price lists.
-* **Publishers, restaurants and agencies**: show brochures, catalogues, magazines and menus as a page-turning flipbook.
-* **Nonprofits, councils and associations**: post reports, meeting minutes, agendas and annual reports.
-* **Marketers**: offer an ebook, whitepaper or case study as a lead magnet and collect an email before the download (Pro).
 
-### Free Features
+### Key Features – Free Version
 
-= PDF viewer and document embedder =
+- **Multiple Viewer Engines:** Choose between Default (Google Viewer), Custom PDF (local high-performance PDF.js), Interactive 3D/2D FlipBook, or Slideshow-style Slider viewers completely free.
 
-* **Embed PDF, Word, Excel, PowerPoint and 16+ file types**: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, Google Docs, images, code files and more.
-* **Four viewer engines, all free**: Google viewer, local PDF.js viewer, 3D/2D FlipBook and slider.
-* **Real 3D PDF FlipBook**: pick the page turn for each PDF flipbook: 3D (a lit WebGL book with curling pages), Soft (curling paper pages) or Flat (pages turn as rigid sheets). Browsers without WebGL, and phones unless you switch that off, show 3D as Soft, and visitors who ask their device for reduced motion get the Flat page turn. A flipbook with overlays (Pro) always uses the Flat page turn.
-* **Responsive embeds**: set width and height separately for desktop, tablet and mobile.
-* **Live preview**: see exactly what visitors will see while you edit.
-* **File name display**: show the document title above the viewer.
-* **Download button**: custom label, placed in the toolbar or below the document.
-* **Download behaviour**: force a save dialog or open the file in a new tab, and set the filename visitors get.
-* **Download counter and download limit**: show how many times a file was downloaded and cap downloads per visitor.
+- **Embed Multiple File Types:** PDF, Word, Excel, PowerPoint, images, code, and more.
 
-= Document library (file download page) =
+- **Responsive Viewer:** Adjust **width and height** to fit any layout — with independent controls for Desktop, Tablet, and Mobile.
 
-Create a **document library** to list many files on one page, like a resource centre, download page or file archive.
+- **Live Preview While You Edit:** See exactly how the document will look to visitors, right on the edit screen, before you save anything.
 
-* **Library layouts: Grid and List**: pick a layout when you create a library and switch at any time. Grid shows cards in columns; List shows one file per row with its description, type, size, date and author.
-* **Search, filter and sort**: visitors can search by name, filter by file type and sort by name, date or size.
-* **View and download buttons**: open any file in a preview popup or download it, with your own button text and colours.
-* **Load more**: show a set number of documents and let visitors load the rest.
-* **Flexible uploads**: add files from your computer, the Media Library or a URL. Descriptions written in the Media Library are used automatically.
-* **Full styling control**: header, toolbar, card and row colours, borders, spacing, columns and corner radius.
-* **Responsive**: built for phones, tablets and desktops.
-* **Up to 5 documents per library** in the free version.
+- **Filename Display:** Show the document title at the top for clarity.
 
-= Works with every editor and page builder =
+- **Download Button:** Easily allow users to download PDFs with a customizable button label (e.g., "Get Copy," "Save PDF").
 
-* **Gutenberg block**: the Document Embed and Document Library blocks, with every setting in the sidebar.
-* **Elementor widget**: a dedicated Document Embedder widget that shows a single document or a whole library, with layout, size and style controls inside Elementor.
-* **Shortcodes**: `[doc id="123"]` for a document and `[document_library id="123"]` for a library. They work in the Classic Editor, Divi, Bricks, WPBakery, Beaver Builder, Oxygen, Breakdance and any builder that supports shortcodes.
-* **Document post type**: every document is saved as its own post, so you can manage and reuse it anywhere.
+- **Download Placement:** Position the download button in the **Toolbar** or **Below the Embed**.
 
-= Insights: document views and downloads =
+- **Download Behavior:** Choose between **Force Save Dialog** (prompts users to save locally) or **Open in New Tab**.
 
-See how your documents are used, from Document Embedder > Insights. Counting is anonymous: no IP address is stored and no cookies are set. You can switch it off, exclude roles (administrators by default), choose how long history is kept, and reset the data in Settings.
+- **Custom Download Filename:** Define the exact filename shown to users when they download the file.
 
-* **Views and daily unique views**: every viewer and file type (PDF in the Default/Google, Custom PDF, Flipbook and Slider viewers, Word, Excel and PowerPoint, images, video, Google Drive and Dropbox links), whether it is embedded with the block, the Saved Document block, the shortcode or the Elementor widget. A view counts once the document has been at least half on screen for a second. A lightbox document counts when its lightbox is opened.
-* **Time on screen**: how long a document was visible in an open browser tab, for every viewer and file type.
-* **Downloads**: counted when the file is delivered for saved documents and Media Library files. For a pasted external URL, counted when the download button is used. In a Document Library, counted when a visitor clicks Download.
-* **Full-screen use**: the full-screen or open-in-new-tab button on the plugin toolbar of the Custom PDF viewer.
-* **Leads and conversion rate**: leads for saved documents, compared with their views.
-* **List and editor**: a "Views today" column on the Documents list and today's figures in each document's Download Stats box.
+- **Download Counter & Limits:** Show how many times a file has been downloaded, and cap downloads per visitor.
 
-The free version shows today's figures. Every day is recorded from the moment you update, so upgrading to Pro reads back the history you already have: date ranges, a daily chart, top documents, top host pages and CSV export.
+- **Gutenberg Block Support:** Use the native **Document Embed block** in the WordPress Block Editor (Gutenberg) to insert, upload, and configure documents with a real-time live preview.
 
-= AI Agent Access =
+- **Simple Shortcode Embedding:** Prefer the Classic Editor or page builders? Use the `[doc id="123"]` shortcode to place documents anywhere on your site — Elementor, Divi, Bricks, WPBakery, Beaver Builder, Oxygen, Breakdance, and more.
 
-Ask an AI assistant about your documents. Document Embedder registers read-only abilities with the WordPress Abilities API, so AI assistants (Claude, ChatGPT and others, connected through the WordPress MCP Adapter) and REST API clients can read your data. They never change anything.
+- **Dedicated Post Type:** Manage all your documents individually using the `ppt_viewer` custom post type.
 
-* **document-embedder/list-documents**: your documents with file type, viewer, shortcode, tags, downloads and leads.
-* **document-embedder/get-document**: one document's settings and the pages that embed it.
-* **document-embedder/get-download-stats**: lifetime downloads and leads, and downloads in any date range.
-* **document-embedder/list-leads**: download leads. Off until you switch on "Allow AI agents to read leads".
-* **document-embedder/get-insights**: today's views, downloads, leads, conversion rate and time on screen, and today's top documents.
+**Document Library Module**
 
-Requires WordPress 6.9 or newer, plus the WordPress MCP Adapter plugin for AI assistants. Only logged-in users with the right permissions can use the abilities. Switch them off in Settings > AI Agent Access. If you allow leads, lead names and emails are sent to the AI service you connect. IP addresses are never shared.
+- **Display Multiple Documents**: Create a structured library of documents.
 
-### Pro Features
+- **Support all File Types**: Works with PDFs, Word, Excel, PowerPoint, images, and more.
 
-Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-embedder/pricing) for Insights history, advanced library layouts, lead capture, access control and cloud integrations.
+- **Flexible Upload Options**: Add documents from your device, WordPress Media Library, or via URL.
 
-= Insights history =
+- **Quick Edit & Delete**: Rename or remove documents without hassle.
 
-The free version shows today's figures. Pro reads back every day recorded since you updated, straight from your own database.
+- **Shortcode and Block Support**: Add libraries anywhere using shortcode or Gutenberg block.
 
-* **Date ranges**: today, the last 7, 30 or 90 days, or any range you pick.
-* **Daily chart**: views, downloads and leads day by day.
-* **Top documents and top host pages**: see which files are read most and which pages they are read on.
-* **Per-document view**: open any document to see its own figures and daily chart for the range you pick.
-* **CSV export**: download the figures for any range.
+- **Customizable Layouts**: Style the library to match your design needs.
 
-= Advanced document library =
+- **Search and Filter Controls**: Enable or hide search and filter options.
 
-* **Table layout**: a sortable table of documents. Visitors click a column header to sort, and you choose, reorder and hide columns (icon, name, type, size, date, author, folder, description and actions). Includes striped rows, page numbers and a card view on phones.
-* **Folder layout**: organise files into folders and subfolders (up to 3 levels). Visitors browse with folder tiles or a sidebar tree, follow a breadcrumb, and search across every folder at once.
-* **Link to a folder**: send visitors straight to one folder with a link.
-* **Group by folder**: group the List layout by folder, or add a Folder column to the Table layout.
-* **Unlimited documents** in every library.
+- **Sorting Options**: Sort by file size, name, or recent upload, with hide/show controls.
 
-= Lead capture and access control =
+- **Responsive Design**: Optimized for desktops, tablets, and mobile devices.
 
-* **Email gate for downloads**: ask for a name and email before a file is released, and turn any PDF into a lead magnet.
-* **Leads dashboard and CSV export**: every submission is logged. Search it, filter it and export it to CSV in one click.
-* **View access control**: show a document only to logged-in users or chosen user roles, with your own message for everyone else. Blocked visitors never receive the file link.
-* **Download access control**: allow downloads only for logged-in users or specific roles.
-* **Secure document delivery**: serve local PDFs through a signed, expiring link instead of exposing the file URL.
-* **Disable popout**: stop visitors opening the document in a new window.
+- **Download & View Buttons**: Show view/download icons or text, with full control over display.
 
-= More viewer features =
+- **Visibility Settings**: Hide or show file icon, view button, download button, file size, and date.
 
-* **Interactive overlays**: place notes, highlights, links and call-to-action buttons on any page of a PDF. They stay aligned at every zoom level.
-* **Flipbook controls**: hard covers, page-turn sound, auto play with your own interval, single or double page mode, page-turn speed and the 3D book's page edge colour.
-* **Lightbox popup**: open a document in a popup from a button, an image or any element on the page.
-* **Toolbar themes**: dark, light or fully custom toolbar colours.
-* **Advanced viewer settings**: reader mode, thumbnail sidebar, full-screen button, starting page, default zoom and automatic loading of the latest file version.
-* **Loading indicator**: show a spinner until the document has loaded.
 
-= Cloud and performance =
+### Pro Version – Unlock More Features
+Upgrade to [**Document Embedder Pro**](https://bplugins.com/products/document-embedder/#pricing) for more flexibility, better user control, and advanced integrations.
 
-* **Google Drive integration**: browse and embed files straight from Google Drive.
-* **Dropbox integration**: browse and embed files straight from Dropbox.
-* **Box integration**: connect your Box account, then browse and embed Box files from the block. The public shared link is created for you.
-* **Faster pages**: lazy load documents until they scroll into view, render long PDFs page by page, and fall back automatically if the Google viewer does not respond.
-* **Priority support**: direct help from the team that builds the plugin.
+**What's Included in Pro:**
 
-[**Live Demo**](https://bplugins.com/products/document-embedder/#demos) | [**Get Pro**](https://bplugins.com/products/document-embedder/pricing)
+- **Secure Email Gate for Downloads:** Require visitors to submit Name and Email before they can download a document. Turn any file into a lead magnet.
 
-### How to embed a PDF or document in WordPress
+- **Leads Dashboard & CSV Export:** Every submission is logged to a searchable, filterable dashboard you can export as CSV in one click.
+
+- **View Access Control:** Show a document only to logged-in users or to specific user roles, with your own message for everyone else. Restricted visitors never receive the file link at all.
+
+- **Secure Document Delivery:** Serve local PDFs through a signed, expiring, IP-bound link instead of exposing the file URL in your page.
+
+- **Download Access Control:** Limit downloads to logged-in users only, or restrict them by specific user roles.
+
+- **Interactive Overlays:** Place notes, highlights, links, and call-to-action buttons on any page of a PDF. Positions are percentage based, so they stay aligned at any zoom level.
+
+- **Lightbox Display:** Open documents in a modal popup — triggered by a styled button, an image, or any element on your page.
+
+- **Custom Toolbar Themes & Color Customizer:** Style your toolbar with Dark, Light, or fully Custom colors.
+
+- **Advanced Customizations for Viewer Engines:** Reader Mode, thumbnail sidebar, full-screen button (in place or in a new tab), custom initial page and default zoom, horizontal scrollbar, and automatic loading of the latest file version.
+
+- **Disable Popout Option:** Prevent users from opening documents in a new window.
+
+- **Loading Indicator:** Show a spinner until the document fully loads.
+
+- **Google Drive API Integration:** Embed and manage docs directly from your Google Drive.
+
+- **Dropbox Integration:** Access and embed files from Dropbox easily.
+
+- **Faster Pages:** Lazy load embeds until a visitor scrolls to them, render long PDFs page by page, and fall back automatically if the Google viewer fails to answer.
+
+- **Premium Customer Support:** Priority help and expert assistance.
+
+**Document Library Module**
+
+- **Extended Uploads:** Upload more than 5 documents (free version limited to 5).
+
+### Upcoming Features ###
+
+- **Multiple Themes**: Choose different styles for displaying document libraries.
+
+- **File Size d=Display**: Show sizes in MB, KB, or other formats.
+
+- **Flexible Date Formats**: Display upload dates in different formats.
+
+### How to Use – Step-by-Step Guide
 
 https://youtube.com/watch?v=mUlMpuPMP5Q
 
-**With the block editor (Gutenberg)**
 
-1. Open any post or page and click **+**.
-2. Search for **Document Embed** and add the block.
-3. Upload a file, pick one from the Media Library, or paste a Google Drive, Dropbox, Box or other link.
-4. Choose a viewer and adjust the size, toolbar and download button in the sidebar.
-5. Publish.
+#### Quick setup in just a few steps:
 
-**With Elementor**
+- Install and activate the Document Embedder plugin.
 
-1. Edit the page with Elementor and search the widget panel for **Document Embedder**.
-2. Drag the widget onto the page.
-3. Choose **Document** and pick the file, then set the width, height and style.
+- Navigate to Document Embedder > Add New Doc.
 
-**With a shortcode**
+- Upload or link your document and configure the viewer settings.
 
-1. Go to **Document Embedder > Add New Document**, upload your file and save.
-2. Copy the shortcode, for example `[doc id="123"]`.
-3. Paste it into any post, page, widget or page builder.
+- Copy the generated shortcode.
 
-### How to create a document library
+- Paste the shortcode into any post, page, or widget where you want the document to appear.
 
-1. Go to **Document Embedder > Document Library** and click **Add New Library**.
-2. Choose a layout: **Grid** or **List** (Table and Folder in Pro).
-3. Add your files from your computer, the Media Library or a URL.
-4. Turn search, filters and sorting on or off, and style the header, toolbar and documents.
-5. Save, then add the library with the **Document Library** block, the **Elementor widget** or the `[document_library id="123"]` shortcode.
+
+**Document Embed Block Support**
+Prefer the WordPress Block Editor? Inserting documents has never been easier:
+
+- Open the **Block Editor** (Gutenberg) on any post or page.
+
+- Click **+** and search for the **Document Embed** block.
+
+- Upload a new document, select one from your Media Library, or input a cloud URL.
+
+- Configure advanced styling, custom toolbar themes, viewer types (Default vs Custom PDF), and download permissions directly from the editor sidebar.
+
+- Publish your page to display a beautiful, responsive document preview.
+
+[**Live Demo**](https://bplugins.com/products/document-embedder/#demos) | [**Try The Pro**](https://bplugins.com/products/document-embedder/#pricing)
+
 
 ### Supported File Types (16+ Formats)
 
@@ -273,73 +260,37 @@ Enjoy
 
 == Frequently Asked Questions ==
 
-= How do I embed a PDF in WordPress? =
+= What is the max file size i can embed? =
 
-Add the **Document Embed** block to a post or page, then upload your PDF or pick it from the Media Library. You can also use the Elementor widget, or create a document under **Document Embedder > Add New Document** and paste its `[doc id="123"]` shortcode anywhere. The PDF appears in a responsive viewer that visitors can read without downloading.
+You can embed any supported document within 20 Mb of size. 
 
-= Can I embed Word, Excel and PowerPoint files? =
+= Is the embeded doc work in every browser? =
 
-Yes. DOC, DOCX, XLS, XLSX, PPT and PPTX files are shown inline with the Google viewer, along with Google Docs, images, code files and 16+ other formats.
+Yes, In Most of the popular Browser such as Chrome, Safari, Firefox, IE And Microsoft Edge 
 
-= Can visitors read a document without downloading it? =
+= How many doc Can i embed? =
 
-Yes. That is what the plugin is for. The download button is optional: hide it, or keep it and choose whether it saves the file or opens it in a new tab.
+There is no Limit, you can embed thousands of doc if you want.
 
-= How do I create a document library or file download page? =
+= How does the Email Gate work? =
 
-Go to **Document Embedder > Document Library > Add New Library**, choose a layout, add your files and save. Show it with the Document Library block, the Elementor widget or the `[document_library id="123"]` shortcode. Visitors can search, filter by file type, sort, view and download.
-
-= Which library layouts are included? =
-
-Grid and List are free. Table (sortable columns) and Folder (folders and subfolders) are included in Pro. You can switch layouts at any time without losing your files or settings, and existing libraries keep their current look.
-
-= Does it work with Elementor? =
-
-Yes. Document Embedder has its own Elementor widget. Search for **Document Embedder** in the widget panel, then choose a document or a library and style it right in Elementor.
-
-= Does it work with Divi, Bricks, WPBakery and other page builders? =
-
-Yes. Paste the `[doc id="123"]` or `[document_library id="123"]` shortcode into any builder that supports shortcodes.
-
-= Can I embed files from Google Drive, Dropbox or Box? =
-
-Yes. Paste the public link to the file. Box shared links open in Box's own viewer. With Pro you can also browse your Google Drive, Dropbox and Box accounts and pick files directly.
-
-= Can I turn a PDF into a flipbook? =
-
-Yes, for free. Choose the Flipbook viewer and a Flip Style: 3D, Soft or Flat. Flipbooks work with PDF files only. Flipbooks you created before Flip Style existed keep their current look until you change it. Pro adds hard covers, page-turn sound, auto play, single or double page mode, page-turn speed and the 3D page edge colour.
-
-= Can I see how many people view my documents? =
-
-Yes. Document Embedder > Insights counts views, daily unique views, downloads, full-screen use and time on screen for every embedded document and Document Library file, anonymously. The free version shows today's figures. Pro adds date ranges, a daily chart, top documents, top host pages, a per-document view and CSV export, reading back every day recorded since you updated.
+With Pro, you can require visitors to enter their Name and Email before downloading a document. All submissions are saved to the Leads Dashboard, where you can search, filter by date or document, and export as CSV.
 
 = Can I limit how many times someone can download a file? =
 
-Yes, in the free version. Set a download limit per visitor, and optionally show the download count next to the button.
+Yes. With Pro you can set a maximum download count per IP address — for example, allowing each visitor to download a file no more than 3 times.
 
-= How does the email gate work? =
+= Can I restrict downloads to logged-in users only? =
 
-With Pro, visitors enter their name and email before a download starts. Every submission is saved to the Leads dashboard, where you can search, filter by date or document, and export to CSV.
+Yes. Pro lets you restrict downloads to logged-in users only, or limit access to specific user roles.
 
-= Can I restrict documents to logged-in users? =
+= Does it work with page builders like Elementor or Divi? =
 
-Yes, with Pro. You can limit viewing, downloading or both to logged-in users or to specific user roles. Visitors without access never receive the file link.
-
-= How many documents can I add? =
-
-As many as you like. In the free version, each document library holds up to 5 documents; Pro removes that limit.
-
-= What is the maximum file size? =
-
-Documents up to 20 MB display reliably.
-
-= Which browsers are supported? =
-
-All modern browsers on desktop and mobile, including Chrome, Safari, Firefox and Edge.
+Yes. Use the `[embed_doc]` shortcode in any page builder that supports shortcodes.
 
 = Does it work with TutorLMS? =
 
-Yes. Document Embedder is confirmed to work with TutorLMS.
+Yes, Document Embedder is confirmed compatible with TutorLMS.
 
 = Where do I report security bugs found in this plugin? =
 
@@ -358,23 +309,12 @@ Please report security bugs found in the source code of the Document Embedder pl
 8. Every lead, logged and exportable (Pro) — Search, filter by date or document, and export the whole list to CSV in one click.
 9. Pin notes, links and CTAs on a page (Pro) — Percentage-based positions keep every overlay aligned at any zoom level.
 10. Lock a document to the right people (Pro) — Restrict the viewer by login or role — blocked visitors never receive the file URL at all.
-11. See how every document is read — Views, downloads, leads and time on screen for every document. Today in Free, full history, funnel and CSV export in Pro.
 
 
 == Changelog ==
 
-= 2.5.0 - RELEASE DATE =
-* **New:** Real 3D Flipbook mode (3D, soft curl or flat page turn) with hard cover, sound, auto play and page mode options. Existing flipbooks keep their current look.
-* **New:** Insights. Anonymous view, daily unique view, download, full-screen and time-on-screen counts for every embedded document and Document Library file, with today's figures on a new Insights screen.
-* **New:** Pro: Insights history with date ranges, a daily chart, top documents, top host pages, a per-document view and CSV export. Every day is recorded from the moment you update, so upgrading reads back the history you already have.
-* **New:** "Views today" column on the Documents list, and today's figures in each document's Download Stats box.
-* **New:** Insights settings: switch counting on or off, exclude roles, choose data retention, and reset the data.
-* **New:** AI Agent Access: AI assistants can read your documents, download stats, leads (opt-in) and today's Insights through the WordPress Abilities API / MCP.
-* **New:** Box embeds. Paste a Box shared link and the file shows in Box's own viewer (browsing your Box account from the block is available in Pro).
-
-= 2.4.1 - 18 October 2026 =
-* **New:** Library layout templates. Choose Grid or List when you create a Document Library (Table and Folder are available in Pro).
-* **New:** Dedicated Elementor widget for embedding documents and libraries.
+= 2.4.1 - 17 October 2026 =
+* **Security:** Fixed a stored XSS vulnerability by blocking script URLs in document links and library files. All users are encouraged to update.
 
 = 2.4.0 - 7 October 2026 =
 * **Improvement:** Redesigned the admin experience to be much cleaner and easier to understand.

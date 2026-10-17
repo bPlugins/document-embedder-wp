@@ -223,7 +223,7 @@ const UploadDocuments = ({
         type: f.filename,
         date: f.date ? formatDate(f.date) : formatDate(new Date()),
         author,
-        description: f.caption || (f.description || "").replace(/<[^>]*>/g, "").trim(),
+        description: "",
       }));
 
       const updatedDocs = [...docItems, ...mapped];

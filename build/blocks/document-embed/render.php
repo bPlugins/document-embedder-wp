@@ -55,24 +55,11 @@ if (!defined('ABSPATH')) {
         $attributes['_de_preview_editing'] = true;
     }
 
+    // URLs in block attributes are never filtered by WordPress, so neutralise script URLs
+    // here. This also covers embeds saved before 2.4.1 and the [doc] shortcode.
     if (class_exists('\BPLDE\Helper\Functions')) {
-        $attributes['flipbook'] = \BPLDE\Helper\Functions::sanitize_flipbook(isset($attributes['flipbook']) ? $attributes['flipbook'] : []);
+        $attributes = \BPLDE\Helper\Functions::strip_unsafe_urls($attributes, ['doc', 'lightbox_trigger_image']);
     }
-
-    // Document Insights. A pasted URL has no id the download endpoint can serve, so its
-    // downloads are reported by the browser instead.
-    $de_raw_doc  = isset($attributes['documentSource']['doc']) ? (string) $attributes['documentSource']['doc'] : '';
-    $de_insights = [];
-    if (class_exists('\BPLDE\Model\Insights') && $de_raw_doc !== '') {
-        $de_insights = \BPLDE\Model\Insights::markup(
-            \BPLDE\Model\Insights::doc_key($de_raw_doc, $post_id),
-            $post_id ? [] : ['data-bplde-dl' => '1']
-        );
-    }
-
-    // Wide/Full alignment hands the width to the theme. Blocks saved before alignment
-    // support have no `align` and keep their width settings exactly as before.
-    $de_align = isset($attributes['align']) && in_array($attributes['align'], ['wide', 'full'], true) ? $attributes['align'] : '';
 
     // Enqueue frontend scripts and styles registered in block.json
     if (function_exists('enqueue_block_assets')) {
@@ -89,29 +76,29 @@ if (!defined('ABSPATH')) {
     ?>
     <style>
         #<?php echo esc_html($id); ?> {
-            <?php if (!$de_align) : ?>width: <?php echo esc_html($w_d); ?>;<?php endif; ?>
+            width: <?php echo esc_html($w_d); ?>;
             height: <?php echo esc_html($h_d); ?>;
         }
         @media (max-width: 991px) {
             #<?php echo esc_html($id); ?> {
-                <?php if (!$de_align) : ?>width: <?php echo esc_html($w_t); ?>;<?php endif; ?>
+                width: <?php echo esc_html($w_t); ?>;
                 height: <?php echo esc_html($h_t); ?>;
             }
         }
         @media (max-width: 767px) {
             #<?php echo esc_html($id); ?> {
-                <?php if (!$de_align) : ?>width: <?php echo esc_html($w_m); ?>;<?php endif; ?>
+                width: <?php echo esc_html($w_m); ?>;
                 height: <?php echo esc_html($h_m); ?>;
             }
         }
     </style>
 
-    <div class="bplde-document-embed-frontend<?php echo $de_align ? ' align' . esc_attr($de_align) : ''; ?>"
+    <div class="bplde-document-embed-frontend"
          id="<?php echo esc_attr($id); ?>"
          data-attributes="<?php echo esc_attr(wp_json_encode($attributes)); ?>"
          data-user="<?php echo esc_attr(wp_json_encode($user_data)); ?>"
          data-plugin-url="<?php echo esc_url(BPLDE_PLUGIN_DIR); ?>"
-         data-post-id="<?php echo esc_attr($post_id); ?>"<?php foreach ($de_insights as $de_attr => $de_value) { printf(' %s="%s"', esc_attr($de_attr), esc_attr($de_value)); } ?>>
+         data-post-id="<?php echo esc_attr($post_id); ?>">
         <div class="bplde-loading-placeholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px;">
             <p><?php esc_html_e('Loading Viewer...', 'document-emberdder'); ?></p>
         </div>

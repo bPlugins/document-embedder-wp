@@ -46,57 +46,6 @@ if (!class_exists('BPLDE_List_Screen')) {
             // After the upgrade notice, which registers on the same hook at priority 10.
             add_action('admin_notices', [$this, 'render_header'], 20);
             add_action('restrict_manage_posts', [$this, 'file_type_filter']);
-            // After PPTViewer declares its columns at priority 1.
-            add_filter('manage_ppt_viewer_posts_columns', [$this, 'add_views_column'], 20);
-            add_action('manage_ppt_viewer_posts_custom_column', [$this, 'views_cell'], 10, 2);
-        }
-
-        /** Inserted right after Downloads; every other column keeps its place. */
-        public function add_views_column($columns) {
-            if (!class_exists('\BPLDE\Model\InsightsReader')) {
-                return $columns;
-            }
-
-            $label = __('Views today', 'document-emberdder');
-            $out   = [];
-
-            foreach ($columns as $key => $title) {
-                $out[$key] = $title;
-                if ($key === 'download_count') {
-                    $out['bplde_views'] = $label;
-                }
-            }
-
-            return isset($out['bplde_views']) ? $out : $out + ['bplde_views' => $label];
-        }
-
-        /** Every row's figure comes from one query, made on the first cell. */
-        private static function views_by_post() {
-            static $views = null;
-
-            if ($views === null) {
-                $today = \BPLDE\Model\InsightsReader::today();
-                $views = \BPLDE\Model\InsightsReader::views_by_post($today, $today);
-            }
-
-            return $views;
-        }
-
-        public function views_cell($column, $post_id) {
-            if ($column !== 'bplde_views') {
-                return;
-            }
-
-            $views = self::views_by_post();
-            $count = isset($views[$post_id]) ? (int) $views[$post_id] : 0;
-            $url   = class_exists('\BPLDE\Admin\InsightsPage') ? \BPLDE\Admin\InsightsPage::url('p:' . (int) $post_id) : '';
-
-            printf(
-                '<a class="%s" href="%s">%s</a>',
-                esc_attr($count ? 'bplde-count' : 'bplde-count is-zero'),
-                esc_url($url),
-                esc_html(number_format_i18n($count))
-            );
         }
 
         /**

@@ -20,8 +20,6 @@ module.exports = {
     public: "./src/public.js",
     "all-library": "./src/DocumentLibrary/AllLibraryContainer/allLibraryContainer.js",
     "admin-dashboard": "./src/admin/admin.js",
-    "admin-insights": "./src/admin/insights/index.js",
-    "insights-tracker": "./src/insights/tracker.js",
   },
   plugins: [...plugins, new ESLintPlugin()],
   optimization: {},

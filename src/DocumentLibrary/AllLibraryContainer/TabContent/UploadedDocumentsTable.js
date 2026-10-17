@@ -8,7 +8,6 @@ const UploadedDocumentsTable = ({ formData, onFormDataUpdate }) => {
   const [selectedDocs, setSelectedDocs] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editTitle, setEditTitle] = useState("");
-  const [editDescription, setEditDescription] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null); // "single" or "bulk"
   const [deleteIndex, setDeleteIndex] = useState(null);
@@ -37,7 +36,6 @@ const UploadedDocumentsTable = ({ formData, onFormDataUpdate }) => {
   const handleEdit = (index, currentTitle) => {
     setEditingIndex(index);
     setEditTitle(currentTitle);
-    setEditDescription(docs[index]?.description || "");
   };
 
   // Cancel editing
@@ -49,7 +47,7 @@ const UploadedDocumentsTable = ({ formData, onFormDataUpdate }) => {
   // Update document title
   const handleUpdate = (index) => {
     const updatedDocs = docs.map((doc, i) =>
-      i === index ? { ...doc, title: editTitle, description: editDescription } : doc
+      i === index ? { ...doc, title: editTitle } : doc
     );
     onFormDataUpdate("settings.documentLibrary.docItems", updatedDocs);
     setEditingIndex(null);
@@ -116,36 +114,18 @@ const UploadedDocumentsTable = ({ formData, onFormDataUpdate }) => {
                     {/* Editable Title */}
                     <td>
                       {editingIndex === index ? (
-                        <>
-                          <input
-                            type="text"
-                            value={editTitle}
-                            onChange={(e) => setEditTitle(e.target.value)}
-                            aria-label="Title"
-                            autoFocus
-                          />
-                          <textarea
-                            className="bpldl-doc-desc-input"
-                            value={editDescription}
-                            onChange={(e) => setEditDescription(e.target.value)}
-                            placeholder="Description (optional)"
-                            aria-label="Description"
-                            rows={2}
-                          />
-                        </>
+                        <input
+                          type="text"
+                          value={editTitle}
+                          onChange={(e) => setEditTitle(e.target.value)}
+                          autoFocus
+                        />
                       ) : (
-                        <>
-                          <span onClick={() => handleEdit(index, doc.title)}>
-                            {doc.title.length > 25
-                              ? doc.title.substring(0, 25) + "..."
-                              : doc.title}
-                          </span>
-                          {doc.description && (
-                            <span className="bpldl-doc-desc" title={doc.description}>
-                              {doc.description}
-                            </span>
-                          )}
-                        </>
+                        <span onClick={() => handleEdit(index, doc.title)}>
+                          {doc.title.length > 25
+                            ? doc.title.substring(0, 25) + "..."
+                            : doc.title}
+                        </span>
                       )}
                     </td>
 

@@ -8,8 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // Above the layout picker (100000), which can open this popup.
-  z-index: 100001;
+  z-index: 1000;
 }
 
 .bpl-modal-content {

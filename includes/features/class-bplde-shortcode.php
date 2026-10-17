@@ -201,8 +201,6 @@ if (!class_exists('Shortcode')) {
 
             return [
                 'docId' => isset($data['id']) ? intval($data['id']) : 0,
-                // Flip Style and the phone fallback, read from the document's meta.
-                'flipbook' => Functions::document_flipbook(isset($data['id']) ? $data['id'] : 0),
                 'documentSource' => [
                     'doc' => isset($data['doc']) ? $data['doc'] : '',
                     'viewer' => $viewer,

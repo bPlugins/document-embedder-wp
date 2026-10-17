@@ -14,11 +14,7 @@
     "Viewer"
   ],
   "supports": {
-    "html": false,
-    "align": [
-      "wide",
-      "full"
-    ]
+    "html": false
   },
   "attributes": {
     "docId": {
@@ -114,10 +110,6 @@
         "lazyLoad": false,
         "gviewFallback": true
       }
-    },
-    "flipbook": {
-      "type": "object",
-      "default": {}
     }
   },
   "editorScript": [

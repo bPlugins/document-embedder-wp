@@ -5,8 +5,7 @@ import { withSelect } from "@wordpress/data";
 import { Label, Device } from "../../../../../../bpl-tools/Components";
 
 const DisplayDimension = ({ attributes, setAttributes, device }) => {
-  const { displayDimensions, align } = attributes;
-  const isAligned = align === "wide" || align === "full";
+  const { displayDimensions } = attributes;
   const { width = {}, height = {} } = displayDimensions;
 
   const getDimensionValue = (dimObj, deviceType, fallback) => {
@@ -41,7 +40,7 @@ const DisplayDimension = ({ attributes, setAttributes, device }) => {
             width="20"
             height="20"
             fill="none"
-            stroke="#0f766e"
+            stroke="#3858E9"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -66,8 +65,7 @@ const DisplayDimension = ({ attributes, setAttributes, device }) => {
           { value: "vw", label: "vw", default: 100 },
         ]}
         isResetValueOnUnitChange={true}
-        disabled={isAligned}
-        help={isAligned ? __("Width follows the block's Wide/Full alignment. Set alignment to None to use a custom width.", "document-emberdder") : device === 'tablet' ? __("Set the width of the viewer for tablet.", "document-emberdder") : device === 'mobile' ? __("Set the width of the viewer for mobile.", "document-emberdder") : __("Set the width of the viewer for desktop.", "document-emberdder")}
+        help={device === 'tablet' ? __("Set the width of the viewer for tablet.", "document-emberdder") : device === 'mobile' ? __("Set the width of the viewer for mobile.", "document-emberdder") : __("Set the width of the viewer for desktop.", "document-emberdder")}
       />
 
       <UnitControl

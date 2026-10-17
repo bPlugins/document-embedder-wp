@@ -68,20 +68,9 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
-        version: "2.5.0",
+        version: "2.4.1 - 17 October 2026",
         list: [
-          "**New:** Real 3D Flipbook mode (3D, soft curl or flat page turn). Hard cover, sound, auto play and page mode options are available in Pro. Existing flipbooks keep their current look.",
-          "**New:** Insights. Anonymous view, daily unique view, download, full-screen and time-on-screen counts for every embedded document and Document Library file, with today's figures on a new Insights screen.",
-          "**New:** Pro: Insights history with date ranges, a daily chart, top documents, top host pages, a per-document view and CSV export.",
-          "**New:** \"Views today\" column on the Documents list, and today's figures in each document's Download Stats box.",
-          "**New:** Insights settings: switch counting on or off, exclude roles, choose data retention, and reset the data."
-        ]
-      },
-      {
-        version: "2.4.1 - 18 October 2026",
-        list: [
-          "**New:** Library layout templates. Choose Grid or List when you create a Document Library (Table and Folder are available in Pro).",
-          "**New:** Dedicated Elementor widget for embedding documents and libraries."
+          "**Security:** Fixed a stored XSS vulnerability by blocking script URLs in document links and library files. All users are encouraged to update."
         ]
       },
       {
@@ -271,15 +260,13 @@ export const dashboardInfo = (info) => {
     ],
     // Kept in step with the Pro teaser card on the document edit screen
     // (BPLDE_Document_Embedder::render_pro_teaser_metabox), so every surface
-    // that sells Pro names the same eight things.
+    // that sells Pro names the same six things.
     proFeatures: [
-      "Insights history, daily chart and CSV export",
-      "Flipbook hard cover, sound and auto play",
       "Email-gated downloads",
       "Interactive overlays on any page",
       "Print, copy and right-click protection",
       "Access limited by user role",
-      "Google Drive, Dropbox and Box embeds",
+      "Google Drive and Dropbox embeds",
       "Toolbar themes, zoom and lightbox"
     ],
     startButton: {

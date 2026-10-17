@@ -29,7 +29,7 @@ const Toolbar = ({ attributes, setAttributes }) => {
             width="20"
             height="20"
             fill="none"
-            stroke="#0f766e"
+            stroke="#3858E9"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

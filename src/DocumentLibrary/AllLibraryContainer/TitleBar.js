@@ -1,13 +1,10 @@
-import { LayoutGrid } from 'lucide-react';
-
 /**
  * Title card that sits under the top bar on the document editor. The shortcode
- * lives in the top bar itself (EditorHeader). The layout button beside the
- * title reopens the layout picker.
+ * lives in the top bar itself (EditorHeader).
  */
-const TitleBar = ({ title, onChange, layoutName, onChangeLayout, layoutButtonRef }) => (
+const TitleBar = ({ title, onChange }) => (
   <div className="bpldl-titleblock">
-    <div className="bpldl-titlecard" style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+    <div className="bpldl-titlecard">
       <input
         type="text"
         className="bpldl-titleinput"
@@ -16,13 +13,6 @@ const TitleBar = ({ title, onChange, layoutName, onChangeLayout, layoutButtonRef
         value={title || ''}
         onChange={onChange}
       />
-      {layoutName && (
-        <button type="button" className="bpldl-layout-btn" onClick={onChangeLayout} ref={layoutButtonRef}>
-          <LayoutGrid aria-hidden="true" />
-          Layout: {layoutName}
-          <span className="bpldl-layout-btn__change">Change</span>
-        </button>
-      )}
     </div>
   </div>
 );

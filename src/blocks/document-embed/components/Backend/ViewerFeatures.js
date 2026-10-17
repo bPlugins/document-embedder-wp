@@ -15,7 +15,7 @@ const ViewerFeatures = () => {
               width="20"
               height="20"
               fill="none"
-              stroke="#0f766e"
+              stroke="#3858E9"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -28,7 +28,7 @@ const ViewerFeatures = () => {
             </svg>
             <span>{__("Controls", "document-emberdder")}</span>
           </div>
-          <PremiumBadge className="bplde-pro-badge" label={__("Pro", "document-emberdder")} />
+          <PremiumBadge label={__("Pro", "document-emberdder")} />
         </div>
       }
       initialOpen={false}

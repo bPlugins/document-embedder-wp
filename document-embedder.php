@@ -1,9 +1,9 @@
 <?php
 /*
- * Plugin Name: Document Embedder – Embed PDFs, Word, Excel, and Other Files Free
- * Plugin URI:  http://documentembedder.com/
+ * Plugin Name: Document Embedder – Embed PDFs, Word, Excel, and Other Files
+ * Plugin URI:  https://wordpress.org/plugins/document-emberdder/
  * Description: Embed Any document easily in wordpress such as word, excel, powerpoint, pdf and more
- * Version:     2.5.0
+ * Version:     2.4.1
  * Author:      bPlugins
  * Author URI:  https://bplugins.com/
  * License:     GPLv2 or later
@@ -19,7 +19,7 @@ if (function_exists('de_fs')) {
     de_fs()->set_basename(true, __FILE__);
 } else {
     /* Some Set-up */
-    define('BPLDE_VER', '2.5.0');
+    define('BPLDE_VER', '2.4.1');
     define('BPLDE_PRO_IMPORT', '1.0.0');
     define('BPLDE_PLUGIN_DIR', plugin_dir_url(__FILE__));
     define('BPLDE_PLUGIN_PATH', plugin_dir_path(__FILE__));
@@ -68,7 +68,6 @@ if (function_exists('de_fs')) {
         require_once BPLDE_PLUGIN_PATH . 'includes/class-bplde-init.php';
     }
     register_activation_hook(BPLDE__FILE__, ['BPLDEDocumentEmbedder', 'activate']);
-    register_deactivation_hook(BPLDE__FILE__, ['BPLDEDocumentEmbedder', 'deactivate']);
     new BPLDEDocumentEmbedder();
 
 }

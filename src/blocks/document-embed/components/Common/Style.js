@@ -33,13 +33,10 @@ const Style = ({ attributes = {}, id = "", uniqueId = "" }) => {
     return isNaN(val) ? val : val + "px";
   };
 
-  // Wide/Full alignment sizes the block itself; the viewer just fills it.
-  const isAligned = attributes.align === "wide" || attributes.align === "full";
-
   // Extract dimensions
-  const w_d = isAligned ? "100%" : parseDim(width, "100%", "desktop");
-  const w_t = isAligned ? "100%" : parseDim(width, w_d, "tablet");
-  const w_m = isAligned ? "100%" : parseDim(width, w_t, "mobile");
+  const w_d = parseDim(width, "100%", "desktop");
+  const w_t = parseDim(width, w_d, "tablet");
+  const w_m = parseDim(width, w_t, "mobile");
 
   const h_d = parseDim(height, "840px", "desktop");
   const h_t = parseDim(height, h_d, "tablet");
