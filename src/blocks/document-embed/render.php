@@ -8,6 +8,10 @@ if (!defined('ABSPATH')) {
 (function() use ($attributes) {
     $id = wp_unique_id('bplde-embed-');
     $post_id = isset($attributes['docId']) ? intval($attributes['docId']) : get_the_ID();
+    // First, so nothing below -- Insights, the viewer -- ever sees a script URL.
+    if (isset($attributes['documentSource']['doc']) && class_exists('\BPLDE\Helper\Functions')) {
+        $attributes['documentSource']['doc'] = \BPLDE\Helper\Functions::safe_doc_url($attributes['documentSource']['doc']);
+    }
 
     // Extract dimensions for placeholder styling
     $displayDimensions = isset($attributes['displayDimensions']) ? $attributes['displayDimensions'] : [];
@@ -55,11 +59,24 @@ if (!defined('ABSPATH')) {
         $attributes['_de_preview_editing'] = true;
     }
 
-    // URLs in block attributes are never filtered by WordPress, so neutralise script URLs
-    // here. This also covers embeds saved before 2.4.1 and the [doc] shortcode.
     if (class_exists('\BPLDE\Helper\Functions')) {
-        $attributes = \BPLDE\Helper\Functions::strip_unsafe_urls($attributes, ['doc', 'lightbox_trigger_image']);
+        $attributes['flipbook'] = \BPLDE\Helper\Functions::sanitize_flipbook(isset($attributes['flipbook']) ? $attributes['flipbook'] : []);
     }
+
+    // Document Insights. A pasted URL has no id the download endpoint can serve, so its
+    // downloads are reported by the browser instead.
+    $de_raw_doc  = isset($attributes['documentSource']['doc']) ? (string) $attributes['documentSource']['doc'] : '';
+    $de_insights = [];
+    if (class_exists('\BPLDE\Model\Insights') && $de_raw_doc !== '') {
+        $de_insights = \BPLDE\Model\Insights::markup(
+            \BPLDE\Model\Insights::doc_key($de_raw_doc, $post_id),
+            $post_id ? [] : ['data-bplde-dl' => '1']
+        );
+    }
+
+    // Wide/Full alignment hands the width to the theme. Blocks saved before alignment
+    // support have no `align` and keep their width settings exactly as before.
+    $de_align = isset($attributes['align']) && in_array($attributes['align'], ['wide', 'full'], true) ? $attributes['align'] : '';
 
     // Enqueue frontend scripts and styles registered in block.json
     if (function_exists('enqueue_block_assets')) {
@@ -76,29 +93,29 @@ if (!defined('ABSPATH')) {
     ?>
     <style>
         #<?php echo esc_html($id); ?> {
-            width: <?php echo esc_html($w_d); ?>;
+            <?php if (!$de_align) : ?>width: <?php echo esc_html($w_d); ?>;<?php endif; ?>
             height: <?php echo esc_html($h_d); ?>;
         }
         @media (max-width: 991px) {
             #<?php echo esc_html($id); ?> {
-                width: <?php echo esc_html($w_t); ?>;
+                <?php if (!$de_align) : ?>width: <?php echo esc_html($w_t); ?>;<?php endif; ?>
                 height: <?php echo esc_html($h_t); ?>;
             }
         }
         @media (max-width: 767px) {
             #<?php echo esc_html($id); ?> {
-                width: <?php echo esc_html($w_m); ?>;
+                <?php if (!$de_align) : ?>width: <?php echo esc_html($w_m); ?>;<?php endif; ?>
                 height: <?php echo esc_html($h_m); ?>;
             }
         }
     </style>
 
-    <div class="bplde-document-embed-frontend"
+    <div class="bplde-document-embed-frontend<?php echo $de_align ? ' align' . esc_attr($de_align) : ''; ?>"
          id="<?php echo esc_attr($id); ?>"
          data-attributes="<?php echo esc_attr(wp_json_encode($attributes)); ?>"
          data-user="<?php echo esc_attr(wp_json_encode($user_data)); ?>"
          data-plugin-url="<?php echo esc_url(BPLDE_PLUGIN_DIR); ?>"
-         data-post-id="<?php echo esc_attr($post_id); ?>">
+         data-post-id="<?php echo esc_attr($post_id); ?>"<?php foreach ($de_insights as $de_attr => $de_value) { printf(' %s="%s"', esc_attr($de_attr), esc_attr($de_value)); } ?>>
         <div class="bplde-loading-placeholder" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px;">
             <p><?php esc_html_e('Loading Viewer...', 'document-emberdder'); ?></p>
         </div>

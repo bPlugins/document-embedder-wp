@@ -5,7 +5,7 @@ import {
 } from "../../../../../../bpl-tools/utils/getCSS";
 import { defaultValues, normalizeKeys } from "../../../../DocumentLibrary/Utils/options";
 
-const Style = ({ settingsData: rawSettingsData, id }) => {
+const Style = ({ settingsData: rawSettingsData, id, template = "grid" }) => {
   const settingsData = normalizeKeys(rawSettingsData, defaultValues.settings);
   const { styles, header: settingsHeader, documentLibrary } = settingsData;
   const { toolbarBox, documentBox, docsViewPerRow } = documentLibrary;
@@ -40,6 +40,49 @@ const Style = ({ settingsData: rawSettingsData, id }) => {
 
   const downloadBtnEl = `${docBox} .bplDl-actions .bplDl-btn.bplDl-download-btn`;
   const viewBtnEl = `${docBox} .bplDl-actions .bplDl-btn.bplDl-view-btn`;
+
+  // The List layout reuses the Document Box colours so a library keeps its
+  // look when the layout changes; its own extras live in templates.list.
+  const list = settingsData?.templates?.list || {};
+  const rowActions = `${content} .bplDl-row-actions`;
+  const listRow = `${content} .bplDl-list-row`;
+  const listRadius = Number.isFinite(Number(list.borderRadius)) && list.borderRadius !== "" ? Number(list.borderRadius) : 10;
+
+  const listCSS = `
+    ${rowActions} .bplDl-download-btn {
+      color: ${downloadButton.textColor.normal};
+      background: ${downloadButton.bgColor.normal};
+    }
+    ${rowActions} .bplDl-download-btn:hover {
+      color: ${downloadButton.textColor.hover};
+      background: ${downloadButton.bgColor.hover};
+    }
+    ${rowActions} .bplDl-view-btn {
+      color: ${viewButton.textColor.normal};
+      background: ${viewButton.bgColor.normal};
+    }
+    ${rowActions} .bplDl-view-btn:hover {
+      color: ${viewButton.textColor.hover};
+      background: ${viewButton.bgColor.hover};
+    }
+    ${content} .bplDl-list,
+    ${content} .bplDl-list-row {
+      border-color: ${list.dividerColor || "#e5e7eb"};
+    }
+    ${content} .bplDl-list {
+      border-radius: ${listRadius}px;
+    }
+    ${listRow} {
+      background: ${list.rowBg?.normal || "transparent"};
+    }
+    ${listRow}:hover {
+      background: ${list.rowBg?.hover || "transparent"};
+    }
+    ${listRow} .bplDl-list-title { color: ${documentBox.fileNameColor.normal}; }
+    ${listRow}:hover .bplDl-list-title { color: ${documentBox.fileNameColor.hover}; }
+    ${listRow} .bplDl-list-meta { color: ${documentBox.sizeColor.normal}; }
+    ${listRow}:hover .bplDl-list-meta { color: ${documentBox.sizeColor.hover}; }
+  `;
   
 
   return (
@@ -146,8 +189,8 @@ const Style = ({ settingsData: rawSettingsData, id }) => {
           ${viewBtnEl}>span {
             ${viewButton.isText ? "" : "display: none"};
           }
-            
-          
+          ${template === "list" ? listCSS : ""}
+
           `.replace(/\s+/g, " "),
         }}
       />

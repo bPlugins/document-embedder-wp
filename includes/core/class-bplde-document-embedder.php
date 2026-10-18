@@ -37,6 +37,8 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             if (version_compare($db_ver, BPLDE_VER, '<')) {
                 $this->ensure_table_exists();
             } 
+            // Versioned on its own option, so later Insights schema changes need no plugin release gate.
+            \BPLDE\Model\InsightsSchema::maybe_install();
 
 
         }
@@ -49,6 +51,20 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             new \BPLDE\Rest\RESTController();
             if (is_admin()) {
                 class_exists('\BPLDE\Admin\LeadsPage');
+            }
+
+            class_exists('\BPLDE\Model\Insights');
+            new \BPLDE\Rest\InsightsTrack();
+            new \BPLDE\Model\InsightsReader();
+            if (is_admin()) {
+                class_exists('\BPLDE\Admin\InsightsPage');
+            }
+
+            // AI Agent Access. Required by hand (the classmap predates it); the settings page needs
+            // the class on every WordPress version, the hooks only where the Abilities API exists.
+            require_once BPLDE_PLUGIN_PATH . 'includes/features/abilities/class-bplde-abilities.php';
+            if (\BPLDE\Abilities\Abilities::supported()) {
+                \BPLDE\Abilities\Abilities::instance();
             }
 
             if (class_exists('\BPLDE_Block')) {
@@ -200,10 +216,45 @@ if (!class_exists('BPLDE_Document_Embedder')) {
                         <span class="bplde-stat__label"><?php esc_html_e('Leads', 'document-emberdder'); ?></span>
                     </div>
                 </div>
+                <?php $this->render_insights_stats($post); ?>
                 <a href="<?php echo esc_url($leads_url); ?>" class="bplde-stats__cta">
                     <?php esc_html_e('View leads', 'document-emberdder'); ?>
                 </a>
             </div>
+            <?php
+        }
+
+        /** Today's Insights figures, under the lifetime totals, which stay exactly as they were. */
+        private function render_insights_stats($post)
+        {
+            if (!class_exists('\BPLDE\Model\InsightsReader') || !class_exists('\BPLDE\Admin\InsightsPage')) {
+                return;
+            }
+
+            $key   = 'p:' . (int) $post->ID;
+            $today = \BPLDE\Model\InsightsReader::today();
+            $stats = \BPLDE\Model\InsightsReader::summary($today, $today, $key);
+
+            $figures = [
+                __('Views', 'document-emberdder')     => $stats['views'],
+                __('Downloads', 'document-emberdder') => $stats['downloads'],
+                __('Leads', 'document-emberdder')     => (int) $stats['leads'],
+            ];
+            ?>
+            <div class="bplde-stats__insights">
+                <p class="bplde-stats__period"><?php esc_html_e('Today', 'document-emberdder'); ?></p>
+                <dl class="bplde-stats__row">
+                    <?php foreach ($figures as $label => $value) { ?>
+                        <div>
+                            <dt><?php echo esc_html($label); ?></dt>
+                            <dd><?php echo esc_html(number_format_i18n($value)); ?></dd>
+                        </div>
+                    <?php } ?>
+                </dl>
+            </div>
+            <a href="<?php echo esc_url(\BPLDE\Admin\InsightsPage::url($key)); ?>" class="bplde-stats__cta">
+                <?php esc_html_e('View insights', 'document-emberdder'); ?>
+            </a>
             <?php
         }
 
@@ -284,11 +335,13 @@ if (!class_exists('BPLDE_Document_Embedder')) {
         public function render_pro_teaser_metabox()
         {
             $features = [
+                __('Insights history, daily chart and CSV export', 'document-emberdder'),
+                __('Flipbook hard cover, sound and auto play', 'document-emberdder'),
                 __('Email-gated downloads', 'document-emberdder'),
                 __('Interactive overlays on any page', 'document-emberdder'),
                 __('Print, copy and right-click protection', 'document-emberdder'),
                 __('Access limited by user role', 'document-emberdder'),
-                __('Google Drive and Dropbox embeds', 'document-emberdder'),
+                __('Google Drive, Dropbox and Box embeds', 'document-emberdder'),
                 __('Toolbar themes, zoom and lightbox', 'document-emberdder'),
             ];
 
@@ -359,6 +412,7 @@ if (!class_exists('BPLDE_Document_Embedder')) {
             if ($wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table_name)) != $table_name) {
                 \BPLDEDocumentEmbedder::activate();
             }
+            \BPLDE\Model\InsightsSchema::maybe_install();
             update_option('de_db_version', BPLDE_VER);
         }
 

@@ -1,19 +1,17 @@
-/**
- * Returns "" for a URL that would run script when followed, otherwise the URL unchanged.
- *
- * Mirrors Functions::is_unsafe_url() in PHP. The server already strips these, but the block
- * editor renders attributes straight from post content, so the viewer checks again before a
- * URL reaches an anchor, a new tab or an iframe. Browsers ignore whitespace and control
- * characters inside a scheme, so those are removed before comparing.
- *
- * @param {*} url Stored value.
- * @return {string}
- */
-const safeUrl = (url) => {
-  if (typeof url !== "string") return "";
-  // eslint-disable-next-line no-control-regex
-  const normalized = url.replace(/[\x00-\x20]+/g, "").toLowerCase();
-  return /^(javascript|vbscript|livescript):/.test(normalized) ? "" : url;
-};
+// Protocols a document URL may use. Anything else -- javascript:, vbscript:, data: -- can run
+// script once it lands in an href, an iframe src or a programmatic link click. blob: is what the
+// block editor shows while a picked file is still uploading.
+const SAFE_PROTOCOLS = ["http:", "https:", "ftp:", "ftps:", "blob:"];
 
-export default safeUrl;
+// The document URL, or "" when it would run script. Parsed with the browser's own URL parser so
+// tricks like leading spaces or tabs inside "java\tscript:" are read exactly as navigation would
+// read them. Relative URLs resolve against the page and pass.
+export const safeDocUrl = (url) => {
+  if (typeof url !== "string" || url === "") return "";
+  try {
+    const { protocol } = new URL(url, window.location.href);
+    return SAFE_PROTOCOLS.includes(protocol) ? url : "";
+  } catch (e) {
+    return "";
+  }
+};

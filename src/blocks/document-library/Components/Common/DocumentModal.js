@@ -1,6 +1,5 @@
 import React from "react";
 import { X } from "lucide-react";
-import safeUrl from "../../../../utils/safeUrl";
 
 // Strip the query string / hash before reading the extension so "file.pdf?ver=2" is still
 // detected as a PDF instead of falling through to the generic branch.
@@ -204,7 +203,7 @@ const DocumentModal = ({ document, onClose }) => {
         <button type="button" className="bplDl-modal-close" onClick={onClose}>
           <X />
         </button>
-        <div className="bplDl-modal-body">{renderPreview({ ...document, url: safeUrl(document.url) })}</div>
+        <div className="bplDl-modal-body">{renderPreview(document)}</div>
       </div>
     </div>
   );

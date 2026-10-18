@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Document Embedder – Embed PDFs, Word, Excel, and Other Files 2.4.1\n"
+"Project-Id-Version: Document Embedder – Embed PDFs, Word, Excel, and Other Files 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/document-emberdder\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-17T05:13:13+00:00\n"
+"POT-Creation-Date: 2026-10-18T11:38:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: document-emberdder\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: document-embedder.php
-msgid "https://wordpress.org/plugins/document-emberdder/"
+msgid "http://documentembedder.com/"
 msgstr ""
 
 #. Description of the plugin
@@ -41,65 +41,92 @@ msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:47
 #: includes/admin/class-bplde-document-library.php:48
-#: includes/admin/class-bplde-list-screen.php:343
+#: includes/admin/class-bplde-list-screen.php:394
+#: src/admin/insights/api.js:47
 msgid "Document Library"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:49
-#: includes/admin/class-bplde-list-screen.php:94
+#: includes/admin/class-bplde-list-screen.php:145
+#: includes/features/elementor/class-bplde-elementor-widget.php:136
 msgid "Add New Library"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:50
+#: includes/features/elementor/class-bplde-elementor-widget.php:136
 msgid "Edit Library"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:137
 #: includes/core/class-bplde-ppt-viewer.php:132
+#: includes/features/elementor/class-bplde-elementor-widget.php:99
+#: includes/features/elementor/class-bplde-elementor-widget.php:139
 msgid "Shortcode"
 msgstr ""
 
 #: includes/admin/class-bplde-document-library.php:138
+#: includes/features/elementor/class-bplde-elementor-widget.php:124
+msgid "Layout"
+msgstr ""
+
+#: includes/admin/class-bplde-document-library.php:139
 #: includes/core/class-bplde-ppt-viewer.php:137
 msgid "Date"
 msgstr ""
 
+#: includes/admin/class-bplde-document-library.php:152
+#: includes/features/elementor/class-bplde-elementor-widget.php:129
+msgid "Grid"
+msgstr ""
+
+#: includes/admin/class-bplde-document-library.php:153
+#: includes/features/elementor/class-bplde-elementor-widget.php:130
+msgid "List"
+msgstr ""
+
 #: includes/admin/class-bplde-edit-layout.php:160
-#: includes/admin/class-bplde-list-screen.php:451
+#: includes/admin/class-bplde-list-screen.php:502
 msgid "Published"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:161
 #: includes/admin/class-bplde-edit-layout.php:162
-#: includes/admin/class-bplde-list-screen.php:453
+#: includes/admin/class-bplde-list-screen.php:504
 msgid "Draft"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:163
-#: includes/admin/class-bplde-list-screen.php:454
+#: includes/admin/class-bplde-list-screen.php:505
 msgid "Pending"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:164
-#: includes/admin/class-bplde-list-screen.php:455
+#: includes/admin/class-bplde-list-screen.php:506
 msgid "Private"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:170
-#: includes/admin/class-bplde-list-screen.php:63
+#: includes/admin/class-bplde-list-screen.php:114
 #: includes/core/class-bplde-ppt-viewer.php:55
 #: includes/core/class-bplde-ppt-viewer.php:56
+#: includes/features/elementor/class-bplde-elementor-widget.php:112
 msgid "Add New Document"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:171
+#: includes/features/elementor/class-bplde-elementor-widget.php:112
 msgid "Edit Document"
 msgstr ""
 
 #: includes/admin/class-bplde-edit-layout.php:175
 #: includes/admin/class-bplde-leads-page.php:284
-#: includes/admin/class-bplde-list-screen.php:293
+#: includes/admin/class-bplde-list-screen.php:344
 #: includes/core/class-bplde-ppt-viewer.php:47
+#: includes/features/abilities/class-bplde-abilities.php:88
+#: includes/features/class-bplde-elementor.php:81
+#: includes/features/class-bplde-insights.php:511
+#: includes/features/elementor/class-bplde-elementor-widget.php:36
+#: src/admin/insights/App.js:148
 msgid "Document Embedder"
 msgstr ""
 
@@ -132,15 +159,18 @@ msgstr ""
 msgid "Download stats"
 msgstr ""
 
-#: includes/admin/class-bplde-leads-page.php:54
-#: includes/admin/class-bplde-leads-page.php:285
-#: includes/admin/class-bplde-menu.php:50
-#: includes/admin/class-bplde-menu.php:51
-msgid "Download Leads"
+#: includes/admin/class-bplde-insights-page.php:107
+#: includes/admin/class-bplde-leads-page.php:148
+#: includes/features/class-bplde-insights.php:522
+msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/admin/class-bplde-leads-page.php:148
-msgid "You do not have sufficient permissions to access this page."
+#: includes/admin/class-bplde-leads-page.php:54
+#: includes/admin/class-bplde-leads-page.php:285
+#: includes/admin/class-bplde-menu.php:61
+#: includes/admin/class-bplde-menu.php:62
+#: src/admin/insights/App.js:201
+msgid "Download Leads"
 msgstr ""
 
 #: includes/admin/class-bplde-leads-page.php:289
@@ -152,6 +182,7 @@ msgid "Delete selected"
 msgstr ""
 
 #: includes/admin/class-bplde-leads-page.php:298
+#: src/admin/insights/App.js:181
 msgid "Export CSV"
 msgstr ""
 
@@ -182,6 +213,8 @@ msgid "Show all leads"
 msgstr ""
 
 #: includes/admin/class-bplde-leads-page.php:343
+#: src/admin/insights/App.js:197
+#: src/admin/insights/components/DocumentPicker.js:16
 msgid "All documents"
 msgstr ""
 
@@ -262,141 +295,154 @@ msgid_plural "%s leads"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/admin/class-bplde-list-screen.php:61
-#: includes/admin/class-bplde-list-screen.php:344
+#: includes/admin/class-bplde-list-screen.php:60
+#: src/blocks/document-embed/components/Backend/Insights.js:91
+msgid "Views today"
+msgstr ""
+
+#: includes/admin/class-bplde-list-screen.php:112
+#: includes/admin/class-bplde-list-screen.php:395
 #: includes/core/class-bplde-ppt-viewer.php:54
 msgid "All Documents"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:62
+#: includes/admin/class-bplde-list-screen.php:113
+#: src/admin/insights/components/DocumentSearch.js:74
+#: src/admin/insights/components/DocumentSearch.js:75
 msgid "Search documents"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:66
+#: includes/admin/class-bplde-list-screen.php:117
 msgid "Add your first document"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:67
+#: includes/admin/class-bplde-list-screen.php:118
 msgid "Upload a PDF, Word file, spreadsheet or slide deck — then paste its shortcode wherever you want it to appear."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:68
+#: includes/admin/class-bplde-list-screen.php:119
 msgid "Supported"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:71
+#: includes/admin/class-bplde-list-screen.php:122
 msgid "Works with Elementor, Divi, Bricks, WPBakery, Beaver Builder, Oxygen and Breakdance."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:74
+#: includes/admin/class-bplde-list-screen.php:125
 msgid "Upload or link a file"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:75
+#: includes/admin/class-bplde-list-screen.php:126
 msgid "Pick one from the Media Library, or paste a document URL."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:78
+#: includes/admin/class-bplde-list-screen.php:129
 msgid "Copy the shortcode"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:79
+#: includes/admin/class-bplde-list-screen.php:130
 msgid "Every document gets one, shown right under its title."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:82
+#: includes/admin/class-bplde-list-screen.php:133
 msgid "Paste it anywhere"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:83
+#: includes/admin/class-bplde-list-screen.php:134
 msgid "Posts, pages, widgets, and every major page builder."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:92
+#: includes/admin/class-bplde-list-screen.php:143
 msgid "Document Libraries"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:93
+#: includes/admin/class-bplde-list-screen.php:144
 msgid "Search libraries"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:97
+#: includes/admin/class-bplde-list-screen.php:148
 msgid "Build your first library"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:98
+#: includes/admin/class-bplde-list-screen.php:149
 msgid "A library puts several documents on one page as a searchable, filterable grid — one shortcode instead of many."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:101
+#: includes/admin/class-bplde-list-screen.php:152
 msgid "Includes"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:103
+#: includes/admin/class-bplde-list-screen.php:154
 msgid "Libraries draw from the documents you have already added."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:106
+#: includes/admin/class-bplde-list-screen.php:157
 msgid "Add some documents first"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:107
+#: includes/admin/class-bplde-list-screen.php:158
 msgid "A library lists documents from your existing library."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:110
+#: includes/admin/class-bplde-list-screen.php:161
 msgid "Set up the grid"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:111
+#: includes/admin/class-bplde-list-screen.php:162
 msgid "Choose the documents and how many show per row."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:114
+#: includes/admin/class-bplde-list-screen.php:165
 msgid "Paste the shortcode"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:115
+#: includes/admin/class-bplde-list-screen.php:166
 msgid "One shortcode renders the whole collection."
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:214
+#: includes/admin/class-bplde-list-screen.php:265
+#: src/admin/insights/components/Tables.js:106
 msgid "Documents"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:215
-#: includes/core/class-bplde-document-embedder.php:196
+#: includes/admin/class-bplde-list-screen.php:266
+#: includes/core/class-bplde-document-embedder.php:212
+#: includes/core/class-bplde-document-embedder.php:240
 #: includes/core/class-bplde-ppt-viewer.php:135
+#: src/admin/insights/api.js:9
+#: src/admin/insights/components/Funnel.js:17
+#: src/admin/insights/components/Tables.js:10
+#: src/admin/insights/components/Tiles.js:29
 msgid "Downloads"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:216
+#: includes/admin/class-bplde-list-screen.php:267
 msgid "Download leads"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:382
+#: includes/admin/class-bplde-list-screen.php:433
 msgid "Help &amp; demos"
 msgstr ""
 
 #. translators: %s: number of items in the trash.
-#: includes/admin/class-bplde-list-screen.php:391
+#: includes/admin/class-bplde-list-screen.php:442
 #, php-format
 msgid "Trash (%s)"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:417
+#: includes/admin/class-bplde-list-screen.php:468
 msgid "Copy To Clipboard"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:452
+#: includes/admin/class-bplde-list-screen.php:503
 msgid "Scheduled"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:483
+#: includes/admin/class-bplde-list-screen.php:534
 msgid "Filter by file type"
 msgstr ""
 
-#: includes/admin/class-bplde-list-screen.php:485
+#: includes/admin/class-bplde-list-screen.php:536
 msgid "All file types"
 msgstr ""
 
@@ -408,295 +454,339 @@ msgstr ""
 msgid "<span style=\"color: #f18500;\">Help & Demos</span>"
 msgstr ""
 
+#: includes/admin/class-bplde-menu.php:48
+#: includes/admin/class-bplde-menu.php:49
+#: includes/features/class-bplde-insights.php:572
+#: src/admin/insights/App.js:134
+#: src/blocks/document-embed/components/Backend/Insights.js:129
+msgid "Insights"
+msgstr ""
+
+#: includes/admin/class-bplde-menu.php:49
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:94
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:104
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:114
+#: src/blocks/document-embed/components/Backend/Insights.js:130
+msgid "New"
+msgstr ""
+
 #: includes/admin/class-bplde-metabox-free.php:43
 msgid "Document Configuration"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:55
-#: includes/admin/class-bplde-metabox-free.php:138
+#: includes/admin/class-bplde-metabox-free.php:133
 msgid "General"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:60
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:48
-msgid "Document File"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:62
-msgid "Supported Files:"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:68
+#: includes/admin/class-bplde-metabox-free.php:63
 #: src/blocks/document-embed/components/Backend/DocumentSource.js:71
 msgid "Viewer"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:69
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:174
+#: includes/admin/class-bplde-metabox-free.php:64
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:120
 msgid "Select the document viewer engine. Note: Custom PDF, Flipbook, and Slider engines only support PDF documents."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:72
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:76
+#: includes/admin/class-bplde-metabox-free.php:67
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:88
 msgid "Default"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:73
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:80
+#: includes/admin/class-bplde-metabox-free.php:68
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:92
 msgid "Custom PDF"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:74
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:112
+#: includes/admin/class-bplde-metabox-free.php:69
+#: includes/admin/class-bplde-metabox-free.php:168
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:102
+#: src/blocks/document-embed/components/Backend/Flipbook.js:44
 msgid "Flipbook"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:75
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:144
+#: includes/admin/class-bplde-metabox-free.php:70
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:112
 msgid "Slider"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:81
+#: includes/admin/class-bplde-metabox-free.php:76
 msgid "Set Height & Width For"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:92
+#: includes/admin/class-bplde-metabox-free.php:87
 msgid "Width (Desktop)"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:100
+#: includes/admin/class-bplde-metabox-free.php:95
 msgid "Width (Tablet)"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:107
+#: includes/admin/class-bplde-metabox-free.php:102
 msgid "Width (Mobile)"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:114
+#: includes/admin/class-bplde-metabox-free.php:109
 msgid "Height (Desktop)"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:122
+#: includes/admin/class-bplde-metabox-free.php:117
 msgid "Height (Tablet)"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:129
+#: includes/admin/class-bplde-metabox-free.php:124
 msgid "Height (Mobile)"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:135
+#: includes/admin/class-bplde-metabox-free.php:130
 msgid "Disable Popout to prevent direct file theft"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:136
+#: includes/admin/class-bplde-metabox-free.php:131
 msgid "Enable a professional loading icon"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:151
-#: includes/admin/class-bplde-metabox-free.php:186
+#: includes/admin/class-bplde-metabox-free.php:146
+#: includes/admin/class-bplde-metabox-free.php:208
 msgid "Viewer & Display"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:156
+#: includes/admin/class-bplde-metabox-free.php:151
 #: src/blocks/document-embed/components/Backend/Toolbar.js:55
 msgid "Display File Name"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:157
+#: includes/admin/class-bplde-metabox-free.php:152
 #: src/blocks/document-embed/components/Backend/Toolbar.js:58
 msgid "Enable to display the document name. Not available for Google Drive and Dropbox."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:163
+#: includes/admin/class-bplde-metabox-free.php:158
 #: src/blocks/document-embed/components/Backend/Toolbar.js:72
 msgid "Toolbar Position"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:168
+#: includes/admin/class-bplde-metabox-free.php:163
 msgid "Choose where the toolbar appears."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:173
-msgid "Reader Mode for minimalist distraction-free reading"
-msgstr ""
-
 #: includes/admin/class-bplde-metabox-free.php:174
-msgid "Dark / Light / Custom Toolbar Themes"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:175
-msgid "Toggle Thumbnail Navigation sidebar"
+#: src/blocks/document-embed/components/Backend/Flipbook.js:51
+msgid "Flip Style"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:176
-msgid "Custom Toolbar Background & Text Colors"
+msgid "3D"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:177
-msgid "Force Sidebar Open by default on load"
+msgid "Soft"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:178
-msgid "Beautiful Lightbox View Overlay (open document in a modal popup)"
-msgstr ""
-
-#: includes/admin/class-bplde-metabox-free.php:179
-msgid "Horizontal Scrollbar support for wide layouts"
+msgid "Flat"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:180
-msgid "Custom Lightbox Trigger Button (text, colors, and sizes)"
+msgid "3D is a realistic WebGL book, Soft curls the pages, Flat turns them as rigid sheets."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:181
-msgid "Enable Full-Screen button or Open in a New Tab"
+#: includes/admin/class-bplde-metabox-free.php:187
+#: src/blocks/document-embed/components/Backend/Flipbook.js:65
+msgid "Use Soft Style on Phones"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:182
-msgid "Specify Custom Initial Page and Default Zoom Level"
+#: includes/admin/class-bplde-metabox-free.php:188
+#: src/blocks/document-embed/components/Backend/Flipbook.js:68
+msgid "Phones get the lighter soft style instead of WebGL 3D."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:183
-msgid "Load Latest Version automatically (cache bypass)"
+#: includes/admin/class-bplde-metabox-free.php:194
+msgid "Reader Mode for minimalist distraction-free reading"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:184
-msgid "On-Demand Page Rendering for heavy documents"
+#: includes/admin/class-bplde-metabox-free.php:195
+msgid "Dark / Light / Custom Toolbar Themes"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:196
+msgid "Toggle Thumbnail Navigation sidebar"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:197
+msgid "Custom Toolbar Background & Text Colors"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:198
+msgid "Force Sidebar Open by default on load"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:199
-#: includes/admin/class-bplde-metabox-free.php:267
-msgid "Permissions & Downloads"
+msgid "Beautiful Lightbox View Overlay (open document in a modal popup)"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:200
+msgid "Horizontal Scrollbar support for wide layouts"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:201
+msgid "Custom Lightbox Trigger Button (text, colors, and sizes)"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:202
+msgid "Enable Full-Screen button or Open in a New Tab"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:203
+msgid "Specify Custom Initial Page and Default Zoom Level"
 msgstr ""
 
 #: includes/admin/class-bplde-metabox-free.php:204
+msgid "Load Latest Version automatically (cache bypass)"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:205
+msgid "On-Demand Page Rendering for heavy documents"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:206
+msgid "Flipbook hard cover, page-turn sound, auto play, page mode, turn speed and page edge color"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:221
+#: includes/admin/class-bplde-metabox-free.php:289
+msgid "Permissions & Downloads"
+msgstr ""
+
+#: includes/admin/class-bplde-metabox-free.php:226
 #: src/blocks/document-embed/components/Backend/Toolbar.js:63
 msgid "Enable Download Button"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:205
+#: includes/admin/class-bplde-metabox-free.php:227
 #: src/blocks/document-embed/components/Backend/Toolbar.js:66
 msgid "Enable to show a download button for the document. Not available for Google Drive and Dropbox."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:211
+#: includes/admin/class-bplde-metabox-free.php:233
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:59
 msgid "Download Button Text"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:213
+#: includes/admin/class-bplde-metabox-free.php:235
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:62
 msgid "Specify the text for the download button."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:219
+#: includes/admin/class-bplde-metabox-free.php:241
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:67
 msgid "Download Behavior"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:230
+#: includes/admin/class-bplde-metabox-free.php:252
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:78
 msgid "Custom Filename"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:231
+#: includes/admin/class-bplde-metabox-free.php:253
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:81
 msgid "Optional custom filename for the download. Note: This will not work if Download Behavior is set to \"Open in New Tab\"."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:237
+#: includes/admin/class-bplde-metabox-free.php:259
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:86
 msgid "Show Download Count"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:238
+#: includes/admin/class-bplde-metabox-free.php:260
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:89
 msgid "Display the total number of times this document has been downloaded."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:245
+#: includes/admin/class-bplde-metabox-free.php:267
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:94
 msgid "Download Limit"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:246
+#: includes/admin/class-bplde-metabox-free.php:268
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:98
 msgid "Limit the number of downloads allowed per user IP address."
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:258
+#: includes/admin/class-bplde-metabox-free.php:280
 msgid "Email Gate to collect leads before downloading"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:259
+#: includes/admin/class-bplde-metabox-free.php:281
 msgid "View Access Control — gate the viewer by login status or role"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:260
+#: includes/admin/class-bplde-metabox-free.php:282
 msgid "Download Access Control by login status or specific roles"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:261
+#: includes/admin/class-bplde-metabox-free.php:283
 msgid "Allowed Roles (View) — pick exactly who can open the document"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:262
+#: includes/admin/class-bplde-metabox-free.php:284
 msgid "Dedicated Leads Dashboard & stats tracking"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:263
+#: includes/admin/class-bplde-metabox-free.php:285
 msgid "Custom Restricted Message shown in place of the viewer"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:264
+#: includes/admin/class-bplde-metabox-free.php:286
 msgid "One-click lead data export to CSV"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:265
+#: includes/admin/class-bplde-metabox-free.php:287
 msgid "Secure Document Delivery"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:265
-#: includes/admin/class-bplde-metabox-free.php:284
+#: includes/admin/class-bplde-metabox-free.php:287
+#: includes/admin/class-bplde-metabox-free.php:306
 msgid "PDF only"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:280
-#: includes/admin/class-bplde-metabox-free.php:292
+#: includes/admin/class-bplde-metabox-free.php:302
+#: includes/admin/class-bplde-metabox-free.php:314
 msgid "Advanced Settings"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:284
+#: includes/admin/class-bplde-metabox-free.php:306
 #: src/blocks/document-embed/components/Backend/Overlays.js:28
 #: src/blocks/document-embed/components/Backend/Overlays.js:36
 msgid "Interactive Overlays"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:284
+#: includes/admin/class-bplde-metabox-free.php:306
 msgid "unlimited notes, highlights, links and calls-to-action"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:285
+#: includes/admin/class-bplde-metabox-free.php:307
 msgid "Lazy Load documents to speed up page load time"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:286
+#: includes/admin/class-bplde-metabox-free.php:308
 msgid "Per-overlay Page picker to target the exact page"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:287
+#: includes/admin/class-bplde-metabox-free.php:309
 msgid "Google View Fallback for failed viewer loads"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:288
+#: includes/admin/class-bplde-metabox-free.php:310
 msgid "Percentage-based Position and Size that stay aligned at any zoom"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:289
+#: includes/admin/class-bplde-metabox-free.php:311
 msgid "Link URL to turn any overlay into a clickable area"
 msgstr ""
 
-#: includes/admin/class-bplde-metabox-free.php:290
+#: includes/admin/class-bplde-metabox-free.php:312
 msgid "Rich Content box with safe HTML for notes and calls-to-action"
 msgstr ""
 
@@ -753,228 +843,335 @@ msgstr ""
 msgid "You are not allowed to preview this document."
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:64
-#: includes/admin/class-bplde-settings-free.php:95
-#: includes/admin/class-bplde-settings-free.php:115
-#: includes/admin/class-bplde-settings-free.php:241
+#: includes/admin/class-bplde-settings-free.php:35
+#: includes/admin/class-bplde-settings-free.php:40
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:74
-#: includes/admin/class-bplde-settings-free.php:83
-msgid "Premium Integrations"
+#: includes/admin/class-bplde-settings-free.php:41
+msgid "Thanks for being with bPlugins"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:77
-msgid "Google Drive API Integration to embed files directly"
+#: includes/admin/class-bplde-settings-free.php:95
+msgid "Insights history"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:78
-msgid "Dropbox API Integration to embed files directly"
+#: includes/admin/class-bplde-settings-free.php:97
+msgid "Date ranges and a daily chart"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:79
-msgid "Secure Email Gate to Collect Leads before Downloading"
+#: includes/admin/class-bplde-settings-free.php:98
+msgid "Top documents and host pages"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:80
-msgid "Download Access Control by Login Status & User Roles"
+#: includes/admin/class-bplde-settings-free.php:99
+msgid "Per-document view and CSV export"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:81
-msgid "Dedicated Leads Dashboard & Stats Tracking"
+#: includes/admin/class-bplde-settings-free.php:104
+msgid "Capture leads"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:106
+msgid "Email gate before download"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:107
+msgid "Leads dashboard and stats"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:108
+msgid "CSV export"
 msgstr ""
 
 #: includes/admin/class-bplde-settings-free.php:113
-#: includes/admin/class-bplde-settings-free.php:246
-#: includes/core/class-bplde-document-embedder.php:298
-#: includes/core/class-bplde-helper-functions.php:86
+msgid "Control access"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:115
+msgid "Limit by login status and user role"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:116
+msgid "Print, copy and right-click block"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:117
+msgid "Disable popout to stop direct file theft"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:122
+msgid "Cloud integrations"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:124
+msgid "Google Drive embeds"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:125
+msgid "Dropbox embeds"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:126
+msgid "Box embeds"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:131
+msgid "Viewer experience"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:133
+#: includes/core/class-bplde-document-embedder.php:345
+msgid "Toolbar themes, zoom and lightbox"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:134
+#: includes/core/class-bplde-document-embedder.php:339
+msgid "Flipbook hard cover, sound and auto play"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:135
+msgid "Professional loading icon"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:140
+msgid "Interactive overlays"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:143
+msgid "Hotspots on any page"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:144
+msgid "Links, notes and buttons"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:145
+msgid "Works in every viewer"
+msgstr ""
+
+#: includes/admin/class-bplde-settings-free.php:183
+#: includes/core/class-bplde-document-embedder.php:351
+#: includes/core/class-bplde-helper-functions.php:152
 #: src/blocks/document-embed/components/Backend/AccessControl.js:29
 #: src/blocks/document-embed/components/Backend/Lightbox.js:29
 #: src/blocks/document-embed/components/Backend/Overlays.js:30
 #: src/blocks/document-embed/components/Backend/Performance.js:28
 #: src/blocks/document-embed/components/Backend/SecurityRestriction.js:28
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:20
 #: src/blocks/document-embed/components/Backend/ViewerFeatures.js:31
 msgid "Pro"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:156
-msgid "Three more viewers"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:158
-msgid "Custom PDF engine"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:159
-msgid "Flipbook with page turn"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:160
-msgid "Slider viewer"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:165
-msgid "Capture leads"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:167
-msgid "Email gate before download"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:168
-msgid "Leads dashboard and stats"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:169
-msgid "CSV export"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:174
-msgid "Control access"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:176
-msgid "Limit by login status and user role"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:177
-msgid "Print, copy and right-click block"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:178
-msgid "Disable popout to stop direct file theft"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:183
-msgid "Cloud integrations"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:185
-msgid "Google Drive embeds"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:186
-msgid "Dropbox embeds"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:187
-msgid "No re-uploading files"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:192
-msgid "Viewer experience"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:194
-msgid "Toolbar themes"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:195
-msgid "Zoom and lightbox"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:196
-msgid "Professional loading icon"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:201
-msgid "Interactive overlays"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:204
-msgid "Hotspots on any page"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:205
-msgid "Links, notes and buttons"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:206
-msgid "Works in every viewer"
-msgstr ""
-
-#: includes/admin/class-bplde-settings-free.php:247
+#: includes/admin/class-bplde-settings-free.php:184
 msgid "The free version ends here."
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:248
-msgid "Document Embedder Pro adds three more viewers, lead capture, access control and cloud integrations — everything on this page is switched on by a licence key."
+#: includes/admin/class-bplde-settings-free.php:185
+msgid "Document Embedder Pro adds Insights history, lead capture, access control and cloud integrations — everything below is switched on by a licence key."
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:253
-#: includes/core/class-bplde-document-embedder.php:309
-#: includes/core/class-bplde-helper-functions.php:101
+#: includes/admin/class-bplde-settings-free.php:190
+#: includes/core/class-bplde-document-embedder.php:362
+#: includes/core/class-bplde-helper-functions.php:167
+#: src/admin/insights/components/LockedHistory.js:120
 msgid "See Pro pricing"
 msgstr ""
 
-#: includes/admin/class-bplde-settings-free.php:260
+#: includes/admin/class-bplde-settings-free.php:197
 msgid "14-day refund policy · trusted by 9,000+ sites"
 msgstr ""
 
-#: includes/class-bplde-init.php:43
+#: includes/admin/class-bplde-source-picker.php:70
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:56
+msgid "Select Document"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:71
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:58
+msgid "Use this document"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:72
+msgid "Media Library"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:73
+#: includes/admin/class-bplde-source-picker.php:170
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:108
+msgid "Google Drive"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:74
+#: includes/admin/class-bplde-source-picker.php:171
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:117
+msgid "Dropbox"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:75
+#: includes/admin/class-bplde-source-picker.php:172
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:126
+msgid "Box"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:76
+msgid "External URL"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:77
+msgid "Google Drive file"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:124
+msgid "PRO"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:127
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:77
+msgid "Upgrade to Pro →"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:138
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:48
+msgid "Document File"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:139
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:87
+msgid "Choose a document source"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:140
+msgid "Supported Files:"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:149
+msgid "Current document"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:153
+msgid "Remove"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:162
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:99
+msgid "Upload / Media Library"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:163
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:100
+msgid "Upload a new file or pick one you have already uploaded."
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:164
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:101
+msgid "Choose file"
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:170
+msgid "Embed files straight from your Drive with Pro."
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:171
+msgid "Embed shared files from your Dropbox with Pro."
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:172
+msgid "Embed files from your Box account with Pro."
+msgstr ""
+
+#: includes/admin/class-bplde-source-picker.php:200
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:135
+msgid "Or embed from URL"
+msgstr ""
+
+#: includes/class-bplde-init.php:52
 msgid "Get Helped"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:200
+#: includes/core/class-bplde-document-embedder.php:216
+#: includes/core/class-bplde-document-embedder.php:241
 #: includes/core/class-bplde-ppt-viewer.php:136
+#: src/admin/insights/api.js:10
+#: src/admin/insights/components/Tables.js:11
+#: src/admin/insights/components/Tiles.js:32
 msgid "Leads"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:204
+#: includes/core/class-bplde-document-embedder.php:221
 msgid "View leads"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:224
+#: includes/core/class-bplde-document-embedder.php:239
+#: src/admin/insights/api.js:8
+#: src/admin/insights/components/Funnel.js:16
+#: src/admin/insights/components/Tables.js:8
+#: src/admin/insights/components/Tables.js:103
+#: src/admin/insights/components/Tiles.js:23
+msgid "Views"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:245
+#: src/admin/insights/App.js:236
+#: src/admin/insights/App.js:260
+#: src/admin/insights/components/RangePicker.js:6
+msgid "Today"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:256
+msgid "View insights"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:275
 msgid "Page Builder Support"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:235
+#: includes/core/class-bplde-document-embedder.php:286
 msgid "Document Embedder Pro"
 msgstr ""
 
-#: includes/core/class-bplde-document-embedder.php:287
-msgid "Email-gated downloads"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:288
-msgid "Interactive overlays on any page"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:289
-msgid "Print, copy and right-click protection"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:290
-msgid "Access limited by user role"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:291
-msgid "Google Drive and Dropbox embeds"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:292
-msgid "Toolbar themes, zoom and lightbox"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:300
-msgid "Where the free version stops"
-msgstr ""
-
-#: includes/core/class-bplde-document-embedder.php:313
-msgid "14-day refund policy"
+#: includes/core/class-bplde-document-embedder.php:338
+msgid "Insights history, daily chart and CSV export"
 msgstr ""
 
 #: includes/core/class-bplde-document-embedder.php:340
-msgid "Works in every builder"
+msgid "Email-gated downloads"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:341
+msgid "Interactive overlays on any page"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:342
+msgid "Print, copy and right-click protection"
 msgstr ""
 
 #: includes/core/class-bplde-document-embedder.php:343
+msgid "Access limited by user role"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:344
+msgid "Google Drive, Dropbox and Box embeds"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:353
+msgid "Where the free version stops"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:366
+msgid "14-day refund policy"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:393
+msgid "Works in every builder"
+msgstr ""
+
+#: includes/core/class-bplde-document-embedder.php:396
 msgid "Drop the shortcode into any of these."
 msgstr ""
 
 #. translators: %d: number of Pro-only settings named in this block.
-#: includes/core/class-bplde-helper-functions.php:60
+#: includes/core/class-bplde-helper-functions.php:126
 #, php-format
 msgid "%d more setting in Document Embedder Pro"
 msgid_plural "%d more settings in Document Embedder Pro"
@@ -982,16 +1179,16 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: section name, e.g. "Viewer & Display".
-#: includes/core/class-bplde-helper-functions.php:72
+#: includes/core/class-bplde-helper-functions.php:138
 #, php-format
 msgid "Everything below unlocks in %s with a licence key."
 msgstr ""
 
-#: includes/core/class-bplde-helper-functions.php:75
+#: includes/core/class-bplde-helper-functions.php:141
 msgid "Everything below unlocks with a licence key."
 msgstr ""
 
-#: includes/core/class-bplde-helper-functions.php:99
+#: includes/core/class-bplde-helper-functions.php:165
 msgid "14-day refund policy · trusted by 9,000+ WordPress sites"
 msgstr ""
 
@@ -1039,12 +1236,365 @@ msgstr ""
 msgid "Updated"
 msgstr ""
 
-#: includes/features/class-bplde-ajaxcall.php:255
+#: includes/features/abilities/class-bplde-abilities-reports.php:28
+msgid "List leads"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:29
+msgid "Lists email leads captured by email-gated downloads: name, email, document and capture time (site timezone), newest first. Anonymous un-gated download rows are excluded and IP addresses are never returned. Filter by document_id, date range (max 366 days) or a name/email search. Max 100 per page. For counts only, use get-download-stats."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:39
+msgid "Get insights"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:40
+msgid "Today's Document Insights (site timezone). view=summary: views, downloads, leads, conversion_rate = leads/views as 0-1, time on screen; top_documents: today's busiest documents. daily_unique_views_avg is today's unique viewers. Earlier days, date ranges, daily series and top pages need Document Embedder Pro; for downloads in a past date range use get-download-stats."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:113
+msgid "Only leads filed under this id."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:114
+msgid "Part of a name or email address."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:130
+msgid "0 when the lead was filed under a page rather than a saved document."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:178
+msgid "Pass document_id or doc_key, not both."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:182
+#: includes/features/abilities/class-bplde-abilities.php:213
+#: includes/features/abilities/class-bplde-abilities.php:249
+msgid "No document exists with that id."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:187
+msgid "Unknown doc_key."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:195
+msgid "The free version reports today only. Earlier days are recorded and become readable with Document Embedder Pro."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:198
+msgid "No Insights data has been recorded yet for this scope."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:201
+msgid "Insights tracking is switched off in settings, so no new views are being recorded."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:204
+msgid "top_documents ranks every document; document_id and doc_key are ignored for this view."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:269
+msgid "Only today is available in the free version."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:270
+msgid "One saved document. Use this or doc_key, not both."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:271
+msgid "Insights document key from top_documents: p:<id> or u:<sha1>."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:273
+msgid "Rows for top_documents, 1 to 50."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:280
+msgid "Leads divided by views, 0 to 1. null when there are no views or the document cannot collect leads."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:298
+msgid "Unique viewers today."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities-reports.php:307
+msgid "Ranked rows for top_documents."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:89
+msgid "Embedded documents, document libraries, downloads, leads and analytics."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:100
+msgid "List documents"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:101
+msgid "Lists saved Document Embedder documents the current user can edit. Each item: id, title, status, file type, viewer, file source, shortcode, tags, lifetime downloads and real email leads. Max 100 per page. Use get-document for one document's full settings and the pages that embed it, and get-download-stats for downloads in a date range."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:109
+msgid "Get document"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:110
+msgid "Returns one saved document by id: the list-documents fields plus its stored settings (file URL, viewer, toolbar, download, view/download access, email gate, secure delivery, lightbox, overlay count) and up to 50 published posts or pages that embed it by shortcode or Saved Document block (used_on_truncated says if there are more). Never returns file contents."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:118
+msgid "Get download stats"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:119
+msgid "Download and lead counts. With document_id: that document; without: documents ranked by lifetime downloads, plus site totals. lifetime_downloads is the all-time counter. With date_from and date_to (Y-m-d, site timezone, max 366 days) adds downloads_in_range (every logged download) and leads_in_range (real email leads). Read notes before comparing figures."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:216
+msgid "You are not allowed to read this document."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:373
+msgid "lifetime_downloads comes from the document counter; range figures come from the download log, which starts when that log was first created."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:374
+msgid "Real leads exclude the anonymous placeholder rows (anonymous@direct.download). Downloads in range count every log row."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:375
+msgid "The Leads figures on the Download Leads screen, the Documents list and the Download Stats box count every log row, anonymous rows included."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:433
+msgid "date_from and date_to must be given together."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:436
+msgid "date_from and date_to must be real dates in Y-m-d format."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:439
+msgid "date_from must not be after date_to."
+msgstr ""
+
+#. translators: %d: maximum number of days.
+#: includes/features/abilities/class-bplde-abilities.php:443
+#, php-format
+msgid "A date range can span at most %d days."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:519
+msgid "Page number, from 1."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:520
+msgid "Items per page, 1 to 100."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:529
+msgid "First day, Y-m-d in the site timezone. Requires date_to."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:530
+msgid "Last day, inclusive, Y-m-d in the site timezone. Requires date_from. At most 366 days after date_from."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:545
+msgid "Items matching across all pages."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:562
+msgid "Words to match in the title."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:563
+msgid "File type slug, e.g. pdf, docx, xlsx, pptx."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:564
+msgid "Document tag slug."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:567
+msgid "true: only documents with no file set; false: only documents with one."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:576
+msgid "Document id (from list-documents)."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:583
+msgid "One document. Omit for every document plus site totals."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:597
+msgid "File type slug; empty when unknown."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:599
+msgid "upload, url, google_drive or dropbox; null when no file is set."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:603
+msgid "Lifetime download counter."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:604
+msgid "Real email leads, lifetime."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:660
+msgid "0 means unlimited."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:756
+msgid "Requires WordPress 6.9 or newer"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:764
+msgid "Enable AI agent abilities"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:765
+msgid "Lets AI assistants you connect (through the WordPress MCP Adapter or REST API) read your documents and stats. Only logged-in users with the right permissions can use them."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:772
+msgid "Allow AI agents to read leads"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:773
+msgid "Lead names and emails will be sent to the AI service you connect (for example Anthropic or OpenAI). IP addresses are never shared."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:787
+msgid "AI Agent Access"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:809
+msgid "Don't know what this feature is about?"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:810
+msgid "Watch a 2-minute video on how AI assistants like Claude read your documents, stats and leads."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:812
+msgid "Watch the video"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:814
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:824
+msgid "Applies while AI agent abilities are enabled in Document Embedder settings."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:825
+#: includes/features/class-bplde-insights.php:507
+msgid "Suggested text:"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:826
+msgid "Site administrators may connect AI assistants to this site. Those assistants can read document titles, settings, download counts and document view statistics. If the site owner allows it, they can also read the name and email address you gave when downloading a document, which are then processed by the AI service the site owner uses. Your IP address is never shared with these services."
+msgstr ""
+
+#: includes/features/abilities/class-bplde-abilities.php:829
+msgid "Document Embedder: AI Agent Access"
+msgstr ""
+
+#: includes/features/abilities/class-bplde-documents-query.php:262
+#: src/blocks/document-embed/components/Common/Viewer.js:398
+msgid "Download"
+msgstr ""
+
+#: includes/features/class-bplde-ajaxcall.php:261
 msgid "Download limit reached."
 msgstr ""
 
-#: includes/features/class-bplde-ajaxcall.php:295
+#: includes/features/class-bplde-ajaxcall.php:301
 msgid "Invalid document ID"
+msgstr ""
+
+#. translators: %d: document id.
+#: includes/features/class-bplde-insights-reader.php:393
+#, php-format
+msgid "Document #%d (deleted)"
+msgstr ""
+
+#: includes/features/class-bplde-insights-reader.php:404
+msgid "Embedded file"
+msgstr ""
+
+#: includes/features/class-bplde-insights-reader.php:428
+#: includes/features/elementor/class-bplde-elementor-widget.php:211
+msgid "(no title)"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:506
+msgid "Applies while Insights is enabled in Document Embedder settings."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:508
+msgid "When you view or download a document embedded on this site, we count the view, the download, the use of full-screen mode and how long the document was on your screen. These are stored as daily totals per document. To avoid counting the same visit twice, a one-way hash of your IP address and browser is kept in temporary storage for at most one day and is never saved with the totals. No cookies are set and your IP address is not stored."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:551
+msgid "Insights data has been reset."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:566
+msgid "Delete every recorded view, download and time-on-screen figure? Leads and download counts are not affected. This cannot be undone."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:567
+msgid "Reset Insights data"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:568
+msgid "Deletes all Insights history. Download Leads and the lifetime download count on each document are kept."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:577
+msgid "Enable Insights"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:578
+msgid "Counts views, downloads, full-screen use and time on screen for embedded documents. Anonymous: no IP addresses are stored and no cookies are set."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:584
+msgid "Exclude roles"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:585
+msgid "Visits by logged-in users with these roles are not counted."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:593
+msgid "Data retention"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:594
+msgid "Older daily totals are deleted once a day."
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:596
+msgid "Keep forever"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:597
+msgid "12 months"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:598
+msgid "24 months"
+msgstr ""
+
+#: includes/features/class-bplde-insights.php:604
+msgid "Reset"
 msgstr ""
 
 #: includes/features/class-bplde-rest.php:71
@@ -1055,8 +1605,581 @@ msgstr ""
 msgid "Preview is unavailable on this site."
 msgstr ""
 
-#: src/blocks/document-embed/render.php:103
+#: includes/features/elementor/class-bplde-elementor-widget.php:87
+msgid "Source"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:92
+msgid "Show"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:97
+#: includes/features/elementor/class-bplde-elementor-widget.php:104
+#: src/admin/insights/App.js:134
+#: src/admin/insights/components/Tables.js:7
+msgid "Document"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:98
+#: includes/features/elementor/class-bplde-elementor-widget.php:115
+msgid "Library"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:128
+msgid "Library default"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:132
+msgid "Shows the library in another layout on this page only."
+msgstr ""
+
+#. translators: 1: document shortcode, 2: library shortcode
+#: includes/features/elementor/class-bplde-elementor-widget.php:146
+#, php-format
+msgid "Paste a document shortcode such as %1$s or a library shortcode such as %2$s."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:177
+msgid "Manage all"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:224
+msgid "Size"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:231
+msgid "Leave empty to use the size saved with the document. Applies to documents, not libraries."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:241
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:58
+msgid "Width"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:256
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:74
+msgid "Height"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:270
+msgid "Alignment"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:273
+msgid "Left"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:274
+msgid "Center"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:275
+msgid "Right"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:291
+msgid "Container"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:304
+#: includes/features/elementor/class-bplde-elementor-widget.php:360
+#: includes/features/elementor/class-bplde-elementor-widget.php:624
+msgid "Padding"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:317
+#: includes/features/elementor/class-bplde-elementor-widget.php:554
+#: includes/features/elementor/class-bplde-elementor-widget.php:631
+msgid "Border Radius"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:336
+msgid "Document Toolbar"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:342
+#: includes/features/elementor/class-bplde-elementor-widget.php:434
+#: includes/features/elementor/class-bplde-elementor-widget.php:442
+#: includes/features/elementor/class-bplde-elementor-widget.php:593
+msgid "Background"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:348
+#: includes/features/elementor/class-bplde-elementor-widget.php:495
+msgid "File Name Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:355
+#: includes/features/elementor/class-bplde-elementor-widget.php:502
+msgid "File Name Typography"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:370
+msgid "Document Buttons"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:390
+msgid "Library Grid"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:396
+msgid "Columns"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:400
+msgid "Grid layout only."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:405
+msgid "Gap"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:413
+msgid "Library Background"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:422
+msgid "Library Items"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:432
+#: includes/features/elementor/class-bplde-elementor-widget.php:584
+msgid "Normal"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:440
+#: includes/features/elementor/class-bplde-elementor-widget.php:584
+msgid "Hover"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:447
+#: includes/features/elementor/class-bplde-elementor-widget.php:599
+msgid "Border Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:457
+msgid "Card Border"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:463
+msgid "Card Border Radius"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:470
+msgid "Card Padding"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:478
+msgid "Card Shadow"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:486
+msgid "Library Text"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:507
+msgid "Meta Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:515
+msgid "Meta Typography"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:523
+msgid "Library Buttons"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:529
+msgid "View Button"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:541
+msgid "Download Button"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:588
+msgid "Text Color"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:615
+msgid "Font Size"
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:663
+msgid "Nothing to show. Check that the document exists and is published."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:678
+msgid "Select a document in the widget settings."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:687
+msgid "Select a library in the widget settings."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:698
+msgid "Paste a Document Embedder shortcode in the widget settings to show a document or library here."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:704
+msgid "That is not a Document Embedder shortcode. Use [doc id=\"…\"] or [document_library id=\"…\"]."
+msgstr ""
+
+#: includes/features/elementor/class-bplde-elementor-widget.php:710
+msgid "The shortcode needs a numeric id, e.g. [doc id=\"123\"]."
+msgstr ""
+
+#: src/blocks/document-embed/render.php:120
 msgid "Loading Viewer..."
+msgstr ""
+
+#: src/admin/insights/api.js:48
+msgid "Document Embed block"
+msgstr ""
+
+#: src/admin/insights/api.js:53
+msgid "Saved document"
+msgstr ""
+
+#: src/admin/insights/api.js:56
+msgid "Pasted URL or library file"
+msgstr ""
+
+#. translators: %d: seconds.
+#: src/admin/insights/api.js:67
+#, js-format
+msgid "%ds"
+msgstr ""
+
+#. translators: 1: minutes, 2: seconds.
+#: src/admin/insights/api.js:70
+#, js-format
+msgid "%1$dm %2$02ds"
+msgstr ""
+
+#: src/admin/insights/App.js:39
+msgid "Loading insights"
+msgstr ""
+
+#: src/admin/insights/App.js:57
+#: src/admin/insights/App.js:216
+msgid "Nothing recorded yet"
+msgstr ""
+
+#: src/admin/insights/App.js:60
+msgid "A view is counted once an embedded document has been at least half on screen for a second."
+msgstr ""
+
+#: src/admin/insights/App.js:61
+msgid "Insights is switched off, so nothing is being counted."
+msgstr ""
+
+#. translators: %s: comma-separated role names, e.g. "Administrator".
+#: src/admin/insights/App.js:67
+#, js-format
+msgid "Visits by logged-in %s users are not counted, so your own visits will not appear. Open a page with a document in a private window to see it here."
+msgstr ""
+
+#: src/admin/insights/App.js:74
+msgid "Change excluded roles"
+msgstr ""
+
+#: src/admin/insights/App.js:74
+msgid "Open settings"
+msgstr ""
+
+#: src/admin/insights/App.js:83
+msgid "Leads count email-gate submissions for saved documents and Document Embed blocks. Library files have no email gate, so they show no leads."
+msgstr ""
+
+#: src/admin/insights/App.js:102
+#: src/blocks/document-embed/components/Backend/Insights.js:84
+msgid "Insights could not be loaded."
+msgstr ""
+
+#: src/admin/insights/App.js:126
+msgid "View today's leads"
+msgstr ""
+
+#: src/admin/insights/App.js:127
+msgid "View this day's leads"
+msgstr ""
+
+#: src/admin/insights/App.js:128
+msgid "View all leads"
+msgstr ""
+
+#: src/admin/insights/App.js:140
+msgid "The export failed."
+msgstr ""
+
+#: src/admin/insights/App.js:163
+#: src/admin/insights/components/Tables.js:117
+msgid "View page"
+msgstr ""
+
+#: src/admin/insights/App.js:169
+msgid "Edit page"
+msgstr ""
+
+#: src/admin/insights/App.js:175
+msgid "Edit document"
+msgstr ""
+
+#: src/admin/insights/App.js:181
+msgid "Exporting…"
+msgstr ""
+
+#: src/admin/insights/App.js:188
+msgid "Insights is switched off. Nothing new is being counted."
+msgstr ""
+
+#: src/admin/insights/App.js:189
+msgid "Turn it on"
+msgstr ""
+
+#: src/admin/insights/App.js:208
+msgid "Today only"
+msgstr ""
+
+#. translators: %s: date tracking started.
+#: src/admin/insights/App.js:220
+#, js-format
+msgid "Tracking since %s"
+msgstr ""
+
+#. translators: %s: date tracking started.
+#: src/admin/insights/App.js:225
+#, js-format
+msgid "Earlier days are recorded since %s and shown in Pro."
+msgstr ""
+
+#: src/admin/insights/App.js:254
+#: src/admin/insights/App.js:255
+msgid "Today's documents"
+msgstr ""
+
+#: src/admin/insights/App.js:269
+msgid "Views, downloads and leads"
+msgstr ""
+
+#: src/admin/insights/App.js:275
+#: src/admin/insights/App.js:277
+msgid "Top documents"
+msgstr ""
+
+#: src/admin/insights/App.js:279
+msgid "No document was viewed or downloaded in this range."
+msgstr ""
+
+#: src/admin/insights/App.js:284
+#: src/admin/insights/components/Tables.js:98
+msgid "Top host pages"
+msgstr ""
+
+#: src/admin/insights/App.js:288
+msgid "No page views in this range."
+msgstr ""
+
+#. translators: 1: first day, 2: last day.
+#: src/admin/insights/components/Chart.js:95
+#, js-format
+msgid "Daily views, downloads and leads from %1$s to %2$s."
+msgstr ""
+
+#: src/admin/insights/components/DocumentPicker.js:13
+msgid "Show insights for"
+msgstr ""
+
+#: src/admin/insights/components/DocumentPicker.js:17
+msgid "This document"
+msgstr ""
+
+#: src/admin/insights/components/DocumentPicker.js:19
+msgid "Saved documents"
+msgstr ""
+
+#: src/admin/insights/components/DocumentPicker.js:28
+msgid "Document Embed blocks"
+msgstr ""
+
+#: src/admin/insights/components/DocumentSearch.js:119
+msgid "No matching document"
+msgstr ""
+
+#: src/admin/insights/components/Funnel.js:18
+msgid "Leads (email gate)"
+msgstr ""
+
+#: src/admin/insights/components/Funnel.js:22
+msgid "View to download to lead"
+msgstr ""
+
+#: src/admin/insights/components/Funnel.js:24
+msgid "View → Download → Lead"
+msgstr ""
+
+#: src/admin/insights/components/Funnel.js:47
+msgid "Library files have no email gate, so they collect no leads."
+msgstr ""
+
+#: src/admin/insights/components/Funnel.js:53
+msgid "of downloads came with a name and email"
+msgstr ""
+
+#. translators: %s: number of email-gate submissions without a finished download.
+#: src/admin/insights/components/Funnel.js:58
+#, js-format
+msgid "%s more submitted the email gate without finishing a download."
+msgid_plural "%s more submitted the email gate without finishing a download."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/admin/insights/components/Funnel.js:72
+msgid "No downloads yet in this period."
+msgstr ""
+
+#. translators: %s: the period, e.g. "Today" or "Last 30 days".
+#: src/admin/insights/components/Funnel.js:75
+#, js-format
+msgid "Nothing recorded for %s yet."
+msgstr ""
+
+#. translators: %s: number of days.
+#: src/admin/insights/components/LockedHistory.js:79
+#, js-format
+msgid "Your last %s day is already recorded."
+msgid_plural "Your last %s days are already recorded."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/admin/insights/components/LockedHistory.js:82
+msgid "Your history starts building today."
+msgstr ""
+
+#. translators: %s: date counting started.
+#: src/admin/insights/components/LockedHistory.js:88
+#, js-format
+msgid "Document Embedder has been counting since %s. Today's figures are shown above; Pro reads back every day before today, straight from your own database."
+msgstr ""
+
+#: src/admin/insights/components/LockedHistory.js:91
+msgid "Every day from now on is recorded. Today's figures are shown above; Pro reads back every day before today."
+msgstr ""
+
+#: src/admin/insights/components/LockedHistory.js:96
+msgid "History"
+msgstr ""
+
+#: src/admin/insights/components/LockedHistory.js:98
+msgid "Layout example"
+msgstr ""
+
+#: src/admin/insights/components/LockedHistory.js:109
+msgid "Recorded, readable in Pro"
+msgstr ""
+
+#: src/admin/insights/components/LockedHistory.js:109
+#: src/blocks/document-embed/components/Backend/Insights.js:103
+msgid "Recording now"
+msgstr ""
+
+#. translators: %s: number of days.
+#: src/admin/insights/components/LockedHistory.js:117
+#, js-format
+msgid "Unlock my %s day"
+msgid_plural "Unlock my %s days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/admin/insights/components/LockedHistory.js:122
+msgid "No figures for past days are sent to the free version, so nothing behind this panel is real or made up."
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:7
+msgid "7 days"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:8
+msgid "30 days"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:9
+msgid "90 days"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:10
+#: src/blocks/document-embed/components/Backend/Toolbar.js:100
+msgid "Custom"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:19
+msgid "Date range"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:47
+msgid "From"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:50
+msgid "To"
+msgstr ""
+
+#: src/admin/insights/components/RangePicker.js:52
+msgid "Apply"
+msgstr ""
+
+#: src/admin/insights/components/Tables.js:9
+msgid "Daily unique"
+msgstr ""
+
+#: src/admin/insights/components/Tables.js:12
+msgid "Conversion"
+msgstr ""
+
+#: src/admin/insights/components/Tables.js:13
+msgid "Full-screens"
+msgstr ""
+
+#: src/admin/insights/components/Tables.js:14
+#: src/admin/insights/components/Tiles.js:49
+msgid "Avg time on screen"
+msgstr ""
+
+#: src/admin/insights/components/Tables.js:79
+msgid "View these leads"
+msgstr ""
+
+#: src/admin/insights/components/Tables.js:101
+msgid "Page"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:19
+msgid "No email gate on library files"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:26
+msgid "Daily unique views"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:27
+msgid "Average per day"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:39
+msgid "Opens the Download Leads page"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:46
+msgid "Conversion rate"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:47
+msgid "Leads ÷ views"
+msgstr ""
+
+#: src/admin/insights/components/Tiles.js:49
+msgid "Per view"
 msgstr ""
 
 #: src/blocks/document-embed/components/Backend/AccessControl.js:27
@@ -1084,39 +2207,35 @@ msgstr ""
 msgid "Secure Document Delivery (PDF Only) — signed, expiring, IP-bound streaming"
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:51
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:52
 msgid "Display & Dimensions"
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:57
-msgid "Width"
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:70
+msgid "Width follows the block's Wide/Full alignment. Set alignment to None to use a custom width."
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:68
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:70
 msgid "Set the width of the viewer for tablet."
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:68
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:70
 msgid "Set the width of the viewer for mobile."
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:68
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:70
 msgid "Set the width of the viewer for desktop."
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:72
-msgid "Height"
-msgstr ""
-
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:83
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:85
 msgid "Set the height of the viewer for tablet."
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:83
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:85
 msgid "Set the height of the viewer for mobile."
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DisplayDimension.js:83
+#: src/blocks/document-embed/components/Backend/DisplayDimension.js:85
 msgid "Set the height of the viewer for desktop."
 msgstr ""
 
@@ -1128,20 +2247,14 @@ msgstr ""
 msgid "Enter URL or upload file"
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:91
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:123
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:155
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:93
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:103
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:113
 msgid "PDF Only"
 msgstr ""
 
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:103
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:135
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:167
-msgid "New"
-msgstr ""
-
-#: src/blocks/document-embed/components/Backend/DocumentSource.js:180
-msgid "Skip the manual uploads — embed directly from Google Drive and Dropbox with one click. The cloud document picker is available in Document Embedder Pro."
+#: src/blocks/document-embed/components/Backend/DocumentSource.js:126
+msgid "Skip the manual uploads — embed directly from Google Drive, Dropbox and Box with one click. The cloud document picker is available in Document Embedder Pro."
 msgstr ""
 
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:52
@@ -1186,6 +2299,92 @@ msgstr ""
 
 #: src/blocks/document-embed/components/Backend/DownloadManagement.js:141
 msgid "Message shown when download is restricted (e.g. \"Login to download\"). Empty message will show nothing."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:54
+msgid "3D (realistic page curl)"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:55
+msgid "Soft (curling pages)"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:56
+msgid "Flat (rigid page turn)"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:59
+msgid "Browsers without WebGL show 3D as soft. Visitors who prefer reduced motion get the flat page turn."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:73
+msgid "More Flipbook Controls"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:74
+msgid "Upgrade to PRO to fine-tune how the flipbook turns its pages."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:78
+msgid "Hard Cover"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:79
+msgid "Page Turn Sound"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:80
+msgid "Auto Play with Custom Interval"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:81
+msgid "Single or Double Page Mode"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:82
+msgid "Page Turn Speed"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Flipbook.js:83
+msgid "3D Page Edge Color"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:72
+msgid "Counting is switched off in Settings."
+msgstr ""
+
+#. translators: %s: date counting began.
+#: src/blocks/document-embed/components/Backend/Insights.js:76
+#, js-format
+msgid "Counting since %s. Resets at midnight, site time."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:79
+msgid "Counting is on. Nothing recorded for this document yet."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:82
+msgid "Choose a document to see how it is read."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:83
+msgid "Only administrators can see Insights."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:92
+msgid "Downloads today"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:105
+msgid "Example"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:109
+msgid "Yesterday and earlier are being recorded in your own database. Pro reads them back as 30-day totals, a daily chart, your best-performing documents and a CSV export."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/Insights.js:114
+msgid "Open in Insights"
 msgstr ""
 
 #: src/blocks/document-embed/components/Backend/Lightbox.js:27
@@ -1267,6 +2466,34 @@ msgstr ""
 msgid "Enable Custom Loading Icon"
 msgstr ""
 
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:86
+msgid "Document Embed"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:89
+msgid "PDF, Word, Excel and PowerPoint files are supported."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:109
+msgid "Embed a file straight from your Drive with one click."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:118
+msgid "Embed a shared file from your Dropbox with one click."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:127
+msgid "Browse your Box account and embed any file with one click."
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:147
+msgid "https://example.com/document.pdf"
+msgstr ""
+
+#: src/blocks/document-embed/components/Backend/SourcePicker.js:151
+msgid "Embed"
+msgstr ""
+
 #: src/blocks/document-embed/components/Backend/Toolbar.js:48
 msgid "Toolbar"
 msgstr ""
@@ -1293,10 +2520,6 @@ msgstr ""
 
 #: src/blocks/document-embed/components/Backend/Toolbar.js:99
 msgid "Light"
-msgstr ""
-
-#: src/blocks/document-embed/components/Backend/Toolbar.js:100
-msgid "Custom"
 msgstr ""
 
 #: src/blocks/document-embed/components/Backend/Toolbar.js:109
@@ -1367,64 +2590,36 @@ msgstr ""
 msgid "Preview is not available for dropbox"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:299
+#: src/blocks/document-embed/components/Common/Viewer.js:304
 msgid "Open in new tab"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:300
+#: src/blocks/document-embed/components/Common/Viewer.js:305
 msgid "Full screen"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:386
+#: src/blocks/document-embed/components/Common/Viewer.js:391
 msgid "Preview temporarily unavailable."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:393
-msgid "Download"
-msgstr ""
-
-#: src/blocks/document-embed/components/Common/Viewer.js:544
+#: src/blocks/document-embed/components/Common/Viewer.js:561
 msgid "No document added yet"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:545
+#: src/blocks/document-embed/components/Common/Viewer.js:562
 msgid "Document unavailable"
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:550
+#: src/blocks/document-embed/components/Common/Viewer.js:567
 msgid "Upload a file from your Media Library or paste a document link in the settings, and it will appear here."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:554
+#: src/blocks/document-embed/components/Common/Viewer.js:571
 msgid "No document has been added to this embed yet."
 msgstr ""
 
-#: src/blocks/document-embed/components/Common/Viewer.js:562
+#: src/blocks/document-embed/components/Common/Viewer.js:579
 msgid "Document Configuration → General → Document File"
-msgstr ""
-
-#: src/blocks/document-embed/edit.js:13
-msgid "Select Document"
-msgstr ""
-
-#: src/blocks/document-embed/edit.js:15
-msgid "Use this document"
-msgstr ""
-
-#: src/blocks/document-embed/edit.js:52
-msgid "Document Embedder Placeholder"
-msgstr ""
-
-#: src/blocks/document-embed/edit.js:55
-msgid "Upload a document file or select one from your media library."
-msgstr ""
-
-#: src/blocks/document-embed/edit.js:59
-msgid "Choose/Upload File"
-msgstr ""
-
-#: src/blocks/document-embed/edit.js:64
-msgid "Or paste Document URL..."
 msgstr ""
 
 #: src/blocks/document-embed/block.json

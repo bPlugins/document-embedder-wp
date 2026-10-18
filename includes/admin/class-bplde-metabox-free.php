@@ -54,14 +54,9 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                 'title' => self::icon('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line>')
                     . __('General', 'document-emberdder'),
                 'fields' => array(
-                    [
-                        'id' => 'doc',
-                        'type' => 'upload',
-                        'title' => esc_html__('Document File', 'document-emberdder'),
-                        'attributes' => array('id' => 'picker_field'),
-                        'desc' => '<p class="bplde-supported"><strong>' . esc_html__('Supported Files:', 'document-emberdder') . '</strong> '
-                            . '<span>pdf, doc, docx, ppt, pptx, txt, rtf, csv, odt, ods, odp.</span></p>',
-                    ],
+                    // Upload plus the Pro cloud sources, drawn locked; see BPLDE_Source_Picker.
+                    \BPLDE_Source_Picker::field(),
+                    \BPLDE_Source_Picker::url_field(),
                     [
                         'id' => 'viewer',
                         'type' => 'button_set',
@@ -168,6 +163,32 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                         'desc' => esc_html__('Choose where the toolbar appears.', 'document-emberdder'),
                         'default' => 'toolbar',
                     ],
+                    [
+                        'type'       => 'subheading',
+                        'content'    => esc_html__('Flipbook', 'document-emberdder'),
+                        'dependency' => ['viewer', '==', 'flipbook', true],
+                    ],
+                    [
+                        'id' => 'flipbook_style',
+                        'type' => 'button_set',
+                        'title' => esc_html__('Flip Style', 'document-emberdder'),
+                        'options' => [
+                            '3d' => esc_html__('3D', 'document-emberdder'),
+                            'soft' => esc_html__('Soft', 'document-emberdder'),
+                            'flat' => esc_html__('Flat', 'document-emberdder'),
+                        ],
+                        'desc' => esc_html__('3D is a realistic WebGL book, Soft curls the pages, Flat turns them as rigid sheets.', 'document-emberdder'),
+                        'default' => '3d',
+                        'dependency' => ['viewer', '==', 'flipbook', true],
+                    ],
+                    [
+                        'id' => 'flipbook_mobile_2d',
+                        'type' => 'switcher',
+                        'title' => esc_html__('Use Soft Style on Phones', 'document-emberdder'),
+                        'desc' => esc_html__('Phones get the lighter soft style instead of WebGL 3D.', 'document-emberdder'),
+                        'default' => \BPLDE\Helper\Functions::flipbook_mobile_2d_default(),
+                        'dependency' => [['viewer', '==', 'flipbook', true], ['flipbook_style', '==', '3d']],
+                    ],
                     \BPLDE\Helper\Functions::bplde_pro_feature_list(
                         array(
                             __('Reader Mode for minimalist distraction-free reading', 'document-emberdder'),
@@ -182,6 +203,7 @@ if (!class_exists('BPLDE_Metabox_Free')) {
                             __('Specify Custom Initial Page and Default Zoom Level', 'document-emberdder'),
                             __('Load Latest Version automatically (cache bypass)', 'document-emberdder'),
                             __('On-Demand Page Rendering for heavy documents', 'document-emberdder'),
+                            __('Flipbook hard cover, page-turn sound, auto play, page mode, turn speed and page edge color', 'document-emberdder'),
                         ),
                         __('Viewer & Display', 'document-emberdder')
                     )

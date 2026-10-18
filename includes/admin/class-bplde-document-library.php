@@ -135,6 +135,7 @@ if (!class_exists('BPLDE_Document_Library_CPT')) {
                 'cb'         => $columns['cb'],
                 'title'      => $columns['title'],
                 'shortcode'  => __('Shortcode', 'document-emberdder'),
+                'bplde_layout' => __('Layout', 'document-emberdder'),
                 'bplde_date' => __('Date', 'document-emberdder'),
             ];
         }
@@ -144,6 +145,16 @@ if (!class_exists('BPLDE_Document_Library_CPT')) {
             switch ($column_name) {
                 case 'shortcode':
                     \BPLDE_List_Screen::shortcode_cell('[document_library id=' . $post_id . ']');
+                    break;
+
+                case 'bplde_layout':
+                    $labels = [
+                        'grid' => __('Grid', 'document-emberdder'),
+                        'list' => __('List', 'document-emberdder'),
+                    ];
+                    // Libraries saved before layouts existed have no template and render as Grid.
+                    $template = \BPLDE_Functions::library_template(get_post_meta($post_id, 'bplde_settings', true));
+                    echo '<span class="bplde-layout-pill bplde-layout-pill--' . esc_attr($template) . '">' . esc_html($labels[$template]) . '</span>';
                     break;
 
                 case 'bplde_date':

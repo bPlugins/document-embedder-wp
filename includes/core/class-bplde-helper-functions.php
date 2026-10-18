@@ -41,6 +41,72 @@ if (!class_exists('Functions')) {
             }
         }
 
+        /**
+         * Validate a `flipbook` attribute: the flip style and the phone fallback. A flipbook
+         * without a style keeps dFlip's default 3D book, which every flipbook had before the
+         * setting existed.
+         *
+         * @param mixed $raw Block attribute or values read from meta.
+         * @return array
+         */
+        public static function sanitize_flipbook($raw)
+        {
+            if (!is_array($raw)) {
+                return [];
+            }
+
+            $clean = [];
+            if (isset($raw['style']) && in_array($raw['style'], ['3d', 'soft', 'flat'], true)) {
+                $clean['style'] = $raw['style'];
+            }
+            if (isset($raw['mobile2D']) && $raw['mobile2D'] !== '') {
+                $clean['mobile2D'] = in_array($raw['mobile2D'], ['1', 1, 'true', true, 'yes', 'on'], true);
+            }
+
+            return $clean;
+        }
+
+        /**
+         * The `flipbook` block attribute for a document, from its `ppv` meta.
+         *
+         * @param int $id Document (ppt_viewer) post id.
+         * @return array
+         */
+        public static function document_flipbook($id)
+        {
+            return self::sanitize_flipbook([
+                'style'    => self::meta($id, 'flipbook_style', null),
+                'mobile2D' => self::meta($id, 'flipbook_mobile_2d', null),
+            ]);
+        }
+
+        /**
+         * Default of the metabox's phone fallback. Off for a document saved before the setting
+         * existed, which renders the 3D book on phones too, so the form shows (and re-saves) what
+         * it looks like; on for new documents.
+         *
+         * @return bool
+         */
+        public static function flipbook_mobile_2d_default()
+        {
+            global $pagenow;
+
+            if ($pagenow === 'post-new.php') {
+                return true;
+            }
+
+            // phpcs:disable WordPress.Security.NonceVerification -- read-only: only picks the default shown in the form
+            $post_id = 0;
+            if (isset($_GET['post'])) {
+                $post_id = absint($_GET['post']);
+            } elseif (isset($_POST['post_ID'])) {
+                $post_id = absint($_POST['post_ID']);
+            }
+            // phpcs:enable WordPress.Security.NonceVerification
+
+            return $post_id && get_post_status($post_id) === 'auto-draft';
+        }
+
 
         /**
          * The locked-feature panel that closes every Pro-only section of the metabox.
@@ -133,56 +199,6 @@ if (!class_exists('Functions')) {
         }
 
         /**
-         * Whether a URL would run script when the browser follows it.
-         *
-         * Block attributes and library settings are JSON, which WordPress's kses filtering
-         * never looks inside, so a contributor can store "javascript:..." as a document URL
-         * and the viewer will hand it to an anchor, a new tab or an iframe. Browsers drop
-         * whitespace and control characters while reading a scheme ("java\tscript:" still
-         * runs), so those are removed before comparing.
-         *
-         * A deny list on purpose: every URL an existing site has saved -- absolute,
-         * relative or scheme-less -- keeps working exactly as before.
-         *
-         * @param mixed $url Stored value.
-         * @return bool
-         */
-        public static function is_unsafe_url($url)
-        {
-            if (!is_string($url) || '' === $url) {
-                return false;
-            }
-
-            $normalized = strtolower(preg_replace('/[\x00-\x20]+/', '', $url));
-
-            return (bool) preg_match('/^(javascript|vbscript|livescript):/', $normalized);
-        }
-
-        /**
-         * Blank every unsafe URL stored under one of the given keys, at any depth.
-         *
-         * @param mixed    $data Attributes or settings tree.
-         * @param string[] $keys Keys whose values are URLs.
-         * @return mixed
-         */
-        public static function strip_unsafe_urls($data, $keys)
-        {
-            if (!is_array($data)) {
-                return $data;
-            }
-
-            foreach ($data as $key => $value) {
-                if (is_array($value)) {
-                    $data[$key] = self::strip_unsafe_urls($value, $keys);
-                } elseif (in_array($key, $keys, true) && self::is_unsafe_url($value)) {
-                    $data[$key] = '';
-                }
-            }
-
-            return $data;
-        }
-
-        /**
          * Neutralises spreadsheet formula injection in exported lead data.
          *
          * Name and email arrive from a public form, and the export is opened by an admin in
@@ -198,6 +214,46 @@ if (!class_exists('Functions')) {
             }
 
             return $value;
+        }
+
+        /**
+         * A document URL as it may reach the page, or '' when its scheme could run script.
+         *
+         * Block attributes live in post_content as JSON, which kses never inspects, so a
+         * contributor can store `javascript:` there. The viewer turns that URL into links,
+         * iframes and a programmatic click, so it is checked here, at output time, which also
+         * cleans content saved before this check existed. Relative URLs and every protocol
+         * WordPress allows in an href pass through unchanged.
+         *
+         * @param mixed $url Stored document URL.
+         * @return string
+         */
+        public static function safe_doc_url($url)
+        {
+            if (!is_string($url) || $url === '') {
+                return '';
+            }
+
+            // Read the scheme the way the browser will: the value reaches the page through
+            // esc_attr(), which leaves existing entities alone, so `javascript&#58;` would
+            // arrive decoded. Browsers also skip leading controls/spaces and ignore tabs and
+            // newlines anywhere in the URL.
+            $probe = $url;
+            for ($i = 0; $i < 3; $i++) {
+                $decoded = html_entity_decode($probe, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                if ($decoded === $probe) {
+                    break;
+                }
+                $probe = $decoded;
+            }
+            $probe = preg_replace('/[\t\n\r]/', '', ltrim($probe, "\x00..\x20"));
+
+            if (preg_match('/^([a-z][a-z0-9+.\-]*):/i', $probe, $match)
+                && !in_array(strtolower($match[1]), wp_allowed_protocols(), true)) {
+                return '';
+            }
+
+            return $url;
         }
 
         /**

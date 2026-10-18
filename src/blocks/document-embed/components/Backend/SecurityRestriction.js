@@ -15,7 +15,7 @@ const SecurityRestriction = () => {
               width="20"
               height="20"
               fill="none"
-              stroke="#3858E9"
+              stroke="#0f766e"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -25,7 +25,7 @@ const SecurityRestriction = () => {
             </svg>
             <span>{__("Security & Restrictions", "document-emberdder")}</span>
           </div>
-          <PremiumBadge label={__("Pro", "document-emberdder")} />
+          <PremiumBadge className="bplde-pro-badge" label={__("Pro", "document-emberdder")} />
         </div>
       }
       initialOpen={false}

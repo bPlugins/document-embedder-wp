@@ -68,6 +68,17 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.5.0 - 18 October 2026",
+        list: [
+          "**New:** 3D Flipbook with realistic 3D, soft curl or flat page turns. Hard cover, page flip sound, auto play and page mode are available in Pro.",
+          "**New:** Document Insights tracks views, unique views, downloads, full-screen opens and time on screen, with today's figures free. Pro adds date range reports, top documents and pages, and CSV export.",
+          "**New:** Box integration. Embed Box files from a shared link, or connect your Box account (Pro) to browse and embed files from the block.",
+          "**New:** AI Agent Access lets AI assistants read your documents, stats, leads and Insights through the WordPress Abilities API and MCP.",
+          "**New:** Document Library layouts: Grid and List (Table and Folder in Pro), and you can switch between them at any time.",
+          "**New:** Elementor widget for embedding documents and libraries."
+        ]
+      },
+      {
         version: "2.4.1 - 17 October 2026",
         list: [
           "**Security:** Fixed a stored XSS vulnerability by blocking script URLs in document links and library files. All users are encouraged to update."
@@ -260,13 +271,15 @@ export const dashboardInfo = (info) => {
     ],
     // Kept in step with the Pro teaser card on the document edit screen
     // (BPLDE_Document_Embedder::render_pro_teaser_metabox), so every surface
-    // that sells Pro names the same six things.
+    // that sells Pro names the same eight things.
     proFeatures: [
+      "Insights history, daily chart and CSV export",
+      "Flipbook hard cover, sound and auto play",
       "Email-gated downloads",
       "Interactive overlays on any page",
       "Print, copy and right-click protection",
       "Access limited by user role",
-      "Google Drive and Dropbox embeds",
+      "Google Drive, Dropbox and Box embeds",
       "Toolbar themes, zoom and lightbox"
     ],
     startButton: {

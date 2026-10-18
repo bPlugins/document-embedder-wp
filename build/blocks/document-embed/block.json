@@ -2,7 +2,7 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "bplde/document-embed",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "title": "Document Embed",
   "category": "common",
   "icon": "media-document",
@@ -14,7 +14,11 @@
     "Viewer"
   ],
   "supports": {
-    "html": false
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
   },
   "attributes": {
     "docId": {
@@ -110,6 +114,10 @@
         "lazyLoad": false,
         "gviewFallback": true
       }
+    },
+    "flipbook": {
+      "type": "object",
+      "default": {}
     }
   },
   "editorScript": [
