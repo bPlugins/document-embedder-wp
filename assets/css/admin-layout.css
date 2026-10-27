@@ -49,12 +49,12 @@
 /* The heading is reproduced inside the top bar, so the stock one goes — keeping
    both would put two H1s on the screen. .wp-header-end stays in the flow as the
    marker common.js moves admin notices to, it is just not drawn. */
-.bplde-l2 .wrap > h1.wp-heading-inline,
-.bplde-l2 .wrap > a.page-title-action {
+.bplde-l2 .wrap>h1.wp-heading-inline,
+.bplde-l2 .wrap>a.page-title-action {
   display: none;
 }
 
-.bplde-l2 .wrap > hr.wp-header-end {
+.bplde-l2 .wrap>hr.wp-header-end {
   visibility: hidden;
   margin: 0;
   height: 0;
@@ -302,6 +302,53 @@
   box-shadow: 0 0 0 3px var(--de-accent-soft);
 }
 
+/* Copy & Delete Posts (cdp-editor.css) absolutely positions #publishing-action
+   and fixes #delete-action's width with !important; undo both inside the topbar. */
+.bplde-l2 .bplde-topbar__actions #publishing-action {
+  position: static !important;
+}
+
+.bplde-l2 .bplde-topbar__actions #delete-action {
+  width: auto !important;
+}
+
+.bplde-l2 .bplde-topbar__actions .submitbox .clear {
+  display: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #delete-action a.submitdelete {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--de-danger);
+  text-decoration: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #publish {
+  height: 40px;
+  min-height: 40px;
+  padding: 0 22px;
+  border-radius: var(--de-radius-sm);
+  background: var(--de-accent);
+  border-color: var(--de-accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 38px;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.bplde-l2 .bplde-topbar__actions #publish:hover,
+.bplde-l2 .bplde-topbar__actions #publish:focus {
+  background: var(--de-accent-deep);
+  border-color: var(--de-accent-deep);
+  color: #fff;
+}
+
+.bplde-l2 .bplde-topbar__actions #publish:focus {
+  box-shadow: 0 0 0 3px var(--de-accent-soft);
+}
+
 /* ---------------------------------------------------------------------------
    The grid: title card on top, settings + preview side by side, strip below
    ------------------------------------------------------------------------- */
@@ -363,7 +410,7 @@
   min-height: 0;
 }
 
-.bplde-l2 #poststuff > br.clear {
+.bplde-l2 #poststuff>br.clear {
   display: none;
 }
 
