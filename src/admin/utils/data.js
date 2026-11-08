@@ -68,6 +68,12 @@ export const dashboardInfo = (info) => {
     licenseActiveNonce,
     changelogs: [
       {
+        version: "2.5.1 - 8 November 2026",
+        list: [
+          "**Security:** Fixed a reflected XSS vulnerability in the Flipbook and Slider viewer, where a crafted pdf-source link could run scripts. Document links, downloads and printing now accept only safe web addresses. All users are encouraged to update. Reported by daroo (Patchstack)."
+        ]
+      },
+      {
         version: "2.5.0 - 18 October 2026",
         list: [
           "**New:** 3D Flipbook with realistic 3D, soft curl or flat page turns. Hard cover, page flip sound, auto play and page mode are available in Pro.",

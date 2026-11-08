@@ -2,7 +2,7 @@
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: pdf viewer, embed pdf, document viewer, document library, pdf embedder
 Tested up to: 7.1
-Stable tag: 2.5.0
+Stable tag: 2.5.1
 Requires PHP: 7.1
 Requires at least: 6.5
 Donate link: https://www.buymeacoffee.com/abuhayat/
@@ -393,6 +393,9 @@ Please report security bugs found in the source code of the Document Embedder pl
 
 
 == Changelog ==
+
+= 2.5.1 - 8 November 2026 =
+* **Security:** Fixed a reflected XSS vulnerability in the Flipbook and Slider viewer, where a crafted pdf-source link could run scripts. Document links, downloads and printing now accept only safe web addresses. All users are encouraged to update. Reported by daroo (Patchstack).
 
 = 2.5.0 - 18 October 2026 =
 * **New:** 3D Flipbook with realistic 3D, soft curl or flat page turns. Hard cover, page flip sound, auto play and page mode are available in Pro.

@@ -895,10 +895,35 @@ var utils = DV.utils = {
     translateStr: function translateStr(x, y) {
         return has3d ? ' translate3d(' + x + 'px,' + y + 'px, 0px) ' : ' translate(' + x + 'px, ' + y + 'px) ';
     },
+    // Document sources end up in links, iframes and the viewer, so only http(s) and blob: (local
+    // file open) are accepted; javascript:, vbscript: and the like are refused. Relative URLs
+    // resolve against the page. data:image/ is allowed only where the URL is used as an image.
+    isSafeURL: function isSafeURL(url, allowDataImage) {
+        if (typeof url !== "string") return false;
+        try {
+            var protocol = new URL(url, window.location.href).protocol;
+            if (protocol === "http:" || protocol === "https:" || protocol === "blob:") return true;
+            return allowDataImage === true && protocol === "data:" && /^\s*data:image\//i.test(url);
+        } catch (e) {
+            return false;
+        }
+    },
+    escapeHTML: function escapeHTML(str) {
+        return String(str).replace(/[&<>"']/g, function(c) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[c];
+        });
+    },
     httpsCorrection: function httpsCorrection(url) {
         try {
             if (url === null || url === void 0) return null;
             if (typeof url !== "string") return url;
+            if (!utils.isSafeURL(url, true)) return null;
             var location = window.location;
             if (location.href.split(".")[0] === url.split(".")[0]) return url;
             var urlHostName = url.split("://")[1].split("/")[0];
@@ -8780,7 +8805,7 @@ var PDFDocumentProvider = /*#__PURE__*/ function(DocumentProvider) {
                         if (_a.hostname !== window.location.hostname && _a.href.indexOf("file://") === -1 && !provider_utils.isChromeExtension() && _a.href.indexOf("blob:") === -1) cors = "<strong>CROSS ORIGIN!! </strong>";
                         var fileName = ((_app_options = app.options) === null || _app_options === void 0 ? void 0 : _app_options.fileName) || _a.href;
                         //Display error reason
-                        app.updateInfo(cors + "<strong>Error: Cannot access file!  </strong>" + fileName + "<br><br>" + error.message, "df-error");
+                        app.updateInfo(cors + "<strong>Error: Cannot access file!  </strong>" + provider_utils.escapeHTML(fileName) + "<br><br>" + provider_utils.escapeHTML(error.message), "df-error");
                         console.log(error);
                         app.container.removeClass('df-loading').addClass("df-error");
                         provider.dispose();
@@ -9607,13 +9632,13 @@ var UI = /*#__PURE__*/ function() {
                 this.endPage = controls.endPage = controls_utils.createBtn('end', icons['end'], text.gotoLastPage).on("click", function() {
                     app.end();
                 });
-                if (app.options.showPrintControl === true && controls_utils.isMobile !== true && typeof app.options.source === 'string') {
+                if (app.options.showPrintControl === true && controls_utils.isMobile !== true && controls_utils.isSafeURL(app.options.source)) {
                     this.print = controls.print = controls_utils.createBtn('print', icons['print'], text.print).on("click", function() {
                         defaults_DEARVIEWER.printHandler = defaults_DEARVIEWER.printHandler || new PrintHandler();
                         defaults_DEARVIEWER.printHandler.printPDF(app.options.source);
                     });
                 }
-                if (app.options.showDownloadControl === true && typeof app.options.source === 'string') {
+                if (app.options.showDownloadControl === true && controls_utils.isSafeURL(app.options.source)) {
                     var downloadClass = "df-ui-btn df-ui" + "-download " + icons['download'];
                     this.download = controls.download = controls_jQuery('<a download target="_blank" class="' + downloadClass + '"><span>' + text.downloadPDFFile + '</span></a>');
                     controls.download.attr("href", controls_utils.httpsCorrection(app.options.source)).attr("title", text.downloadPDFFile);
@@ -9963,6 +9988,7 @@ var PrintHandler = /*#__PURE__*/ function() {
         {
             key: "printPDF",
             value: function printPDF(source) {
+                if (!controls_utils.isSafeURL(source)) return;
                 this.frame[0].src = source;
             }
         }
@@ -10357,6 +10383,7 @@ defaults_DEARVIEWER.checkBrowserURLforPDF = function() {
     var pdf = new URL(location.href).searchParams.get('pdf-source');
     if (pdf) {
         pdf = decodeURI(pdf);
+        if (!controls_utils.isSafeURL(pdf)) return null;
         if (openFlipbook) {
             defaults_DEARVIEWER.openURL(pdf);
         }
@@ -10826,6 +10853,8 @@ var App = /*#__PURE__*/ function() {
         {
             // noinspection JSUnusedLocalSymbols
             key: "updateInfo",
+            // message is rendered as HTML: callers pass fixed markup and escape anything
+            // dynamic with utils.escapeHTML().
             value: function updateInfo(message, className) {
                 app_utils.log(message);
                 if (this.info !== void 0) {
