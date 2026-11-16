@@ -2,7 +2,7 @@
 Contributors: bplugins, abuhayat, shehabulislam, taninrahman, farazi1, freemius
 Tags: pdf viewer, embed pdf, document viewer, document library, pdf embedder
 Tested up to: 7.1
-Stable tag: 2.5.1
+Stable tag: 2.5.2 
 Requires PHP: 7.1
 Requires at least: 6.5
 Donate link: https://www.buymeacoffee.com/abuhayat/
