@@ -25,7 +25,11 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
             $plugin_file = defined( 'BPLDE_PATH' ) ? plugin_basename(BPLDE_PLUGIN_PATH . 'document-embedder.php' ) : 'document-emberdder/document-embedder.php';
             add_filter( "plugin_action_links_{$plugin_file}",               [ $this, 'add_plugin_action_link' ], 20 );
             add_filter( "network_admin_plugin_action_links_{$plugin_file}", [ $this, 'add_plugin_action_link' ], 20 );
+      
         }
+
+
+
 
         private function is_target_screen(): bool {
             global $pagenow;
@@ -35,7 +39,7 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
             }
             
             if ( 'index.php' === $pagenow ) {
-                return true;
+                return false;
             }
             
             if ( isset( $_GET['post_type'] ) && in_array( $_GET['post_type'], ['ppt_viewer', 'document_library'] ) ) {
@@ -56,6 +60,8 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
             if ( $screen ) {
                 $id   = $screen->id ?? '';
                 $base = $screen->base ?? '';
+
+               
 
                 if ( 'dashboard' === $id || 'dashboard' === $base ) {
                     return true;
@@ -378,7 +384,7 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
             }
             if ( $this->should_skip() ) {
                 return;
-            }
+            } 
 
             self::$rendered = true;
 
@@ -398,9 +404,10 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
                 <div class="bplde-content-zone">
                     <div class="bplde-text-stack">
                         <div class="bplde-headline">
-                            <span><?php esc_html_e( 'Upgrade to Document Embedder Pro', 'pdf-poster' ); ?></span>
+                            <span><?php esc_html_e( "Document Embedder's Biggest Black Friday Sale is Live!", 'pdf-poster' ); ?></span>
                             <span class="bplde-discount-chip"><?php esc_html_e( 'Save up to 45%', 'pdf-poster' ); ?></span>
                         </div>
+                        <p style="margin-top: 0;">Get up to 45% OFF and unlock powerful document management, protection, and customization features at our biggest sale of the year!</p> 
                         <div class="bplde-feature-chips">
                                   <span><strong class="check-icon">✓</strong> <?php esc_html_e('Collect Email Before Download', 'pdf-poster'); ?></span>
                                   <span><strong class="check-icon">✓</strong> <?php esc_html_e('Document Protection', 'pdf-poster'); ?></span>
@@ -411,7 +418,7 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
 
                     <!-- CTA Button -->
                     <a href="<?php echo $coupon_url; ?>" target="_blank" rel="noopener noreferrer" class="bplde-btn-cta">
-                        <?php esc_html_e( 'Unlock PRO Features →', 'pdf-poster' ); ?>
+                        <?php esc_html_e( 'Grab The Deal Now →', 'pdf-poster' ); ?>
                     </a>
                 </div>
 
@@ -438,8 +445,7 @@ if ( ! class_exists( __NAMESPACE__ . '\BPLDE_PromoBanner' ) ) {
             $offer_link = sprintf(
                 '<a href="%s" target="_blank" rel="noopener noreferrer" style="color: #ff7a00; font-weight: 700;">%s</a>',
                 esc_url( self::COUPON_URL ),
-                esc_html__( 'Upgrade to Pro & Save Up to 45% This Black Friday!
-', 'pdf-poster' )
+                esc_html__( 'Save up to 45% - Biggest Black Friday Sale', 'pdf-poster' )
             );
 
             $actions['special_offer'] = $offer_link;
